@@ -1,0 +1,192 @@
+/* ------------------------------
+   RESET CSS
+   ------------------------------ */
+* {
+  margin: 0;
+  padding: 0;
+  /* Xóa khoảng trống mặc định của tất cả phần tử */
+}
+
+/* ------------------------------
+   1. PHẦN TỔNG QUÁT - INTRO
+   ------------------------------ */
+.intro {
+  position: fixed; /* Cố định toàn màn hình */
+  width: 100%;
+  height: 100%;
+  display: flex; /* Dùng flex để căn giữa */
+  align-items: center; /* Căn giữa theo chiều dọc */
+  justify-content: center; /* Căn giữa theo chiều ngang */
+}
+
+/* ------------------------------
+   2. NỀN MỜ - BACKGROUND
+   ------------------------------ */
+.background {
+  position: absolute;
+  top: -10px; /* Kéo rộng ra ngoài để tránh viền trắng */
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+
+  /* Nền gồm 2 lớp:
+     - Lớp overlay màu xanh đậm (85% opacity)
+     - Hình ảnh bản đồ */
+  background:
+    linear-gradient(rgba(1, 55, 71, 0.85), rgba(1, 55, 71, 0.85)),
+    url("../intro/map_songsaigon.jpg") center/cover no-repeat;
+
+  filter: blur(5px); /* Làm mờ nền */
+}
+
+/* ------------------------------
+   3. KHUNG NỘI DUNG CHÍNH - CONTENT
+   ------------------------------ */
+.content {
+  width: 800px;
+  height: 600px;
+  aspect-ratio: 16 / 9; /* Giữ tỷ lệ 16:9 */
+  background-color: white; /* Hộp trắng */
+  position: absolute;
+}
+
+/* ------------------------------
+   4. BẢN ĐỒ GOOGLE MAP - GGMAP
+   ------------------------------ */
+.ggmap {
+  width: 100%;
+  height: 80%; /* Chiếm 80% khung content */
+  overflow: hidden; /* Ẩn phần dư */
+  object-fit: cover; /* Ảnh không bị méo */
+  position: relative;
+
+}
+
+.ggmap img{
+    position: absolute;
+  /* top: 50%; */
+  left: 50%;
+  transform: translate(-50%, -31%); 
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease; /* mượt hơn khi di chuyển */
+}
+
+
+
+
+/* ------------------------------
+   5. NÚT CHEVRON LÊN / XUỐNG
+   ------------------------------ */
+.chevron-up {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-top: 10px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.chevron-down {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  margin-bottom: 10px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+/* ------------------------------
+   6. DÒNG LOGO - LOGOS
+   ------------------------------ */
+.logos {
+  width: 100%;
+  height: 20%; /* 20% chiều cao content */
+}
+
+.logo {
+  display: flex;
+  justify-content: center; /* Căn giữa logo */
+}
+
+.logo img {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 15px; /* Cách đáy 15px */
+  cursor: pointer;
+}
+
+/* Hiệu ứng khi hover logo */
+.logo:hover {
+  animation: location 0.3s ease-in-out infinite alternate;
+}
+
+/* ------------------------------
+   7. ICON ĐỊA ĐIỂM - LOCATION
+   ------------------------------ */
+.location i {
+  position: absolute;
+  top: 30%;
+  left: 34%;
+  color: red;
+  cursor: pointer;
+  animation: nhay 0.2s ease-in-out infinite alternate;
+  transform: translate(-50%, -100%);
+}
+
+/* ------------------------------
+   8. CHỮ DỌC BÊN TRÁI - TEXT1
+   ------------------------------ */
+   /* ------------------------------
+   9. CHỮ DỌC BÊN PHẢI - TEXT2
+   ------------------------------ */
+/* Chữ dọc bên trái & bên phải */
+.text1 p,
+.text2 p {
+  position: absolute;
+  transform: rotate(-90deg);
+  font-family: 'SVN-Batman Forever Alternate';
+  font-size: 40px;
+  font-weight: bold;
+  color:  transparent;
+  /* -webkit-text-stroke: 2px #FFFFFF; */
+  animation: textColor 0.3s ease-in-out infinite alternate;
+}
+
+/* Vị trí riêng của từng chữ */
+.text1 p {
+  left: 0;
+}
+
+.text2 p {
+  right: 0;
+}
+
+
+/* ------------------------------
+   10. HIỆU ỨNG KEYFRAMES
+   ------------------------------ */
+
+/* Nhảy lên xuống cho icon location */
+@keyframes nhay {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(15px); }
+}
+
+/* Nhảy lên xuống cho logo khi hover */
+@keyframes location {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(15px); }
+}
+
+/* Chớp sáng cho chữ */
+@keyframes textColor {
+  0% { 
+   /* color: #999999; */
+    -webkit-text-stroke: 1px #999999;}
+  100% { 
+    /* color: #FFFFFF; */
+      -webkit-text-stroke: 1px #FFFFFF;
+  }
+}

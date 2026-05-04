@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HITU E-Learning - Mẫu 2</title>
+    <style>
+        :root {
+            --primary: #1f4fa3;
+            --primary-light: #e8f0fe;
+            --accent: #f39c12; 
+            --text-main: #333;
+            --border-color: #eaeaea;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #f9fafb; color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh;}
+        
+        /* Header White */
+        header { background-color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 10;}
+        .logo { font-size: 24px; font-weight: 800; color: var(--primary); }
+        .login-btn { padding: 10px 25px; background-color: var(--accent); color: white; text-decoration: none; border-radius: 5px; font-weight: bold; transition: 0.2s;}
+        .login-btn:hover { background-color: #d68910; }
+
+        /* Main Layout */
+        .main-wrapper { display: flex; max-width: 1300px; margin: 30px auto; width: 100%; gap: 30px; padding: 0 20px; flex: 1;}
+        
+        /* Sidebar */
+        .sidebar { width: 260px; background: white; padding: 20px; border-radius: 8px; border: 1px solid var(--border-color); height: fit-content; }
+        .sidebar h3 { font-size: 16px; color: #888; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px;}
+        .cat-list { list-style: none; }
+        .cat-list li { margin-bottom: 5px; }
+        .cat-list a { display: block; padding: 10px 15px; color: var(--text-main); text-decoration: none; border-radius: 5px; transition: 0.2s; border-left: 3px solid transparent;}
+        .cat-list a:hover { background-color: var(--primary-light); color: var(--primary); border-left: 3px solid var(--primary); font-weight: 500;}
+
+        /* Content */
+        .content { flex: 1; }
+        .welcome-banner { background-color: var(--primary); color: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center;}
+        .welcome-banner h2 { margin-bottom: 10px; font-size: 28px;}
+        
+        /* List Courses */
+        .course-list-item { background: white; padding: 20px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; transition: 0.2s;}
+        .course-list-item:hover { border-color: var(--accent); box-shadow: 0 4px 10px rgba(0,0,0,0.05);}
+        .course-info h4 { color: var(--primary); font-size: 18px; margin-bottom: 5px;}
+        .course-info p { color: #666; font-size: 14px;}
+        .go-btn { color: var(--primary); font-weight: bold; text-decoration: none; padding: 8px 15px; background: var(--primary-light); border-radius: 5px;}
+        .course-list-item:hover .go-btn { background: var(--accent); color: white; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">HITU<span style="color:var(--accent)">LMS</span></div>
+    <a href="#" class="login-btn">Đăng nhập LMS</a>
+</header>
+
+<div class="main-wrapper">
+    <!-- Cột trái: Menu Danh mục -->
+    <aside class="sidebar">
+        <h3>Danh mục Khoa</h3>
+        <ul class="cat-list">
+            <li><a href="#">Khoa Công nghệ Thông tin</a></li>
+            <li><a href="#">Khoa Quản trị Kinh doanh</a></li>
+            <li><a href="#">Khoa Kế toán - Tài chính</a></li>
+            <li><a href="#">Khoa Ngoại ngữ</a></li>
+            <li><a href="#">Khoa Du lịch & Khách sạn</a></li>
+            <li><a href="#">Các khóa học ngắn hạn</a></li>
+        </ul>
+    </aside>
+
+    <!-- Cột phải: Nội dung chính -->
+    <main class="content">
+        <div class="welcome-banner">
+            <div>
+                <h2>Chào mừng đến với Hệ thống học trực tuyến</h2>
+                <p>Nền tảng hỗ trợ sinh viên và giảng viên Trường CĐ Công Thương TP.HCM.</p>
+            </div>
+            <!-- Có thể thêm hình ảnh minh họa nhỏ ở đây -->
+        </div>
+
+        <h3 style="margin-bottom: 20px; color: var(--primary);">Khóa học truy cập gần đây</h3>
+        
+        <!-- List môn học dạng hàng ngang gọn gàng -->
+        <div class="course-list-item">
+            <div class="course-info">
+                <h4>Quản trị Mạng căn bản - Nhóm 01</h4>
+                <p>Mã lớp: QTM_HK2_25 | Giảng viên: Trần Văn B</p>
+            </div>
+            <a href="#" class="go-btn">Vào lớp ➔</a>
+        </div>
+
+        <div class="course-list-item">
+            <div class="course-info">
+                <h4>Anh văn Giao tiếp Quốc tế 2</h4>
+                <p>Mã lớp: AV2_HK2_25 | Giảng viên: Nguyen Thi C</p>
+            </div>
+            <a href="#" class="go-btn">Vào lớp ➔</a>
+        </div>
+        
+        <div class="course-list-item">
+            <div class="course-info">
+                <h4>Kỹ năng mềm cho sinh viên</h4>
+                <p>Mã lớp: KNM_HK2_25 | Giảng viên: Lê D</p>
+            </div>
+            <a href="#" class="go-btn">Vào lớp ➔</a>
+        </div>
+    </main>
+</div>
+
+</body>
+</html>

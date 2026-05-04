@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HITU eLearning – Mẫu 1: Modern Clean</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #1f4fa3;
+    --primary-dark: #163880;
+    --primary-light: #2d62c7;
+    --accent: #f5820d;
+    --accent-light: #ffa940;
+    --white: #ffffff;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-500: #64748b;
+    --gray-700: #334155;
+    --gray-900: #0f172a;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.08);
+    --shadow-md: 0 4px 16px rgba(31,79,163,.12);
+    --shadow-lg: 0 8px 32px rgba(31,79,163,.18);
+    --radius: 12px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Be Vietnam Pro', sans-serif; color: var(--gray-900); background: var(--white); overflow-x: hidden; }
+  a { text-decoration: none; color: inherit; }
+
+  /* NAVBAR */
+  .navbar {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-200);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+    height: 64px;
+    box-shadow: var(--shadow-sm);
+  }
+  .navbar-logo { display: flex; align-items: center; gap: 10px; }
+  .logo-icon {
+    width: 38px; height: 38px; background: var(--primary);
+    border-radius: 8px; display: grid; place-items: center;
+    font-weight: 800; color: white; font-size: 14px;
+  }
+  .logo-text { font-weight: 700; font-size: 16px; line-height: 1.2; color: var(--primary); }
+  .logo-sub { font-size: 11px; color: var(--gray-500); font-weight: 400; }
+  .navbar-nav { display: flex; gap: 4px; align-items: center; }
+  .navbar-nav a {
+    padding: 6px 14px; border-radius: 8px; font-size: 14px; font-weight: 500;
+    color: var(--gray-700); transition: all .2s;
+  }
+  .navbar-nav a:hover { background: var(--gray-100); color: var(--primary); }
+  .navbar-nav a.active { color: var(--primary); background: #eef4ff; }
+  .btn-login {
+    padding: 8px 20px; background: var(--primary); color: white;
+    border-radius: 8px; font-size: 14px; font-weight: 600;
+    transition: all .2s; border: none; cursor: pointer;
+  }
+  .btn-login:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+    padding: 72px 5% 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -40%; right: -10%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(255,255,255,.06) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -30%; left: -5%;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(245,130,13,.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    position: relative; z-index: 1;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
+    color: white; padding: 5px 12px; border-radius: 20px;
+    font-size: 12px; font-weight: 500; margin-bottom: 20px;
+    backdrop-filter: blur(8px);
+  }
+  .hero h1 {
+    font-size: clamp(28px, 4vw, 46px); font-weight: 800; color: white;
+    line-height: 1.15; margin-bottom: 16px;
+  }
+  .hero h1 span { color: var(--accent-light); }
+  .hero p { color: rgba(255,255,255,.8); font-size: 16px; line-height: 1.7; margin-bottom: 32px; }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary {
+    padding: 12px 28px; background: var(--accent); color: white;
+    border-radius: 10px; font-weight: 700; font-size: 15px;
+    transition: all .25s; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(245,130,13,.4); }
+  .btn-outline-white {
+    padding: 12px 28px; background: transparent;
+    border: 2px solid rgba(255,255,255,.4); color: white;
+    border-radius: 10px; font-weight: 600; font-size: 15px;
+    transition: all .25s;
+  }
+  .btn-outline-white:hover { background: rgba(255,255,255,.1); border-color: white; }
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 16px; margin-top: 36px;
+  }
+  .stat-card {
+    background: rgba(255,255,255,.1); backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 10px; padding: 16px;
+  }
+  .stat-number { font-size: 28px; font-weight: 800; color: white; }
+  .stat-label { font-size: 12px; color: rgba(255,255,255,.7); margin-top: 2px; }
+  .hero-visual {
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .hero-card {
+    background: rgba(255,255,255,.12); backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 14px; padding: 20px;
+    transition: transform .3s;
+  }
+  .hero-card:hover { transform: translateX(-6px); }
+  .hero-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .hc-badge {
+    font-size: 10px; font-weight: 600; padding: 3px 8px;
+    border-radius: 12px; background: rgba(245,130,13,.25); color: var(--accent-light);
+  }
+  .hc-icon { font-size: 22px; }
+  .hc-title { font-size: 13px; font-weight: 600; color: white; margin-bottom: 4px; }
+  .hc-meta { font-size: 11px; color: rgba(255,255,255,.6); }
+  .hc-progress { height: 4px; background: rgba(255,255,255,.2); border-radius: 2px; margin-top: 10px; }
+  .hc-progress-bar { height: 100%; background: var(--accent); border-radius: 2px; }
+
+  /* SECTION COMMON */
+  .section { padding: 72px 5%; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 36px; }
+  .section-label {
+    font-size: 12px; font-weight: 600; color: var(--accent);
+    text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px;
+  }
+  .section-title { font-size: clamp(22px, 3vw, 30px); font-weight: 800; color: var(--gray-900); }
+  .view-all {
+    font-size: 14px; font-weight: 600; color: var(--primary);
+    display: flex; align-items: center; gap: 4px;
+    padding: 8px 16px; border-radius: 8px;
+    border: 1.5px solid var(--primary);
+    transition: all .2s; white-space: nowrap;
+  }
+  .view-all:hover { background: var(--primary); color: white; }
+
+  /* COURSE CATEGORIES TABS */
+  .tabs { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+  .tab {
+    padding: 8px 18px; border-radius: 20px; font-size: 13px; font-weight: 500;
+    cursor: pointer; border: 1.5px solid var(--gray-200); color: var(--gray-500);
+    background: white; transition: all .2s;
+  }
+  .tab:hover { border-color: var(--primary); color: var(--primary); }
+  .tab.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+  /* COURSE GRID */
+  .course-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .course-card {
+    background: white; border: 1px solid var(--gray-200);
+    border-radius: var(--radius); overflow: hidden;
+    transition: all .3s; cursor: pointer;
+  }
+  .course-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: transparent; }
+  .course-thumb {
+    aspect-ratio: 16/9; background: var(--gray-100);
+    position: relative; overflow: hidden;
+  }
+  .course-thumb-img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .thumb-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 8px;
+  }
+  .thumb-icon { font-size: 32px; }
+  .thumb-bg-1 { background: linear-gradient(135deg, #dbeafe, #bfdbfe); }
+  .thumb-bg-2 { background: linear-gradient(135deg, #fef3c7, #fde68a); }
+  .thumb-bg-3 { background: linear-gradient(135deg, #d1fae5, #a7f3d0); }
+  .thumb-bg-4 { background: linear-gradient(135deg, #fce7f3, #fbcfe8); }
+  .thumb-bg-5 { background: linear-gradient(135deg, #ede9fe, #ddd6fe); }
+  .thumb-bg-6 { background: linear-gradient(135deg, #ffedd5, #fed7aa); }
+  .thumb-bg-7 { background: linear-gradient(135deg, #cffafe, #a5f3fc); }
+  .thumb-bg-8 { background: linear-gradient(135deg, #f0fdf4, #bbf7d0); }
+  .course-badge-top {
+    position: absolute; top: 10px; left: 10px;
+    background: var(--primary); color: white;
+    font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 6px;
+  }
+  .course-body { padding: 14px 16px 16px; }
+  .course-dept {
+    font-size: 11px; font-weight: 600; color: var(--accent);
+    text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px;
+  }
+  .course-title { font-size: 14px; font-weight: 700; color: var(--gray-900); line-height: 1.4; margin-bottom: 10px; }
+  .course-meta { display: flex; gap: 12px; }
+  .meta-item { display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--gray-500); }
+  .meta-icon { font-size: 12px; }
+
+  /* STATS BAND */
+  .stats-band {
+    background: var(--primary);
+    padding: 48px 5%;
+  }
+  .stats-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
+  .stat-item .number { font-size: 40px; font-weight: 800; color: white; }
+  .stat-item .num-accent { color: var(--accent-light); }
+  .stat-item .label { font-size: 14px; color: rgba(255,255,255,.75); margin-top: 4px; }
+
+  /* FEATURES */
+  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .feature-card {
+    padding: 28px; border-radius: var(--radius);
+    background: var(--gray-50); border: 1px solid var(--gray-100);
+    transition: all .3s;
+  }
+  .feature-card:hover { background: white; box-shadow: var(--shadow-md); border-color: var(--gray-200); transform: translateY(-2px); }
+  .feature-icon-wrap {
+    width: 52px; height: 52px; border-radius: 12px;
+    background: #eef4ff; display: grid; place-items: center;
+    font-size: 24px; margin-bottom: 18px;
+  }
+  .feature-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .feature-desc { font-size: 14px; color: var(--gray-500); line-height: 1.6; }
+
+  /* FOOTER */
+  footer {
+    background: var(--gray-900);
+    padding: 48px 5% 24px;
+  }
+  .footer-inner { max-width: 1100px; margin: 0 auto; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+  .footer-brand .logo-text { color: white; font-size: 18px; }
+  .footer-brand .logo-sub { color: var(--gray-500); }
+  .footer-desc { font-size: 13px; color: var(--gray-500); line-height: 1.6; margin: 14px 0; }
+  .footer-contact { font-size: 12px; color: var(--gray-500); line-height: 2; }
+  .footer-col h4 { font-size: 13px; font-weight: 700; color: white; margin-bottom: 14px; text-transform: uppercase; letter-spacing: .5px; }
+  .footer-col a { display: block; font-size: 13px; color: var(--gray-500); margin-bottom: 8px; transition: color .2s; }
+  .footer-col a:hover { color: var(--accent-light); }
+  .footer-bottom {
+    border-top: 1px solid #1e293b;
+    padding-top: 20px; display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; color: var(--gray-500);
+  }
+
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-visual { display: none; }
+    .course-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .stats-inner { grid-template-columns: repeat(2, 1fr); }
+    .features-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="navbar-logo">
+    <div class="logo-icon">H</div>
+    <div>
+      <div class="logo-text">HITU eLearning</div>
+      <div class="logo-sub">Hệ thống học trực tuyến</div>
+    </div>
+  </div>
+  <div class="navbar-nav">
+    <a href="#" class="active">Trang chủ</a>
+    <a href="#">Khoá học</a>
+    <a href="#">Danh mục</a>
+    <a href="#">Tin tức</a>
+    <a href="#">Hỗ trợ</a>
+  </div>
+  <button class="btn-login">Đăng nhập</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge">🎓 Trường Cao Đẳng Công Thương TP.HCM</div>
+      <h1>Học tập trực tuyến<br>cho <span>sinh viên HITU</span></h1>
+      <p>Hệ thống LMS hiện đại — kết nối sinh viên và giảng viên mọi lúc, mọi nơi. Truy cập khoá học, nộp bài và theo dõi tiến độ dễ dàng.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary">🚀 Khám phá khoá học</a>
+        <a href="#" class="btn-outline-white">Đăng nhập LMS</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-card">
+          <div class="stat-number">1,200+</div>
+          <div class="stat-label">Sinh viên đang học</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">85+</div>
+          <div class="stat-label">Khoá học hiện có</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">40+</div>
+          <div class="stat-label">Giảng viên</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="hero-card-top">
+          <span class="hc-badge">🔥 Nổi bật</span>
+          <span class="hc-icon">💻</span>
+        </div>
+        <div class="hc-title">Lập trình Web – HK2 2025-2026</div>
+        <div class="hc-meta">Giảng viên: Trần Thị E</div>
+        <div class="hc-progress"><div class="hc-progress-bar" style="width:65%"></div></div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-top">
+          <span class="hc-badge">📚 Mới</span>
+          <span class="hc-icon">📊</span>
+        </div>
+        <div class="hc-title">Cơ sở dữ liệu – Nhóm 12</div>
+        <div class="hc-meta">Giảng viên: Admin Van</div>
+        <div class="hc-progress"><div class="hc-progress-bar" style="width:30%"></div></div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-top">
+          <span class="hc-badge">📈 Marketing</span>
+          <span class="hc-icon">🛒</span>
+        </div>
+        <div class="hc-title">Marketing Căn Bản</div>
+        <div class="hc-meta">Giảng viên: Admin Van</div>
+        <div class="hc-progress"><div class="hc-progress-bar" style="width:80%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section class="section" style="background: var(--gray-50)">
+  <div class="section-inner">
+    <div class="section-header">
+      <div>
+        <div class="section-label">📖 Danh sách</div>
+        <div class="section-title">Khoá học hiện tại</div>
+      </div>
+      <a href="#" class="view-all">Xem tất cả →</a>
+    </div>
+    <div class="tabs">
+      <div class="tab active">Tất cả</div>
+      <div class="tab">Công nghệ thông tin</div>
+      <div class="tab">Kinh tế</div>
+      <div class="tab">Kỹ thuật</div>
+      <div class="tab">HK2 2025–2026</div>
+    </div>
+    <div class="course-grid">
+      <div class="course-card">
+        <div class="course-thumb thumb-bg-1"><div class="thumb-placeholder"><span class="thumb-icon">💻</span></div><span class="course-badge-top">HK2</span></div>
+        <div class="course-body">
+          <div class="course-dept">CNTT</div>
+          <div class="course-title">Lập trình Web</div>
+          <div class="course-meta">
+            <div class="meta-item"><span class="meta-icon">👤</span> E Trần Thị</div>
+            <div class="meta-item"><span class="meta-icon">📚</span> 12 bài</div>
+          </div>
+        </div>
+      </div>
+      <div class="course-card">
+        <div class="course-thumb thumb-bg-2"><div class="thumb-placeholder"><span class="thumb-icon">☕</span></div><span class="course-badge-top">HK2</span></div>
+        <div class="course-body">
+          <div class="course-dept">CNTT</div>
+          <div class="course-title">Lập trình Java</div>
+          <div class="course-meta">
+            <div class="meta-item"><span class="meta-icon">👤</span> Admin Van</div>
+            <div class="meta-item"><span class="meta-icon">📚</span> 10 bài</div>
+          </div>
+        </div>
+      </div>
+      <div class="course-card">
+        <div class="course-thumb thumb-bg-3"><div class="thumb-placeholder"><span class="thumb-icon">🗄️</span></div><span class="course-badge-top">HK2</span></div>
+        <div class="course-body">
+          <div class="course-dept">CNTT</div>
+          <div class="course-title">Cơ sở dữ liệu</div>
+          <div class="course-meta">
+            <div class="meta-item"><span class="meta-icon">👤</span> Admin Van</div>
+            <div class="meta-item"><span class="meta-icon">📚</span> 8 bài</div>
+          </div>
+        </div>
+      </div>
+      <div class="course-card">
+        <div class="course-thumb thumb-bg-4"><div class="thumb-placeholder"><span class="thumb-icon">📊</span></div><span class="course-badge-top">HK2</span></div>
+        <div class="course-body">
+          <div class="course-dept">Kinh tế</div>
+          <div class="course-title">Marketing Căn Bản</div>
+          <div class="course-meta">
+            <div class="meta-item"><span class="meta-icon">👤</span> Admin Van</div>
+            <div class="meta-item"><span class="meta-icon">📚</span> 9 bài</div>
+          </div>
+        </div>
+      </div>
+      <div class="course-card">
+        <div class="course-thumb thumb-bg-5"><div class="thumb-placeholder"><span class="thumb-icon">🧮</span></div><span class="course-badge-top">HK2</span></div>
+        <div class="course-body">
+          <div class="course-dept">Kinh tế</div>
+          <div class="course-title">Nguyên lý kế toán</div>
+          <div class="course-meta">
+            <div class="meta-item"><span class="meta-icon">👤</span> Admin Van</div>
+            <div class="meta-item"><span class="meta-icon">📚</span> 11 bài</div>
+          </div>
+        </div>
+      </div>
+      <div class="course-card">
+        <div class="course-thumb thumb-bg-6"><div class="thumb-placeholder"><span class="thumb-icon">🤝</span></div><span class="course-badge-top">HK2</span></div>
+        <div class="course-body">
+          <div class="course-dept">Kinh tế</div>
+          <div class="course-title">Quản trị kinh doanh</div>
+          <div class="course-meta">
+            <div class="meta-item"><span class="meta-icon">👤</span> Admin Van</div>
+            <div class="meta-item"><span class="meta-icon">📚</span> 7 bài</div>
+          </div>
+        </div>
+      </div>
+      <div class="course-card">
+        <div class="course-thumb thumb-bg-7"><div class="thumb-placeholder"><span class="thumb-icon">🌐</span></div><span class="course-badge-top">HK2</span></div>
+        <div class="course-body">
+          <div class="course-dept">CNTT</div>
+          <div class="course-title">Mạng máy tính</div>
+          <div class="course-meta">
+            <div class="meta-item"><span class="meta-icon">👤</span> Thầy Hiệp</div>
+            <div class="meta-item"><span class="meta-icon">📚</span> 14 bài</div>
+          </div>
+        </div>
+      </div>
+      <div class="course-card">
+        <div class="course-thumb thumb-bg-8"><div class="thumb-placeholder"><span class="thumb-icon">📐</span></div><span class="course-badge-top">HK2</span></div>
+        <div class="course-body">
+          <div class="course-dept">CNTT</div>
+          <div class="course-title">Toán ứng dụng A</div>
+          <div class="course-meta">
+            <div class="meta-item"><span class="meta-icon">👤</span> Trần Văn San</div>
+            <div class="meta-item"><span class="meta-icon">📚</span> 6 bài</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAND -->
+<div class="stats-band">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="number">1,200<span class="num-accent">+</span></div>
+      <div class="label">Sinh viên đang học</div>
+    </div>
+    <div class="stat-item">
+      <div class="number">85<span class="num-accent">+</span></div>
+      <div class="label">Khoá học</div>
+    </div>
+    <div class="stat-item">
+      <div class="number">40<span class="num-accent">+</span></div>
+      <div class="label">Giảng viên</div>
+    </div>
+    <div class="stat-item">
+      <div class="number">2<span class="num-accent"> Khoa</span></div>
+      <div class="label">CNTT & Kinh tế</div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-header" style="flex-direction: column; align-items: flex-start; gap: 6px;">
+      <div class="section-label">✨ Tính năng</div>
+      <div class="section-title">Tại sao chọn HITU eLearning?</div>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon-wrap">📱</div>
+        <div class="feature-title">Học mọi lúc, mọi nơi</div>
+        <div class="feature-desc">Truy cập khoá học từ máy tính, điện thoại hoặc máy tính bảng. Hỗ trợ ứng dụng di động Android & iOS.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon-wrap">📊</div>
+        <div class="feature-title">Theo dõi tiến độ</div>
+        <div class="feature-desc">Dashboard trực quan giúp sinh viên và giảng viên theo dõi tiến độ học tập, bài tập và điểm số.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon-wrap">🔔</div>
+        <div class="feature-title">Thông báo tức thì</div>
+        <div class="feature-desc">Nhận thông báo về bài tập mới, lịch thi, thông báo từ giảng viên ngay khi có cập nhật.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="navbar-logo">
+          <div class="logo-icon" style="background: var(--accent)">H</div>
+          <div>
+            <div class="logo-text">HITU eLearning</div>
+            <div class="logo-sub">Trường Cao Đẳng Công Thương TP.HCM</div>
+          </div>
+        </div>
+        <p class="footer-desc">Hệ thống quản lý học tập trực tuyến dành cho sinh viên và giảng viên Trường Cao đẳng Công Thương TP.HCM.</p>
+        <div class="footer-contact">
+          📍 20 Tăng Nhơn Phú, P. Phước Long B, TP. Thủ Đức, HCM<br>
+          📞 (028) 3731 2370<br>
+          ✉️ tuyensinh@hitu.edu.vn
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Khoá học</h4>
+        <a href="#">Công nghệ thông tin</a>
+        <a href="#">Kinh tế</a>
+        <a href="#">Kỹ thuật</a>
+        <a href="#">Xem tất cả</a>
+      </div>
+      <div class="footer-col">
+        <h4>Hỗ trợ</h4>
+        <a href="#">Hướng dẫn sinh viên</a>
+        <a href="#">Hướng dẫn giảng viên</a>
+        <a href="#">FAQ</a>
+        <a href="#">Liên hệ IT</a>
+      </div>
+      <div class="footer-col">
+        <h4>Liên kết</h4>
+        <a href="#">Website HITU</a>
+        <a href="#">Cổng sinh viên</a>
+        <a href="#">Thư viện số</a>
+        <a href="#">Facebook</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 HITU – Ho Chi Minh City Industry and Trade College</span>
+      <span>Powered by HITU LMS</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

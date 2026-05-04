@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đề Cương Dự Án: Hệ Thống Quản Lý Lớp Học Moodle</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        warm: {
+                            50: '#faf8f5',
+                            100: '#f0eade',
+                            200: '#e1d3c0',
+                            300: '#cdb498',
+                            400: '#b78f69',
+                            500: '#a77348',
+                            600: '#9b623c',
+                            700: '#824e33',
+                            800: '#6a412c',
+                            900: '#563626',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #faf8f5; color: #563626; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (max-width: 640px) {
+            .chart-container {
+                height: 250px;
+            }
+        }
+        
+        .tab-btn.active {
+            background-color: #9b623c;
+            color: white;
+            border-color: #9b623c;
+        }
+        
+        .feature-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        .feature-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f0eade; 
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cdb498; 
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #b78f69; 
+        }
+    </style>
+    <!-- Chosen Palette: Warm Neutrals (Stone/Amber inspired). Base: #faf8f5, Accents: #9b623c, Text: #563626. Creates a calm, academic, and focused reading environment. -->
+    <!-- Application Structure Plan: A single-page scrollable presentation designed like an interactive pitch deck. It transforms a simple prompt into a structured project outline. 
+    1. Hero: Title & core objective. 
+    2. Overview (Dashboard): High-level goals & expected impact using cards. 
+    3. Architecture (Interactive Tabs): Detailed breakdown of Moodle modules (Courses, Users, Quizzes) allowing users to explore specifics without being overwhelmed by text. 
+    4. Implementation Plan (Timeline Chart): Visualizing the project phases over time. 
+    5. Resource Allocation (Doughnut Chart): Showing focus areas. 
+    This structure guides the reader logically from "What" to "How" and "When". -->
+    <!-- Visualization & Content Choices: 
+    - Goal: Inform/Present Structure -> Method: Interactive Tabs for Features -> Interaction: Click to reveal module details -> Justification: Keeps UI clean while offering deep dives into "Khóa học, Học viên, Trắc nghiệm".
+    - Goal: Show Schedule -> Method: Horizontal Bar Chart (Chart.js) -> Interaction: Hover for exact week numbers -> Justification: Standard, effective way to show a project timeline (Gantt style).
+    - Goal: Show Effort Distribution -> Method: Doughnut Chart (Chart.js) -> Interaction: Hover for percentages -> Justification: Highlights where the most development time will be spent. 
+    - Libraries: Tailwind CSS, Chart.js. 
+    - Confirming NO SVG/Mermaid used; UI relies on CSS styling and Unicode emojis for iconography. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="antialiased">
+
+    <nav class="fixed w-full z-50 glass-panel border-b border-warm-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl mr-2">🎓</span>
+                    <span class="font-bold text-warm-900 text-lg tracking-tight">MoodleEdu Pro</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#tong-quan" class="text-warm-700 hover:text-warm-900 font-medium transition">Tổng Quan</a>
+                    <a href="#tinh-nang" class="text-warm-700 hover:text-warm-900 font-medium transition">Phân Hệ Tính Năng</a>
+                    <a href="#lo-trinh" class="text-warm-700 hover:text-warm-900 font-medium transition">Lộ Trình Triển Khai</a>
+                    <a href="#danh-gia" class="text-warm-700 hover:text-warm-900 font-medium transition">Đánh Giá</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-24 pb-16">
+        
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 text-center">
+            <div class="inline-block py-1 px-3 rounded-full bg-warm-100 text-warm-800 text-sm font-semibold mb-4 border border-warm-200">
+                Đề Cương Nghiên Cứu & Phát Triển
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-warm-900 mb-6 leading-tight">
+                Xây Dựng Hệ Thống Quản Lý Lớp Học & <br class="hidden md:block"/> Học Trực Tuyến với <span class="text-warm-600">Moodle</span>
+            </h1>
+            <p class="mt-4 max-w-2xl text-lg text-warm-700 mx-auto">
+                Giải pháp toàn diện chuyển đổi số trong giáo dục: Quản lý khóa học thông minh, theo dõi học viên chặt chẽ và tự động hóa quy trình thi trắc nghiệm.
+            </p>
+        </section>
+
+        <section id="tong-quan" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24 pt-8">
+            <div class="mb-10">
+                <h2 class="text-3xl font-bold text-warm-900 mb-2">1. Mục Tiêu Dự Án</h2>
+                <p class="text-warm-700">Định hướng cốt lõi và giá trị mang lại khi triển khai nền tảng LMS dựa trên lõi Moodle.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-panel p-8 rounded-2xl border-t-4 border-warm-500 hover:-translate-y-1 transition duration-300">
+                    <div class="text-4xl mb-4">🎯</div>
+                    <h3 class="text-xl font-bold text-warm-900 mb-3">Tập Trung Hóa Dữ Liệu</h3>
+                    <p class="text-warm-700">Xây dựng một cổng thông tin duy nhất lưu trữ toàn bộ học liệu, kết quả, và tiến trình học tập của nhà trường.</p>
+                </div>
+                <div class="glass-panel p-8 rounded-2xl border-t-4 border-warm-500 hover:-translate-y-1 transition duration-300">
+                    <div class="text-4xl mb-4">⚡</div>
+                    <h3 class="text-xl font-bold text-warm-900 mb-3">Tự Động Hóa Quy Trình</h3>
+                    <p class="text-warm-700">Giảm thiểu công việc thủ công trong việc chấm điểm trắc nghiệm, điểm danh và xuất báo cáo thống kê.</p>
+                </div>
+                <div class="glass-panel p-8 rounded-2xl border-t-4 border-warm-500 hover:-translate-y-1 transition duration-300">
+                    <div class="text-4xl mb-4">🤝</div>
+                    <h3 class="text-xl font-bold text-warm-900 mb-3">Tăng Cường Tương Tác</h3>
+                    <p class="text-warm-700">Tạo môi trường trao đổi hai chiều giữa Giảng viên và Học viên thông qua diễn đàn, chat, và phản hồi bài tập.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="tinh-nang" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24 pt-8">
+            <div class="mb-10">
+                <h2 class="text-3xl font-bold text-warm-900 mb-2">2. Kiến Trúc Phân Hệ Chức Năng</h2>
+                <p class="text-warm-700">Phân tích chi tiết các khối chức năng chính được tùy biến trên nền tảng Moodle. Nhấp vào từng mục để xem chi tiết.</p>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-sm border border-warm-200 overflow-hidden flex flex-col md:flex-row">
+                
+                <div class="w-full md:w-1/3 bg-warm-50 p-6 border-b md:border-b-0 md:border-r border-warm-200 flex flex-col space-y-2">
+                    <button class="tab-btn active w-full text-left px-6 py-4 rounded-xl font-semibold text-warm-800 border border-transparent transition hover:bg-warm-100 flex items-center justify-between" data-target="module-course">
+                        <span>📚 Quản Lý Khóa Học</span>
+                        <span class="text-xl text-warm-400">→</span>
+                    </button>
+                    <button class="tab-btn w-full text-left px-6 py-4 rounded-xl font-semibold text-warm-800 border border-transparent transition hover:bg-warm-100 flex items-center justify-between" data-target="module-user">
+                        <span>👥 Quản Lý Học Viên</span>
+                        <span class="text-xl text-warm-400">→</span>
+                    </button>
+                    <button class="tab-btn w-full text-left px-6 py-4 rounded-xl font-semibold text-warm-800 border border-transparent transition hover:bg-warm-100 flex items-center justify-between" data-target="module-quiz">
+                        <span>📝 Hệ Thống Trắc Nghiệm</span>
+                        <span class="text-xl text-warm-400">→</span>
+                    </button>
+                    <button class="tab-btn w-full text-left px-6 py-4 rounded-xl font-semibold text-warm-800 border border-transparent transition hover:bg-warm-100 flex items-center justify-between" data-target="module-report">
+                        <span>📊 Báo Cáo & Thống Kê</span>
+                        <span class="text-xl text-warm-400">→</span>
+                    </button>
+                </div>
+
+                <div class="w-full md:w-2/3 p-8 md:p-12">
+                    <div id="module-course" class="feature-content active">
+                        <div class="text-5xl mb-6">📚</div>
+                        <h3 class="text-2xl font-bold text-warm-900 mb-4">Module Quản Lý Khóa Học</h3>
+                        <p class="text-warm-700 mb-6 leading-relaxed">Trái tim của hệ thống LMS. Nơi giảng viên thiết kế, tổ chức và phân phối nội dung học tập một cách trực quan và có hệ thống.</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <span class="text-warm-600 mr-3 mt-1">✓</span>
+                                <div>
+                                    <strong class="text-warm-900">Tổ chức linh hoạt:</strong> Hỗ trợ định dạng theo tuần (Weekly), theo chủ đề (Topics), hoặc hoạt động đơn lẻ.
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-warm-600 mr-3 mt-1">✓</span>
+                                <div>
+                                    <strong class="text-warm-900">Kho học liệu đa phương tiện:</strong> Tích hợp Video, SCORM/AICC gói bài giảng, PDF, tài liệu tham khảo đính kèm.
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-warm-600 mr-3 mt-1">✓</span>
+                                <div>
+                                    <strong class="text-warm-900">Kiểm soát tiến độ (Completion Tracking):</strong> Thiết lập điều kiện hoàn thành cho từng bài giảng (phải xem, phải nộp bài, phải đạt điểm X).
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div id="module-user" class="feature-content">
+                        <div class="text-5xl mb-6">👥</div>
+                        <h3 class="text-2xl font-bold text-warm-900 mb-4">Module Quản Lý Học Viên</h3>
+                        <p class="text-warm-700 mb-6 leading-relaxed">Quản trị vòng đời của người học trên hệ thống, từ khi đăng ký, tham gia lớp học đến khi hoàn thành chương trình.</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <span class="text-warm-600 mr-3 mt-1">✓</span>
+                                <div>
+                                    <strong class="text-warm-900">Phương thức ghi danh (Enrollment):</strong> Hỗ trợ Ghi danh thủ công, Khóa tự ghi danh, hoặc đồng bộ từ hệ thống quản lý đào tạo (SIS/ERP) qua API.
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-warm-600 mr-3 mt-1">✓</span>
+                                <div>
+                                    <strong class="text-warm-900">Nhóm & Phân luồng (Groups/Cohorts):</strong> Phân chia học viên thành các nhóm nhỏ trong một khóa học để giao bài tập riêng hoặc quản lý theo đợt nhập học.
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-warm-600 mr-3 mt-1">✓</span>
+                                <div>
+                                    <strong class="text-warm-900">Sổ điểm (Gradebook):</strong> Quản lý điểm số cá nhân hóa, công thức tính điểm trung bình tùy chỉnh theo trọng số môn học.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div id="module-quiz" class="feature-content">
+                        <div class="text-5xl mb-6">📝</div>
+                        <h3 class="text-2xl font-bold text-warm-900 mb-4">Hệ Thống Thi & Trắc Nghiệm</h3>
+                        <p class="text-warm-700 mb-6 leading-relaxed">Công cụ đánh giá năng lực mạnh mẽ, đảm bảo tính công bằng, bảo mật và cung cấp phản hồi tức thì.</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <span class="text-warm-600 mr-3 mt-1">✓</span>
+                                <div>
+                                    <strong class="text-warm-900">Ngân hàng câu hỏi (Question Bank):</strong> Quản lý câu hỏi theo danh mục, hỗ trợ import/export đa định dạng (GIFT, Aiken), hỗ trợ đa dạng loại câu hỏi (MCQ, Matching, Essay, Điền khuyết).
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-warm-600 mr-3 mt-1">✓</span>
+                                <div>
+                                    <strong class="text-warm-900">Thiết lập bài thi bảo mật:</strong> Trộn câu hỏi, trộn đáp án, giới hạn thời gian, giới hạn IP truy cập, sử dụng Safe Exam Browser để chống gian lận.
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-warm-600 mr-3 mt-1">✓</span>
+                                <div>
+                                    <strong class="text-warm-900">Phản hồi tự động:</strong> Thiết lập nhận xét chi tiết cho từng lựa chọn đúng/sai sau khi nộp bài để tăng cường hiệu quả học tập.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div id="module-report" class="feature-content">
+                        <div class="text-5xl mb-6">📊</div>
+                        <h3 class="text-2xl font-bold text-warm-900 mb-4">Báo Cáo & Thống Kê</h3>
+                        <p class="text-warm-700 mb-6 leading-relaxed">Cung cấp cái nhìn sâu sắc về hiệu quả đào tạo thông qua khai thác dữ liệu hoạt động trên hệ thống.</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <span class="text-warm-600 mr-3 mt-1">✓</span>
+                                <div>
+                                    <strong class="text-warm-900">Nhật ký hoạt động (Logs):</strong> Theo dõi chi tiết từng thao tác của mọi tài khoản (ai, làm gì, khi nào, ở đâu).
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-warm-600 mr-3 mt-1">✓</span>
+                                <div>
+                                    <strong class="text-warm-900">Báo cáo hoàn thành:</strong> Bảng tổng hợp tiến độ hoàn thành các hoạt động bắt buộc của toàn bộ học viên trong khóa học.
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-warm-600 mr-3 mt-1">✓</span>
+                                <div>
+                                    <strong class="text-warm-900">Phân tích câu hỏi thi:</strong> Đánh giá độ khó (Facility Index) và độ phân cách (Discriminative Efficiency) của từng câu hỏi trắc nghiệm để chuẩn hóa ngân hàng đề.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="lo-trinh" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24 pt-8">
+            <div class="mb-10">
+                <h2 class="text-3xl font-bold text-warm-900 mb-2">3. Kế Hoạch & Lộ Trình Triển Khai</h2>
+                <p class="text-warm-700">Dự kiến kế hoạch thực hiện dự án trong thời gian 12 tuần, từ khâu khảo sát đến bàn giao vận hành.</p>
+            </div>
+            
+            <div class="glass-panel p-6 rounded-3xl">
+                <div class="chart-container">
+                    <canvas id="timelineChart"></canvas>
+                </div>
+                <div class="mt-6 flex justify-center space-x-6 text-sm text-warm-700">
+                    <div class="flex items-center"><span class="w-3 h-3 rounded-full bg-warm-300 mr-2"></span> Chuẩn bị</div>
+                    <div class="flex items-center"><span class="w-3 h-3 rounded-full bg-warm-500 mr-2"></span> Kỹ thuật</div>
+                    <div class="flex items-center"><span class="w-3 h-3 rounded-full bg-warm-800 mr-2"></span> Hoàn thiện</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="danh-gia" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 pt-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                <div>
+                    <h2 class="text-3xl font-bold text-warm-900 mb-6">4. Phân Bổ Nguồn Lực & Trọng Tâm</h2>
+                    <p class="text-warm-700 mb-6 leading-relaxed">
+                        Dự án tập trung tối đa nguồn lực vào việc tối ưu hóa trải nghiệm người dùng (UI/UX) trên nền Moodle cốt lõi và hoàn thiện phân hệ thi trắc nghiệm - vốn là nhu cầu cấp thiết nhất của nhà trường.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-white rounded-xl border border-warm-100 shadow-sm flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-warm-100 flex items-center justify-center text-warm-800 font-bold mr-4">1</div>
+                            <div>
+                                <h4 class="font-bold text-warm-900">Giao diện (Theme) & UX: 30%</h4>
+                                <p class="text-sm text-warm-600">Đảm bảo hệ thống thân thiện trên cả PC và Mobile.</p>
+                            </div>
+                        </div>
+                        <div class="p-4 bg-white rounded-xl border border-warm-100 shadow-sm flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-warm-100 flex items-center justify-center text-warm-800 font-bold mr-4">2</div>
+                            <div>
+                                <h4 class="font-bold text-warm-900">Phân hệ Trắc nghiệm: 25%</h4>
+                                <p class="text-sm text-warm-600">Tối ưu logic trộn đề và báo cáo kết quả thi.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass-panel p-8 rounded-3xl">
+                    <div class="chart-container" style="max-width: 400px; height: 350px;">
+                        <canvas id="resourceChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-warm-900 text-warm-100 py-10 mt-12 border-t-4 border-warm-600">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="text-2xl mb-4">🎓 MoodleEdu Pro</div>
+            <p class="text-warm-300 mb-6">Hệ sinh thái đào tạo trực tuyến toàn diện</p>
+            <div class="text-sm text-warm-400">
+                &copy; Bản đề cương tham khảo cho dự án triển khai Moodle. Designed for UX & Data Clarity.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Tab Navigation Logic for Feature Section
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.feature-content');
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const targetId = btn.getAttribute('data-target');
+                    
+                    tabBtns.forEach(b => {
+                        b.classList.remove('active');
+                        b.classList.add('text-warm-800', 'border-transparent');
+                    });
+                    
+                    btn.classList.add('active');
+                    btn.classList.remove('text-warm-800', 'border-transparent');
+
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+
+            // Common Chart Setup
+            Chart.defaults.font.family = "'Inter', sans-serif";
+            Chart.defaults.color = '#6a412c';
+
+            // 2. Timeline Chart (Horizontal Bar)
+            const ctxTimeline = document.getElementById('timelineChart').getContext('2d');
+            
+            const timelineData = {
+                labels: ['Tuần 1-2: Khảo sát & Yêu cầu', 'Tuần 3-4: Thiết lập Server & Core', 'Tuần 5-6: Cấu hình Khóa học & Users', 'Tuần 7-8: Setup Ngân hàng đề & Thi', 'Tuần 9-10: Tùy biến Giao diện (Theme)', 'Tuần 11: Kiểm thử (UAT)', 'Tuần 12: Đào tạo & Bàn giao'],
+                datasets: [{
+                    label: 'Thời gian thực hiện',
+                    data: [
+                        [0, 2],   // Tuần 1-2
+                        [2, 4],   // Tuần 3-4
+                        [4, 6],   // Tuần 5-6
+                        [6, 8],   // Tuần 7-8
+                        [8, 10],  // Tuần 9-10
+                        [10, 11], // Tuần 11
+                        [11, 12]  // Tuần 12
+                    ],
+                    backgroundColor: [
+                        '#cdb498', // Prepare
+                        '#a77348', // Tech
+                        '#a77348', // Tech
+                        '#a77348', // Tech
+                        '#a77348', // Tech
+                        '#6a412c', // Final
+                        '#6a412c'  // Final
+                    ],
+                    borderWidth: 0,
+                    borderRadius: 6,
+                    barPercentage: 0.6
+                }]
+            };
+
+            new Chart(ctxTimeline, {
+                type: 'bar',
+                data: timelineData,
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `Tuần ${context.raw[0]} đến tuần ${context.raw[1]}`;
+                                }
+                            },
+                            backgroundColor: 'rgba(86, 54, 38, 0.9)',
+                            titleFont: { size: 14 },
+                            bodyFont: { size: 13 },
+                            padding: 10,
+                            cornerRadius: 8
+                        }
+                    },
+                    scales: {
+                        x: {
+                            min: 0,
+                            max: 12,
+                            title: { display: true, text: 'Tuần thực hiện', font: { weight: 'bold' } },
+                            grid: { color: '#f0eade', drawBorder: false },
+                            ticks: { stepSize: 1 }
+                        },
+                        y: {
+                            grid: { display: false, drawBorder: false },
+                            ticks: { 
+                                font: { weight: '500' },
+                                callback: function(value) {
+                                    let label = this.getLabelForValue(value);
+                                    return label.length > 25 ? label.substr(0, 25) + '...' : label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 3. Resource Allocation Chart (Doughnut)
+            const ctxResource = document.getElementById('resourceChart').getContext('2d');
+            
+            new Chart(ctxResource, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Giao diện & UI/UX', 'Thi & Trắc nghiệm', 'Quản lý Khóa học', 'Quản lý Học viên', 'Hệ thống Server'],
+                    datasets: [{
+                        data: [30, 25, 20, 15, 10],
+                        backgroundColor: [
+                            '#824e33', // Darkest warm
+                            '#a77348', 
+                            '#b78f69', 
+                            '#cdb498', 
+                            '#e1d3c0'  // Lightest warm
+                        ],
+                        borderWidth: 2,
+                        borderColor: '#faf8f5',
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '65%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: { size: 13, family: "'Inter', sans-serif" },
+                                usePointStyle: true,
+                                boxWidth: 8
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` ${context.label}: ${context.raw}%`;
+                                }
+                            },
+                            backgroundColor: 'rgba(86, 54, 38, 0.9)',
+                            padding: 12,
+                            cornerRadius: 8
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

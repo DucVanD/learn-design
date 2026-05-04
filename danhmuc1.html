@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HITU eLearning – Bảng điều khiển & Danh mục</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <style>
+  :root {
+    --primary: #1f4fa3;
+    --primary-light: #eef4ff;
+    --accent: #f5820d;
+    --bg-body: #f4f6f9; /* Nền xám nhạt Moodle */
+    --white: #ffffff;
+    --text-main: #334155;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    --radius-lg: 16px;
+    --radius-md: 10px;
+    --shadow-card: 0 4px 20px rgba(0,0,0,0.03);
+    --shadow-hover: 0 10px 25px rgba(31,79,163,0.1);
+  }
+  
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg-body); color: var(--text-main); }
+  a { text-decoration: none; color: inherit; }
+  ul { list-style: none; }
+
+  /* MÔ PHỎNG HEADER ĐĂNG NHẬP */
+  .top-header { background: var(--white); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100;}
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; color: var(--primary); }
+  .logo img { width: 40px; }
+  .header-actions { display: flex; align-items: center; gap: 20px; color: var(--text-muted); font-size: 18px;}
+  .header-actions i { cursor: pointer; transition: 0.2s; }
+  .header-actions i:hover { color: var(--primary); }
+  .user-profile { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; padding: 5px 10px; background: var(--bg-body); border-radius: 30px; cursor: pointer;}
+  .avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--primary); color: white; display: grid; place-items: center; font-size: 14px;}
+
+  /* TIÊU ĐỀ TRANG */
+  .page-header { background: var(--primary); color: white; padding: 40px 5% 60px; }
+  .page-header h1 { font-size: 28px; font-weight: 700; margin-bottom: 5px; }
+  .breadcrumb { font-size: 13px; color: rgba(255,255,255,0.7); }
+
+  /* BỐ CỤC CHÍNH (LAYOUT DASHBOARD) */
+  .dashboard-wrapper { display: flex; gap: 30px; padding: 0 5%; max-width: 1400px; margin: -30px auto 50px; }
+  
+  /* CỘT TRÁI: DANH MỤC (Sidebar) */
+  .sidebar { width: 280px; flex-shrink: 0; }
+  .sidebar-widget { background: var(--white); border-radius: var(--radius-md); padding: 20px; box-shadow: var(--shadow-card); margin-bottom: 20px;}
+  .sidebar-title { font-size: 16px; font-weight: 700; color: var(--primary); margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;}
+  
+  .category-list li a { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; color: var(--text-main); font-weight: 500; font-size: 14px; transition: 0.2s;}
+  .category-list li a i { color: var(--text-muted); width: 20px; text-align: center; }
+  .category-list li a:hover, .category-list li a.active { background: var(--primary-light); color: var(--primary); }
+  .category-list li a:hover i, .category-list li a.active i { color: var(--primary); }
+  .cat-count { margin-left: auto; background: var(--bg-body); font-size: 11px; padding: 2px 8px; border-radius: 20px; color: var(--text-muted); }
+
+  /* CỘT PHẢI: NỘI DUNG CHÍNH */
+  .main-content { flex: 1; }
+  
+  /* Khối Bảng điều khiển */
+  .content-block { background: var(--white); border-radius: var(--radius-lg); padding: 25px; box-shadow: var(--shadow-card); margin-bottom: 30px;}
+  
+  /* Thanh công cụ / Filter Moodle */
+  .filter-bar { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 25px; align-items: center; justify-content: space-between;}
+  .filter-group { display: flex; gap: 10px; flex: 1; min-width: 300px;}
+  .moodle-select, .moodle-search { padding: 10px 15px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 14px; color: var(--text-main); outline: none; background: var(--white); transition: 0.2s; font-family: inherit;}
+  .moodle-select:focus, .moodle-search:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(31,79,163,0.1); }
+  .moodle-search { flex: 1; padding-left: 35px; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="14" fill="%2364748b"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg>') no-repeat 12px center; }
+  
+  .view-options { display: flex; background: var(--bg-body); border-radius: 8px; padding: 4px; }
+  .view-btn { padding: 6px 12px; border-radius: 6px; border: none; background: transparent; cursor: pointer; color: var(--text-muted); transition: 0.2s; }
+  .view-btn.active { background: var(--white); color: var(--primary); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+
+  /* Lưới Khóa học (Course Grid) */
+  .course-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+  .course-card { border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden; background: var(--white); transition: all 0.3s; display: flex; flex-direction: column;}
+  .course-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: var(--primary-light); }
+  
+  .card-img-wrap { height: 150px; position: relative; overflow: hidden; }
+  .card-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+  .course-card:hover .card-img { transform: scale(1.05); }
+  .card-menu-btn { position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; background: rgba(255,255,255,0.9); border-radius: 50%; display: grid; place-items: center; color: var(--text-main); cursor: pointer; }
+  
+  .card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+  .course-cat { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; margin-bottom: 5px; }
+  .course-title { font-size: 16px; font-weight: 700; color: var(--primary); margin-bottom: 10px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .course-meta { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+  
+  /* Thanh tiến độ học tập */
+  .progress-wrapper { margin-top: auto; }
+  .progress-text { display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; margin-bottom: 6px; color: var(--text-main); }
+  .progress-bar-bg { height: 6px; background: var(--border-color); border-radius: 3px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--accent); border-radius: 3px; }
+  
+  .card-footer { margin-top: 20px; padding-top: 15px; border-top: 1px dashed var(--border-color); }
+  .btn-continue { display: block; text-align: center; width: 100%; padding: 8px; background: var(--primary-light); color: var(--primary); border-radius: 6px; font-weight: 600; font-size: 14px; transition: 0.2s; }
+  .course-card:hover .btn-continue { background: var(--primary); color: white; }
+
+  /* Mốc thời gian (Timeline) */
+  .timeline-empty { text-align: center; padding: 40px 20px; }
+  .timeline-empty-icon { width: 80px; height: 80px; background: #f8fafc; border-radius: 50%; display: grid; place-items: center; font-size: 30px; color: #cbd5e1; margin: 0 auto 15px; }
+  .timeline-empty h3 { font-size: 16px; color: var(--text-main); margin-bottom: 5px; }
+  .timeline-empty p { font-size: 13px; color: var(--text-muted); }
+
+  /* Responsive */
+  @media (max-width: 992px) {
+    .dashboard-wrapper { flex-direction: column; }
+    .sidebar { width: 100%; }
+  }
+/* =========================================
+   NÚT CUỘN LÊN ĐẦU TRANG (BACK TO TOP)
+   ========================================= */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 48px;
+  height: 48px;
+  background-color: var(--primary); /* Xanh đậm HITU */
+  color: white;
+  border: none;
+  border-radius: 50%; /* Bo tròn hoàn toàn */
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(31, 79, 163, 0.3);
+  z-index: 999; /* Đảm bảo luôn nổi trên cùng */
+  
+  /* Căn giữa icon */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Hiệu ứng ẩn hiện mượt mà */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px); /* Nút hơi tụt xuống khi ẩn */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Class được thêm vào bằng JS khi cuộn xuống */
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0); /* Trồi lên vị trí gốc */
+}
+
+/* Hiệu ứng trỏ chuột (Hover) đồng nhất với thẻ khóa học */
+.back-to-top:hover {
+  background-color: var(--accent); /* Đổi sang Cam nhấn */
+  transform: translateY(-5px); /* Nảy lên nhẹ */
+  box-shadow: 0 8px 25px rgba(245, 130, 13, 0.4); /* Bóng màu cam */
+}
+
+/* Responsive cho điện thoại (chỉnh nút nhỏ lại một chút) */
+@media (max-width: 768px) {
+  .back-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+}
+  
+</style>
+    </head>
+    <body>
+
+        <!-- Header mô phỏng -->
+        <header class="top-header">
+            <div class="logo">
+                <div
+                    style="width:36px; height:36px; background:var(--primary); color:white; border-radius:8px; display:grid; place-items:center;">H</div>
+                <span>HITU<span style="color:var(--accent)">LMS</span></span>
+            </div>
+            <div class="header-actions">
+                <i class="fa-regular fa-bell"></i>
+                <i class="fa-regular fa-comment"></i>
+                <div class="user-profile">
+                    <div class="avatar">S</div>
+                    <span>Sinh viên</span>
+                    <i class="fa-solid fa-chevron-down"
+                        style="font-size: 12px;"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Tiêu đề trang -->
+        <div class="page-header">
+            <h1>Bảng điều khiển</h1>
+            <div class="breadcrumb">Trang chủ / Bảng điều khiển</div>
+        </div>
+
+        <!-- Layout Dashboard -->
+        <div class="dashboard-wrapper">
+
+            <!-- CỘT TRÁI: DANH MỤC KHÓA HỌC -->
+            <aside class="sidebar">
+                <div class="sidebar-widget">
+                    <div class="sidebar-title">
+                        Danh mục khóa học
+                        <i class="fa-solid fa-layer-group"
+                            style="color: var(--border-color);"></i>
+                    </div>
+                    <ul class="category-list">
+                        <li><a href="#" class="active"><i
+                                    class="fa-solid fa-laptop-code"></i> Khoa
+                                Công nghệ thông tin <span
+                                    class="cat-count">24</span></a></li>
+                        <li><a href="#"><i class="fa-solid fa-chart-pie"></i>
+                                Khoa Kinh tế - Quản trị <span
+                                    class="cat-count">18</span></a></li>
+                        <li><a href="#"><i class="fa-solid fa-language"></i>
+                                Khoa Ngoại ngữ <span
+                                    class="cat-count">12</span></a></li>
+                        <li><a href="#"><i class="fa-solid fa-gears"></i> Khoa
+                                Cơ khí - Động lực <span
+                                    class="cat-count">8</span></a></li>
+                        <li><a href="#"><i class="fa-solid fa-bolt"></i> Khoa
+                                Điện - Điện tử <span
+                                    class="cat-count">15</span></a></li>
+                        <li><a href="#"><i class="fa-solid fa-shirt"></i> Khoa
+                                Công nghệ May <span
+                                    class="cat-count">5</span></a></li>
+                    </ul>
+                </div>
+
+                <!-- Widget Hỗ trợ học tập -->
+                <div class="sidebar-widget">
+                    <div class="sidebar-title">Liên kết nhanh</div>
+                    <ul class="category-list">
+                        <li><a href="#"><i
+                                    class="fa-solid fa-graduation-cap"></i> Tra
+                                cứu điểm thi</a></li>
+                        <li><a href="#"><i class="fa-solid fa-book"></i> Thư
+                                viện số</a></li>
+                        <li><a href="#"><i class="fa-solid fa-headset"></i> Hỗ
+                                trợ IT (Helpdesk)</a></li>
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- CỘT PHẢI: NỘI DUNG CHÍNH -->
+            <main class="main-content">
+
+                <!-- KHỐI 1: TỔNG QUAN KHÓA HỌC (Tương ứng "Tổng quan về khóa học" trong ảnh) -->
+                <div class="content-block">
+                    <h2
+                        style="font-size: 18px; color: var(--primary); margin-bottom: 20px;">Tổng
+                        quan về khóa học</h2>
+
+                    <!-- Thanh Filter xịn xò hơn bản gốc -->
+                    <div class="filter-bar">
+                        <div class="filter-group">
+                            <select class="moodle-select">
+                                <option>Tất cả (ngoại trừ đã ẩn)</option>
+                                <option>Đang diễn ra</option>
+                                <option>Tương lai</option>
+                                <option>Đã qua</option>
+                                <option>Đã đánh dấu sao</option>
+                            </select>
+                            <input type="text" class="moodle-search"
+                                placeholder="Tìm kiếm khóa học...">
+                        </div>
+                        <div
+                            style="display: flex; gap: 10px; align-items: center;">
+                            <select class="moodle-select">
+                                <option>Sắp xếp theo tên khóa học</option>
+                                <option>Truy cập gần nhất</option>
+                            </select>
+                            <div class="view-options">
+                                <button class="view-btn active"
+                                    title="Dạng thẻ"><i
+                                        class="fa-solid fa-border-all"></i></button>
+                                <button class="view-btn"
+                                    title="Dạng danh sách"><i
+                                        class="fa-solid fa-list"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lưới Khóa Học -->
+                    <div class="course-grid">
+
+                        <!-- Thẻ khóa học 1 -->
+                        <div class="course-card">
+                            <div class="card-img-wrap">
+                                <img
+                                    src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500&q=80"
+                                    alt="Cover" class="card-img">
+                                <div class="card-menu-btn"><i
+                                        class="fa-solid fa-ellipsis-vertical"></i></div>
+                            </div>
+                            <div class="card-body">
+                                <div class="course-cat">CNTT • BẮT BUỘC</div>
+                                <h3 class="course-title">Lập trình Web Frontend
+                                    Nâng cao (Nhóm 01)</h3>
+                                <div class="course-meta">Học kỳ 2 -
+                                    2025-2026</div>
+
+                                <div class="progress-wrapper">
+                                    <div class="progress-text">
+                                        <span>Tiến độ hoàn thành</span>
+                                        <span
+                                            style="color: var(--accent);">65%</span>
+                                    </div>
+                                    <div class="progress-bar-bg">
+                                        <div class="progress-fill"
+                                            style="width: 65%;"></div>
+                                    </div>
+                                </div>
+
+                                <div class="card-footer">
+                                    <a href="#" class="btn-continue">Tiếp tục
+                                        học <i class="fa-solid fa-arrow-right"
+                                            style="margin-left: 5px; font-size: 12px;"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Thẻ khóa học 2 (Tái tạo lại thẻ Hoa cúc trong ảnh gốc của bạn cho đẹp hơn) -->
+                        <div class="course-card">
+                            <div class="card-img-wrap">
+                                <img
+                                    src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=500&q=80"
+                                    alt="Cover" class="card-img">
+                                <div class="card-menu-btn"><i
+                                        class="fa-solid fa-ellipsis-vertical"></i></div>
+                            </div>
+                            <div class="card-body">
+                                <div class="course-cat">CNTT • TỰ CHỌN</div>
+                                <h3 class="course-title">Lập trình Java Cơ
+                                    bản</h3>
+                                <div class="course-meta">Học kỳ 1 -
+                                    2025-2026</div>
+
+                                <div class="progress-wrapper">
+                                    <div class="progress-text">
+                                        <span>Tiến độ hoàn thành</span>
+                                        <span
+                                            style="color: var(--accent);">15%</span>
+                                    </div>
+                                    <div class="progress-bar-bg">
+                                        <div class="progress-fill"
+                                            style="width: 15%;"></div>
+                                    </div>
+                                </div>
+
+                                <div class="card-footer">
+                                    <a href="#" class="btn-continue">Tiếp tục
+                                        học <i class="fa-solid fa-arrow-right"
+                                            style="margin-left: 5px; font-size: 12px;"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Thẻ khóa học 3 -->
+                        <div class="course-card">
+                            <div class="card-img-wrap">
+                                <img
+                                    src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=500&q=80"
+                                    alt="Cover" class="card-img">
+                                <div class="card-menu-btn"><i
+                                        class="fa-solid fa-ellipsis-vertical"></i></div>
+                            </div>
+                            <div class="card-body">
+                                <div class="course-cat">KINH TẾ • BẮT BUỘC</div>
+                                <h3 class="course-title">Nguyên lý Kế toán (Nhóm
+                                    04)</h3>
+                                <div class="course-meta">Học kỳ 2 -
+                                    2025-2026</div>
+
+                                <div class="progress-wrapper">
+                                    <div class="progress-text">
+                                        <span>Tiến độ hoàn thành</span>
+                                        <span
+                                            style="color: var(--text-muted);">0%</span>
+                                    </div>
+                                    <div class="progress-bar-bg">
+                                        <div class="progress-fill"
+                                            style="width: 0%;"></div>
+                                    </div>
+                                </div>
+
+                                <div class="card-footer">
+                                    <a href="#" class="btn-continue">Bắt đầu học
+                                        <i class="fa-solid fa-arrow-right"
+                                            style="margin-left: 5px; font-size: 12px;"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- KHỐI 2: MỐC THỜI GIAN (Tương ứng "Mốc thời gian" trong ảnh) -->
+                <div class="content-block">
+                    <h2
+                        style="font-size: 18px; color: var(--primary); margin-bottom: 20px;">Mốc
+                        thời gian (Deadlines)</h2>
+
+                    <div class="filter-bar">
+                        <div class="filter-group">
+                            <select class="moodle-select" style="width: auto;">
+                                <option>7 ngày tới</option>
+                                <option>30 ngày tới</option>
+                                <option>Quá hạn</option>
+                            </select>
+                            <select class="moodle-select" style="width: auto;">
+                                <option>Sắp xếp theo ngày</option>
+                                <option>Sắp xếp theo khóa học</option>
+                            </select>
+                            <input type="text" class="moodle-search"
+                                placeholder="Tìm theo tên bài tập..."
+                                style="flex: 1;">
+                        </div>
+                    </div>
+
+                    <!-- Trạng thái trống (Empty State) làm đẹp hơn bản gốc -->
+                    <div class="timeline-empty">
+                        <div class="timeline-empty-icon">
+                            <i class="fa-regular fa-calendar-check"></i>
+                        </div>
+                        <h3>Không có bài tập nào sắp tới!</h3>
+                        <p>Bạn đã hoàn thành tất cả các yêu cầu. Hãy thư giãn
+                            hoặc ôn tập lại bài cũ nhé.</p>
+                    </div>
+
+                </div>
+
+            </main>
+        </div>
+        <!-- Nút Cuộn lên đầu trang -->
+        <button id="backToTopBtn" class="back-to-top" title="Lên đầu trang">
+            <i class="fa-solid fa-arrow-up"></i>
+        </button>
+        <script>
+  // Lấy thẻ button
+  const backToTopBtn = document.getElementById("backToTopBtn");
+
+  // Bắt sự kiện cuộn chuột
+  window.addEventListener("scroll", () => {
+    // Nếu cuộn xuống quá 300px thì hiện nút
+    if (window.scrollY > 300) {
+      backToTopBtn.classList.add("show");
+    } else {
+      backToTopBtn.classList.remove("show");
+    }
+  });
+
+  // Sự kiện khi click vào nút
+  backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth" // Cuộn mượt mà (smooth scroll)
+    });
+  });
+</script>
+    </body>
+</html>

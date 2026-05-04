@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HITU E-Learning - Mẫu 1</title>
+    <style>
+        :root {
+            --primary: #1f4fa3;
+            --accent: #f39c12; /* Cam vàng */
+            --bg: #f4f7f6;
+            --text-main: #333;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg); color: var(--text-main); }
+        
+        /* Header */
+        header { background-color: var(--primary); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; color: white; }
+        .logo { font-size: 24px; font-weight: bold; }
+        .nav-links a { color: white; text-decoration: none; margin-left: 20px; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--accent); }
+        
+        /* Hero Search */
+        .hero { background: linear-gradient(rgba(31, 79, 163, 0.8), rgba(31, 79, 163, 0.8)), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80') center/cover; padding: 80px 20px; text-align: center; color: white; }
+        .hero h1 { font-size: 36px; margin-bottom: 20px; }
+        .search-bar { max-width: 600px; margin: 0 auto; display: flex; }
+        .search-bar input { flex: 1; padding: 15px; border: none; border-radius: 5px 0 0 5px; outline: none; font-size: 16px;}
+        .search-bar button { padding: 15px 30px; background-color: var(--accent); border: none; color: white; border-radius: 0 5px 5px 0; cursor: pointer; font-weight: bold; font-size: 16px; transition: 0.3s;}
+        .search-bar button:hover { background-color: #d68910; }
+
+        /* Courses Grid */
+        .container { max-width: 1200px; margin: 50px auto; padding: 0 20px; }
+        .section-title { font-size: 24px; color: var(--primary); border-left: 5px solid var(--accent); padding-left: 10px; margin-bottom: 30px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: transform 0.3s, box-shadow 0.3s; position: relative;}
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-bottom: 4px solid var(--accent); }
+        .card-img { height: 160px; background-color: #ddd; background-size: cover; background-position: center;}
+        .card-body { padding: 20px; }
+        .card-title { font-size: 18px; font-weight: bold; margin-bottom: 10px; color: var(--primary); }
+        .card-meta { font-size: 14px; color: #666; margin-bottom: 15px; }
+        .btn-course { display: block; width: 100%; text-align: center; padding: 10px; background: white; border: 1px solid var(--accent); color: var(--accent); text-decoration: none; border-radius: 4px; transition: 0.3s; font-weight: bold;}
+        .card:hover .btn-course { background: var(--accent); color: white; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">HITU E-Learning</div>
+    <div class="nav-links">
+        <a href="#">Trang chủ</a>
+        <a href="#">Danh mục khóa học</a>
+        <a href="#">Thông báo</a>
+        <a href="#">Đăng nhập</a>
+    </div>
+</header>
+
+<div class="hero">
+    <h1>Hệ thống học tập trực tuyến HITU</h1>
+    <p style="margin-bottom: 20px;">Tìm kiếm khóa học, tài liệu và lớp học của bạn ngay hôm nay</p>
+    <div class="search-bar">
+        <input type="text" placeholder="Nhập tên môn học, mã lớp, giảng viên...">
+        <button>Tìm kiếm</button>
+    </div>
+</div>
+
+<div class="container">
+    <h2 class="section-title">Khóa học nổi bật</h2>
+    <div class="grid">
+        <!-- Card 1 -->
+        <div class="card">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500&q=80');"></div>
+            <div class="card-body">
+                <div class="card-title">Lập trình Web Frontend</div>
+                <div class="card-meta">Giảng viên: Nguyễn Văn A <br> HK2 2024-2025</div>
+                <a href="#" class="btn-course">Truy cập khóa học</a>
+            </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="card">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&q=80');"></div>
+            <div class="card-body">
+                <div class="card-title">Marketing Căn bản</div>
+                <div class="card-meta">Giảng viên: Trần Thị B <br> HK2 2024-2025</div>
+                <a href="#" class="btn-course">Truy cập khóa học</a>
+            </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="card">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=500&q=80');"></div>
+            <div class="card-body">
+                <div class="card-title">Nguyên lý Kế toán</div>
+                <div class="card-meta">Giảng viên: Lê Văn C <br> HK2 2024-2025</div>
+                <a href="#" class="btn-course">Truy cập khóa học</a>
+            </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="card">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500&q=80');"></div>
+            <div class="card-body">
+                <div class="card-title">Cơ sở dữ liệu nâng cao</div>
+                <div class="card-meta">Giảng viên: Phạm Thị D <br> HK2 2024-2025</div>
+                <a href="#" class="btn-course">Truy cập khóa học</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
