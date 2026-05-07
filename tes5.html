@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galaxy Alpha - Tài chính & Đầu tư</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans:['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: '#2563eb', // Xanh dương Trust Blue
+                        brandHover: '#1d4ed8'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #0B0E14; color: #ffffff; }
+
+        /* Tinh chỉnh thanh cuộn tin tức */
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 4px; }
+        .custom-scrollbar:hover::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.25); }
+
+        /* Đưa chấm slide ra giữa */
+        .swiper-pagination {
+            bottom: 24px !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+        }
+        .swiper-pagination-bullet {
+            background-color: #ffffff !important;
+            opacity: 0.3;
+            width: 8px; height: 8px;
+            transition: all 0.3s ease;
+        }
+        .swiper-pagination-bullet-active {
+            opacity: 1;
+            width: 24px; 
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen">
+
+    <!-- Giả lập thanh Navigation -->
+    <header class="h-[70px] w-full border-b border-white/5 bg-[#0B0E14] flex items-center px-4 lg:px-8">
+        <div class="font-bold text-xl tracking-widest uppercase">Galaxy Alpha</div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="w-full relative pt-6 pb-10">
+        <div class="w-full px-4 lg:px-8 2xl:px-16 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            
+            <!-- ====== BÊN TRÁI (8 Cột): SLIDER (ĐÃ THÊM ĐỦ 5 SLIDE) ====== -->
+            <div class="lg:col-span-8 relative rounded-xl overflow-hidden shadow-2xl border border-white/5 h-[500px] lg:h-[580px]">
+                
+                <div class="swiper hero-swiper w-full h-full bg-gray-900">
+                    <div class="swiper-wrapper">
+                        
+                        <!-- SLIDE 1: Khóa học (Ưu tiên số 1) -->
+                        <div class="swiper-slide relative flex items-center justify-start">
+                            <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=1600&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-50" alt="Trading">
+                            <div class="absolute inset-0 bg-gradient-to-r from-[#0B0E14] via-[#0B0E14]/90 to-transparent"></div>
+                            
+                            <div class="relative z-10 p-8 md:p-14 w-full md:w-[80%]">
+                                <span class="inline-block py-1 px-3 rounded bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[11px] font-bold tracking-widest uppercase mb-4">
+                                    Đào tạo thực chiến
+                                </span>
+                                <h1 class="text-4xl md:text-5xl lg:text-[56px] font-bold tracking-tight leading-[1.15] mb-5 text-white">
+                                    Nắm thị trường rõ hơn,<br> giao dịch bài bản hơn.
+                                </h1>
+                                <p class="text-white/60 text-base md:text-lg leading-relaxed mb-8 max-w-xl">
+                                    Trang bị tư duy của top 5% nhà đầu tư chiến thắng. Lộ trình phân tích kỹ thuật và dòng tiền thiết kế chuyên biệt cho chứng khoán Việt Nam.
+                                </p>
+                                <div class="flex gap-4">
+                                    <a href="#" class="inline-flex h-12 items-center justify-center rounded-lg bg-brand px-8 text-sm font-semibold text-white transition-all duration-200 hover:bg-brandHover hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(37,99,235,0.3)] active:scale-[0.97] active:translate-y-0">
+                                        Xem Khóa Học
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SLIDE 2: Báo cáo vĩ mô -->
+                        <div class="swiper-slide relative flex items-center justify-start">
+                            <img src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?q=80&w=1600&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-50" alt="News">
+                            <div class="absolute inset-0 bg-gradient-to-r from-[#0B0E14] via-[#0B0E14]/90 to-transparent"></div>
+                            
+                            <div class="relative z-10 p-8 md:p-14 w-full md:w-[80%]">
+                                <span class="inline-block py-1 px-3 rounded bg-white/10 border border-white/20 text-white/90 text-[11px] font-bold tracking-widest uppercase mb-4">
+                                    Tiêu điểm vĩ mô
+                                </span>
+                                <h1 class="text-4xl md:text-5xl lg:text-[56px] font-bold tracking-tight leading-[1.15] mb-5 text-white">
+                                    Phân tích chuyên sâu,<br> bắt trọn sóng ngành.
+                                </h1>
+                                <p class="text-white/60 text-base md:text-lg leading-relaxed mb-8 max-w-xl">
+                                    Cập nhật báo cáo chiến lược hàng ngày. Nhận diện sớm các nhóm cổ phiếu dẫn dắt thị trường từ đội ngũ chuyên gia phân tích.
+                                </p>
+                                <div class="flex gap-4">
+                                    <a href="#" class="inline-flex h-12 items-center justify-center rounded-lg bg-white/10 border border-white/20 px-8 text-sm font-semibold text-white transition-all duration-200 hover:bg-white/20 active:scale-[0.97]">
+                                        Đọc Báo Cáo
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SLIDE 3: Công cụ AI / Tín hiệu -->
+                        <div class="swiper-slide relative flex items-center justify-start">
+                            <img src="https://images.unsplash.com/photo-1640161704729-cbe966a08476?q=80&w=1600&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-50" alt="AI Data">
+                            <div class="absolute inset-0 bg-gradient-to-r from-[#0B0E14] via-[#0B0E14]/90 to-transparent"></div>
+                            
+                            <div class="relative z-10 p-8 md:p-14 w-full md:w-[80%]">
+                                <span class="inline-block py-1 px-3 rounded bg-white/10 border border-white/20 text-white/90 text-[11px] font-bold tracking-widest uppercase mb-4">
+                                    Bộ Lọc Dòng Tiền
+                                </span>
+                                <h1 class="text-4xl md:text-5xl lg:text-[56px] font-bold tracking-tight leading-[1.15] mb-5 text-white">
+                                    Phát hiện sớm<br> tín hiệu dòng tiền lớn.
+                                </h1>
+                                <p class="text-white/60 text-base md:text-lg leading-relaxed mb-8 max-w-xl">
+                                    Sử dụng công cụ cảnh báo tự động từ hệ thống Galaxy Alpha. Theo dõi hành vi "cá mập" trên thị trường để ra quyết định mua bán tự tin hơn.
+                                </p>
+                                <div class="flex gap-4">
+                                    <a href="#" class="inline-flex h-12 items-center justify-center rounded-lg bg-brand px-8 text-sm font-semibold text-white transition-all duration-200 hover:bg-brandHover hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(37,99,235,0.3)] active:scale-[0.97] active:translate-y-0">
+                                        Khám Phá Công Cụ
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SLIDE 4: Room VIP / Cộng đồng -->
+                        <div class="swiper-slide relative flex items-center justify-start">
+                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1600&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-50" alt="Community">
+                            <div class="absolute inset-0 bg-gradient-to-r from-[#0B0E14] via-[#0B0E14]/90 to-transparent"></div>
+                            
+                            <div class="relative z-10 p-8 md:p-14 w-full md:w-[80%]">
+                                <span class="inline-block py-1 px-3 rounded bg-white/10 border border-white/20 text-white/90 text-[11px] font-bold tracking-widest uppercase mb-4">
+                                    Cộng Đồng Đầu Tư
+                                </span>
+                                <h1 class="text-4xl md:text-5xl lg:text-[56px] font-bold tracking-tight leading-[1.15] mb-5 text-white">
+                                    Đồng hành cùng<br> cộng đồng tinh hoa.
+                                </h1>
+                                <p class="text-white/60 text-base md:text-lg leading-relaxed mb-8 max-w-xl">
+                                    Tham gia Room VIP nội bộ. Nhận cảnh báo điểm mua/bán trực tiếp (Real-time) và hỗ trợ quản trị rủi ro 1-1 trong phiên giao dịch.
+                                </p>
+                                <div class="flex gap-4">
+                                    <a href="#" class="inline-flex h-12 items-center justify-center rounded-lg bg-white/10 border border-white/20 px-8 text-sm font-semibold text-white transition-all duration-200 hover:bg-white/20 active:scale-[0.97]">
+                                        Tham Gia Room
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SLIDE 5: Live Trading / Webinar -->
+                        <div class="swiper-slide relative flex items-center justify-start">
+                            <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=1600&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-50" alt="Live Trading">
+                            <div class="absolute inset-0 bg-gradient-to-r from-[#0B0E14] via-[#0B0E14]/90 to-transparent"></div>
+                            
+                            <div class="relative z-10 p-8 md:p-14 w-full md:w-[80%]">
+                                <span class="inline-block py-1 px-3 rounded bg-white/10 border border-white/20 text-white/90 text-[11px] font-bold tracking-widest uppercase mb-4">
+                                    Hội Thảo Trực Tuyến
+                                </span>
+                                <h1 class="text-4xl md:text-5xl lg:text-[56px] font-bold tracking-tight leading-[1.15] mb-5 text-white">
+                                    Live Trading:<br> Thực chiến cuối tuần.
+                                </h1>
+                                <p class="text-white/60 text-base md:text-lg leading-relaxed mb-8 max-w-xl">
+                                    Chuỗi chia sẻ kiến thức diễn ra vào 20:00 Chủ Nhật hàng tuần. Review danh mục, phân tích kỹ thuật và định hướng giao dịch cho tuần mới.
+                                </p>
+                                <div class="flex gap-4">
+                                    <a href="#" class="inline-flex h-12 items-center justify-center rounded-lg bg-brand px-8 text-sm font-semibold text-white transition-all duration-200 hover:bg-brandHover hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(37,99,235,0.3)] active:scale-[0.97] active:translate-y-0">
+                                        Đăng Ký Chỗ Ngồi
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+
+            <!-- ====== BÊN PHẢI (4 Cột): TIN NÓNG (ĐÃ CẬP NHẬT UI MỚI) ====== -->
+            <div class="lg:col-span-4 rounded-xl border border-white/5 bg-[#12161F] flex flex-col overflow-hidden h-[500px] lg:h-[580px]">
+                
+                <!-- Header Box -->
+                <div class="px-5 py-4 border-b border-white/5 flex justify-between items-center bg-[#181d29]">
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-red-500 relative">
+                            <span class="absolute inset-0 rounded-full bg-red-500 animate-ping opacity-75"></span>
+                        </span>
+                        Tin Mới Cập Nhật
+                    </h3>
+                    <a href="#" class="text-[13px] font-medium text-white/50 hover:text-white transition-colors">Xem tất cả</a>
+                </div>
+
+                <!-- Danh sách Tin: Thumbnail Trái, Đơn sắc, Cao cấp -->
+                <div class="p-3 flex-1 overflow-y-auto custom-scrollbar flex flex-col gap-1">
+                    
+                    <!-- Tin 1 -->
+                    <a href="#" class="group flex gap-4 p-3 rounded-lg hover:bg-white/[0.04] transition-colors duration-200">
+                        <div class="w-[84px] h-[84px] shrink-0 overflow-hidden rounded-md border border-white/5">
+                            <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=200&h=200&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="News">
+                        </div>
+                        <div class="flex-1 flex flex-col justify-center">
+                            <span class="text-[10px] font-semibold text-white/50 uppercase tracking-widest mb-1.5 flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Tin Nóng
+                            </span>
+                            <h4 class="text-[14px] font-medium text-white/90 leading-[1.4] group-hover:text-brand transition-colors line-clamp-2">
+                                VN-Index bứt phá mốc 1,280 điểm, thanh khoản tỷ đô quay trở lại thị trường.
+                            </h4>
+                            <span class="text-[11px] text-white/40 mt-1.5">5 phút trước</span>
+                        </div>
+                    </a>
+
+                    <!-- Tin 2 -->
+                    <a href="#" class="group flex gap-4 p-3 rounded-lg hover:bg-white/[0.04] transition-colors duration-200">
+                        <div class="w-[84px] h-[84px] shrink-0 overflow-hidden rounded-md border border-white/5">
+                            <img src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=200&h=200&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="News">
+                        </div>
+                        <div class="flex-1 flex flex-col justify-center">
+                            <span class="text-[10px] font-semibold text-white/50 uppercase tracking-widest mb-1.5 flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Giao dịch khối ngoại
+                            </span>
+                            <h4 class="text-[14px] font-medium text-white/90 leading-[1.4] group-hover:text-brand transition-colors line-clamp-2">
+                                Khối ngoại tiếp tục mua ròng nhóm Ngân hàng và Bán lẻ, tâm điểm VCB, MWG.
+                            </h4>
+                            <span class="text-[11px] text-white/40 mt-1.5">15 phút trước</span>
+                        </div>
+                    </a>
+
+                    <!-- Tin 3 -->
+                    <a href="#" class="group flex gap-4 p-3 rounded-lg hover:bg-white/[0.04] transition-colors duration-200">
+                        <div class="w-[84px] h-[84px] shrink-0 overflow-hidden rounded-md border border-white/5">
+                            <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=200&h=200&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="News">
+                        </div>
+                        <div class="flex-1 flex flex-col justify-center">
+                            <span class="text-[10px] font-semibold text-white/50 uppercase tracking-widest mb-1.5 flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Vĩ mô quốc tế
+                            </span>
+                            <h4 class="text-[14px] font-medium text-white/90 leading-[1.4] group-hover:text-brand transition-colors line-clamp-2">
+                                Báo cáo lạm phát Mỹ (CPI) hạ nhiệt: Fed mở đường cho đợt giảm lãi suất đầu tiên.
+                            </h4>
+                            <span class="text-[11px] text-white/40 mt-1.5">1 giờ trước</span>
+                        </div>
+                    </a>
+
+                    <!-- Tin 4 -->
+                    <a href="#" class="group flex gap-4 p-3 rounded-lg hover:bg-white/[0.04] transition-colors duration-200">
+                        <div class="w-[84px] h-[84px] shrink-0 overflow-hidden rounded-md border border-white/5">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=200&h=200&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="News">
+                        </div>
+                        <div class="flex-1 flex flex-col justify-center">
+                            <span class="text-[10px] font-semibold text-white/50 uppercase tracking-widest mb-1.5 flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Nhận định
+                            </span>
+                            <h4 class="text-[14px] font-medium text-white/90 leading-[1.4] group-hover:text-brand transition-colors line-clamp-2">
+                                Góc nhìn chuyên gia: Đã đến lúc giải ngân vào nhóm Bất động sản khu công nghiệp?
+                            </h4>
+                            <span class="text-[11px] text-white/40 mt-1.5">3 giờ trước</span>
+                        </div>
+                    </a>
+
+                    <!-- Tin 5 -->
+                    <a href="#" class="group flex gap-4 p-3 rounded-lg hover:bg-white/[0.04] transition-colors duration-200">
+                        <div class="w-[84px] h-[84px] shrink-0 overflow-hidden rounded-md border border-white/5">
+                            <img src="https://images.unsplash.com/photo-1535320903710-d993d3d77d29?w=200&h=200&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="News">
+                        </div>
+                        <div class="flex-1 flex flex-col justify-center">
+                            <span class="text-[10px] font-semibold text-white/50 uppercase tracking-widest mb-1.5 flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Phân tích kỹ thuật
+                            </span>
+                            <h4 class="text-[14px] font-medium text-white/90 leading-[1.4] group-hover:text-brand transition-colors line-clamp-2">
+                                Xuất hiện mẫu hình nến đảo chiều tại vùng hỗ trợ cứng, cơ hội giao dịch T+ rộng mở.
+                            </h4>
+                            <span class="text-[11px] text-white/40 mt-1.5">5 giờ trước</span>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const swiper = new Swiper('.hero-swiper', {
+                loop: true,
+                effect: 'fade',
+                fadeEffect: { crossFade: true },
+                autoplay: { delay: 5000, disableOnInteraction: false },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+            });
+        });
+    </script>
+</body>
+</html>

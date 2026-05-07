@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section Tin Tức Thị Trường</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans:['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: '#2563eb', // Xanh dương Trust Blue
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #0B0E14; color: #ffffff; }
+    </style>
+</head>
+<body class="antialiased min-h-screen">
+
+    <!-- BẮT ĐẦU SECTION TIN TỨC -->
+    <section class="w-full relative py-16 md:py-24 bg-[#0B0E14] border-t border-white/5">
+        <div class="w-full max-w-[1440px] mx-auto px-4 lg:px-8 2xl:px-16">
+            
+            <!-- ====== HEADER SECTION ====== -->
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-10 border-b border-white/10 pb-6">
+                <div>
+                    <!-- Tag nhỏ (Kicker) -->
+                    <span class="inline-block py-1 px-3 rounded bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[11px] font-bold tracking-widest uppercase mb-3">
+                        Thị trường 24h
+                    </span>
+                    <!-- Tiêu đề chính -->
+                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white">
+                        Cập nhật mới nhất
+                    </h2>
+                </div>
+                <!-- Nút Xem tất cả -->
+                <a href="#" class="group inline-flex items-center gap-2 text-sm font-semibold text-white/50 hover:text-brand transition-colors uppercase tracking-wider">
+                    Xem tất cả 
+                    <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </a>
+            </div>
+
+            <!-- ====== NỘI DUNG CHÍNH (GRID 12 CỘT) ====== -->
+            <div class="grid lg:grid-cols-12 gap-10 lg:gap-14">
+                
+                <!-- BÊN TRÁI (8 Cột): DANH SÁCH BÀI VIẾT MỚI NHẤT -->
+                <div class="lg:col-span-8 flex flex-col gap-8">
+                    
+                    <!-- Bài viết 1 -->
+                    <article class="group grid md:grid-cols-12 gap-6 items-center">
+                        <!-- Thumbnail -->
+                        <a href="#" class="md:col-span-5 block overflow-hidden rounded-xl border border-white/5 bg-[#12161F]">
+                            <img 
+                                src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=800&auto=format&fit=crop" 
+                                class="w-full aspect-[16/10] md:aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-700 ease-out" 
+                                alt="Thumbnail"
+                            >
+                        </a>
+                        <!-- Nội dung -->
+                        <div class="md:col-span-7 flex flex-col justify-center">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="text-[11px] font-semibold text-white/50 uppercase tracking-widest flex items-center gap-1.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-brand"></span> Vĩ mô
+                                </span>
+                                <span class="text-white/20 text-xs">|</span>
+                                <span class="text-[12px] text-white/40">2 giờ trước</span>
+                            </div>
+                            <h3 class="text-xl md:text-[22px] font-bold leading-[1.35] text-white/95 group-hover:text-brand transition-colors mb-3">
+                                <a href="#">Fed công bố lộ trình cắt giảm lãi suất mới, tác động thế nào đến dòng vốn ngoại tại Việt Nam?</a>
+                            </h3>
+                            <p class="text-sm text-white/60 line-clamp-2 leading-relaxed">
+                                Ngân hàng Trung ương Mỹ vừa phát đi tín hiệu rõ ràng về đợt nới lỏng chính sách tiền tệ đầu tiên trong năm. Các chuyên gia dự báo đây sẽ là bước ngoặt quan trọng giúp cải thiện thanh khoản thị trường.
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Đường kẻ phân cách -->
+                    <div class="w-full h-px bg-white/5"></div>
+
+                    <!-- Bài viết 2 -->
+                    <article class="group grid md:grid-cols-12 gap-6 items-center">
+                        <a href="#" class="md:col-span-5 block overflow-hidden rounded-xl border border-white/5 bg-[#12161F]">
+                            <img 
+                                src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?q=80&w=800&auto=format&fit=crop" 
+                                class="w-full aspect-[16/10] md:aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-700 ease-out" 
+                                alt="Thumbnail"
+                            >
+                        </a>
+                        <div class="md:col-span-7 flex flex-col justify-center">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="text-[11px] font-semibold text-white/50 uppercase tracking-widest flex items-center gap-1.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-brand"></span> Cổ phiếu
+                                </span>
+                                <span class="text-white/20 text-xs">|</span>
+                                <span class="text-[12px] text-white/40">5 giờ trước</span>
+                            </div>
+                            <h3 class="text-xl md:text-[22px] font-bold leading-[1.35] text-white/95 group-hover:text-brand transition-colors mb-3">
+                                <a href="#">Cổ phiếu Ngân hàng dẫn sóng, VN-Index thiết lập đỉnh mới trong ngắn hạn</a>
+                            </h3>
+                            <p class="text-sm text-white/60 line-clamp-2 leading-relaxed">
+                                Dòng tiền lớn bất ngờ đổ vào nhóm cổ phiếu Vua giúp chỉ số chính bứt phá mạnh mẽ khỏi vùng tích lũy. Khối ngoại cũng ghi nhận phiên mua ròng thứ 3 liên tiếp.
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Đường kẻ phân cách -->
+                    <div class="w-full h-px bg-white/5"></div>
+
+                    <!-- Bài viết 3 -->
+                    <article class="group grid md:grid-cols-12 gap-6 items-center">
+                        <a href="#" class="md:col-span-5 block overflow-hidden rounded-xl border border-white/5 bg-[#12161F]">
+                            <img 
+                                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop" 
+                                class="w-full aspect-[16/10] md:aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-700 ease-out" 
+                                alt="Thumbnail"
+                            >
+                        </a>
+                        <div class="md:col-span-7 flex flex-col justify-center">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="text-[11px] font-semibold text-white/50 uppercase tracking-widest flex items-center gap-1.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-brand"></span> Phân tích
+                                </span>
+                                <span class="text-white/20 text-xs">|</span>
+                                <span class="text-[12px] text-white/40">12 giờ trước</span>
+                            </div>
+                            <h3 class="text-xl md:text-[22px] font-bold leading-[1.35] text-white/95 group-hover:text-brand transition-colors mb-3">
+                                <a href="#">Đánh giá KQKD Quý 3: Những nhóm ngành nào đang duy trì đà tăng trưởng lợi nhuận?</a>
+                            </h3>
+                            <p class="text-sm text-white/60 line-clamp-2 leading-relaxed">
+                                Bức tranh lợi nhuận quý 3 dần hé mở với sự phân hóa rõ nét. Trong khi nhóm Bán lẻ và Công nghệ liên tục báo lãi kỷ lục, nhiều doanh nghiệp Bất động sản vẫn chật vật với bài toán dòng tiền.
+                            </p>
+                        </div>
+                    </article>
+
+                </div>
+
+                <!-- BÊN PHẢI (4 Cột): SIDEBAR TIN ĐỌC NHIỀU -->
+                <aside class="lg:col-span-4">
+                    <!-- Khung Sidebar (Dùng Sticky để cuộn theo màn hình) -->
+                    <div class="rounded-2xl border border-white/5 bg-[#12161F] p-6 lg:p-8 sticky top-24">
+                        
+                        <div class="flex items-center gap-3 mb-8">
+                            <div class="w-1 h-5 bg-brand rounded-full"></div>
+                            <h3 class="text-lg font-bold text-white uppercase tracking-wider">Đọc Nhiều Nhất</h3>
+                        </div>
+
+                        <div class="flex flex-col gap-6">
+                            
+                            <!-- Tin Top 1 -->
+                            <a href="#" class="group flex gap-5 items-start">
+                                <span class="text-[40px] font-black text-white/10 group-hover:text-brand transition-colors leading-[0.8] mt-1">01</span>
+                                <div class="flex-1">
+                                    <h4 class="text-[15px] font-semibold leading-[1.4] text-white/80 group-hover:text-white transition-colors">
+                                        Cảnh báo rủi ro bẫy tăng giá (Bull-trap) tại vùng kháng cự 1,300 điểm.
+                                    </h4>
+                                    <span class="text-[11px] text-white/40 mt-2 block">10,245 lượt xem</span>
+                                </div>
+                            </a>
+
+                            <!-- Tin Top 2 -->
+                            <a href="#" class="group flex gap-5 items-start">
+                                <span class="text-[40px] font-black text-white/10 group-hover:text-brand transition-colors leading-[0.8] mt-1">02</span>
+                                <div class="flex-1">
+                                    <h4 class="text-[15px] font-semibold leading-[1.4] text-white/80 group-hover:text-white transition-colors">
+                                        Phương pháp Wyckoff: Cách nhận biết thời điểm "Cá mập" rũ bỏ nhỏ lẻ.
+                                    </h4>
+                                    <span class="text-[11px] text-white/40 mt-2 block">8,530 lượt xem</span>
+                                </div>
+                            </a>
+
+                            <!-- Tin Top 3 -->
+                            <a href="#" class="group flex gap-5 items-start">
+                                <span class="text-[40px] font-black text-white/10 group-hover:text-brand transition-colors leading-[0.8] mt-1">03</span>
+                                <div class="flex-1">
+                                    <h4 class="text-[15px] font-semibold leading-[1.4] text-white/80 group-hover:text-white transition-colors">
+                                        Top 5 cổ phiếu Bất động sản khu công nghiệp tiềm năng cho nửa cuối năm.
+                                    </h4>
+                                    <span class="text-[11px] text-white/40 mt-2 block">6,120 lượt xem</span>
+                                </div>
+                            </a>
+
+                            <!-- Tin Top 4 -->
+                            <a href="#" class="group flex gap-5 items-start">
+                                <span class="text-[40px] font-black text-white/10 group-hover:text-brand transition-colors leading-[0.8] mt-1">04</span>
+                                <div class="flex-1">
+                                    <h4 class="text-[15px] font-semibold leading-[1.4] text-white/80 group-hover:text-white transition-colors">
+                                        Hướng dẫn sử dụng công cụ Fibonacci để tìm điểm chốt lời chính xác.
+                                    </h4>
+                                    <span class="text-[11px] text-white/40 mt-2 block">5,900 lượt xem</span>
+                                </div>
+                            </a>
+
+                            <!-- Tin Top 5 -->
+                            <a href="#" class="group flex gap-5 items-start">
+                                <span class="text-[40px] font-black text-white/10 group-hover:text-brand transition-colors leading-[0.8] mt-1">05</span>
+                                <div class="flex-1">
+                                    <h4 class="text-[15px] font-semibold leading-[1.4] text-white/80 group-hover:text-white transition-colors">
+                                        Tự doanh CTCK đồng loạt gom mạnh cổ phiếu Thép: Đón sóng đầu tư công?
+                                    </h4>
+                                    <span class="text-[11px] text-white/40 mt-2 block">4,210 lượt xem</span>
+                                </div>
+                            </a>
+
+                        </div>
+                    </div>
+                </aside>
+
+            </div>
+        </div>
+    </section>
+    <!-- KẾT THÚC SECTION TIN TỨC -->
+
+</body>
+</html>

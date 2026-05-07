@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fed giữ nguyên lãi suất | Galaxy Alpha</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        mainBg: '#050505',
+                        surfaceBg: '#0a0a0a',
+                        brand: '#2563eb',
+                        cyan: { 400: '#22d3ee', 500: '#06b6d4' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #050505; color: #ffffff; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
+
+        /* Tùy chỉnh Typography cho bài viết (Chỉ áp dụng trong class .prose-galaxy) */
+        .prose-galaxy { color: rgba(255, 255, 255, 0.75); font-size: 1.125rem; line-height: 1.8; font-weight: 300; }
+        .prose-galaxy h2, .prose-galaxy h3, .prose-galaxy h4 { color: #ffffff; font-weight: 700; margin-top: 2.5em; margin-bottom: 1em; letter-spacing: -0.025em; }
+        .prose-galaxy h2 { font-size: 1.875rem; }
+        .prose-galaxy h3 { font-size: 1.5rem; }
+        .prose-galaxy p { margin-top: 1.5em; margin-bottom: 1.5em; }
+        .prose-galaxy a { color: #22d3ee; text-decoration: none; font-weight: 500; transition: color 0.2s; }
+        .prose-galaxy a:hover { color: #67e8f9; text-decoration: underline; }
+        .prose-galaxy strong { color: #ffffff; font-weight: 600; }
+        .prose-galaxy blockquote { border-left-width: 4px; border-color: #22d3ee; background: rgba(34, 211, 238, 0.05); padding: 1.5em; margin: 2em 0; border-radius: 0 0.5rem 0.5rem 0; color: rgba(255, 255, 255, 0.9); font-style: italic; }
+        .prose-galaxy ul { list-style-type: disc; padding-left: 1.5em; margin-top: 1.25em; margin-bottom: 1.25em; }
+        .prose-galaxy li { margin-top: 0.5em; margin-bottom: 0.5em; }
+        .prose-galaxy img { border-radius: 1rem; width: 100%; margin-top: 2em; margin-bottom: 2em; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    </style>
+</head>
+<body class="antialiased relative overflow-x-hidden">
+
+    <!-- Giả lập thanh Navigation -->
+    <header class="h-[70px] w-full border-b border-white/5 bg-mainBg/85 backdrop-blur-xl fixed top-0 z-50 flex items-center px-4 lg:px-8">
+        <div class="font-bold text-xl tracking-widest uppercase text-white">Galaxy Alpha</div>
+    </header>
+
+    <!-- HIỆU ỨNG GALAXY AMBIENT LIGHT -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[rgba(33,76,141,0.15)] rounded-full blur-[150px] pointer-events-none z-0"></div>
+
+    <article class="relative pt-32 pb-24 z-10">
+        <!-- Khống chế độ rộng chuẩn cho việc đọc: max-w-[860px] -->
+        <div class="max-w-[860px] mx-auto px-5 md:px-8">
+            
+            <!-- 1. BREADCRUMB / META TAGS -->
+            <div class="flex flex-wrap items-center gap-3 text-[11px] font-bold text-white/40 uppercase tracking-widest mb-8">
+                <a href="#" class="text-cyan-400 hover:text-cyan-300 transition-colors">Vĩ mô quốc tế</a>
+                <span class="text-white/20">/</span>
+                <span>06 Thg 05, 2026</span>
+                <span class="text-white/20">/</span>
+                <span class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Hot Trend
+                </span>
+            </div>
+
+            <!-- 2. TIÊU ĐỀ BÀI VIẾT -->
+            <h1 class="text-3xl md:text-5xl lg:text-[54px] font-bold tracking-tight leading-[1.15] mb-10 text-white">
+                Fed giữ nguyên lãi suất: Kịch bản nào cho thị trường chứng khoán Việt Nam tuần tới?
+            </h1>
+
+            <!-- 3. TÁC GIẢ & CHIA SẺ -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-8 border-b border-white/10 mb-10">
+                
+                <!-- Tác giả -->
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-400 to-violet-500 flex items-center justify-center font-black text-xl text-white shadow-[0_0_15px_rgba(6,182,212,0.3)]">
+                        G
+                    </div>
+                    <div>
+                        <div class="text-white font-bold text-[15px]">Galaxy Research Team</div>
+                        <div class="text-white/40 text-[11px] uppercase tracking-widest mt-0.5">Phân tích kỹ thuật & Dữ liệu</div>
+                    </div>
+                </div>
+                
+                <!-- Chia sẻ (Dùng Icon SVG chuẩn) -->
+                <div class="flex items-center gap-3">
+                    <span class="text-white/30 text-[10px] font-bold uppercase tracking-widest mr-1">Chia sẻ:</span>
+                    <div class="flex gap-2">
+                        <button class="w-10 h-10 rounded-lg bg-surfaceBg border border-white/10 flex items-center justify-center text-white/50 hover:text-cyan-400 hover:bg-white/5 transition-all" aria-label="Share Facebook">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"></path></svg>
+                        </button>
+                        <button class="w-10 h-10 rounded-lg bg-surfaceBg border border-white/10 flex items-center justify-center text-white/50 hover:text-cyan-400 hover:bg-white/5 transition-all" aria-label="Share Twitter">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"></path></svg>
+                        </button>
+                        <button class="w-10 h-10 rounded-lg bg-surfaceBg border border-white/10 flex items-center justify-center text-white/50 hover:text-cyan-400 hover:bg-white/5 transition-all" title="Copy Link">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 4. ẢNH THUMBNAIL CHÍNH (Cinematic Aspect Ratio 21:9) -->
+                <!-- Thêm hiệu ứng Shadow và bo góc mềm mại -->
+                <div class="relative aspect-[21/9] rounded-2xl overflow-hidden border border-white/5 mb-12 shadow-[0_10px_40px_rgba(0,0,0,0.6)]">
+                    <img src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=1600&fit=crop" 
+                         class="w-full h-full object-cover" alt="Ảnh minh họa">
+                    <!-- Phủ nhẹ một lớp gradient dưới đáy ảnh -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-mainBg via-transparent to-transparent opacity-80"></div>
+                </div>
+
+                <!-- 5. NỘI DUNG BÀI VIẾT (Render bằng Tailwind Typography) -->
+                <!-- Thay vì dùng `prose` mặc định, dùng class tự viết `prose-galaxy` để kiểm soát tuyệt đối màu sắc trên nền đen -->
+                <div class="prose-galaxy">
+                    
+                    <!-- Dữ liệu mẫu mô phỏng nội dung HTML của {!! $post->description !!} -->
+                    <p>Trong cuộc họp chính sách vừa kết thúc rạng sáng nay (theo giờ Việt Nam), Cục Dự trữ Liên bang Mỹ (Fed) đã quyết định giữ nguyên lãi suất điều hành ở mức <strong>5.25% - 5.50%</strong>. Quyết định này không nằm ngoài dự đoán của giới phân tích, tuy nhiên những phát biểu của Chủ tịch Jerome Powell sau đó mới là điểm nhấn quan trọng định hình dòng tiền toàn cầu.</p>
+                    
+                    <h2>1. Áp lực tỷ giá hạ nhiệt, khối ngoại sẽ ngừng bán ròng?</h2>
+                    <p>Việc Fed phát tín hiệu sẽ có ít nhất một đợt cắt giảm lãi suất vào cuối năm nay đã khiến chỉ số DXY (đo lường sức mạnh đồng USD) giảm nhẹ về mốc 104 điểm. Đây là tin tức cực kỳ tích cực đối với Ngân hàng Nhà nước Việt Nam trong việc điều hành tỷ giá.</p>
+                    
+                    <blockquote>
+                        "Khi áp lực tỷ giá không còn căng thẳng, dư địa để NHNN duy trì chính sách tiền tệ nới lỏng nhằm hỗ trợ tăng trưởng kinh tế sẽ rộng mở hơn rất nhiều. Khả năng dòng vốn ngoại đảo chiều mua ròng trở lại là hoàn toàn khả thi trong quý 3." - Theo báo cáo chiến lược từ Galaxy Alpha.
+                    </blockquote>
+
+                    <h2>2. Phân tích Kỹ thuật VN-Index</h2>
+                    <p>Nhìn vào đồ thị kỹ thuật, chỉ số VN-Index đang cho thấy những tín hiệu tích lũy tích cực quanh vùng Hỗ trợ 1,250 điểm. Thanh khoản trong các phiên gần đây có sự sụt giảm, chứng tỏ lực bán đã cạn kiệt (No Supply Bar).</p>
+                    <ul>
+                        <li><strong>Kháng cự gần nhất:</strong> 1,280 điểm. Việc bứt phá kèm khối lượng trên 25,000 tỷ sẽ xác nhận sóng tăng mới.</li>
+                        <li><strong>Hỗ trợ cứng:</strong> 1,230 - 1,240 điểm. Nơi hội tụ của đường trung bình MA50 và MA100.</li>
+                        <li><strong>Nhóm ngành cần chú ý:</strong> Chứng khoán, Ngân hàng và Bất động sản Khu công nghiệp.</li>
+                    </ul>
+
+                    <p>Các nhà đầu tư được khuyến nghị không nên mua đuổi (Fomo) ở những phiên tăng mạnh đầu ngày, mà hãy kiên nhẫn giải ngân tại các nhịp rung lắc trong phiên. Đừng quên thiết lập điểm dừng lỗ (Stoploss) nghiêm ngặt ở mức -5% để bảo vệ vốn.</p>
+
+                </div>
+                
+                <!-- Tags (Mắm muối thêm cho SEO & UX) -->
+                <div class="mt-12 flex flex-wrap gap-2">
+                    <a href="#" class="px-3 py-1.5 rounded-lg bg-surfaceBg border border-white/5 text-xs text-white/50 hover:text-cyan-400 hover:border-cyan-400/30 transition-colors">#VnIndex</a>
+                    <a href="#" class="px-3 py-1.5 rounded-lg bg-surfaceBg border border-white/5 text-xs text-white/50 hover:text-cyan-400 hover:border-cyan-400/30 transition-colors">#Fed</a>
+                    <a href="#" class="px-3 py-1.5 rounded-lg bg-surfaceBg border border-white/5 text-xs text-white/50 hover:text-cyan-400 hover:border-cyan-400/30 transition-colors">#NhanDinhThiTruong</a>
+                </div>
+
+            </div>
+
+            <!-- 6. NEWSLETTER FOOTER (Thu thập Leads) -->
+            <div class="mt-16 pt-16 border-t border-white/10 relative">
+                
+                <!-- Box Newsletter thiết kế dạng Glassmorphism cao cấp -->
+                <div class="rounded-2xl border border-cyan-500/20 bg-gradient-to-br from-[#12161f] to-[#0a0a0a] p-8 md:p-12 text-center relative overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
+                    
+                    <!-- Đốm sáng ảo -->
+                    <div class="absolute -top-10 -left-10 w-40 h-40 bg-violet-500/20 blur-[50px] rounded-full pointer-events-none"></div>
+                    <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-cyan-500/20 blur-[50px] rounded-full pointer-events-none"></div>
+
+                    <div class="relative z-10">
+                        <h3 class="text-2xl md:text-3xl font-bold text-white mb-4">Bạn thấy bài viết này hữu ích?</h3>
+                        <p class="text-white/50 mb-8 max-w-lg mx-auto leading-relaxed">
+                            Tham gia cùng hơn 10,000+ nhà đầu tư khác. Đăng ký để nhận báo cáo chiến lược hàng tuần và cảnh báo điểm mua/bán sớm nhất từ Galaxy Alpha.
+                        </p>
+                        
+                        <form action="#" class="max-w-md mx-auto flex flex-col sm:flex-row gap-3">
+                            <input type="email" placeholder="Nhập địa chỉ email của bạn..." required 
+                                   class="flex-1 h-12 bg-mainBg border border-white/10 px-5 rounded-xl outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 text-sm text-white placeholder-white/30 transition-all">
+                            <button type="submit" class="h-12 px-8 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-sm hover:scale-[1.02] transition-transform shadow-[0_0_20px_rgba(6,182,212,0.3)] whitespace-nowrap">
+                                Đăng ký ngay
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. NAVIGATION BÊN DƯỚI -->
+            <div class="mt-10 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm font-bold">
+                <!-- Nút Quay Lại -->
+                <a href="#" class="text-white/40 hover:text-cyan-400 transition-colors flex items-center gap-2 group">
+                    <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    Quay lại danh sách tin
+                </a>
+                
+                <!-- Lượt xem -->
+                <div class="flex items-center gap-2 text-white/40">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                    1,240 lượt đọc
+                </div>
+            </div>
+
+        </div>
+    </article>
+
+</body>
+</html>

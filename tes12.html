@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Làm chủ Phân tích Kỹ thuật | Galaxy Academy</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        mainBg: '#050505',
+                        surfaceBg: '#0a0a0a',
+                        brand: '#2563eb',
+                        cyan: { 400: '#22d3ee', 500: '#06b6d4' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #050505; color: #ffffff; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
+    </style>
+</head>
+<body class="antialiased min-h-screen relative overflow-x-hidden">
+
+    <!-- Giả lập thanh Navigation -->
+    <header class="h-[70px] w-full border-b border-white/5 bg-mainBg/80 backdrop-blur-md sticky top-0 z-50 flex items-center px-4 lg:px-8">
+        <div class="font-bold text-xl tracking-widest uppercase text-white">Galaxy Alpha</div>
+    </header>
+
+    <!-- HIỆU ỨNG GALAXY AMBIENT LIGHT -->
+    <div class="absolute top-0 left-0 w-[800px] h-[600px] bg-[rgba(33,76,141,0.15)] rounded-full blur-[150px] pointer-events-none z-0"></div>
+    <div class="absolute top-[30%] right-[-10%] w-[600px] h-[600px] bg-[rgba(168,85,247,0.08)] rounded-full blur-[120px] pointer-events-none z-0"></div>
+
+    <div class="relative pt-12 pb-24 z-10">
+        <!-- Đặt max-w-[1280px] để text không bị kéo quá dài, dễ đọc hơn -->
+        <div class="max-w-[1280px] mx-auto px-4 lg:px-8">
+            
+            <!-- ====== BREADCRUMB ====== -->
+            <nav class="flex items-center gap-2 text-[11px] font-semibold text-white/40 uppercase tracking-widest mb-8">
+                <a href="#" class="hover:text-white transition-colors">Trang chủ</a>
+                <span>/</span>
+                <a href="#" class="hover:text-white transition-colors">Khóa học</a>
+                <span>/</span>
+                <span class="text-cyan-400">Phân tích kỹ thuật</span>
+            </nav>
+
+            <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+                
+                <!-- ==============================================
+                     CỘT TRÁI: THÔNG TIN CHI TIẾT KHÓA HỌC (8 Cột)
+                =============================================== -->
+                <div class="lg:col-span-8 space-y-12">
+                    
+                    <!-- 1. HEADER: Title & Meta -->
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-3">
+                            <!-- Badge Level -->
+                            <span class="inline-flex items-center px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold tracking-widest uppercase">
+                                Beginner
+                            </span>
+                            <span class="text-white/20 text-sm">|</span>
+                            <span class="text-white/60 text-sm font-medium">Cập nhật: Tháng 10/2023</span>
+                        </div>
+                        
+                        <h1 class="text-3xl md:text-5xl lg:text-[52px] font-bold tracking-tight leading-[1.15] text-white">
+                            Làm chủ Phân tích Kỹ thuật: <br>Từ Cơ bản đến Thực chiến
+                        </h1>
+                        
+                        <p class="text-lg text-white/60 leading-relaxed">
+                            Trang bị tư duy giao dịch của Top 5% nhà đầu tư chiến thắng. Nhận diện chu kỳ thị trường, làm chủ các mẫu hình nến và chỉ báo kỹ thuật hiệu quả nhất trên thị trường chứng khoán Việt Nam.
+                        </p>
+
+                        <!-- Social Proof (Thêm "mắm muối" để tăng Trust) -->
+                        <div class="flex flex-wrap items-center gap-6 pt-2">
+                            <div class="flex items-center gap-2">
+                                <div class="flex text-amber-400 text-sm">
+                                    ★ ★ ★ ★ ★
+                                </div>
+                                <span class="text-white/80 font-bold text-sm">4.9</span>
+                                <span class="text-white/40 text-sm">(128 đánh giá)</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-white/60 text-sm">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                                2,540 Học viên
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. VIDEO TRAILER KHÓA HỌC -->
+                    <div class="relative aspect-video rounded-2xl overflow-hidden border border-white/10 group cursor-pointer shadow-2xl bg-surfaceBg">
+                        <!-- Hiệu ứng viền sáng nhẹ khi hover -->
+                        <div class="absolute -inset-0.5 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                        <img src="https://images.unsplash.com/photo-1640161704729-cbe966a08476?w=1200&fit=crop" 
+                             class="relative z-10 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-all duration-700 group-hover:scale-105" alt="Trailer">
+                        <div class="absolute inset-0 z-20 flex items-center justify-center">
+                            <!-- Nút Play -->
+                            <div class="w-20 h-20 rounded-full bg-cyan-500/20 backdrop-blur-md border border-cyan-400/50 flex items-center justify-center text-cyan-300 shadow-[0_0_30px_rgba(34,211,238,0.3)] group-hover:bg-cyan-500/40 group-hover:scale-110 transition-all duration-300">
+                                <svg class="w-8 h-8 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. MỤC TIÊU KHÓA HỌC (Bạn sẽ học được gì?) -->
+                    <!-- Rất quan trọng cho một trang sale khóa học -->
+                    <div class="p-6 md:p-8 rounded-2xl bg-surfaceBg border border-white/5">
+                        <h3 class="text-xl font-bold mb-6 text-white">Bạn sẽ học được gì?</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-sm text-white/70 leading-relaxed">Hiểu rõ bản chất sự dịch chuyển của giá và khối lượng (Price Action).</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-sm text-white/70 leading-relaxed">Nắm bắt chính xác các vùng Hỗ trợ/Kháng cự cứng để tìm điểm mua an toàn.</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-sm text-white/70 leading-relaxed">Sử dụng thành thạo các chỉ báo kỹ thuật phổ biến (RSI, MACD, MA).</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-sm text-white/70 leading-relaxed">Xây dựng quy tắc Quản trị rủi ro và Đi lệnh (Position Sizing) chuyên nghiệp.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. NỘI DUNG (MÔ TẢ CHI TIẾT) -->
+                    <div class="space-y-4">
+                        <h3 class="text-2xl font-bold text-white">Giới thiệu khóa học</h3>
+                        <div class="prose prose-invert prose-p:text-white/60 prose-p:leading-relaxed max-w-none text-base">
+                            <p>Đa số nhà đầu tư mới (F0) tham gia thị trường chứng khoán đều trải qua cảm giác mua xong giá giảm, bán xong giá tăng. Nguyên nhân cốt lõi là do thiếu kiến thức về Phân tích kỹ thuật và giao dịch theo cảm xúc.</p>
+                            <p>Khóa học này được thiết kế như một tấm bản đồ, giúp bạn loại bỏ yếu tố tâm lý, nhìn biểu đồ giá một cách khách quan như một chuyên gia. Bạn sẽ không cần phải nghe ngóng tin tức hay room phím hàng, tự mình có thể lập kế hoạch giao dịch độc lập.</p>
+                        </div>
+                    </div>
+
+                    <!-- 5. CHƯƠNG TRÌNH HỌC (CURRICULUM) -->
+                    <div class="space-y-6 pt-4">
+                        <div class="flex items-end justify-between mb-2">
+                            <h3 class="text-2xl font-bold flex items-center gap-3 text-white">
+                                <span class="w-1.5 h-6 bg-cyan-500 rounded-full"></span>
+                                Nội dung khóa học
+                            </h3>
+                            <span class="text-sm text-white/40">12 Bài học • Thời lượng: 4h 30m</span>
+                        </div>
+
+                        <!-- Danh sách Video (Vòng lặp Blade của bạn sẽ ở đây) -->
+                        <div class="space-y-3">
+                            
+                            <!-- Bài học 1 (Có nhãn Học thử) -->
+                            <a href="#" class="flex items-center justify-between p-4 rounded-xl bg-surfaceBg border border-white/5 hover:border-white/10 hover:bg-white/[0.02] transition-colors group">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-xs font-mono text-white/30 group-hover:text-cyan-400 group-hover:bg-cyan-400/10 transition-colors">
+                                        01
+                                    </div>
+                                    <div>
+                                        <h4 class="text-[15px] font-semibold text-white/90 group-hover:text-white transition-colors">Phân tích Kỹ thuật là gì? Tại sao nó hiệu quả?</h4>
+                                        <div class="flex items-center gap-3 mt-1">
+                                            <span class="text-xs text-white/40">15:20</span>
+                                            <!-- Nhãn Học thử cho bài miễn phí -->
+                                            <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded uppercase font-bold tracking-wider">Học thử</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="w-8 h-8 rounded-full flex items-center justify-center text-white/20 group-hover:text-cyan-400 transition-colors">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                </div>
+                            </a>
+
+                            <!-- Bài học 2 (Khóa) -->
+                            <div class="flex items-center justify-between p-4 rounded-xl bg-surfaceBg border border-white/5 group opacity-80">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-xs font-mono text-white/30">
+                                        02
+                                    </div>
+                                    <div>
+                                        <h4 class="text-[15px] font-medium text-white/70">Hướng dẫn cài đặt và sử dụng biểu đồ TradingView</h4>
+                                        <div class="flex items-center gap-3 mt-1">
+                                            <span class="text-xs text-white/40">22:15</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Icon Ổ khóa -->
+                                <div class="text-white/20">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                </div>
+                            </div>
+
+                            <!-- Bài học 3 (Khóa) -->
+                            <div class="flex items-center justify-between p-4 rounded-xl bg-surfaceBg border border-white/5 group opacity-80">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-xs font-mono text-white/30">
+                                        03
+                                    </div>
+                                    <div>
+                                        <h4 class="text-[15px] font-medium text-white/70">Cấu tạo nến Nhật và cách đọc tâm lý thị trường qua nến</h4>
+                                        <div class="flex items-center gap-3 mt-1">
+                                            <span class="text-xs text-white/40">35:40</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-white/20">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                </div>
+                            </div>
+
+                            <!-- Button xem thêm -->
+                            <button class="w-full py-4 text-sm font-semibold text-cyan-400 hover:text-cyan-300 transition-colors border border-dashed border-white/10 rounded-xl hover:border-cyan-400/30 hover:bg-cyan-400/5 mt-2">
+                                Xem thêm 9 bài học khác v
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ==============================================
+                     CỘT PHẢI: SIDEBAR THANH TOÁN (4 Cột)
+                =============================================== -->
+                <div class="lg:col-span-4 relative">
+                    <!-- Thuộc tính Sticky giúp khung giá bám theo màn hình khi cuộn -->
+                    <div class="sticky top-24 space-y-6">
+                        
+                        <!-- CARD MUA HÀNG (Pricing Card) -->
+                        <div class="rounded-2xl border border-cyan-500/20 bg-surfaceBg p-6 lg:p-8 shadow-[0_10px_40px_rgba(0,0,0,0.8)] relative overflow-hidden">
+                            <!-- Hiệu ứng sáng nhẹ góc thẻ -->
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 blur-[50px] rounded-full pointer-events-none"></div>
+
+                            <div class="mb-8 relative z-10">
+                                <span class="text-white/40 text-xs font-bold uppercase tracking-widest block mb-2">Học phí sở hữu</span>
+                                <!-- Hiển thị Giá tiền -->
+                                <div class="flex items-end gap-3">
+                                    <div class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-violet-300">
+                                        2,500,000 đ
+                                    </div>
+                                    <div class="text-lg text-white/30 line-through font-medium mb-1">
+                                        5,000,000 đ
+                                    </div>
+                                </div>
+                                <div class="text-xs text-rose-400 font-medium mt-2 flex items-center gap-1">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    Ưu đãi giảm 50% kết thúc sau 2 ngày
+                                </div>
+                            </div>
+
+                            <div class="space-y-4 relative z-10">
+                                <!-- Nút CTA Chính -->
+                                <a href="#" class="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-base hover:scale-[1.02] transition-all shadow-[0_0_20px_rgba(6,182,212,0.4)] text-center block">
+                                    Đăng ký học ngay
+                                </a>
+                                <p class="text-center text-[10px] text-white/40 uppercase tracking-widest font-semibold flex items-center justify-center gap-1.5">
+                                    <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4L19 7"></path></svg>
+                                    Cam kết hoàn tiền trong 7 ngày
+                                </p>
+                            </div>
+
+                            <!-- Tính năng bao gồm -->
+                            <div class="mt-8 pt-6 border-t border-white/5 space-y-3.5 relative z-10">
+                                <h4 class="text-sm font-bold text-white mb-4">Khóa học bao gồm:</h4>
+                                <div class="flex items-center gap-3 text-[13px] text-white/70">
+                                    <svg class="w-4 h-4 text-cyan-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                                    Hơn 4.5 giờ video bài giảng chất lượng cao
+                                </div>
+                                <div class="flex items-center gap-3 text-[13px] text-white/70">
+                                    <svg class="w-4 h-4 text-cyan-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                                    Truy cập trọn đời, học mọi lúc mọi nơi
+                                </div>
+                                <div class="flex items-center gap-3 text-[13px] text-white/70">
+                                    <svg class="w-4 h-4 text-cyan-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                    12 Bài tập thực hành & Tài liệu đính kèm
+                                </div>
+                                <div class="flex items-center gap-3 text-[13px] text-white/70">
+                                    <svg class="w-4 h-4 text-cyan-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path></svg>
+                                    Hỗ trợ hỏi đáp 1-1 cùng Mentor
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CARD GIẢNG VIÊN (Thêm "mắm muối" uy tín) -->
+                        <div class="rounded-xl border border-white/5 bg-surfaceBg p-6 shadow-lg">
+                            <h4 class="font-bold text-white text-sm uppercase tracking-wider mb-4">Mentor / Giảng viên</h4>
+                            <div class="flex gap-4 items-center">
+                                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop" class="w-14 h-14 rounded-full object-cover border-2 border-white/10" alt="Avatar">
+                                <div>
+                                    <h5 class="text-white font-bold">Kevin Nguyễn</h5>
+                                    <p class="text-xs text-white/50 mt-0.5">CMT Level 2 - Head of Analysis</p>
+                                </div>
+                            </div>
+                            <p class="text-[13px] text-white/60 leading-relaxed mt-4">Với hơn 8 năm kinh nghiệm thực chiến tại các quỹ đầu tư, Kevin sẽ giúp bạn xây dựng hệ thống giao dịch sắc bén và kỷ luật.</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
