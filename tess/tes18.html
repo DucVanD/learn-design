@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cơ hội nghề nghiệp | Galaxy Alpha</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        mainBg: '#050505',
+                        surfaceBg: '#0a0a0a',
+                        brand: '#2563eb',
+                        cyan: { 400: '#22d3ee', 500: '#06b6d4' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #050505; color: #ffffff; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
+    </style>
+</head>
+<body class="antialiased min-h-screen relative overflow-x-hidden">
+
+    <!-- Giả lập thanh Navigation -->
+    <header class="h-[70px] w-full border-b border-white/5 bg-mainBg/85 backdrop-blur-xl fixed top-0 z-50 flex items-center px-4 lg:px-8">
+        <div class="font-bold text-xl tracking-widest uppercase text-white">Galaxy Alpha</div>
+    </header>
+
+    <!-- HIỆU ỨNG GALAXY AMBIENT LIGHT -->
+    <div class="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none z-0">
+        <div class="absolute top-20 left-[10%] w-[500px] h-[500px] bg-[rgba(33,76,141,0.2)] rounded-full blur-[150px]"></div>
+        <div class="absolute bottom-auto top-[40%] right-[5%] w-[600px] h-[600px] bg-[rgba(168,85,247,0.1)] rounded-full blur-[150px]"></div>
+    </div>
+
+    <section class="relative pt-32 pb-24 z-10">
+        <div class="max-w-[1440px] mx-auto px-4 lg:px-8 2xl:px-16">
+
+            <!-- ==============================================
+                 1. HERO SECTION
+            =============================================== -->
+            <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center mb-20">
+                <!-- Text Content (Chiếm 6/12) -->
+                <div class="lg:col-span-6">
+                    <span class="inline-flex items-center px-3 py-1.5 rounded-md bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[11px] font-bold tracking-widest uppercase backdrop-blur-sm mb-6">
+                        Galaxy Alpha Careers
+                    </span>
+
+                    <h1 class="text-4xl md:text-5xl lg:text-[64px] font-extrabold tracking-tight leading-[1.1] text-white">
+                        Build The Future
+                        <span class="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-400 mt-2">Of Crypto Trading</span>
+                    </h1>
+
+                    <p class="text-white/60 text-base md:text-lg leading-relaxed mt-8 max-w-xl">
+                        Chúng tôi đang xây dựng hệ sinh thái đào tạo và đầu tư tài chính hiện đại nhất dành cho Trader Việt Nam. Hãy tham gia cùng chúng tôi để tạo ra những sản phẩm có sức ảnh hưởng thực sự.
+                    </p>
+
+                    <div class="flex flex-wrap gap-4 mt-10">
+                        <a href="#jobs" class="inline-flex h-12 items-center justify-center rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-8 text-sm font-bold text-white transition-all hover:scale-[1.02] shadow-[0_0_20px_rgba(6,182,212,0.3)]">
+                            Xem vị trí ứng tuyển
+                        </a>
+                        <a href="#" class="inline-flex h-12 items-center justify-center rounded-xl bg-surfaceBg border border-white/10 px-8 text-sm font-bold text-white transition-all hover:bg-white/5 hover:border-white/20">
+                            Về chúng tôi
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Image Card (Chiếm 6/12) -->
+                <div class="lg:col-span-6 group relative">
+                    <!-- Glow phía sau ảnh -->
+                    <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500/30 to-violet-500/30 rounded-3xl blur-xl opacity-50 group-hover:opacity-100 transition duration-700"></div>
+
+                    <div class="relative rounded-3xl overflow-hidden aspect-[16/11] border border-white/10 bg-surfaceBg shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
+                        <img src="https://images.unsplash.com/photo-1639762681057-408e52192e55?q=80&w=1200" 
+                             class="w-full h-full object-cover opacity-70 group-hover:scale-105 group-hover:opacity-90 transition-all duration-700 ease-out" 
+                             alt="Working at Galaxy Alpha">
+
+                        <!-- Lớp gradient tạo độ sâu -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-mainBg via-mainBg/40 to-transparent"></div>
+
+                        <!-- Text đè lên ảnh -->
+                        <div class="absolute left-6 right-6 bottom-6 md:left-8 md:bottom-8">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded bg-black/60 backdrop-blur-md border border-white/10 text-white/90 text-[10px] font-bold tracking-widest uppercase mb-4">
+                                Remote • Hybrid • Global
+                            </span>
+                            <h3 class="text-2xl md:text-3xl font-bold text-white">Làm việc cùng AI & Dữ liệu lớn</h3>
+                            <p class="text-white/60 text-sm leading-relaxed mt-2 max-w-md hidden md:block">
+                                Môi trường startup tốc độ cao, trao quyền quyết định và nhiều không gian để bạn thử nghiệm những công nghệ mới nhất.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==============================================
+                 2. STATS SECTION (Sửa màu nền thành bg-surfaceBg)
+            =============================================== -->
+            <div class="grid md:grid-cols-3 gap-6 mb-20">
+                <div class="rounded-2xl bg-surfaceBg border border-white/5 p-8 shadow-[0_4px_30px_rgba(0,0,0,0.3)] hover:border-white/10 transition-colors">
+                    <span class="block text-[11px] text-white/40 font-bold tracking-widest uppercase mb-4">Quy mô đội ngũ</span>
+                    <h3 class="text-4xl md:text-5xl font-black text-white">20+</h3>
+                    <p class="text-white/50 text-sm mt-3 font-medium">Nhân sự tài năng & nhiệt huyết</p>
+                </div>
+
+                <div class="rounded-2xl bg-surfaceBg border border-white/5 p-8 shadow-[0_4px_30px_rgba(0,0,0,0.3)] hover:border-white/10 transition-colors">
+                    <span class="block text-[11px] text-white/40 font-bold tracking-widest uppercase mb-4">Văn hóa</span>
+                    <h3 class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-violet-400">100%</h3>
+                    <p class="text-white/50 text-sm mt-3 font-medium">Môi trường sáng tạo, tôn trọng sự khác biệt</p>
+                </div>
+
+                <div class="rounded-2xl bg-surfaceBg border border-white/5 p-8 shadow-[0_4px_30px_rgba(0,0,0,0.3)] hover:border-white/10 transition-colors">
+                    <span class="block text-[11px] text-white/40 font-bold tracking-widest uppercase mb-4">Mô hình làm việc</span>
+                    <h3 class="text-4xl md:text-5xl font-black text-white">Hybrid</h3>
+                    <p class="text-white/50 text-sm mt-3 font-medium">Linh hoạt giữa văn phòng và Remote</p>
+                </div>
+            </div>
+
+            <!-- ==============================================
+                 3. JOBS SECTION (Sidebar + Job List)
+            =============================================== -->
+            <div id="jobs" class="grid lg:grid-cols-12 gap-10">
+
+                <!-- SIDEBAR BỘ LỌC (Chiếm 3/12) -->
+                <aside class="lg:col-span-3">
+                    <!-- class sticky giúp sidebar chạy theo màn hình khi cuộn -->
+                    <div class="sticky top-28 rounded-2xl bg-surfaceBg border border-white/5 p-6 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+                        
+                        <div class="flex items-center justify-between gap-3 pb-5 border-b border-white/5">
+                            <div>
+                                <span class="block text-[10px] text-cyan-400 font-bold tracking-widest uppercase mb-1">Open roles</span>
+                                <h4 class="text-lg font-bold text-white">Cơ hội nghề nghiệp</h4>
+                            </div>
+                            <span class="shrink-0 inline-flex w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 items-center justify-center text-sm font-bold">
+                                6
+                            </span>
+                        </div>
+
+                        <!-- Danh sách Lọc -->
+                        <div class="space-y-3 mt-6">
+                            <!-- Trạng thái Active -->
+                            <button class="w-full h-12 rounded-xl bg-gradient-to-r from-cyan-500/20 to-blue-600/20 text-cyan-400 border border-cyan-500/30 text-sm font-bold transition-all text-left px-5 flex justify-between items-center">
+                                Tất cả vị trí
+                                <span class="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.8)]"></span>
+                            </button>
+
+                            <!-- Trạng thái Bình thường -->
+                            <button class="w-full h-12 rounded-xl bg-mainBg border border-white/5 text-white/60 hover:text-white hover:border-white/10 hover:bg-white/5 text-sm font-semibold transition-all text-left px-5">
+                                Kỹ sư phần mềm (IT)
+                            </button>
+
+                            <button class="w-full h-12 rounded-xl bg-mainBg border border-white/5 text-white/60 hover:text-white hover:border-white/10 hover:bg-white/5 text-sm font-semibold transition-all text-left px-5">
+                                Phân tích Dữ liệu (Data)
+                            </button>
+
+                            <button class="w-full h-12 rounded-xl bg-mainBg border border-white/5 text-white/60 hover:text-white hover:border-white/10 hover:bg-white/5 text-sm font-semibold transition-all text-left px-5">
+                                Marketing & Content
+                            </button>
+                        </div>
+
+                        <div class="mt-8 pt-6 border-t border-white/5">
+                            <p class="text-xs leading-relaxed text-white/40 italic">
+                                Hãy chủ động gửi CV về hr@galaxyalpha.com nếu bạn không tìm thấy vị trí phù hợp nhưng tin rằng mình là một mảnh ghép hoàn hảo.
+                            </p>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- MAIN LIST: DANH SÁCH VỊ TRÍ (Chiếm 9/12) -->
+                <div class="lg:col-span-9">
+                    
+                    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+                        <div>
+                            <h2 class="text-3xl font-bold text-white">
+                                Vị trí đang mở
+                            </h2>
+                        </div>
+                        <div class="flex gap-2">
+                            <select class="bg-surfaceBg border border-white/10 text-white/70 text-sm rounded-lg px-4 py-2 outline-none focus:border-cyan-400">
+                                <option>Mới nhất</option>
+                                <option>Hạn nộp gần nhất</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Lưới bài tuyển dụng (Code cho thẻ <article>) -->
+                    <div class="space-y-4">
+                        
+                        <!-- CARD TUYỂN DỤNG MẪU 1 -->
+                        <article class="group relative overflow-hidden rounded-2xl bg-surfaceBg border border-white/5 hover:border-cyan-500/30 hover:-translate-y-1 transition-all duration-300 shadow-[0_4px_30px_rgba(0,0,0,0.3)]">
+                            <!-- Gradient hắt sáng mờ bên trong card khi hover -->
+                            <div class="absolute inset-0 bg-gradient-to-br from-[rgba(34,211,238,0.05)] to-[rgba(168,85,247,0.02)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+
+                            <div class="relative z-10 p-6 lg:p-8">
+                                <div class="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-6">
+                                    
+                                    <div class="flex-1 min-w-0">
+                                        <!-- Header Card: Labels -->
+                                        <div class="flex flex-wrap items-center gap-3 mb-4">
+                                            <span class="inline-flex items-center px-2.5 py-1 rounded bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold tracking-widest uppercase">
+                                                Full-time
+                                            </span>
+                                            <span class="inline-flex items-center px-2.5 py-1 rounded bg-white/5 border border-white/10 text-white/50 text-[11px] font-medium">
+                                                Hạn nộp: 30/11/2026
+                                            </span>
+                                        </div>
+
+                                        <!-- Tiêu đề Job -->
+                                        <h3 class="text-xl md:text-[22px] font-bold text-white leading-tight group-hover:text-cyan-400 transition-colors">
+                                            <a href="#">Senior Frontend Developer (Vue.js / Tailwind CSS)</a>
+                                        </h3>
+
+                                        <!-- Meta info: Location & Salary -->
+                                        <div class="flex flex-wrap items-center gap-x-6 gap-y-3 mt-4 text-[13px] text-white/60 font-medium">
+                                            <span class="flex items-center gap-2">
+                                                <svg class="w-4 h-4 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                                Remote / Hybrid (TP.HCM)
+                                            </span>
+                                            <span class="flex items-center gap-2">
+                                                <svg class="w-4 h-4 text-emerald-400/80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-2.21 0-4 .895-4 2s1.79 2 4 2 4 .895 4 2-1.79 2-4 2m0-8V6m0 12v-2"></path></svg>
+                                                Up to $2,500
+                                            </span>
+                                        </div>
+
+                                        <!-- Description -->
+                                        <p class="text-white/50 text-[14px] line-clamp-2 leading-relaxed mt-5 max-w-3xl">
+                                            Tìm kiếm chuyên gia Frontend có kinh nghiệm xây dựng các ứng dụng Dashboard tài chính, am hiểu sâu sắc về Vue.js, VueX và có tư duy thiết kế hệ thống UI/UX tối giản.
+                                        </p>
+                                    </div>
+
+                                    <!-- Nút Ứng tuyển -->
+                                    <div class="shrink-0 flex items-center justify-start mt-2 xl:mt-0">
+                                        <a href="#" class="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-white/5 border border-white/10 group-hover:border-cyan-400/40 group-hover:bg-cyan-500/10 px-6 text-sm font-bold text-white transition-all group/link">
+                                            Xem chi tiết
+                                            <svg class="w-4 h-4 text-white/50 group-hover/link:text-cyan-400 transform group-hover/link:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                        </a>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- CARD TUYỂN DỤNG MẪU 2 -->
+                        <article class="group relative overflow-hidden rounded-2xl bg-surfaceBg border border-white/5 hover:border-cyan-500/30 hover:-translate-y-1 transition-all duration-300 shadow-[0_4px_30px_rgba(0,0,0,0.3)]">
+                            <div class="absolute inset-0 bg-gradient-to-br from-[rgba(34,211,238,0.05)] to-[rgba(168,85,247,0.02)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                            <div class="relative z-10 p-6 lg:p-8">
+                                <div class="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-6">
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex flex-wrap items-center gap-3 mb-4">
+                                            <span class="inline-flex items-center px-2.5 py-1 rounded bg-violet-500/10 border border-violet-500/20 text-violet-400 text-[10px] font-bold tracking-widest uppercase">
+                                                Part-time
+                                            </span>
+                                            <span class="inline-flex items-center px-2.5 py-1 rounded bg-white/5 border border-white/10 text-white/50 text-[11px] font-medium">
+                                                Hạn nộp: 15/11/2026
+                                            </span>
+                                        </div>
+                                        <h3 class="text-xl md:text-[22px] font-bold text-white leading-tight group-hover:text-cyan-400 transition-colors">
+                                            <a href="#">Content Creator (Crypto & Finance)</a>
+                                        </h3>
+                                        <div class="flex flex-wrap items-center gap-x-6 gap-y-3 mt-4 text-[13px] text-white/60 font-medium">
+                                            <span class="flex items-center gap-2">
+                                                <svg class="w-4 h-4 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                                Remote 100%
+                                            </span>
+                                            <span class="flex items-center gap-2">
+                                                <svg class="w-4 h-4 text-emerald-400/80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-2.21 0-4 .895-4 2s1.79 2 4 2 4 .895 4 2-1.79 2-4 2m0-8V6m0 12v-2"></path></svg>
+                                                Thỏa thuận
+                                            </span>
+                                        </div>
+                                        <p class="text-white/50 text-[14px] line-clamp-2 leading-relaxed mt-5 max-w-3xl">
+                                            Chịu trách nhiệm sản xuất nội dung chuyên sâu về thị trường tài chính, phân tích biểu đồ và biên tập kịch bản cho kênh Youtube của Galaxy Alpha.
+                                        </p>
+                                    </div>
+                                    <div class="shrink-0 flex items-center justify-start mt-2 xl:mt-0">
+                                        <a href="#" class="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-white/5 border border-white/10 group-hover:border-cyan-400/40 group-hover:bg-cyan-500/10 px-6 text-sm font-bold text-white transition-all group/link">
+                                            Xem chi tiết
+                                            <svg class="w-4 h-4 text-white/50 group-hover/link:text-cyan-400 transform group-hover/link:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                    </div>
+
+                    <!-- Phân trang (Pagination) -->
+                    <div class="mt-12 flex justify-center">
+                        <nav class="inline-flex rounded-lg border border-white/10 bg-surfaceBg shadow-[0_4px_20px_rgba(0,0,0,0.5)]" aria-label="Pagination">
+                            <a href="#" class="inline-flex items-center px-4 py-2.5 border-r border-white/10 text-sm font-medium text-white/50 hover:text-white hover:bg-white/5 transition-colors rounded-l-lg">Trang trước</a>
+                            <a href="#" aria-current="page" class="inline-flex items-center px-4 py-2.5 border-r border-white/10 text-sm font-bold bg-brand/20 text-brand transition-colors">1</a>
+                            <a href="#" class="inline-flex items-center px-4 py-2.5 text-sm font-medium text-white/50 hover:text-white hover:bg-white/5 transition-colors rounded-r-lg">Tiếp theo</a>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

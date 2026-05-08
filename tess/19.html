@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Về chúng tôi | Galaxy Alpha</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans:['Inter', 'sans-serif'] },
+                    colors: {
+                        mainBg: '#050505',
+                        surfaceBg: '#0a0a0a',
+                        brand: '#2563eb',
+                        cyan: { 400: '#22d3ee', 500: '#06b6d4' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #050505; color: #ffffff; }
+    </style>
+</head>
+<body class="antialiased min-h-screen relative overflow-x-hidden">
+
+    <!-- Giả lập thanh Navigation -->
+    <header class="h-[70px] w-full border-b border-white/5 bg-mainBg/85 backdrop-blur-xl fixed top-0 z-50 flex items-center px-4 lg:px-8">
+        <div class="font-bold text-xl tracking-widest uppercase text-white">Galaxy Alpha</div>
+    </header>
+
+    <!-- ==============================================
+         HIỆU ỨNG ÁNH SÁNG GALAXY TỔNG THỂ
+    =============================================== -->
+    <div class="absolute top-0 left-0 w-full h-[800px] pointer-events-none z-0 overflow-hidden">
+        <div class="absolute top-[-10%] left-[5%] w-[600px] h-[600px] bg-[rgba(33,76,141,0.2)] rounded-full blur-[150px]"></div>
+        <div class="absolute top-[20%] right-[-5%] w-[500px] h-[500px] bg-[rgba(168,85,247,0.15)] rounded-full blur-[150px]"></div>
+    </div>
+
+    <!-- NỘI DUNG CHÍNH (Đã bọc Blade) -->
+    <!-- @extends('layouts.client') -->
+    <!-- @section('content') -->
+    <section class="relative pt-32 pb-24 z-10">
+        <div class="max-w-[1440px] mx-auto px-4 lg:px-8 2xl:px-16">
+            
+            <!-- ==============================================
+                 1. HERO SECTION: Tuyên ngôn thương hiệu
+            =============================================== -->
+            <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center mb-24">
+                
+                <!-- Cột Text (Chiếm 6/12) -->
+                <div class="lg:col-span-6 relative z-10">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[10px] font-bold tracking-widest uppercase mb-6 backdrop-blur-md">
+                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                        Về Galaxy Alpha
+                    </div>
+
+                    <h1 class="text-4xl md:text-5xl lg:text-[64px] font-extrabold tracking-tight leading-[1.15] text-white">
+                        Nơi kiến thức hội tụ<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-400">cùng tư duy kỷ luật.</span>
+                    </h1>
+
+                    <p class="text-white/60 text-lg leading-relaxed mt-8 max-w-xl">
+                        Galaxy Alpha không chỉ là nền tảng tin tức, mà là một hệ sinh thái nghiên cứu và đào tạo đầu tư toàn diện. Chúng tôi giúp trader loại bỏ cảm xúc FOMO, thiết lập phương pháp giao dịch dựa trên dữ liệu và quản trị rủi ro tuyệt đối.
+                    </p>
+
+                    <div class="flex flex-wrap gap-4 mt-10">
+                        <a href="{{ route('client.courses.index') ?? '#' }}" class="inline-flex h-14 items-center justify-center rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-8 text-sm font-bold text-white transition-all hover:scale-[1.02] shadow-[0_0_20px_rgba(6,182,212,0.3)]">
+                            Khám phá khóa học
+                        </a>
+                        <a href="{{ route('client.posts.index') ?? '#' }}" class="inline-flex h-14 items-center justify-center rounded-xl bg-surfaceBg border border-white/10 px-8 text-sm font-bold text-white transition-all hover:bg-white/5 hover:border-white/20">
+                            Đọc phân tích chuyên sâu
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Cột Ảnh (Chiếm 6/12) -->
+                <div class="lg:col-span-6 group relative">
+                    <!-- Ánh sáng Glow viền ảnh -->
+                    <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500/30 to-violet-500/30 rounded-3xl blur-2xl opacity-50 group-hover:opacity-100 transition duration-700"></div>
+
+                    <div class="relative rounded-3xl overflow-hidden aspect-[4/3] border border-white/10 bg-surfaceBg shadow-[0_10px_40px_rgba(0,0,0,0.6)]">
+                        <img src="https://images.unsplash.com/photo-1642790106117-e829e14a795f?q=80&w=1200&fit=crop" 
+                             class="w-full h-full object-cover opacity-60 group-hover:scale-105 group-hover:opacity-80 transition-transform duration-700 ease-out" 
+                             alt="Galaxy Alpha Workspace">
+
+                        <!-- Overlay Gradient cho chiều sâu -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-mainBg via-mainBg/40 to-transparent opacity-90"></div>
+
+                        <!-- Card nổi đè lên ảnh (Floating Glass Card) -->
+                        <div class="absolute bottom-6 left-6 right-6 md:bottom-8 md:left-8 md:right-8 bg-[#0a0a0a]/80 backdrop-blur-xl border border-white/10 p-5 rounded-2xl">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-400">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-white font-bold text-lg">Đầu tư bền vững</h3>
+                                    <p class="text-white/50 text-xs mt-1 uppercase tracking-widest">Research • Education • AI Tool</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==============================================
+                 2. THREE PILLARS (3 Giá trị cốt lõi)
+            =============================================== -->
+            <div class="grid md:grid-cols-3 gap-6 mb-24">
+                
+                <div class="rounded-2xl bg-surfaceBg border border-white/5 p-8 shadow-[0_4px_30px_rgba(0,0,0,0.3)] hover:border-white/10 hover:-translate-y-1 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    </div>
+                    <span class="block text-[10px] text-white/40 font-bold tracking-widest uppercase mb-2">Our Mission</span>
+                    <h3 class="text-2xl font-bold text-white mb-3">Giải mã sự phức tạp</h3>
+                    <p class="text-white/50 text-sm leading-relaxed">
+                        Biến các khái niệm vĩ mô, on-chain hay PTKT khó nhằn thành những lộ trình học tinh gọn, dễ hiểu và có thể áp dụng thực chiến ngay lập tức.
+                    </p>
+                </div>
+
+                <div class="rounded-2xl bg-surfaceBg border border-white/5 p-8 shadow-[0_4px_30px_rgba(0,0,0,0.3)] hover:border-white/10 hover:-translate-y-1 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    </div>
+                    <span class="block text-[10px] text-white/40 font-bold tracking-widest uppercase mb-2">Our Approach</span>
+                    <h3 class="text-2xl font-bold text-white mb-3">Dữ liệu soi sáng quyết định</h3>
+                    <p class="text-white/50 text-sm leading-relaxed">
+                        Mọi nội dung đều được xây dựng dựa trên bối cảnh thị trường thực tế. Chúng tôi từ chối tư duy "phím hàng" và FOMO mù quáng.
+                    </p>
+                </div>
+
+                <div class="rounded-2xl bg-surfaceBg border border-white/5 p-8 shadow-[0_4px_30px_rgba(0,0,0,0.3)] hover:border-white/10 hover:-translate-y-1 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400 mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </div>
+                    <span class="block text-[10px] text-white/40 font-bold tracking-widest uppercase mb-2">Community</span>
+                    <h3 class="text-2xl font-bold text-white mb-3">Tinh hoa hội tụ</h3>
+                    <p class="text-white/50 text-sm leading-relaxed">
+                        Tạo ra môi trường khắt khe nhưng cởi mở để học viên phản biện, trao đổi và tối ưu hóa hệ thống giao dịch qua từng nhịp đập của thị trường.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- ==============================================
+                 3. MANIFESTO (Tuyên ngôn cốt lõi)
+            =============================================== -->
+            <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 mb-24">
+                
+                <!-- Sidebar (Trái) -->
+                <div class="lg:col-span-4">
+                    <div class="sticky top-28 rounded-2xl bg-gradient-to-b from-[#0a0a0a] to-[#050505] border border-white/5 p-8 shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
+                        <div class="w-12 h-1 bg-gradient-to-r from-cyan-400 to-violet-500 rounded-full mb-6"></div>
+                        <h2 class="text-3xl font-bold text-white mb-4">
+                            Những điều chúng tôi tin tưởng
+                        </h2>
+                        <p class="text-white/50 text-sm leading-relaxed">
+                            Thị trường luôn thay đổi, nhưng nguyên tắc thì không. Galaxy Alpha tập trung vào tư duy dài hạn: Hiểu trước khi mua, quản trị rủi ro trước khi đếm lợi nhuận.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- List Cards (Phải) -->
+                <div class="lg:col-span-8 space-y-6">
+                    
+                    <!-- Card 1 -->
+                    <div class="group relative overflow-hidden rounded-2xl bg-surfaceBg border border-white/5 p-6 md:p-8 hover:border-cyan-500/30 transition-all duration-300 shadow-[0_4px_30px_rgba(0,0,0,0.3)]">
+                        <div class="absolute inset-0 bg-gradient-to-br from-[rgba(34,211,238,0.08)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                        <div class="relative z-10 flex gap-6">
+                            <span class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-cyan-400 to-cyan-400/10 mt-1">01</span>
+                            <div>
+                                <h3 class="text-2xl font-bold text-white mb-3">Độc lập tư duy</h3>
+                                <p class="text-white/50 leading-relaxed text-sm md:text-base">
+                                    Chúng tôi không đào tạo để bạn phụ thuộc vào tín hiệu (Signals) của người khác. Mục tiêu tối thượng là giúp bạn tự phân tích biểu đồ, nắm rõ chu kỳ và tự chịu trách nhiệm hoàn toàn với nút "Buy/Sell" của mình.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="group relative overflow-hidden rounded-2xl bg-surfaceBg border border-white/5 p-6 md:p-8 hover:border-cyan-500/30 transition-all duration-300 shadow-[0_4px_30px_rgba(0,0,0,0.3)]">
+                        <div class="absolute inset-0 bg-gradient-to-br from-[rgba(34,211,238,0.08)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                        <div class="relative z-10 flex gap-6">
+                            <span class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-cyan-400 to-cyan-400/10 mt-1">02</span>
+                            <div>
+                                <h3 class="text-2xl font-bold text-white mb-3">Kỷ luật thép</h3>
+                                <p class="text-white/50 leading-relaxed text-sm md:text-base">
+                                    Không có chén thánh nào đúng 100%. Điều tạo ra lợi nhuận trong thị trường không phải là khả năng dự đoán đúng đỉnh đáy, mà là kỷ luật cắt lỗ khi sai và bảo toàn vốn qua những giai đoạn downtrend.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="group relative overflow-hidden rounded-2xl bg-surfaceBg border border-white/5 p-6 md:p-8 hover:border-cyan-500/30 transition-all duration-300 shadow-[0_4px_30px_rgba(0,0,0,0.3)]">
+                        <div class="absolute inset-0 bg-gradient-to-br from-[rgba(34,211,238,0.08)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                        <div class="relative z-10 flex gap-6">
+                            <span class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-cyan-400 to-cyan-400/10 mt-1">03</span>
+                            <div>
+                                <h3 class="text-2xl font-bold text-white mb-3">Minh bạch tuyệt đối</h3>
+                                <p class="text-white/50 leading-relaxed text-sm md:text-base">
+                                    Chúng tôi sử dụng ngôn ngữ rõ ràng, công bố nguồn dữ liệu gốc và luôn trình bày Rủi ro (Risk) song song với Cơ hội (Reward). Uy tín được xây dựng bằng sự chân thật, không phải những lời hứa hẹn X10, X100 tài khoản.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ==============================================
+                 4. CTA BANNER (Call to Action Cuối trang)
+            =============================================== -->
+            <div class="relative rounded-3xl border border-cyan-500/20 bg-gradient-to-br from-[#0a0a0a] to-[#12161f] overflow-hidden shadow-[0_10px_40px_rgba(6,182,212,0.1)]">
+                <!-- Hiệu ứng Glow nền trong Banner -->
+                <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-cyan-500/10 rounded-full blur-[80px] pointer-events-none"></div>
+                <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-violet-500/10 rounded-full blur-[80px] pointer-events-none"></div>
+
+                <div class="grid lg:grid-cols-12 relative z-10">
+                    <div class="lg:col-span-7 p-8 md:p-12 lg:p-16">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-[10px] font-bold tracking-widest uppercase mb-4">
+                            Join the Journey
+                        </span>
+
+                        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6">
+                            Bắt đầu hành trình <br>đầu tư có hệ thống.
+                        </h2>
+
+                        <p class="text-white/50 text-base leading-relaxed mb-10 max-w-lg">
+                            Dù bạn là F0 mới bước vào thị trường hay một Trader đang chật vật tìm kiếm phương pháp, Galaxy Alpha luôn có lộ trình phù hợp để bạn tiến bộ.
+                        </p>
+
+                        <div class="flex flex-wrap gap-4">
+                            <a href="{{ route('client.courses.index') ?? '#' }}" class="inline-flex h-14 items-center justify-center rounded-xl bg-cyan-500 px-8 text-sm font-bold text-black transition-all hover:bg-cyan-400 shadow-[0_0_20px_rgba(34,211,238,0.4)]">
+                                Xem lộ trình học
+                            </a>
+                            <a href="{{ route('client.recruitments.index') ?? '#' }}" class="inline-flex h-14 items-center justify-center rounded-xl bg-white/5 border border-white/10 px-8 text-sm font-bold text-white transition-all hover:bg-white/10 hover:border-white/20">
+                                Gia nhập đội ngũ
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Khu vực Image/Graphic bên phải Banner -->
+                    <div class="lg:col-span-5 border-t lg:border-t-0 lg:border-l border-white/5 bg-white/[0.02] flex items-center justify-center p-8">
+                        <!-- Logo to mờ ảo ở giữa -->
+                        <div class="w-40 h-40 rounded-3xl bg-gradient-to-br from-cyan-400/20 to-violet-500/20 flex items-center justify-center font-black text-6xl text-white/30 backdrop-blur-sm border border-white/10 rotate-12 hover:rotate-0 transition-transform duration-500">
+                            G
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!-- @endsection -->
+
+</body>
+</html>

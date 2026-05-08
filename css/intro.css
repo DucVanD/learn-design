@@ -1,6 +1,11 @@
 /* ------------------------------
    RESET CSS
    ------------------------------ */
+@font-face {
+  font-family: "SVN-Batman Forever Alternate";
+  src: url("../Fonts/SVN-Batman Forever Alternate.otf") format("opentype");
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -43,9 +48,9 @@
    3. KHUNG NỘI DUNG CHÍNH - CONTENT
    ------------------------------ */
 .content {
-  width: 800px;
-  height: 600px;
-  aspect-ratio: 16 / 9; /* Giữ tỷ lệ 16:9 */
+  width: min(800px, 90vw);
+  aspect-ratio: 4 / 3;
+  height: auto;
   background-color: white; /* Hộp trắng */
   position: absolute;
 }
@@ -170,8 +175,8 @@
 
 /* Nhảy lên xuống cho icon location */
 @keyframes nhay {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(15px); }
+  0% { transform: translate(-50%, -100%) translateY(0); }
+  100% { transform: translate(-50%, -100%) translateY(15px); }
 }
 
 /* Nhảy lên xuống cho logo khi hover */
