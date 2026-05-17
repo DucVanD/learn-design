@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HomeStyle — Đồ Gia Dụng Cao Cấp</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F7F3EE;
+    --warm-white: #FDFAF6;
+    --clay: #C4A882;
+    --terracotta: #B5603A;
+    --dark-brown: #2C1810;
+    --mid-brown: #5C3D2E;
+    --sage: #7A8C6E;
+    --gold: #D4A843;
+    --light-clay: #EDE3D8;
+    --text: #1E1208;
+    --text-muted: #7A6A5A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ===== HEADER / NAV ===== */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: rgba(253, 250, 246, 0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(196,168,130,0.2);
+    transition: all 0.3s ease;
+  }
+
+  .nav-top {
+    background: var(--dark-brown);
+    color: var(--clay);
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  nav {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .logo-icon {
+    width: 38px;
+    height: 38px;
+    background: var(--terracotta);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+
+  .logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--dark-brown);
+    letter-spacing: -0.5px;
+  }
+
+  .logo-text span { color: var(--terracotta); }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--mid-brown);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    position: relative;
+    transition: color 0.2s;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0;
+    width: 0; height: 2px;
+    background: var(--terracotta);
+    transition: width 0.3s ease;
+  }
+
+  .nav-links a:hover { color: var(--terracotta); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .btn-search, .btn-cart, .btn-user {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: var(--mid-brown);
+    font-size: 18px;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  .btn-search:hover, .btn-cart:hover, .btn-user:hover { color: var(--terracotta); }
+
+  .cart-badge {
+    position: absolute;
+    top: 2px; right: 2px;
+    width: 16px; height: 16px;
+    background: var(--terracotta);
+    color: white;
+    border-radius: 50%;
+    font-size: 9px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-cta-nav {
+    background: var(--dark-brown);
+    color: var(--cream);
+    border: none;
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: all 0.2s;
+  }
+
+  .btn-cta-nav:hover {
+    background: var(--terracotta);
+    transform: translateY(-1px);
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    margin-top: 105px;
+    min-height: 90vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    background: var(--dark-brown);
+    padding: 80px 60px 80px 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(196,168,130,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(196,168,130,0.15);
+    border: 1px solid rgba(196,168,130,0.3);
+    color: var(--clay);
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    width: fit-content;
+    margin-bottom: 28px;
+    animation: fadeInUp 0.8s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 62px;
+    font-weight: 900;
+    color: var(--cream);
+    line-height: 1.1;
+    margin-bottom: 24px;
+    animation: fadeInUp 0.8s ease 0.1s both;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--clay);
+  }
+
+  .hero-desc {
+    color: rgba(247,243,238,0.65);
+    font-size: 16px;
+    line-height: 1.7;
+    max-width: 380px;
+    margin-bottom: 44px;
+    animation: fadeInUp 0.8s ease 0.2s both;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    animation: fadeInUp 0.8s ease 0.3s both;
+  }
+
+  .btn-primary {
+    background: var(--terracotta);
+    color: white;
+    border: none;
+    padding: 16px 36px;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: all 0.3s;
+  }
+
+  .btn-primary:hover {
+    background: #9E4D2A;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(181,96,58,0.4);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--clay);
+    border: 1.5px solid rgba(196,168,130,0.4);
+    padding: 15px 28px;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--clay);
+    color: var(--cream);
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(196,168,130,0.15);
+    animation: fadeInUp 0.8s ease 0.4s both;
+  }
+
+  .stat-item { }
+
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--clay);
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: rgba(247,243,238,0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+
+  .hero-right {
+    background: var(--light-clay);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-image-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .hero-bg-pattern {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 30% 40%, rgba(181,96,58,0.08) 0%, transparent 50%),
+      radial-gradient(circle at 70% 60%, rgba(122,140,110,0.08) 0%, transparent 50%);
+  }
+
+  .hero-product-showcase {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    padding: 40px;
+  }
+
+  .product-card-hero {
+    background: white;
+    border-radius: 20px;
+    padding: 24px;
+    width: 220px;
+    box-shadow: 0 20px 60px rgba(44,24,16,0.12);
+    animation: float 4s ease-in-out infinite;
+  }
+
+  .product-card-hero:nth-child(2) {
+    animation-delay: -2s;
+    transform: translateX(60px);
+  }
+
+  .product-card-hero .p-emoji {
+    font-size: 48px;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .product-card-hero .p-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--dark-brown);
+    margin-bottom: 4px;
+  }
+
+  .product-card-hero .p-price {
+    color: var(--terracotta);
+    font-weight: 700;
+    font-size: 16px;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .product-card-hero .p-old {
+    color: var(--text-muted);
+    font-size: 12px;
+    text-decoration: line-through;
+    margin-left: 6px;
+  }
+
+  /* ===== CATEGORIES STRIP ===== */
+  .categories-strip {
+    background: var(--cream);
+    padding: 60px 0 70px;
+  }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 60px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 44px;
+  }
+
+  .section-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--dark-brown);
+    line-height: 1.2;
+  }
+
+  .link-all {
+    color: var(--mid-brown);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+    white-space: nowrap;
+    margin-bottom: 6px;
+  }
+
+  .link-all:hover { color: var(--terracotta); }
+
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
+  }
+
+  .cat-item {
+    background: white;
+    border-radius: 16px;
+    padding: 28px 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1.5px solid transparent;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cat-item::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--terracotta);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  .cat-item:hover {
+    border-color: var(--light-clay);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(44,24,16,0.1);
+  }
+
+  .cat-item:hover::before { transform: scaleX(1); }
+
+  .cat-emoji { font-size: 36px; margin-bottom: 12px; display: block; }
+  .cat-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dark-brown);
+    margin-bottom: 4px;
+  }
+  .cat-count {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  /* ===== FEATURED PRODUCTS ===== */
+  .featured {
+    padding: 80px 0;
+    background: var(--warm-white);
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .product-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.35s ease;
+    cursor: pointer;
+    border: 1px solid transparent;
+  }
+
+  .product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 60px rgba(44,24,16,0.12);
+    border-color: var(--light-clay);
+  }
+
+  .product-img {
+    background: var(--light-clay);
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 72px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .product-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(44,24,16,0.04) 100%);
+  }
+
+  .product-badge {
+    position: absolute;
+    top: 14px; left: 14px;
+    background: var(--terracotta);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    z-index: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .badge-new { background: var(--sage); }
+  .badge-sale { background: var(--terracotta); }
+  .badge-hot { background: var(--gold); color: var(--dark-brown); }
+
+  .product-wish {
+    position: absolute;
+    top: 14px; right: 14px;
+    background: white;
+    border: none;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: all 0.2s;
+    z-index: 1;
+  }
+
+  .product-wish:hover { transform: scale(1.15); }
+
+  .product-info { padding: 20px; }
+
+  .product-brand {
+    font-size: 11px;
+    color: var(--terracotta);
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .product-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--dark-brown);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  .product-stars {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 12px;
+    font-size: 12px;
+  }
+
+  .stars { color: var(--gold); letter-spacing: 1px; }
+  .review-count { color: var(--text-muted); }
+
+  .product-pricing {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .price-main {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--terracotta);
+  }
+
+  .price-old {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-decoration: line-through;
+    margin-left: 8px;
+  }
+
+  .btn-add-cart {
+    background: var(--dark-brown);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-add-cart:hover {
+    background: var(--terracotta);
+    transform: scale(1.05);
+  }
+
+  /* ===== BANNER PROMO ===== */
+  .banner-section {
+    padding: 60px 0;
+    background: var(--cream);
+  }
+
+  .banner-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .banner-card {
+    border-radius: 24px;
+    padding: 48px 44px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .banner-card:hover { transform: scale(1.02); }
+
+  .banner-card-1 {
+    background: linear-gradient(135deg, var(--dark-brown) 0%, var(--mid-brown) 100%);
+    color: var(--cream);
+  }
+
+  .banner-card-2 {
+    background: linear-gradient(135deg, #7A8C6E 0%, #5A6E54 100%);
+    color: white;
+  }
+
+  .banner-card::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 240px; height: 240px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
+  }
+
+  .banner-card::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; right: 80px;
+    width: 200px; height: 200px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
+  }
+
+  .banner-eyebrow {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+
+  .banner-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    line-height: 1.2;
+    position: relative;
+    z-index: 1;
+  }
+
+  .banner-desc {
+    font-size: 14px;
+    opacity: 0.75;
+    margin-bottom: 28px;
+    line-height: 1.6;
+    max-width: 280px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .banner-emoji {
+    position: absolute;
+    right: 40px; bottom: 30px;
+    font-size: 80px;
+    opacity: 0.25;
+    z-index: 0;
+  }
+
+  .btn-banner {
+    background: rgba(255,255,255,0.15);
+    color: inherit;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    z-index: 1;
+    backdrop-filter: blur(4px);
+  }
+
+  .btn-banner:hover {
+    background: rgba(255,255,255,0.25);
+  }
+
+  /* ===== BESTSELLERS ===== */
+  .bestsellers {
+    padding: 80px 0;
+    background: var(--warm-white);
+  }
+
+  .bestseller-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .bestseller-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 1px solid var(--light-clay);
+  }
+
+  .bestseller-item:hover {
+    border-color: var(--clay);
+    box-shadow: 0 8px 24px rgba(44,24,16,0.08);
+    transform: translateX(4px);
+  }
+
+  .bs-rank {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--light-clay);
+    min-width: 32px;
+    text-align: center;
+  }
+
+  .bestseller-item:nth-child(1) .bs-rank { color: var(--gold); }
+  .bestseller-item:nth-child(2) .bs-rank { color: var(--clay); }
+  .bestseller-item:nth-child(3) .bs-rank { color: #A0A0A0; }
+
+  .bs-img {
+    width: 64px; height: 64px;
+    background: var(--light-clay);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+
+  .bs-info { flex: 1; min-width: 0; }
+  .bs-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dark-brown);
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .bs-price {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--terracotta);
+    font-family: 'Playfair Display', serif;
+  }
+  .bs-sold {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  /* ===== TESTIMONIALS ===== */
+  .testimonials {
+    background: var(--dark-brown);
+    padding: 90px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .testimonials::before {
+    content: '"';
+    position: absolute;
+    top: -40px; left: 60px;
+    font-family: 'Playfair Display', serif;
+    font-size: 300px;
+    color: rgba(196,168,130,0.06);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .testimonials .section-title { color: var(--cream); }
+  .testimonials .section-eyebrow { color: var(--clay); }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 44px;
+  }
+
+  .review-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(196,168,130,0.15);
+    border-radius: 20px;
+    padding: 28px;
+    transition: all 0.3s;
+  }
+
+  .review-card:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(196,168,130,0.3);
+  }
+
+  .review-stars { color: var(--gold); font-size: 14px; margin-bottom: 16px; }
+
+  .review-text {
+    color: rgba(247,243,238,0.8);
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+
+  .reviewer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .reviewer-avatar {
+    width: 42px; height: 42px;
+    background: var(--terracotta);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: white;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .reviewer-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--cream);
+  }
+
+  .reviewer-location {
+    font-size: 12px;
+    color: var(--clay);
+    margin-top: 1px;
+  }
+
+  /* ===== NEWSLETTER ===== */
+  .newsletter {
+    background: var(--light-clay);
+    padding: 80px 0;
+  }
+
+  .newsletter-inner {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .newsletter .section-title { font-size: 32px; margin-bottom: 14px; }
+  .newsletter-desc {
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+  }
+
+  .newsletter-form {
+    display: flex;
+    gap: 12px;
+    max-width: 460px;
+    margin: 0 auto;
+  }
+
+  .newsletter-input {
+    flex: 1;
+    padding: 14px 20px;
+    border: 1.5px solid var(--clay);
+    border-radius: 10px;
+    background: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .newsletter-input:focus { border-color: var(--terracotta); }
+  .newsletter-input::placeholder { color: var(--text-muted); }
+
+  .btn-subscribe {
+    background: var(--terracotta);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+
+  .btn-subscribe:hover { background: #9E4D2A; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: #1A0E08;
+    color: rgba(247,243,238,0.7);
+    padding: 70px 0 0;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 50px;
+    margin-bottom: 50px;
+  }
+
+  .footer-brand .logo-text { color: var(--cream); font-size: 20px; }
+
+  .footer-tagline {
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 16px 0 24px;
+    max-width: 260px;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 12px;
+  }
+
+  .social-btn {
+    width: 38px; height: 38px;
+    background: rgba(196,168,130,0.1);
+    border: 1px solid rgba(196,168,130,0.2);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    color: var(--clay);
+  }
+
+  .social-btn:hover {
+    background: var(--terracotta);
+    border-color: var(--terracotta);
+    color: white;
+    transform: translateY(-2px);
+  }
+
+  .footer-col h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: var(--cream);
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer-links a {
+    color: rgba(247,243,238,0.6);
+    text-decoration: none;
+    font-size: 13.5px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .footer-links a:hover {
+    color: var(--clay);
+    padding-left: 4px;
+  }
+
+  .footer-contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13.5px;
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+
+  .contact-icon { font-size: 16px; margin-top: 1px; }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(196,168,130,0.1);
+    padding: 24px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12.5px;
+    color: rgba(247,243,238,0.4);
+  }
+
+  .payment-icons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .payment-icon {
+    background: rgba(255,255,255,0.1);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(247,243,238,0.6);
+    letter-spacing: 0.5px;
+  }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .float-2 { animation: float 4s ease-in-out infinite; animation-delay: -1s; }
+  .float-3 { animation: float 4s ease-in-out infinite; animation-delay: -2s; }
+
+  /* ===== SCROLLBAR ===== */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--warm-white); }
+  ::-webkit-scrollbar-thumb { background: var(--clay); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="nav-top">🚚 Miễn phí vận chuyển cho đơn hàng trên 500.000đ &nbsp;|&nbsp; Giao hàng nhanh toàn quốc</div>
+  <nav>
+    <a href="#" class="logo">
+      <div class="logo-icon">🏠</div>
+      <span class="logo-text">Home<span>Style</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#categories">Danh Mục</a></li>
+      <li><a href="#featured">Sản Phẩm</a></li>
+      <li><a href="#bestsellers">Bán Chạy</a></li>
+      <li><a href="#">Khuyến Mãi</a></li>
+      <li><a href="#">Tin Tức</a></li>
+      <li><a href="#footer">Liên Hệ</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn-search">🔍</button>
+      <button class="btn-user">👤</button>
+      <button class="btn-cart">
+        🛒
+        <span class="cart-badge">3</span>
+      </button>
+      <button class="btn-cta-nav">Đăng Nhập</button>
+    </div>
+  </nav>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">✦ Bộ sưu tập mới 2024</div>
+    <h1 class="hero-title">
+      Biến Ngôi Nhà<br>Thành <em>Thiên Đường</em><br>Sống
+    </h1>
+    <p class="hero-desc">
+      Khám phá hàng ngàn sản phẩm gia dụng cao cấp, thiết kế hiện đại — giúp mọi góc nhà thêm tiện nghi và ấm áp.
+    </p>
+    <div class="hero-actions">
+      <button class="btn-primary">Mua Sắm Ngay →</button>
+      <button class="btn-ghost">Xem Catalogue</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-number">5.000+</span>
+        <div class="stat-label">Sản phẩm</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">98%</span>
+        <div class="stat-label">Hài lòng</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">50+</span>
+        <div class="stat-label">Thương hiệu</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-bg-pattern"></div>
+    <div class="hero-product-showcase">
+      <div class="product-card-hero" style="animation: float 4s ease-in-out infinite;">
+        <span class="p-emoji">🍳</span>
+        <div class="p-name">Bộ Nồi Chảo Cao Cấp</div>
+        <div>
+          <span class="p-price">1.299.000đ</span>
+          <span class="p-old">1.800.000đ</span>
+        </div>
+      </div>
+      <div class="product-card-hero" style="animation: float 4s ease-in-out infinite; animation-delay:-2s; transform:translateX(60px);">
+        <span class="p-emoji">🌡️</span>
+        <div class="p-name">Nồi Cơm Điện Cao Tần</div>
+        <div>
+          <span class="p-price">2.450.000đ</span>
+          <span class="p-old">3.200.000đ</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CATEGORIES ===== -->
+<section class="categories-strip" id="categories">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-eyebrow">Khám Phá</div>
+        <h2 class="section-title">Danh Mục Sản Phẩm</h2>
+      </div>
+      <a href="#" class="link-all">Tất cả danh mục →</a>
+    </div>
+    <div class="categories-grid">
+      <div class="cat-item">
+        <span class="cat-emoji">🍳</span>
+        <div class="cat-name">Bếp Nấu</div>
+        <div class="cat-count">340 sản phẩm</div>
+      </div>
+      <div class="cat-item">
+        <span class="cat-emoji">❄️</span>
+        <div class="cat-name">Tủ Lạnh</div>
+        <div class="cat-count">125 sản phẩm</div>
+      </div>
+      <div class="cat-item">
+        <span class="cat-emoji">🧹</span>
+        <div class="cat-name">Vệ Sinh</div>
+        <div class="cat-count">280 sản phẩm</div>
+      </div>
+      <div class="cat-item">
+        <span class="cat-emoji">☕</span>
+        <div class="cat-name">Đồ Uống</div>
+        <div class="cat-count">196 sản phẩm</div>
+      </div>
+      <div class="cat-item">
+        <span class="cat-emoji">🛏️</span>
+        <div class="cat-name">Phòng Ngủ</div>
+        <div class="cat-count">312 sản phẩm</div>
+      </div>
+      <div class="cat-item">
+        <span class="cat-emoji">🌿</span>
+        <div class="cat-name">Sinh Thái</div>
+        <div class="cat-count">88 sản phẩm</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURED PRODUCTS ===== -->
+<section class="featured" id="featured">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-eyebrow">Nổi Bật</div>
+        <h2 class="section-title">Sản Phẩm Đặc Sắc</h2>
+      </div>
+      <a href="#" class="link-all">Xem tất cả sản phẩm →</a>
+    </div>
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-img">
+          🍳
+          <span class="product-badge badge-sale">-28%</span>
+          <button class="product-wish">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-brand">Tefal</div>
+          <div class="product-name">Chảo Chống Dính Titanium Pro 28cm</div>
+          <div class="product-stars">
+            <span class="stars">★★★★★</span>
+            <span class="review-count">(248)</span>
+          </div>
+          <div class="product-pricing">
+            <div>
+              <span class="price-main">420.000đ</span>
+              <span class="price-old">580.000đ</span>
+            </div>
+            <button class="btn-add-cart">+ Giỏ</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background:#EAF0E8;">
+          ☕
+          <span class="product-badge badge-new">Mới</span>
+          <button class="product-wish">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-brand">Delonghi</div>
+          <div class="product-name">Máy Pha Cà Phê Espresso Tự Động</div>
+          <div class="product-stars">
+            <span class="stars">★★★★☆</span>
+            <span class="review-count">(112)</span>
+          </div>
+          <div class="product-pricing">
+            <div>
+              <span class="price-main">5.900.000đ</span>
+            </div>
+            <button class="btn-add-cart">+ Giỏ</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background:#EDE8F0;">
+          🌡️
+          <span class="product-badge badge-hot">Hot</span>
+          <button class="product-wish">❤️</button>
+        </div>
+        <div class="product-info">
+          <div class="product-brand">Panasonic</div>
+          <div class="product-name">Nồi Cơm Điện IH Cao Tần 1.5L</div>
+          <div class="product-stars">
+            <span class="stars">★★★★★</span>
+            <span class="review-count">(587)</span>
+          </div>
+          <div class="product-pricing">
+            <div>
+              <span class="price-main">2.450.000đ</span>
+              <span class="price-old">3.200.000đ</span>
+            </div>
+            <button class="btn-add-cart">+ Giỏ</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background:#F0EAE4;">
+          🧹
+          <span class="product-badge badge-sale">-15%</span>
+          <button class="product-wish">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-brand">Dyson</div>
+          <div class="product-name">Máy Hút Bụi Không Dây V12 Detect</div>
+          <div class="product-stars">
+            <span class="stars">★★★★★</span>
+            <span class="review-count">(324)</span>
+          </div>
+          <div class="product-pricing">
+            <div>
+              <span class="price-main">13.900.000đ</span>
+              <span class="price-old">16.400.000đ</span>
+            </div>
+            <button class="btn-add-cart">+ Giỏ</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROMO BANNERS ===== -->
+<section class="banner-section">
+  <div class="container">
+    <div class="banner-grid">
+      <div class="banner-card banner-card-1">
+        <div class="banner-eyebrow">Flash Sale · Hôm nay</div>
+        <h3 class="banner-title">Giảm Đến<br>40% Bộ Bếp</h3>
+        <p class="banner-desc">Nâng cấp gian bếp với bộ sưu tập nồi chảo, thiết bị bếp cao cấp từ các thương hiệu hàng đầu.</p>
+        <button class="btn-banner">Mua Ngay →</button>
+        <span class="banner-emoji">🍳</span>
+      </div>
+      <div class="banner-card banner-card-2">
+        <div class="banner-eyebrow">Xu Hướng · Eco-Friendly</div>
+        <h3 class="banner-title">Sống Xanh<br>Mỗi Ngày</h3>
+        <p class="banner-desc">Khám phá bộ sưu tập sản phẩm thân thiện môi trường — tốt cho ngôi nhà, tốt cho trái đất.</p>
+        <button class="btn-banner">Khám Phá →</button>
+        <span class="banner-emoji">🌿</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BESTSELLERS ===== -->
+<section class="bestsellers" id="bestsellers">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-eyebrow">Xếp Hạng</div>
+        <h2 class="section-title">Bán Chạy Nhất Tuần</h2>
+      </div>
+      <a href="#" class="link-all">Xem bảng xếp hạng →</a>
+    </div>
+    <div class="bestseller-list">
+      <div class="bestseller-item">
+        <div class="bs-rank">01</div>
+        <div class="bs-img">🍳</div>
+        <div class="bs-info">
+          <div class="bs-name">Chảo Chống Dính Tefal 28cm</div>
+          <div class="bs-price">420.000đ</div>
+          <div class="bs-sold">Đã bán: 1.240 cái</div>
+        </div>
+      </div>
+      <div class="bestseller-item">
+        <div class="bs-rank">02</div>
+        <div class="bs-img">🌡️</div>
+        <div class="bs-info">
+          <div class="bs-name">Nồi Cơm Điện Panasonic 1.5L</div>
+          <div class="bs-price">2.450.000đ</div>
+          <div class="bs-sold">Đã bán: 876 cái</div>
+        </div>
+      </div>
+      <div class="bestseller-item">
+        <div class="bs-rank">03</div>
+        <div class="bs-img">☕</div>
+        <div class="bs-info">
+          <div class="bs-name">Ấm Siêu Tốc Philips 1.7L</div>
+          <div class="bs-price">389.000đ</div>
+          <div class="bs-sold">Đã bán: 654 cái</div>
+        </div>
+      </div>
+      <div class="bestseller-item">
+        <div class="bs-rank">04</div>
+        <div class="bs-img">❄️</div>
+        <div class="bs-info">
+          <div class="bs-name">Tủ Lạnh Samsung Inverter 305L</div>
+          <div class="bs-price">8.290.000đ</div>
+          <div class="bs-sold">Đã bán: 412 cái</div>
+        </div>
+      </div>
+      <div class="bestseller-item">
+        <div class="bs-rank">05</div>
+        <div class="bs-img">🧹</div>
+        <div class="bs-info">
+          <div class="bs-name">Máy Hút Bụi Dyson V8</div>
+          <div class="bs-price">9.490.000đ</div>
+          <div class="bs-sold">Đã bán: 287 cái</div>
+        </div>
+      </div>
+      <div class="bestseller-item">
+        <div class="bs-rank">06</div>
+        <div class="bs-img">🍞</div>
+        <div class="bs-info">
+          <div class="bs-name">Lò Vi Sóng Electrolux 20L</div>
+          <div class="bs-price">1.890.000đ</div>
+          <div class="bs-sold">Đã bán: 245 cái</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="testimonials">
+  <div class="container">
+    <div>
+      <div class="section-eyebrow">Đánh Giá</div>
+      <h2 class="section-title">Khách Hàng Nói Gì?</h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Tôi đã mua bộ nồi chảo Tefal và thực sự ấn tượng với chất lượng. Chống dính tuyệt vời, dễ vệ sinh, giao hàng nhanh hơn mong đợi. Chắc chắn sẽ quay lại!"</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">L</div>
+          <div>
+            <div class="reviewer-name">Lê Thị Hương</div>
+            <div class="reviewer-location">TP. Hồ Chí Minh</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Máy pha cà phê Delonghi vượt kỳ vọng của tôi. Cà phê pha ra thơm ngon, giao diện dễ dùng. Dịch vụ tư vấn của HomeStyle rất nhiệt tình và chuyên nghiệp."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar" style="background:#7A8C6E;">N</div>
+          <div>
+            <div class="reviewer-name">Nguyễn Minh Tuấn</div>
+            <div class="reviewer-location">Hà Nội</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★☆</div>
+        <p class="review-text">"Đặt hàng buổi sáng, nhận hàng chiều tối cùng ngày. Đóng gói cẩn thận, sản phẩm đúng như mô tả. Giá cả hợp lý, sẽ giới thiệu cho bạn bè và người thân."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar" style="background:#D4A843;color:#2C1810;">T</div>
+          <div>
+            <div class="reviewer-name">Trần Bảo Châu</div>
+            <div class="reviewer-location">Đà Nẵng</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== NEWSLETTER ===== -->
+<section class="newsletter">
+  <div class="container">
+    <div class="newsletter-inner">
+      <div class="section-eyebrow" style="text-align:center;">Đặc Quyền Thành Viên</div>
+      <h2 class="section-title" style="text-align:center;">Nhận Ưu Đãi Độc Quyền</h2>
+      <p class="newsletter-desc">Đăng ký nhận bản tin để không bỏ lỡ flash sale, voucher giảm giá và những sản phẩm mới nhất từ HomeStyle.</p>
+      <div class="newsletter-form">
+        <input type="email" class="newsletter-input" placeholder="Nhập địa chỉ email của bạn...">
+        <button class="btn-subscribe">Đăng Ký</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer id="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <div class="logo-icon">🏠</div>
+          <span class="logo-text">Home<span>Style</span></span>
+        </a>
+        <p class="footer-tagline">
+          Mang đến những sản phẩm gia dụng chất lượng cao, giúp mỗi gia đình Việt Nam có một ngôi nhà tiện nghi và ấm áp hơn.
+        </p>
+        <div class="social-links">
+          <a href="#" class="social-btn">f</a>
+          <a href="#" class="social-btn">in</a>
+          <a href="#" class="social-btn">▶</a>
+          <a href="#" class="social-btn">◎</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Về Chúng Tôi</h4>
+        <ul class="footer-links">
+          <li><a href="#">→ Giới thiệu</a></li>
+          <li><a href="#">→ Câu chuyện thương hiệu</a></li>
+          <li><a href="#">→ Tuyển dụng</a></li>
+          <li><a href="#">→ Tin tức & Blog</a></li>
+          <li><a href="#">→ Đối tác</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Hỗ Trợ</h4>
+        <ul class="footer-links">
+          <li><a href="#">→ Hướng dẫn mua hàng</a></li>
+          <li><a href="#">→ Chính sách đổi trả</a></li>
+          <li><a href="#">→ Bảo hành sản phẩm</a></li>
+          <li><a href="#">→ Câu hỏi thường gặp</a></li>
+          <li><a href="#">→ Tra cứu đơn hàng</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Liên Hệ</h4>
+        <div class="footer-contact-item">
+          <span class="contact-icon">📍</span>
+          <span>123 Nguyễn Huệ, Q.1, TP. Hồ Chí Minh</span>
+        </div>
+        <div class="footer-contact-item">
+          <span class="contact-icon">📞</span>
+          <span>1800 1234 (Miễn phí)</span>
+        </div>
+        <div class="footer-contact-item">
+          <span class="contact-icon">✉️</span>
+          <span>hello@homestyle.vn</span>
+        </div>
+        <div class="footer-contact-item">
+          <span class="contact-icon">🕐</span>
+          <span>T2 – T7: 8:00 – 21:00</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2024 HomeStyle Vietnam. Tất cả quyền được bảo lưu.</span>
+      <div class="payment-icons">
+        <span style="font-size:11px;color:rgba(247,243,238,0.4);margin-right:4px;">Thanh toán:</span>
+        <span class="payment-icon">VISA</span>
+        <span class="payment-icon">MC</span>
+        <span class="payment-icon">MOMO</span>
+        <span class="payment-icon">VNPAY</span>
+        <span class="payment-icon">ZaloPay</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Sticky header shadow on scroll
+  window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    if (window.scrollY > 10) {
+      header.style.boxShadow = '0 4px 24px rgba(44,24,16,0.1)';
+    } else {
+      header.style.boxShadow = 'none';
+    }
+  });
+
+  // Add to cart button feedback
+  document.querySelectorAll('.btn-add-cart').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const original = btn.textContent;
+      btn.textContent = '✓ Đã thêm';
+      btn.style.background = '#7A8C6E';
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.style.background = '';
+      }, 1500);
+    });
+  });
+
+  // Wishlist toggle
+  document.querySelectorAll('.product-wish').forEach(btn => {
+    btn.addEventListener('click', e => {
+      btn.textContent = btn.textContent === '🤍' ? '❤️' : '🤍';
+    });
+  });
+
+  // Newsletter
+  document.querySelector('.btn-subscribe').addEventListener('click', () => {
+    const input = document.querySelector('.newsletter-input');
+    if (input.value) {
+      input.value = '';
+      input.placeholder = '✓ Đăng ký thành công! Cảm ơn bạn.';
+      setTimeout(() => {
+        input.placeholder = 'Nhập địa chỉ email của bạn...';
+      }, 3000);
+    }
+  });
+</script>
+</body>
+</html>
