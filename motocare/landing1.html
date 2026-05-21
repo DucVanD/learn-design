@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotoCare — Chuỗi Bảo Trì Xe Máy Công Nghệ Cao</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-orange': '#d95615',
+                        'primary-orange-hover': '#b8430c',
+                        'page-bg': '#f8fafc',
+                        'slate-950': '#090d16'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;  
+            overflow: hidden;
+        }
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;  
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-page-bg font-sans text-slate-800 antialiased overflow-x-hidden">
+
+    <!-- HEADER & NAVIGATION -->
+    <header class="bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 bg-primary-orange rounded-xl flex items-center justify-center text-white font-extrabold text-xl shadow-md shadow-orange-500/10">
+                    M
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold text-slate-900 tracking-tight">Moto<span class="text-primary-orange">Care</span></span>
+                    <p class="text-[9px] text-slate-500 uppercase tracking-widest font-bold">Chuỗi bảo trì công nghệ cao</p>
+                </div>
+            </div>
+            
+            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
+                <a href="#" class="text-primary-orange">Trang chủ</a>
+                <a href="#services" class="hover:text-primary-orange transition-colors">Dịch vụ chuỗi</a>
+                <a href="#why-us" class="hover:text-primary-orange transition-colors">Về chúng tôi</a>
+                <a href="#promotions" class="hover:text-primary-orange transition-colors">Khuyến mãi</a>
+                <a href="#blogs" class="hover:text-primary-orange transition-colors">Cẩm nang xe</a>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <a href="tel:19008888" class="hidden lg:flex items-center gap-2 text-sm font-extrabold text-slate-800 bg-slate-100 px-4 py-2.5 rounded-xl border border-slate-200">
+                    <i data-lucide="phone" class="w-4 h-4 text-primary-orange animate-pulse"></i>
+                    <span>1900 8888</span>
+                </a>
+                <a href="#booking" class="px-5 py-2.5 bg-primary-orange hover:bg-primary-orange-hover text-white rounded-xl text-sm font-bold shadow-md shadow-orange-500/10 transition-all hover:-translate-y-0.5">
+                    Đặt lịch bảo dưỡng
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- FLOATING EMERGENCY BUTTON -->
+    <a href="tel:19008888" class="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-red-600 hover:bg-red-700 text-white px-5 py-3.5 rounded-full shadow-2xl transition-all duration-300 hover:scale-105 group border border-red-500/30">
+        <div class="relative flex h-3 w-3">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
+        </div>
+        <i data-lucide="zap" class="w-4 h-4"></i>
+        <span class="text-xs font-black uppercase tracking-widest">Cứu hộ 24/7</span>
+    </a>
+
+    <!-- TOAST NOTIFICATION SYSTEM -->
+    <div id="toast-container" class="fixed top-24 right-6 z-50 space-y-3 pointer-events-none"></div>
+
+    <!-- 1. HERO SECTION (DYNAMIC SLIDER) -->
+    <section class="relative h-[85vh] min-h-[550px] flex items-center bg-slate-950 overflow-hidden">
+        <!-- Slide 1 -->
+        <div class="hero-slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-100 z-10" data-idx="0">
+            <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=1920&q=80" alt="Bảo trì thông minh" class="w-full h-full object-cover object-center" />
+            <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/70 to-transparent"></div>
+            <div class="absolute inset-0 bg-slate-950/30"></div>
+        </div>
+        <!-- Slide 2 -->
+        <div class="hero-slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 z-0" data-idx="1">
+            <img src="https://images.unsplash.com/photo-1486006920555-c77dce18193b?w=1920&q=80" alt="Tiêu chuẩn ISO" class="w-full h-full object-cover object-center" />
+            <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/70 to-transparent"></div>
+            <div class="absolute inset-0 bg-slate-950/30"></div>
+        </div>
+        <!-- Slide 3 -->
+        <div class="hero-slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 z-0" data-idx="2">
+            <img src="https://images.unsplash.com/photo-1568772585407-9363f9bf3a87?w=1920&q=80" alt="Cứu hộ 24/7" class="w-full h-full object-cover object-center" />
+            <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/70 to-transparent"></div>
+            <div class="absolute inset-0 bg-slate-950/30"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 w-full relative z-20 grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <!-- Badge dynamic content -->
+                <div id="hero-badge" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-900/80 backdrop-blur-md text-primary-orange rounded-full mb-6 text-[10px] font-bold border border-white/10 uppercase tracking-wider">
+                    <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
+                    <span id="hero-badge-text">Chuỗi dự báo hư hỏng AI đầu tiên</span>
+                </div>
+                
+                <h1 class="text-4xl sm:text-6xl font-extrabold leading-[1.1] tracking-tight mb-6 text-white">
+                    <span id="hero-title-1">An tâm</span> <br />
+                    <span id="hero-title-2" class="text-transparent bg-clip-text bg-gradient-to-r from-primary-orange to-orange-400">cầm lái.</span>
+                </h1>
+                
+                <p id="hero-desc" class="text-base sm:text-lg text-slate-300 mb-8 leading-relaxed max-w-lg font-medium h-24 overflow-hidden">
+                    Hệ thống chăm sóc xe máy duy nhất ứng dụng dự báo AI. Minh bạch quy trình kỹ thuật, phụ tùng chính hãng được chuẩn hóa trên toàn hệ thống 50 chi nhánh.
+                </p>
+                
+                <!-- Slide Indicators -->
+                <div class="flex gap-2.5 mb-8">
+                    <button onclick="setSlide(0)" class="slide-indicator h-1.5 rounded-full w-10 bg-primary-orange transition-all duration-300"></button>
+                    <button onclick="setSlide(1)" class="slide-indicator h-1.5 rounded-full w-3 bg-white/30 hover:bg-white/50 transition-all duration-300"></button>
+                    <button onclick="setSlide(2)" class="slide-indicator h-1.5 rounded-full w-3 bg-white/30 hover:bg-white/50 transition-all duration-300"></button>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-4">
+                    <a href="#booking" class="bg-primary-orange text-white px-8 py-3.5 rounded-xl font-bold text-sm flex items-center gap-3 hover:bg-primary-orange-hover transition-all shadow-lg shadow-orange-500/20">
+                        Đặt lịch ngay <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                    <a href="#services" class="bg-white/10 backdrop-blur-sm text-white px-8 py-3.5 rounded-xl font-bold text-sm border border-white/20 hover:bg-white/20 transition-all">
+                        Xem bảng giá dịch vụ
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. STRATEGIC PARTNERS -->
+    <section class="py-12 bg-slate-100 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-10">
+                <div class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white text-slate-600 rounded-full mb-3 text-[11px] font-bold border border-slate-200 uppercase tracking-wider">
+                    <i data-lucide="users" class="w-3.5 h-3.5"></i> Chuỗi liên kết toàn diện
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">ĐỐI TÁC CÔNG NGHỆ & CHIẾN LƯỢC</h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+                <!-- Partner 1 -->
+                <div class="group rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm hover:shadow-md transition-all duration-300 flex flex-col">
+                    <div class="h-28 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=400&q=80" alt="FPT Smart Cloud" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+                        <span class="absolute bottom-2 left-3 text-[10px] font-bold uppercase text-primary-orange tracking-wider">Đối tác AI</span>
+                    </div>
+                    <div class="p-4 flex-1">
+                        <h4 class="text-sm font-bold text-slate-900 mb-1">FPT Smart Cloud</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Hạ tầng Cloud và thuật toán AI dự báo thời gian hỏng hóc linh kiện xe máy.</p>
+                    </div>
+                </div>
+                <!-- Partner 2 -->
+                <div class="group rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm hover:shadow-md transition-all duration-300 flex flex-col">
+                    <div class="h-28 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=400&q=80" alt="Momo / VNPay" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+                        <span class="absolute bottom-2 left-3 text-[10px] font-bold uppercase text-primary-orange tracking-wider">Thanh toán</span>
+                    </div>
+                    <div class="p-4 flex-1">
+                        <h4 class="text-sm font-bold text-slate-900 mb-1">MoMo & VNPay</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Cổng thanh toán điện tử không tiền mặt an toàn, thuận tiện với nhiều ưu đãi hoàn tiền.</p>
+                    </div>
+                </div>
+                <!-- Partner 3 -->
+                <div class="group rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm hover:shadow-md transition-all duration-300 flex flex-col">
+                    <div class="h-28 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=400&q=80" alt="Honda Vietnam" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+                        <span class="absolute bottom-2 left-3 text-[10px] font-bold uppercase text-primary-orange tracking-wider">Phụ tùng</span>
+                    </div>
+                    <div class="p-4 flex-1">
+                        <h4 class="text-sm font-bold text-slate-900 mb-1">Honda Vietnam</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Cung cấp nguồn phụ tùng nhập khẩu chính ngạch đạt chuẩn kỹ thuật quốc gia.</p>
+                    </div>
+                </div>
+                <!-- Partner 4 -->
+                <div class="group rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm hover:shadow-md transition-all duration-300 flex flex-col">
+                    <div class="h-28 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&q=80" alt="MIC Insurance" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+                        <span class="absolute bottom-2 left-3 text-[10px] font-bold uppercase text-primary-orange tracking-wider">Bảo hiểm</span>
+                    </div>
+                    <div class="p-4 flex-1">
+                        <h4 class="text-sm font-bold text-slate-900 mb-1">Bảo hiểm Quân Đội MIC</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Gói bảo hiểm toàn diện về người và phương tiện khi tham gia dịch vụ bảo dưỡng.</p>
+                    </div>
+                </div>
+                <!-- Partner 5 -->
+                <div class="group rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm hover:shadow-md transition-all duration-300 flex flex-col">
+                    <div class="h-28 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&q=80" alt="Vlab Innovation" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+                        <span class="absolute bottom-2 left-3 text-[10px] font-bold uppercase text-primary-orange tracking-wider">Nghiên cứu</span>
+                    </div>
+                    <div class="p-4 flex-1">
+                        <h4 class="text-sm font-bold text-slate-900 mb-1">Vlab Innovation</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">Đồng phát triển các thiết bị chẩn đoán cảm biến và tối ưu hiệu năng buồng đốt.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. WHY CHOOSE MOTOCARE -->
+    <section id="why-us" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-50 text-slate-600 rounded-full mb-3 text-xs font-bold border border-slate-200 uppercase tracking-wider">
+                    <i data-lucide="activity" class="w-3.5 h-3.5 text-primary-orange"></i> Khác biệt lớn từ MotoCare
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                    Mô hình dịch vụ nâng tầm trải nghiệm của bạn
+                </h2>
+                <p class="text-slate-500 text-sm mt-3 max-w-2xl mx-auto">Áp dụng công nghệ số hóa 100% quy trình vận hành và kiểm tra, cam kết minh bạch tuyệt đối về tình trạng kỹ thuật của xe máy.</p>
+            </div>
+
+            <!-- Core differences cards -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <!-- Why 1 -->
+                <div class="p-6 bg-slate-50 border border-slate-200 rounded-2xl hover:border-primary-orange/50 hover:shadow-lg transition-all duration-300">
+                    <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-6 border border-slate-200">
+                        <i data-lucide="shield-check" class="w-6 h-6 text-primary-orange"></i>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-900 mb-2">Chuẩn Quy Trình ISO 9001</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        Quy trình kiểm tra an toàn 15 bước bắt buộc và nghiêm ngặt đối với mọi phương tiện, cam kết không bỏ sót các lỗi tiềm ẩn gây nguy hiểm.
+                    </p>
+                </div>
+                <!-- Why 2 -->
+                <div class="p-6 bg-slate-50 border border-slate-200 rounded-2xl hover:border-primary-orange/50 hover:shadow-lg transition-all duration-300">
+                    <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-6 border border-slate-200">
+                        <i data-lucide="cpu" class="w-6 h-6 text-primary-orange"></i>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-900 mb-2">Số Hóa & Dự Báo AI</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        Chụp quét và phân tích dữ liệu xe máy qua cảm biến, dự đoán thời gian chính xác cần thay linh kiện tiếp theo, gửi thông báo trực tiếp qua SMS.
+                    </p>
+                </div>
+                <!-- Why 3 -->
+                <div class="p-6 bg-slate-50 border border-slate-200 rounded-2xl hover:border-primary-orange/50 hover:shadow-lg transition-all duration-300">
+                    <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-6 border border-slate-200">
+                        <i data-lucide="clock" class="w-6 h-6 text-primary-orange"></i>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-900 mb-2">Tối Ưu Thời Gian Chờ</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        Đăng ký lịch hẹn trực tuyến giúp rút ngắn 80% thời gian chờ đợi tại điểm sửa chữa. Hoàn thiện dịch vụ bảo trì tiêu chuẩn chỉ trong vòng 45 phút.
+                    </p>
+                </div>
+                <!-- Why 4 -->
+                <div class="p-6 bg-slate-50 border border-slate-200 rounded-2xl hover:border-primary-orange/50 hover:shadow-lg transition-all duration-300">
+                    <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-6 border border-slate-200">
+                        <i data-lucide="users" class="w-6 h-6 text-primary-orange"></i>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-900 mb-2">Kỹ Thuật Viên Đạt Chuẩn</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        Hơn 200 kỹ thuật viên tay nghề giỏi, có bằng cấp chứng nhận chuyên nghiệp, trải qua các đợt tập huấn định kỳ chuyên sâu từ các hãng xe lớn.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Stats bar -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8">
+                <div class="text-center p-2 border-r border-slate-200/60 last:border-0">
+                    <p class="text-3xl sm:text-4xl font-extrabold text-primary-orange mb-1">50,000+</p>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Khách hàng tin tưởng</p>
+                </div>
+                <div class="text-center p-2 border-r border-slate-200/60 md:last:border-0 last:border-0">
+                    <p class="text-3xl sm:text-4xl font-extrabold text-primary-orange mb-1">50+</p>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Chi nhánh toàn quốc</p>
+                </div>
+                <div class="text-center p-2 border-r border-slate-200/60 last:border-0">
+                    <p class="text-3xl sm:text-4xl font-extrabold text-primary-orange mb-1">200+</p>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Kỹ Thuật Viên Chuyên Sâu</p>
+                </div>
+                <div class="text-center p-2 last:border-0">
+                    <p class="text-3xl sm:text-4xl font-extrabold text-primary-orange mb-1">99.2%</p>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Hài lòng từ quý khách</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. HIGHLIGHT SERVICES -->
+    <section id="services" class="py-20 bg-slate-50 border-y border-slate-200">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                <div class="max-w-xl">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                        Dịch vụ <span class="text-primary-orange">tiêu chuẩn cao.</span>
+                    </h2>
+                    <p class="text-slate-500 text-sm mt-2">Toàn bộ trang thiết bị tại các điểm kỹ thuật đạt tiêu chuẩn kiểm định của cục đăng kiểm.</p>
+                </div>
+                <a href="#booking" class="inline-flex items-center gap-2 text-primary-orange font-bold text-sm hover:text-primary-orange-hover transition-colors">
+                    Tìm hiểu bảng giá chi tiết <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Service 1 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-primary-orange transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="w-11 h-11 bg-orange-50 text-primary-orange rounded-xl flex items-center justify-center mb-5 border border-orange-100">
+                            <i data-lucide="check-circle" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 mb-2">Bảo dưỡng trọn gói</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed mb-4">
+                            Gói khám xe 15 bước chuyên sâu giúp làm sạch bộ lọc gió, căn chỉnh phanh xe, kiểm tra nước làm mát động cơ và sạc dòng điện bình ắc quy.
+                        </p>
+                    </div>
+                    <span class="text-[10px] font-bold text-primary-orange uppercase tracking-wider block mt-2">Chỉ từ 150k / lượt</span>
+                </div>
+                <!-- Service 2 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-primary-orange transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="w-11 h-11 bg-orange-50 text-primary-orange rounded-xl flex items-center justify-center mb-5 border border-orange-100">
+                            <i data-lucide="wrench" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 mb-2">Tối ưu nồi & động cơ</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed mb-4">
+                            Vệ sinh bề mặt chuông nồi, búa côn, căn chỉnh lò xo ba càng bám chuẩn giúp xe tay ga hết sạch hiện tượng rung đầu và mượt bốc khi lên ga.
+                        </p>
+                    </div>
+                    <span class="text-[10px] font-bold text-primary-orange uppercase tracking-wider block mt-2">Chỉ từ 120k / lượt</span>
+                </div>
+                <!-- Service 3 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-primary-orange transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="w-11 h-11 bg-orange-50 text-primary-orange rounded-xl flex items-center justify-center mb-5 border border-orange-100">
+                            <i data-lucide="cpu" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 mb-2">Đại tu chuyên sâu</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed mb-4">
+                            Xử lý dứt điểm rò rỉ dầu máy, phục hồi đầu quy-lát, căn chỉnh sup-pap, ép biên tay dên giúp khôi phục 98% công suất ban đầu của xe.
+                        </p>
+                    </div>
+                    <span class="text-[10px] font-bold text-primary-orange uppercase tracking-wider block mt-2">Báo giá theo hạng mục</span>
+                </div>
+                <!-- Service 4 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-primary-orange transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="w-11 h-11 bg-orange-50 text-primary-orange rounded-xl flex items-center justify-center mb-5 border border-orange-100">
+                            <i data-lucide="phone" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 mb-2">Cứu hộ lưu động</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed mb-4">
+                            Đội kỹ thuật cứu hộ phản ứng nhanh túc trực 24/7, luôn chuẩn bị đầy đủ dụng cụ sửa chữa tận nơi và có mặt nhanh trong vòng 30 phút.
+                        </p>
+                    </div>
+                    <span class="text-[10px] font-bold text-red-600 uppercase tracking-wider block mt-2">Hotline: 1900 8888</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. PROMOTIONS SECTION -->
+    <section id="promotions" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-50 text-slate-600 rounded-full mb-3 text-xs font-bold border border-slate-200 uppercase tracking-wider">
+                    <i data-lucide="tag" class="w-3.5 h-3.5 text-primary-orange"></i> Ưu đãi đặc quyền
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Voucher & Khuyến Mãi Nổi Bật</h2>
+                <p class="text-sm text-slate-500 mt-2">Mã ưu đãi áp dụng trên toàn bộ chuỗi cơ sở chính hãng của hệ thống</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Promo 1 -->
+                <div class="border-2 border-dashed border-slate-200 bg-white p-6 rounded-2xl relative overflow-hidden group hover:border-primary-orange/50 transition-all duration-300">
+                    <div class="absolute -top-6 -right-6 w-12 h-12 bg-slate-50 rounded-full border border-slate-200"></div>
+                    <div class="absolute -bottom-6 -right-6 w-12 h-12 bg-slate-50 rounded-full border border-slate-200"></div>
+                    
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="w-10 h-10 rounded-lg bg-orange-50 text-primary-orange flex items-center justify-center border border-orange-100">
+                            <i data-lucide="tag" class="w-5 h-5"></i>
+                        </div>
+                        <span class="px-2.5 py-1 bg-orange-100 text-primary-orange rounded-full text-[10px] font-black tracking-wider uppercase">Voucher giảm giá</span>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-900 mb-1">Bảo dưỡng toàn bộ xe máy đón hè</h3>
+                    <p class="text-2xl font-extrabold text-primary-orange mb-4">Giảm giá 20%</p>
+                    <div class="border-t border-slate-100 pt-4 flex justify-between items-center mt-6">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Mã khuyến mãi</span>
+                        <div class="bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200 font-mono text-xs font-bold text-slate-700 select-all hover:bg-slate-100 transition-colors">
+                            MOTOCARE4
+                        </div>
+                    </div>
+                </div>
+                <!-- Promo 2 -->
+                <div class="border-2 border-dashed border-slate-200 bg-white p-6 rounded-2xl relative overflow-hidden group hover:border-primary-orange/50 transition-all duration-300">
+                    <div class="absolute -top-6 -right-6 w-12 h-12 bg-slate-50 rounded-full border border-slate-200"></div>
+                    <div class="absolute -bottom-6 -right-6 w-12 h-12 bg-slate-50 rounded-full border border-slate-200"></div>
+                    
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-100">
+                            <i data-lucide="check-circle" class="w-5 h-5"></i>
+                        </div>
+                        <span class="px-2.5 py-1 bg-emerald-100 text-emerald-700 rounded-full text-[10px] font-black tracking-wider uppercase">Tặng quà trực tiếp</span>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-900 mb-1">Đặt lịch thay dầu động cơ Motul</h3>
+                    <p class="text-2xl font-extrabold text-emerald-600 mb-4">Tặng Nhớt Xe Ga</p>
+                    <div class="border-t border-slate-100 pt-4 flex justify-between items-center mt-6">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Mã khuyến mãi</span>
+                        <div class="bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200 font-mono text-xs font-bold text-slate-700 select-all hover:bg-slate-100 transition-colors">
+                            FREEOIL
+                        </div>
+                    </div>
+                </div>
+                <!-- Promo 3 -->
+                <div class="border-2 border-dashed border-slate-200 bg-white p-6 rounded-2xl relative overflow-hidden group hover:border-primary-orange/50 transition-all duration-300">
+                    <div class="absolute -top-6 -right-6 w-12 h-12 bg-slate-50 rounded-full border border-slate-200"></div>
+                    <div class="absolute -bottom-6 -right-6 w-12 h-12 bg-slate-50 rounded-full border border-slate-200"></div>
+                    
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="w-10 h-10 rounded-lg bg-orange-50 text-primary-orange flex items-center justify-center border border-orange-100">
+                            <i data-lucide="tag" class="w-5 h-5"></i>
+                        </div>
+                        <span class="px-2.5 py-1 bg-orange-100 text-primary-orange rounded-full text-[10px] font-black tracking-wider uppercase">Gói Combo</span>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-900 mb-1">Gói chăm sóc nâng cao & vệ sinh Fi</h3>
+                    <p class="text-2xl font-extrabold text-primary-orange mb-4">Giảm giá 15%</p>
+                    <div class="border-t border-slate-100 pt-4 flex justify-between items-center mt-6">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Mã khuyến mãi</span>
+                        <div class="bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200 font-mono text-xs font-bold text-slate-700 select-all hover:bg-slate-100 transition-colors">
+                            COMBO99
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. RECENT BLOGS -->
+    <section id="blogs" class="py-20 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                <div class="max-w-xl">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Góc chia sẻ kiến thức xe máy</h2>
+                    <p class="text-sm text-slate-500 mt-2">Cập nhật cẩm nang bảo dưỡng và kinh nghiệm lái xe hữu ích từ các chuyên gia MotoCare.</p>
+                </div>
+                <a href="#" class="inline-flex items-center gap-2 text-primary-orange font-bold text-sm hover:text-primary-orange-hover transition-all">
+                    Đọc thêm toàn bộ bài viết <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Blog 1 -->
+                <div class="group bg-white rounded-2xl border border-slate-200 overflow-hidden hover:border-primary-orange hover:shadow-lg transition-all duration-300 flex flex-col cursor-pointer">
+                    <div class="h-48 overflow-hidden relative bg-slate-100">
+                        <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=600&q=80" alt="Chăm sóc xe ga" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <span class="absolute top-3 left-3 px-2.5 py-1 bg-white text-slate-900 text-[10px] font-bold rounded shadow-sm border border-slate-100 uppercase tracking-wider">Kỹ thuật</span>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1 justify-between">
+                        <div>
+                            <div class="flex items-center gap-2 text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-2">
+                                <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+                                <span>24/05/2026</span>
+                            </div>
+                            <h3 class="text-sm font-bold text-slate-900 mb-2 leading-snug group-hover:text-primary-orange transition-colors">
+                                5 Bí quyết cốt lõi giúp chiếc xe tay ga luôn êm ái, bền bỉ như mới
+                            </h3>
+                            <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">
+                                Hướng dẫn chi tiết cách bảo dưỡng hệ thống truyền động nồi xe ga, vệ sinh định kỳ giúp lọc gió và chọn loại nhớt xe tay ga chất lượng cao.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Blog 2 -->
+                <div class="group bg-white rounded-2xl border border-slate-200 overflow-hidden hover:border-primary-orange hover:shadow-lg transition-all duration-300 flex flex-col cursor-pointer">
+                    <div class="h-48 overflow-hidden relative bg-slate-100">
+                        <img src="https://images.unsplash.com/photo-1568772585407-9363f9bf3a87?w=600&q=80" alt="Hệ thống ABS" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <span class="absolute top-3 left-3 px-2.5 py-1 bg-white text-slate-900 text-[10px] font-bold rounded shadow-sm border border-slate-100 uppercase tracking-wider">Cẩm nang</span>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1 justify-between">
+                        <div>
+                            <div class="flex items-center gap-2 text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-2">
+                                <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+                                <span>21/05/2026</span>
+                            </div>
+                            <h3 class="text-sm font-bold text-slate-900 mb-2 leading-snug group-hover:text-primary-orange transition-colors">
+                                Hướng dẫn cách tự kiểm tra hiệu năng phanh chống bó cứng ABS tại nhà
+                            </h3>
+                            <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">
+                                Cách đọc ký hiệu đèn báo ABS trên mặt đồng hồ và quy trình tự vệ sinh cụm mắt đọc cảm biến tốc độ bánh xe ga nhanh gọn, chuẩn kỹ thuật.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Blog 3 -->
+                <div class="group bg-white rounded-2xl border border-slate-200 overflow-hidden hover:border-primary-orange hover:shadow-lg transition-all duration-300 flex flex-col cursor-pointer">
+                    <div class="h-48 overflow-hidden relative bg-slate-100">
+                        <img src="https://images.unsplash.com/photo-1449495169669-7b118f960237?w=600&q=80" alt="Vệ sinh kim phun" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <span class="absolute top-3 left-3 px-2.5 py-1 bg-white text-slate-900 text-[10px] font-bold rounded shadow-sm border border-slate-100 uppercase tracking-wider">Kiến thức</span>
+                    </div>
+                    <div class="p-5 flex flex-col flex-1 justify-between">
+                        <div>
+                            <div class="flex items-center gap-2 text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-2">
+                                <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+                                <span>18/05/2026</span>
+                            </div>
+                            <h3 class="text-sm font-bold text-slate-900 mb-2 leading-snug group-hover:text-primary-orange transition-colors">
+                                Tại sao cần phải thực hiện vệ sinh kim phun Fi xe máy đúng chu kỳ?
+                            </h3>
+                            <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">
+                                Việc muội than bám bẩn kim phun nhiên liệu có thể làm xe bị hụt hơi, ăn xăng nhiều và giảm công suất lớn. Giải pháp khắc phục nhanh.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. CTA / BOOKING COMPONENT -->
+    <section id="booking" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="bg-primary-orange rounded-3xl overflow-hidden shadow-xl relative flex flex-col lg:flex-row items-stretch">
+                <!-- Decorative background elements -->
+                <div class="absolute top-0 right-0 w-80 h-80 bg-white/10 rounded-full blur-3xl -translate-y-1/3 translate-x-1/3 pointer-events-none"></div>
+                <div class="absolute bottom-0 left-0 w-64 h-64 bg-slate-950/10 rounded-full blur-2xl translate-y-1/3 -translate-x-1/3 pointer-events-none"></div>
+
+                <div class="p-8 sm:p-12 lg:w-1/2 relative z-10 text-white flex flex-col justify-between">
+                    <div>
+                        <span class="text-[10px] font-extrabold uppercase tracking-widest bg-white/10 border border-white/20 px-3 py-1.5 rounded-full inline-block mb-6">Trải nghiệm dịch vụ số</span>
+                        <h2 class="text-3xl sm:text-4xl font-black mb-4 tracking-tight leading-tight">Sẵn sàng trải nghiệm dịch vụ chuyên nghiệp?</h2>
+                        <p class="text-white/80 text-sm mb-8 leading-relaxed max-w-md">
+                            Đặt lịch bảo dưỡng ngay hôm nay để nhận phiếu giảm giá 20%, tận hưởng đặc quyền không cần xếp hàng đợi xe tại bất kỳ điểm cầu nào thuộc MotoCare.
+                        </p>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3 bg-white/10 rounded-2xl p-4 border border-white/25">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-white"></i>
+                            <div>
+                                <h4 class="text-xs font-bold uppercase tracking-wider">Hơn 50 chi nhánh</h4>
+                                <p class="text-xs text-white/80">Có mặt phủ kín trên toàn lãnh thổ quốc gia.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 bg-white/10 rounded-2xl p-4 border border-white/25">
+                            <i data-lucide="clock" class="w-5 h-5 text-white"></i>
+                            <div>
+                                <h4 class="text-xs font-bold uppercase tracking-wider">Thời gian làm việc linh động</h4>
+                                <p class="text-xs text-white/80">Mở cửa từ 7:30 đến 20:30 tất cả các ngày trong tuần.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 sm:p-12 lg:w-1/2 w-full relative z-10 bg-slate-950 flex items-center">
+                    <div class="bg-white rounded-2xl p-6 sm:p-8 w-full shadow-2xl border border-slate-100">
+                        <h3 class="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
+                            <i data-lucide="calendar" class="w-5 h-5 text-primary-orange"></i> Đăng Ký Tư Vấn & Đặt Lịch Hẹn
+                        </h3>
+                        
+                        <form id="landing-booking-form" onsubmit="handleBooking(event)" class="space-y-4">
+                            <div>
+                                <label class="text-[10px] font-extrabold text-slate-500 uppercase tracking-widest mb-1.5 block">Biển số phương tiện</label>
+                                <input type="text" id="plate" required placeholder="Ví dụ: 59A1-123.45" 
+                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:bg-white focus:border-primary-orange focus:ring-2 focus:ring-orange-100 transition-all placeholder:text-slate-400 font-medium" />
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-extrabold text-slate-500 uppercase tracking-widest mb-1.5 block">Số điện thoại khách hàng</label>
+                                <input type="tel" id="phone" required placeholder="Ví dụ: 090 123 4567" 
+                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:bg-white focus:border-primary-orange focus:ring-2 focus:ring-orange-100 transition-all placeholder:text-slate-400 font-medium" />
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-extrabold text-slate-500 uppercase tracking-widest mb-1.5 block">Dịch vụ yêu cầu</label>
+                                <div class="relative">
+                                    <select id="service" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:bg-white focus:border-primary-orange focus:ring-2 focus:ring-orange-100 transition-all text-slate-700 font-medium appearance-none cursor-pointer">
+                                        <option value="Bảo dưỡng định kỳ">Bảo dưỡng định kỳ</option>
+                                        <option value="Sửa chữa hư hỏng">Sửa chữa hư hỏng</option>
+                                        <option value="Cứu hộ khẩn cấp">Yêu cầu cứu hộ khẩn cấp</option>
+                                    </select>
+                                    <i data-lucide="chevron-right" class="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 rotate-90 pointer-events-none"></i>
+                                </div>
+                            </div>
+                            <button type="submit" id="btn-submit" class="w-full bg-slate-900 hover:bg-primary-orange text-white py-3.5 rounded-xl font-bold text-sm transition-all shadow-md shadow-slate-900/10 hover:shadow-lg mt-4 flex items-center justify-center gap-2">
+                                Gửi yêu cầu đặt hẹn
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 text-slate-400 text-xs py-12 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex items-center justify-center gap-2 mb-6">
+                <div class="w-8 h-8 bg-primary-orange rounded-lg flex items-center justify-center text-white font-extrabold text-base">
+                    M
+                </div>
+                <span class="text-base font-extrabold text-white tracking-tight">Moto<span class="text-primary-orange">Care</span></span>
+            </div>
+            <p class="mb-2 text-slate-300 font-semibold">© 2026 Chuỗi Hệ Thống Bảo Trì MotoCare Service.</p>
+            <p class="max-w-md mx-auto leading-relaxed text-slate-500">
+                Toàn bộ quy trình sửa chữa và thông tin bảo dưỡng định kỳ được lưu trữ số hóa trên hạ tầng điện toán đám mây an toàn.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT XỬ LÝ LƯU TRỮ VÀ HOẠT HỌA -->
+    <script>
+        // 1. DATA SLIDES (MOCK)
+        const slidesData = [
+            {
+                badge: "Hệ thống dự báo AI đầu tiên tại VN",
+                titleLine1: "An tâm",
+                titleLine2: "cầm lái.",
+                desc: "Hệ thống bảo trì xe máy duy nhất ứng dụng dự báo AI. Minh bạch quy trình, tận tâm phục vụ và chuyên nghiệp trong từng thao tác.",
+                icon: "cpu"
+            },
+            {
+                badge: "Bảo dưỡng 15 bước tiêu chuẩn",
+                titleLine1: "Hiệu suất",
+                titleLine2: "tối đa.",
+                desc: "Quy trình chăm sóc xe máy tiêu chuẩn quốc tế. Sử dụng 100% phụ tùng chính hãng, mang lại trải nghiệm êm ái trên mọi cung đường.",
+                icon: "shield-check"
+            },
+            {
+                badge: "Đội ngũ phản ứng nhanh",
+                titleLine1: "Cứu hộ",
+                titleLine2: "24/7.",
+                desc: "Dù bạn ở đâu, đội ngũ kỹ thuật viên lưu động của MotoCare luôn sẵn sàng có mặt trong 30 phút để hỗ trợ và khắc phục sự cố khẩn cấp.",
+                icon: "zap"
+            }
+        ];
+
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.hero-slide');
+        const indicators = document.querySelectorAll('.slide-indicator');
+
+        function setSlide(idx) {
+            // Fade out current slide
+            slides[currentSlide].classList.remove('opacity-100', 'z-10');
+            slides[currentSlide].classList.add('opacity-0', 'z-0');
+            indicators[currentSlide].classList.remove('w-10', 'bg-primary-orange');
+            indicators[currentSlide].classList.add('w-3', 'bg-white/30');
+
+            // Fade in new slide
+            currentSlide = idx;
+            slides[currentSlide].classList.remove('opacity-0', 'z-0');
+            slides[currentSlide].classList.add('opacity-100', 'z-10');
+            indicators[currentSlide].classList.remove('w-3', 'bg-white/30');
+            indicators[currentSlide].classList.add('w-10', 'bg-primary-orange');
+
+            // Update text content with animation
+            const data = slidesData[currentSlide];
+            const badgeText = document.getElementById('hero-badge-text');
+            const badgeIcon = document.querySelector('#hero-badge i');
+            const title1 = document.getElementById('hero-title-1');
+            const title2 = document.getElementById('hero-title-2');
+            const desc = document.getElementById('hero-desc');
+
+            badgeText.textContent = data.badge;
+            title1.textContent = data.titleLine1;
+            title2.textContent = data.titleLine2;
+            desc.textContent = data.desc;
+
+            // Change icon attributes
+            badgeIcon.setAttribute('data-lucide', data.icon);
+            lucide.createIcons();
+        }
+
+        // Auto transition every 5 seconds
+        setInterval(() => {
+            let nextSlide = (currentSlide + 1) % slidesData.length;
+            setSlide(nextSlide);
+        }, 5000);
+
+        // TOAST NOTIFICATION SYSTEM
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `flex items-center gap-3 bg-white border border-slate-200 p-4 rounded-xl shadow-lg transition-all duration-300 transform translate-x-12 opacity-0 pointer-events-auto max-w-sm`;
+            
+            let iconColor = type === 'success' ? 'text-emerald-500' : 'text-amber-500';
+            let iconName = type === 'success' ? 'check-circle' : 'alert-circle';
+
+            toast.innerHTML = `
+                <div class="${iconColor} flex-shrink-0">
+                    <i data-lucide="${iconName}" class="w-5 h-5"></i>
+                </div>
+                <div class="text-xs font-semibold text-slate-800 leading-tight">
+                    ${message}
+                </div>
+            `;
+
+            container.appendChild(toast);
+            lucide.createIcons();
+
+            // Animate In
+            setTimeout(() => {
+                toast.classList.remove('translate-x-12', 'opacity-0');
+            }, 10);
+
+            // Auto Remove After 4 seconds
+            setTimeout(() => {
+                toast.classList.add('translate-x-12', 'opacity-0');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 4000);
+        }
+
+        // HANDLE FORM BOOKING SUBMIT (MOCK)
+        function handleBooking(event) {
+            event.preventDefault();
+            const btn = document.getElementById('btn-submit');
+            const plate = document.getElementById('plate').value;
+            const phone = document.getElementById('phone').value;
+            const service = document.getElementById('service').value;
+
+            btn.disabled = true;
+            btn.innerHTML = `<span class="animate-spin inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"></span> Đang truyền tin...`;
+
+            // Giả lập gửi thông tin lên Server
+            setTimeout(() => {
+                showToast(`Đăng ký đặt hẹn thành công cho xe ${plate}! Tổng đài hỗ trợ viên MotoCare sẽ gọi cho bạn qua số ${phone} trong 5 phút nữa.`, 'success');
+                
+                // Trả về trạng thái ban đầu của Form
+                document.getElementById('landing-booking-form').reset();
+                btn.disabled = false;
+                btn.innerHTML = `Gửi yêu cầu đặt hẹn`;
+            }, 1200);
+        }
+
+        // Initialize Lucide Icons on load
+        window.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotoChain Pro — Hệ Thống Quản Lý & Bảo Trì Xe Máy Toàn Diện</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-dark': '#0f172a',
+                        'brand-accent': '#ea580c',
+                        'brand-accent-hover': '#c2410c',
+                        'bg-light': '#f8fafc',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-bg-light text-slate-800 font-sans min-h-screen flex flex-col">
+
+    <!-- TOP BAR CONTROL / SWITCH INTERFACE -->
+    <div class="bg-brand-dark text-white text-xs px-4 py-2 flex justify-between items-center border-b border-slate-800">
+        <div class="flex items-center gap-2">
+            <span class="inline-block w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse"></span>
+            <span class="text-slate-400 font-medium">Hệ thống đang hoạt động trực tuyến</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <span class="text-slate-400">Chuyển đổi phân hệ giả lập:</span>
+            <div class="inline-flex bg-slate-800 p-0.5 rounded-lg border border-slate-700">
+                <button id="btn-switch-client" onclick="switchPortal('client')" class="px-3 py-1 rounded-md bg-brand-accent text-white font-bold transition-all">
+                    Khách Hàng
+                </button>
+                <button id="btn-switch-admin" onclick="switchPortal('admin')" class="px-3 py-1 rounded-md text-slate-400 hover:text-white font-bold transition-all">
+                    Quản Trị Hệ Thống (Admin)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN HEADER -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-brand-accent rounded-xl flex items-center justify-center text-white font-black text-xl shadow-md shadow-orange-500/20">
+                    MCP
+                </div>
+                <div>
+                    <span class="text-lg font-extrabold text-slate-900 tracking-tight">Moto<span class="text-brand-accent">Chain Pro</span></span>
+                    <p class="text-[9px] text-slate-500 uppercase font-bold tracking-widest">Hệ thống chăm sóc xe máy toàn quốc</p>
+                </div>
+            </div>
+
+            <!-- Client Navigation (Hidden when in admin mode) -->
+            <nav id="client-nav" class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
+                <button onclick="scrollToSection('hero-section')" class="hover:text-brand-accent transition-colors">Trang chủ</button>
+                <button onclick="scrollToSection('services-section')" class="hover:text-brand-accent transition-colors">Dịch vụ</button>
+                <button onclick="scrollToSection('booking-section')" class="hover:text-brand-accent transition-colors">Đặt lịch sửa chữa</button>
+                <button onclick="scrollToSection('portal-section')" class="hover:text-brand-accent text-brand-accent transition-colors flex items-center gap-1.5 bg-orange-50 px-3 py-1.5 rounded-lg border border-orange-100">
+                    <i data-lucide="user" class="w-4 h-4"></i> Cổng khách hàng
+                </button>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <a href="tel:1800255898" class="text-sm font-extrabold text-slate-800 bg-slate-100 px-4 py-2 rounded-xl border border-slate-200 hidden sm:flex items-center gap-1.5">
+                    <i data-lucide="phone-call" class="w-4 h-4 text-brand-accent"></i> Hotline: 1800 255 898
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- TOAST NOTIFICATIONS -->
+    <div id="toast-wrapper" class="fixed top-24 right-6 z-50 space-y-3 pointer-events-none"></div>
+
+    <!-- ========================================== -->
+    <!--          1. PHÂN HỆ KHÁCH HÀNG             -->
+    <!-- ========================================== -->
+    <div id="client-portal" class="block">
+        
+        <!-- Hero & Quick Search -->
+        <section id="hero-section" class="bg-brand-dark py-20 text-white relative overflow-hidden">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(234,88,12,0.15),transparent)] pointer-events-none"></div>
+            <div class="max-w-7xl mx-auto px-4 grid lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 space-y-6">
+                    <span class="px-3 py-1.5 bg-slate-800 text-brand-accent rounded-full text-xs font-bold border border-slate-700 tracking-wider uppercase">
+                        Hệ thống xếp hàng tự động thông minh
+                    </span>
+                    <h1 class="text-4xl sm:text-5xl font-black tracking-tight leading-tight">
+                        Chăm sóc xe máy chuyên nghiệp, <span class="text-brand-accent">báo giá minh bạch.</span>
+                    </h1>
+                    <p class="text-slate-400 text-sm sm:text-base leading-relaxed max-w-xl">
+                        Hệ thống bảo dưỡng và lưu trữ lịch sử sửa chữa tự động hóa đầu tiên dành cho mọi loại phương tiện (Honda, Yamaha, Piaggio, Vespa...). Đặt lịch ngay hôm nay để nhận ưu đãi giảm 30% công thợ.
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <button onclick="scrollToSection('booking-section')" class="px-6 py-3.5 bg-brand-accent hover:bg-brand-accent-hover text-white rounded-xl text-sm font-bold transition-all shadow-lg shadow-orange-500/20">
+                            Đặt lịch bảo dưỡng ngay
+                        </button>
+                        <button onclick="scrollToSection('portal-section')" class="px-6 py-3.5 bg-slate-800 text-white rounded-xl text-sm font-bold border border-slate-700 hover:bg-slate-700 transition-all">
+                            Tra cứu lịch sử xe máy
+                        </button>
+                    </div>
+                </div>
+                <div class="lg:col-span-5 bg-slate-900 border border-slate-800 p-6 rounded-3xl shadow-xl">
+                    <h3 class="text-lg font-bold mb-4 flex items-center gap-2 text-white">
+                        <i data-lucide="map-pin" class="text-brand-accent"></i> Tìm chi nhánh gần nhất
+                    </h3>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-1">Khu vực / Tỉnh thành</label>
+                            <select id="branch-city" onchange="filterBranches()" class="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-200 outline-none focus:border-brand-accent transition-colors">
+                                <option value="all">Mọi địa điểm</option>
+                                <option value="Hà Nội">Hà Nội</option>
+                                <option value="Đà Nẵng">Đà Nẵng</option>
+                                <option value="TP. HCM">TP. Hồ Chí Minh</option>
+                            </select>
+                        </div>
+                        <div id="branch-results" class="space-y-2 max-h-48 overflow-y-auto custom-scrollbar pr-1">
+                            <!-- JS render chi nhánh tương ứng -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services-section" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-16">
+                    <span class="text-xs font-bold text-brand-accent uppercase tracking-widest bg-orange-50 px-2.5 py-1 rounded">Dịch vụ chuỗi</span>
+                    <h2 class="text-3xl font-extrabold text-slate-900 mt-3 tracking-tight">Hạng Mục Sửa Chữa & Chăm Sóc Đạt Chuẩn</h2>
+                    <p class="text-slate-500 text-sm mt-3 max-w-2xl mx-auto">Cam kết linh kiện thay thế 100% là hàng chính hãng, có bảo hành điện tử rõ ràng được lưu trữ trực tuyến.</p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Service 1 -->
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 hover:border-brand-accent hover:shadow-lg transition-all duration-300">
+                        <div class="w-10 h-10 bg-orange-100 text-brand-accent rounded-xl flex items-center justify-center mb-4 border border-orange-200">
+                            <i data-lucide="check-circle" class="w-5 h-5"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-base mb-2">Bảo dưỡng trọn gói 15 bước</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed mb-4">Khám xe toàn diện theo chuẩn hãng, kiểm tra nước mát, sạc bình, vệ sinh lọc gió, tra mỡ trục xoay.</p>
+                        <span class="text-xs font-bold text-brand-accent bg-orange-50 px-2 py-1 rounded">150.000 ₫ (Chưa gồm phụ tùng)</span>
+                    </div>
+                    <!-- Service 2 -->
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 hover:border-brand-accent hover:shadow-lg transition-all duration-300">
+                        <div class="w-10 h-10 bg-orange-100 text-brand-accent rounded-xl flex items-center justify-center mb-4 border border-orange-200">
+                            <i data-lucide="activity" class="w-5 h-5"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-base mb-2">Vệ sinh buồng đốt & Fi</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed mb-4">Vệ sinh bằng sóng siêu âm đầu béc kim phun xăng điện tử và buồng đốt bằng máy Hydro chuyên dụng.</p>
+                        <span class="text-xs font-bold text-brand-accent bg-orange-50 px-2 py-1 rounded">120.000 ₫</span>
+                    </div>
+                    <!-- Service 3 -->
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 hover:border-brand-accent hover:shadow-lg transition-all duration-300">
+                        <div class="w-10 h-10 bg-orange-100 text-brand-accent rounded-xl flex items-center justify-center mb-4 border border-orange-200">
+                            <i data-lucide="wrench" class="w-5 h-5"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-base mb-2">Căn chỉnh bộ truyền động</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed mb-4">Bảo dưỡng và làm nồi xe tay ga, loại bỏ hoàn toàn hiện tượng rung giật, tiết kiệm từ 10% nhiên liệu tiêu thụ.</p>
+                        <span class="text-xs font-bold text-brand-accent bg-orange-50 px-2 py-1 rounded">90.000 ₫</span>
+                    </div>
+                    <!-- Service 4 -->
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 hover:border-brand-accent hover:shadow-lg transition-all duration-300">
+                        <div class="w-10 h-10 bg-orange-100 text-brand-accent rounded-xl flex items-center justify-center mb-4 border border-orange-200">
+                            <i data-lucide="shield-alert" class="w-5 h-5"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-base mb-2">Đại tu máy chuyên sâu</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed mb-4">Ép biên tay dên, dốc cam, phục hồi nắp quy-lát, khắc phục dứt điểm các tiếng gõ lạ trong động cơ máy.</p>
+                        <span class="text-xs font-bold text-brand-accent bg-orange-50 px-2 py-1 rounded">Báo giá theo hư hỏng</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customer History Lookup Panel -->
+        <section id="portal-section" class="py-16 bg-slate-100 border-t border-b border-slate-200">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl grid lg:grid-cols-12 gap-8">
+                    <div class="lg:col-span-4 space-y-4">
+                        <span class="text-[10px] font-bold text-brand-accent uppercase tracking-widest bg-orange-50 px-2.5 py-1 rounded border border-orange-200">Cổng tra cứu số hóa</span>
+                        <h3 class="text-2xl font-extrabold text-slate-900 tracking-tight">Hồ Sơ Bảo Trì Điện Tử</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            Mỗi lượt bảo dưỡng tại MotoChain Pro đều được số hóa. Khách hàng chỉ cần nhập số điện thoại hoặc biển số xe để kiểm tra lịch sử chi tiết, số điểm tích lũy và ngày nhắc thay dầu nhớt tiếp theo.
+                        </p>
+                        <div class="space-y-2 pt-2">
+                            <div class="relative">
+                                <i data-lucide="phone" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
+                                <input type="text" id="lookup-phone" placeholder="Nhập số điện thoại (ví dụ: 0987654321)" class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:bg-white focus:border-brand-accent focus:ring-1 focus:ring-brand-accent transition-all font-medium" />
+                            </div>
+                            <button onclick="lookupCustomerHistory()" class="w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 shadow">
+                                <i data-lucide="search" class="w-4 h-4"></i> Tra cứu hồ sơ điện tử
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-8 bg-slate-50 rounded-2xl border border-slate-200 p-6 flex flex-col justify-center min-h-[300px]" id="lookup-result-area">
+                        <!-- Trạng thái mặc định khi chưa tra cứu -->
+                        <div class="text-center py-8 text-slate-400">
+                            <i data-lucide="user-check" class="w-12 h-12 mx-auto mb-3 text-slate-300"></i>
+                            <h5 class="text-sm font-bold text-slate-700">Chưa có thông tin tra cứu</h5>
+                            <p class="text-xs text-slate-500 mt-1 max-w-sm mx-auto">Vui lòng điền số điện thoại ở cột bên trái để truy xuất lịch sử kỹ thuật của phương tiện.</p>
+                            <p class="text-[10px] text-brand-accent font-semibold mt-3">Mẹo: Thử tra cứu số điện thoại mẫu: <span class="underline select-all font-mono">0987654321</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Section -->
+        <section id="booking-section" class="py-20 bg-white">
+            <div class="max-w-4xl mx-auto px-4">
+                <div class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl">
+                    <div class="text-center mb-8">
+                        <i data-lucide="calendar" class="w-10 h-10 text-brand-accent mx-auto mb-2"></i>
+                        <h3 class="text-2xl font-extrabold text-slate-900">Đặt Lịch Hẹn Trực Tuyến</h3>
+                        <p class="text-xs text-slate-500 mt-1">Hệ thống xếp nốt tự động sẽ phân bổ kỹ thuật viên phù hợp để xử lý ngay khi xe đến trạm.</p>
+                    </div>
+
+                    <form id="booking-form" onsubmit="submitNewBooking(event)" class="space-y-4">
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-1.5">Số điện thoại liên hệ</label>
+                                <input type="tel" id="book-phone" required placeholder="09xx xxx xxx" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:bg-white focus:border-brand-accent transition-all font-medium" />
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-1.5">Biển số phương tiện</label>
+                                <input type="text" id="book-plate" required placeholder="Ví dụ: 29A1-12345" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:bg-white focus:border-brand-accent transition-all font-medium" />
+                            </div>
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-1.5">Hãng sản xuất xe</label>
+                                <select id="book-brand" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-700 outline-none focus:bg-white focus:border-brand-accent transition-all font-medium">
+                                    <option value="Honda">Honda</option>
+                                    <option value="Yamaha">Yamaha</option>
+                                    <option value="Piaggio / Vespa">Piaggio / Vespa</option>
+                                    <option value="Suzuki">Suzuki</option>
+                                    <option value="Khác">Hãng xe khác</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-1.5">Dịch vụ yêu cầu chính</label>
+                                <select id="book-service" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-700 outline-none focus:bg-white focus:border-brand-accent transition-all font-medium">
+                                    <option value="Bảo dưỡng định kỳ 15 bước">Bảo dưỡng trọn gói 15 bước</option>
+                                    <option value="Vệ sinh buồng đốt & Fi">Vệ sinh buồng đốt & kim phun Fi</option>
+                                    <option value="Sửa chữa & Kiểm tra máy">Sửa chữa chuyên sâu động cơ</option>
+                                    <option value="Thay thế phụ tùng & Dầu nhớt">Thay phụ tùng / Dầu nhớt định kỳ</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid sm:grid-cols-3 gap-4">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-1.5">Chọn Chi Nhánh Đặt Hẹn</label>
+                                <select id="book-branch" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-700 outline-none focus:bg-white focus:border-brand-accent transition-all font-medium">
+                                    <!-- Sẽ tự động đổ dữ liệu chi nhánh từ JS -->
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-1.5">Ngày hẹn</label>
+                                <input type="date" id="book-date" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-700 outline-none focus:bg-white focus:border-brand-accent transition-all font-medium" />
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-1.5">Giờ hẹn</label>
+                                <select id="book-time" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-700 outline-none focus:bg-white focus:border-brand-accent transition-all font-medium">
+                                    <option value="08:00">08:00 AM</option>
+                                    <option value="09:30">09:30 AM</option>
+                                    <option value="11:00">11:00 AM</option>
+                                    <option value="14:00">14:00 PM</option>
+                                    <option value="15:30">15:30 PM</option>
+                                    <option value="17:00">17:00 PM</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-1.5">Cấp bậc Kỹ thuật viên phụ trách (Tùy chọn)</label>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <label class="flex items-center gap-2 p-3 bg-slate-50 border border-slate-200 rounded-xl cursor-pointer hover:border-brand-accent transition-all">
+                                    <input type="radio" name="tech-level" value="Tự động phân bổ" checked class="text-brand-accent focus:ring-brand-accent" />
+                                    <div class="text-xs">
+                                        <p class="font-bold text-slate-900">Phân bổ tự động</p>
+                                        <p class="text-[10px] text-slate-400">Không tốn phí phụ thu</p>
+                                    </div>
+                                </label>
+                                <label class="flex items-center gap-2 p-3 bg-slate-50 border border-slate-200 rounded-xl cursor-pointer hover:border-brand-accent transition-all">
+                                    <input type="radio" name="tech-level" value="Kỹ thuật viên bậc cao" class="text-brand-accent focus:ring-brand-accent" />
+                                    <div class="text-xs">
+                                        <p class="font-bold text-slate-900">KTV bậc cao</p>
+                                        <p class="text-[10px] text-slate-400">+30.000 ₫ phụ phí</p>
+                                    </div>
+                                </label>
+                                <label class="flex items-center gap-2 p-3 bg-slate-50 border border-slate-200 rounded-xl cursor-pointer hover:border-brand-accent transition-all">
+                                    <input type="radio" name="tech-level" value="Tổ trưởng tổ kỹ thuật" class="text-brand-accent focus:ring-brand-accent" />
+                                    <div class="text-xs">
+                                        <p class="font-bold text-slate-900">Tổ trưởng kỹ thuật</p>
+                                        <p class="text-[10px] text-slate-400">+50.000 ₫ phụ phí</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 bg-brand-accent hover:bg-brand-accent-hover text-white rounded-xl text-sm font-bold shadow-lg shadow-orange-500/10 transition-all hover:-translate-y-0.5 mt-4">
+                            Đăng ký lịch sửa chữa & bảo trì
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ========================================== -->
+    <!--           2. PHÂN HỆ QUẢN TRỊ (ADMIN)      -->
+    <!-- ========================================== -->
+    <div id="admin-portal" class="hidden flex-1 max-w-7xl mx-auto w-full px-4 py-8">
+        <div class="grid lg:grid-cols-12 gap-8">
+            
+            <!-- Sidebar Quản trị -->
+            <aside class="lg:col-span-3 space-y-4">
+                <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4">
+                    <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
+                        <div class="w-10 h-10 bg-slate-900 text-white rounded-xl flex items-center justify-center font-bold">
+                            A
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-slate-900">Admin Workspace</p>
+                            <p class="text-[10px] text-emerald-500 font-semibold">Tài khoản quản lý chuỗi</p>
+                        </div>
+                    </div>
+                    
+                    <nav class="space-y-1">
+                        <button onclick="switchAdminMenu('bookings')" id="menu-bookings" class="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-orange-50 text-brand-accent font-bold text-xs transition-colors">
+                            <span class="flex items-center gap-2">
+                                <i data-lucide="calendar" class="w-4 h-4"></i> Đơn đặt lịch hẹn
+                            </span>
+                            <span id="badge-booking-count" class="bg-brand-accent text-white px-1.5 py-0.5 rounded-full text-[9px] font-black">4</span>
+                        </button>
+                        <button onclick="switchAdminMenu('inventory')" id="menu-inventory" class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-bold text-xs transition-colors">
+                            <span class="flex items-center gap-2">
+                                <i data-lucide="package" class="w-4 h-4"></i> Kho phụ tùng
+                            </span>
+                            <span id="badge-inventory-warn" class="bg-red-500 text-white px-1.5 py-0.5 rounded-full text-[9px] font-black">2</span>
+                        </button>
+                        <button onclick="switchAdminMenu('technicians')" id="menu-technicians" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-bold text-xs transition-colors">
+                            <i data-lucide="users" class="w-4 h-4"></i> Kỹ thuật viên trạm
+                        </button>
+                        <button onclick="switchAdminMenu('analytics')" id="menu-analytics" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-bold text-xs transition-colors">
+                            <i data-lucide="line-chart" class="w-4 h-4"></i> Báo cáo doanh thu
+                        </button>
+                    </nav>
+                </div>
+            </aside>
+
+            <!-- Nội dung chính của Quản trị -->
+            <main class="lg:col-span-9 space-y-6">
+
+                <!-- TAB 1: ĐƠN ĐẶT LỊCH HẸN -->
+                <section id="admin-sec-bookings" class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden block">
+                    <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/75">
+                        <div>
+                            <h3 class="text-base font-bold text-slate-900">Danh Sách Lịch Hẹn Đang Chờ</h3>
+                            <p class="text-[11px] text-slate-500">Các yêu cầu từ form đăng ký ngoài trang chủ sẽ tự động cập nhật trực tiếp tại đây.</p>
+                        </div>
+                        <button onclick="resetDefaultBookings()" class="px-3 py-1.5 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-lg text-xs font-bold transition-all">
+                            Reset dữ liệu mẫu
+                        </button>
+                    </div>
+                    <div class="overflow-x-auto custom-scrollbar">
+                        <table class="w-full text-left border-collapse text-xs">
+                            <thead>
+                                <tr class="bg-slate-50 text-slate-400 font-extrabold border-b border-slate-100 uppercase tracking-wider">
+                                    <th class="py-3 px-4">Biển số</th>
+                                    <th class="py-3 px-4">Khách hàng</th>
+                                    <th class="py-3 px-4">Dịch vụ chính</th>
+                                    <th class="py-3 px-4">Thời gian</th>
+                                    <th class="py-3 px-4">Phụ trách (KTV)</th>
+                                    <th class="py-3 px-4 text-center">Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-booking-table-rows" class="divide-y divide-slate-100">
+                                <!-- JS render dòng của bảng đặt lịch -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- TAB 2: KHO PHỤ TÙNG -->
+                <section id="admin-sec-inventory" class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden hidden">
+                    <div class="p-6 border-b border-slate-100 bg-slate-50/75">
+                        <h3 class="text-base font-bold text-slate-900">Quản Lý Tồn Kho Phụ Tùng</h3>
+                        <p class="text-[11px] text-slate-500">Danh sách phụ tùng, số lượng tối thiểu và cảnh báo tự động nhập hàng khi đạt ngưỡng.</p>
+                    </div>
+                    <div class="overflow-x-auto custom-scrollbar">
+                        <table class="w-full text-left border-collapse text-xs">
+                            <thead>
+                                <tr class="bg-slate-50 text-slate-400 font-extrabold border-b border-slate-100 uppercase tracking-wider">
+                                    <th class="py-3 px-4">Tên phụ tùng</th>
+                                    <th class="py-3 px-4">Mã số</th>
+                                    <th class="py-3 px-4">Đơn giá</th>
+                                    <th class="py-3 px-4 text-center">Tồn kho hiện tại</th>
+                                    <th class="py-3 px-4">Trạng thái kho</th>
+                                    <th class="py-3 px-4 text-center">Nhập hàng</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100" id="admin-inventory-rows">
+                                <!-- Tự động render bằng JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- TAB 3: KỸ THUẬT VIÊN -->
+                <section id="admin-sec-technicians" class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden hidden">
+                    <div class="p-6 border-b border-slate-100 bg-slate-50/75">
+                        <h3 class="text-base font-bold text-slate-900">Điều Phối Kỹ Thuật Viên Trạm</h3>
+                        <p class="text-[11px] text-slate-500">Giám sát trạng thái làm việc và chỉ định sửa chữa trực tiếp tại trạm kỹ thuật.</p>
+                    </div>
+                    <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4" id="tech-list-cards">
+                        <!-- Render bằng JS -->
+                    </div>
+                </section>
+
+                <!-- TAB 4: BÁO CÁO DOANH THU -->
+                <section id="admin-sec-analytics" class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden hidden">
+                    <div class="p-6 border-b border-slate-100 bg-slate-50/75">
+                        <h3 class="text-base font-bold text-slate-900">Doanh Thu & Hiệu Suất Hệ Thống</h3>
+                        <p class="text-[11px] text-slate-500">Thống kê dữ liệu doanh số từ các trạm hoạt động thực tế trên toàn hệ thống.</p>
+                    </div>
+                    <div class="p-6 space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div class="p-4 bg-orange-50 border border-orange-100 rounded-2xl">
+                                <p class="text-[10px] font-bold text-orange-600 uppercase tracking-wider">Tổng doanh thu ngày</p>
+                                <p class="text-2xl font-black text-slate-900 mt-1">14.850.000 ₫</p>
+                            </div>
+                            <div class="p-4 bg-emerald-50 border border-emerald-100 rounded-2xl">
+                                <p class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider">Hiệu suất phục vụ trạm</p>
+                                <p class="text-2xl font-black text-slate-900 mt-1">92.4 %</p>
+                            </div>
+                            <div class="p-4 bg-blue-50 border border-blue-100 rounded-2xl">
+                                <p class="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Lượt xe hoàn tất</p>
+                                <p class="text-2xl font-black text-slate-900 mt-1">48 xe máy</p>
+                            </div>
+                        </div>
+
+                        <!-- Giả lập biểu đồ cột trực quan bằng HTML/CSS đơn giản -->
+                        <div class="border border-slate-200 rounded-2xl p-6 bg-slate-50">
+                            <h4 class="text-xs font-bold text-slate-700 mb-6 uppercase tracking-wider text-center">Biểu đồ cơ cấu doanh thu các chi nhánh</h4>
+                            <div class="h-48 flex items-end justify-between gap-4 pt-4 border-b border-slate-300">
+                                <div class="w-full flex flex-col items-center gap-2">
+                                    <div class="w-8 bg-brand-accent rounded-t-md transition-all duration-500" style="height: 120px;"></div>
+                                    <span class="text-[10px] font-bold text-slate-600">Kim Ngưu (HN)</span>
+                                </div>
+                                <div class="w-full flex flex-col items-center gap-2">
+                                    <div class="w-8 bg-brand-accent rounded-t-md transition-all duration-500" style="height: 150px;"></div>
+                                    <span class="text-[10px] font-bold text-slate-600">Đống Đa (ĐN)</span>
+                                </div>
+                                <div class="w-full flex flex-col items-center gap-2">
+                                    <div class="w-8 bg-brand-accent rounded-t-md transition-all duration-500" style="height: 80px;"></div>
+                                    <span class="text-[10px] font-bold text-slate-600">Định Công (HN)</span>
+                                </div>
+                                <div class="w-full flex flex-col items-center gap-2">
+                                    <div class="w-8 bg-brand-accent rounded-t-md transition-all duration-500" style="height: 170px;"></div>
+                                    <span class="text-[10px] font-bold text-slate-600">Quận 3 (TP.HCM)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-dark text-slate-500 text-xs py-10 border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="mb-2 text-slate-300 font-semibold">© 2026 Hệ thống MotoChain Pro. Bản quyền đã được bảo hộ.</p>
+            <p class="max-w-md mx-auto leading-relaxed text-[11px] text-slate-500">
+                Hệ thống chuẩn hóa dịch vụ bảo trì định kỳ, lưu trữ bệnh án xe điện tử, quản lý điều phối phụ tùng đạt chuẩn HEAD Honda và Yamaha Town.
+            </p>
+        </div>
+    </footer>
+
+    <!-- ========================================== -->
+    <!--            DỮ LIỆU TĨNH VÀ SCRIPT          -->
+    <!-- ========================================== -->
+    <script>
+        // 1. DATA CHI NHÁNH MẪU (Giống mô hình BikerCare, Alobike, Tiến Thu)
+        const branchesData = [
+            { id: 1, name: "MotoChain 167 Kim Ngưu", city: "Hà Nội", address: "167 Kim Ngưu, Quận Hai Bà Trưng", tel: "0867.802.338" },
+            { id: 2, name: "MotoChain Nguyễn Văn Giáp", city: "Hà Nội", address: "109 Nguyễn Văn Giáp, Quận Từ Liêm", tel: "0867.403.889" },
+            { id: 3, name: "MotoChain 195 Định Công", city: "Hà Nội", address: "195 Định Công, Quận Hoàng Mai", tel: "0865.743.338" },
+            { id: 4, name: "MotoChain Hải Châu", city: "Đà Nẵng", address: "207 Phan Châu Trinh, Quận Hải Châu", tel: "0917.595.941" },
+            { id: 5, name: "MotoChain Ngũ Hành Sơn", city: "Đà Nẵng", address: "215 Ngũ Hành Sơn, Quận Ngũ Hành Sơn", tel: "0236.353.727" },
+            { id: 6, name: "MotoChain Quận 3", city: "TP. HCM", address: "450 Cách Mạng Tháng Tám, Quận 3", tel: "0909.123.456" },
+            { id: 7, name: "MotoChain Bình Thạnh", city: "TP. HCM", address: "12 Lơ Bạch Đằng, Quận Bình Thạnh", tel: "0908.789.012" }
+        ];
+
+        // 2. DATA KHÁCH HÀNG & LỊCH SỬ KỸ THUẬT (MOCK DỰA TRÊN THỰC TẾ TRANG TRUY XUẤT)
+        const mockCustomerHistory = {
+            "0987654321": {
+                name: "Nguyễn Hoàng Nam",
+                plate: "29E2-789.45",
+                vehicle: "Honda SH 150i (2022)",
+                points: 350,
+                nextOilChange: "Cần thay sau 450 km nữa",
+                logs: [
+                    { date: "15/03/2026", branch: "167 Kim Ngưu", service: "Bảo dưỡng 15 bước + Vệ sinh nồi xe ga", cost: "240.000 ₫", tech: "Trần Văn Sáng (KTV Bậc 2)" },
+                    { date: "10/11/2025", branch: "167 Kim Ngưu", service: "Thay dầu nhớt máy Motul Scooter Power + Láp sườn", cost: "310.000 ₫", tech: "Nguyễn Đình Tùng (KTV Bậc 1)" },
+                    { date: "05/07/2025", branch: "Nguyễn Văn Giáp", service: "Vệ sinh kim phun Fi + Thay bugi NGK Iridium", cost: "340.000 ₫", tech: "Phạm Thành Long (Tổ trưởng)" }
+                ]
+            },
+            "0901234567": {
+                name: "Lê Minh Thảo",
+                plate: "43C1-456.78",
+                vehicle: "Yamaha Grande Fi (2021)",
+                points: 120,
+                nextOilChange: "Cần thay sau 1.200 km nữa",
+                logs: [
+                    { date: "02/02/2026", branch: "207 Phan Châu Trinh (ĐN)", service: "Bảo dưỡng 15 bước + Thay dầu Castrol", cost: "330.000 ₫", tech: "Vũ Huy Hoàng (KTV Bậc 2)" }
+                ]
+            }
+        };
+
+        // 3. DỮ LIỆU DANH SÁCH ĐƠN ĐẶT LỊCH (ADMIN SẼ ĐỒNG BỘ VỚI FORM ĐĂNG KÝ)
+        let bookingsData = [
+            { id: 1, plate: "29A1-888.88", name: "Trần Anh Tuấn", phone: "0944222111", service: "Sửa chữa & Kiểm tra máy", time: "08:00 AM", date: "2026-05-22", branch: "167 Kim Ngưu", status: "Chờ xác nhận", tech: "Chưa chỉ định" },
+            { id: 2, plate: "43D2-111.22", name: "Nguyễn Thị Mai", phone: "0912345678", service: "Bảo dưỡng định kỳ 15 bước", time: "09:30 AM", date: "2026-05-22", branch: "Hải Châu (ĐN)", status: "Đã chỉ định", tech: "KTV Vũ Huy Hoàng" },
+            { id: 3, plate: "59F1-333.44", name: "Vũ Minh Hiếu", phone: "0905999888", service: "Vệ sinh buồng đốt & Fi", time: "11:00 AM", date: "2026-05-22", branch: "Quận 3 (TP.HCM)", status: "Đã hoàn thành", tech: "KTV Lê Anh" }
+        ];
+
+        // 4. DATA PHỤ TÙNG TỒN KHO MẪU (ADMIN)
+        let inventoryData = [
+            { id: 1, name: "Dầu nhớt Motul Scooter Power LE 5W40", code: "OIL-MOT-01", price: "185.000 ₫", stock: 8, minStock: 15, status: "Sắp hết hàng" },
+            { id: 2, name: "Bugi NGK Bạch Kim Iridium CPR8EAIX-9", code: "SPK-NGK-02", price: "220.000 ₫", stock: 35, minStock: 10, status: "An toàn" },
+            { id: 3, name: "Má phanh đĩa trước Brembo", code: "BRK-BRE-03", price: "450.000 ₫", stock: 4, minStock: 8, status: "Sắp hết hàng" },
+            { id: 4, name: "Dây curoa Bando Honda SH 150", code: "BLT-BAN-04", price: "520.000 ₫", stock: 12, minStock: 5, status: "An toàn" }
+        ];
+
+        // 5. DATA KỸ THUẬT VIÊN (ADMIN)
+        let techniciansData = [
+            { id: 1, name: "Phạm Thành Long", role: "Tổ trưởng kỹ thuật", status: "Đang sửa chữa (Xe 29E2-789.45)", rate: "4.9★", badge: "Chuyên xe Vespa/SH" },
+            { id: 2, name: "Vũ Huy Hoàng", role: "Kỹ thuật viên bậc cao", status: "Sẵn sàng nhận việc", rate: "4.8★", badge: "Chuyên điện Fi" },
+            { id: 3, name: "Nguyễn Đình Tùng", role: "Kỹ thuật viên bậc 1", status: "Nghỉ phép", rate: "4.5★", badge: "Sửa chữa cơ bản" }
+        ];
+
+        // CHUYỂN ĐỔI PHÂN HỆ GIẢ LẬP (CLIENT <-> ADMIN)
+        function switchPortal(portal) {
+            const clientNav = document.getElementById('client-nav');
+            const clientPortal = document.getElementById('client-portal');
+            const adminPortal = document.getElementById('admin-portal');
+            const btnClient = document.getElementById('btn-switch-client');
+            const btnAdmin = document.getElementById('btn-switch-admin');
+
+            if (portal === 'client') {
+                clientPortal.classList.remove('hidden');
+                adminPortal.classList.add('hidden');
+                clientNav.classList.remove('hidden');
+                btnClient.className = "px-3 py-1 rounded-md bg-brand-accent text-white font-bold transition-all";
+                btnAdmin.className = "px-3 py-1 rounded-md text-slate-400 hover:text-white font-bold transition-all";
+                document.title = 'MotoChain Pro — Hệ Thống Quản Lý & Bảo Trì Xe Máy Toàn Diện';
+            } else {
+                clientPortal.classList.add('hidden');
+                adminPortal.classList.remove('hidden');
+                clientNav.classList.add('hidden');
+                btnAdmin.className = "px-3 py-1 rounded-md bg-brand-accent text-white font-bold transition-all";
+                btnClient.className = "px-3 py-1 rounded-md text-slate-400 hover:text-white font-bold transition-all";
+                document.title = 'Bảng Điều Khiển Quản Trị Hệ Thống — MotoChain Pro';
+                renderAdminBookings();
+                renderAdminInventory();
+                renderAdminTechs();
+            }
+        }
+
+        // CHUYỂN ĐỔI MENU TRONG QUẢN TRỊ (ADMIN TABS)
+        function switchAdminMenu(menu) {
+            const sections = ['bookings', 'inventory', 'technicians', 'analytics'];
+            sections.forEach(sec => {
+                const el = document.getElementById(`admin-sec-${sec}`);
+                const btn = document.getElementById(`menu-${sec}`);
+                if (sec === menu) {
+                    el.classList.remove('hidden');
+                    btn.className = "w-full flex items-center justify-between px-3 py-2 rounded-lg bg-orange-50 text-brand-accent font-bold text-xs transition-colors";
+                } else {
+                    el.classList.add('hidden');
+                    btn.className = "w-full flex items-center justify-between px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-bold text-xs transition-colors";
+                }
+            });
+        }
+
+        // SCROLL SMOOTH ĐẾN CÁC PHẦN TRÊN TRANG CHỦ KHÁCH HÀNG
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // BỘ LỌC CHI NHÁNH CHỖ TRANG CHỦ
+        function filterBranches() {
+            const city = document.getElementById('branch-city').value;
+            const resultsDiv = document.getElementById('branch-results');
+            resultsDiv.innerHTML = '';
+
+            const filtered = branchesData.filter(b => city === 'all' || b.city === city);
+
+            if (filtered.length === 0) {
+                resultsDiv.innerHTML = `<p class="text-xs text-slate-500 italic text-center py-4">Chưa có chi nhánh tại khu vực này.</p>`;
+                return;
+            }
+
+            filtered.forEach(b => {
+                const div = document.createElement('div');
+                div.className = "p-3 bg-slate-800/80 border border-slate-700/60 rounded-xl flex items-center justify-between hover:border-brand-accent/40 transition-colors";
+                div.innerHTML = `
+                    <div>
+                        <h5 class="text-xs font-bold text-slate-200">${b.name}</h5>
+                        <p class="text-[10px] text-slate-400 mt-0.5">${b.address}</p>
+                    </div>
+                    <a href="tel:${b.tel.replace(/\./g,'')}" class="w-7 h-7 bg-slate-700 hover:bg-brand-accent text-slate-200 rounded-lg flex items-center justify-center transition-colors">
+                        <i data-lucide="phone" class="w-3.5 h-3.5"></i>
+                    </a>
+                `;
+                resultsDiv.appendChild(div);
+            });
+            lucide.createIcons();
+        }
+
+        // ĐỔ DỮ LIỆU CHI NHÁNH VÀO SELECT FORM ĐẶT LỊCH
+        function initBookingFormBranches() {
+            const select = document.getElementById('book-branch');
+            select.innerHTML = '';
+            branchesData.forEach(b => {
+                const opt = document.createElement('option');
+                opt.value = b.name;
+                opt.textContent = `${b.name} (${b.city})`;
+                select.appendChild(opt);
+            });
+        }
+
+        // TRA CỨU HỒ SƠ LỊCH SỬ KỸ THUẬT KHÁCH HÀNG (REAL TIME CHẠY TĨNH)
+        function lookupCustomerHistory() {
+            const phone = document.getElementById('lookup-phone').value.trim();
+            const resultArea = document.getElementById('lookup-result-area');
+
+            if (!phone) {
+                showToast("Vui lòng điền số điện thoại để tra cứu", "warning");
+                return;
+            }
+
+            const data = mockCustomerHistory[phone];
+
+            if (!data) {
+                resultArea.innerHTML = `
+                    <div class="text-center py-8 text-slate-400">
+                        <i data-lucide="alert-triangle" class="w-12 h-12 mx-auto mb-3 text-amber-500 animate-bounce"></i>
+                        <h5 class="text-sm font-bold text-slate-700">Không tìm thấy thông tin</h5>
+                        <p class="text-xs text-slate-500 mt-1 max-w-sm mx-auto">Số điện thoại "${phone}" chưa có dữ liệu giao dịch hoặc bảo dưỡng trên toàn hệ thống.</p>
+                        <p class="text-[10px] text-brand-accent font-semibold mt-3">Thử tra cứu số điện thoại mẫu: <span class="underline select-all font-mono">0987654321</span></p>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            // Có dữ liệu -> Tạo giao diện lịch sử
+            let logsHTML = '';
+            data.logs.forEach(log => {
+                logsHTML += `
+                    <div class="p-4 bg-white border border-slate-200 rounded-xl space-y-2">
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs font-bold text-slate-900">${log.service}</span>
+                            <span class="text-xs font-extrabold text-brand-accent">${log.cost}</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 text-[10px] text-slate-500">
+                            <p class="flex items-center gap-1"><i data-lucide="calendar" class="w-3 h-3"></i> ${log.date}</p>
+                            <p class="flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3"></i> Trạm: ${log.branch}</p>
+                            <p class="flex items-center gap-1 col-span-2"><i data-lucide="user" class="w-3 h-3"></i> Phụ trách: ${log.tech}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            resultArea.innerHTML = `
+                <div class="space-y-4">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-slate-200/50 p-4 rounded-xl border border-slate-200">
+                        <div>
+                            <h4 class="text-sm font-extrabold text-slate-900">${data.name}</h4>
+                            <p class="text-xs text-slate-600">Xe: ${data.vehicle} | Biển: ${data.plate}</p>
+                        </div>
+                        <div class="mt-2 sm:mt-0 flex gap-3 text-xs">
+                            <div class="text-center bg-white px-3 py-1 rounded-lg border border-slate-300">
+                                <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Tích điểm</span>
+                                <span class="font-extrabold text-brand-accent">${data.points} Điểm</span>
+                            </div>
+                            <div class="text-center bg-white px-3 py-1 rounded-lg border border-slate-300">
+                                <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Chu kỳ nhớt</span>
+                                <span class="font-bold text-emerald-600">${data.nextOilChange}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-2.5">
+                        <h5 class="text-xs font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1">
+                            <i data-lucide="file-text" class="w-3.5 h-3.5"></i> Lịch Sử Lượt Bảo Dưỡng (${data.logs.length})
+                        </h5>
+                        <div class="space-y-3 max-h-60 overflow-y-auto custom-scrollbar pr-1">
+                            ${logsHTML}
+                        </div>
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+            showToast("Truy xuất thông tin thành công!", "success");
+        }
+
+        // GỬI LỊCH ĐẶT HẸN MỚI
+        function submitNewBooking(event) {
+            event.preventDefault();
+            const phone = document.getElementById('book-phone').value;
+            const plate = document.getElementById('book-plate').value;
+            const brand = document.getElementById('book-brand').value;
+            const service = document.getElementById('book-service').value;
+            const branch = document.getElementById('book-branch').value;
+            const date = document.getElementById('book-date').value;
+            const time = document.getElementById('book-time').value;
+            const techSelection = document.querySelector('input[name="tech-level"]:checked').value;
+
+            // Đưa đơn mới vào Array quản trị
+            const newOrder = {
+                id: bookingsData.length + 1,
+                plate: plate.toUpperCase(),
+                name: "Khách Đặt Online",
+                phone: phone,
+                service: service,
+                time: time,
+                date: date,
+                branch: branch,
+                status: "Chờ xác nhận",
+                tech: techSelection
+            };
+
+            bookingsData.unshift(newOrder); // Đẩy lên đầu danh sách quản trị
+            updateBadgeCounts();
+
+            showToast(`Đặt lịch thành công cho biển số ${plate.toUpperCase()} lúc ${time} ngày ${date}! Trạm ${branch} đã lưu nốt phục vụ của bạn.`, "success");
+            
+            // Reset Form đặt lịch
+            document.getElementById('booking-form').reset();
+            document.querySelector('input[name="tech-level"][value="Tự động phân bổ"]').checked = true;
+        }
+
+        // TOAST NOTIFICATION GENERATOR
+        function showToast(message, type = "success") {
+            const wrapper = document.getElementById('toast-wrapper');
+            const toast = document.createElement('div');
+            toast.className = `flex items-center gap-3 bg-white border border-slate-200 p-4 rounded-xl shadow-lg transition-all duration-300 transform translate-x-12 opacity-0 pointer-events-auto max-w-sm`;
+            
+            let iconColor = type === 'success' ? 'text-emerald-500' : 'text-amber-500';
+            let iconName = type === 'success' ? 'check-circle' : 'alert-triangle';
+
+            toast.innerHTML = `
+                <div class="${iconColor} flex-shrink-0">
+                    <i data-lucide="${iconName}" class="w-5 h-5"></i>
+                </div>
+                <div class="text-xs font-semibold text-slate-800 leading-tight">
+                    ${message}
+                </div>
+            `;
+
+            wrapper.appendChild(toast);
+            lucide.createIcons();
+
+            setTimeout(() => {
+                toast.classList.remove('translate-x-12', 'opacity-0');
+            }, 10);
+
+            setTimeout(() => {
+                toast.classList.add('translate-x-12', 'opacity-0');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 5000);
+        }
+
+        // ==========================================
+        //         XỬ LÝ PHÂN HỆ QUẢN TRỊ (ADMIN)     
+        // ==========================================
+        
+        // RENDER DANH SÁCH ĐẶT LỊCH TRONG BẢNG ADMIN
+        function renderAdminBookings() {
+            const container = document.getElementById('admin-booking-table-rows');
+            container.innerHTML = '';
+
+            if (bookingsData.length === 0) {
+                container.innerHTML = `<tr><td colspan="6" class="text-center py-8 text-slate-400 italic">Không có yêu cầu đặt hẹn nào.</td></tr>`;
+                return;
+            }
+
+            bookingsData.forEach(o => {
+                let statusBadge = '';
+                if (o.status === "Chờ xác nhận") {
+                    statusBadge = `<span class="px-2 py-0.5 bg-amber-100 text-amber-700 font-bold rounded text-[10px]">Chờ xử lý</span>`;
+                } else if (o.status === "Đã chỉ định") {
+                    statusBadge = `<span class="px-2 py-0.5 bg-blue-100 text-blue-700 font-bold rounded text-[10px]">Đã nhận đơn</span>`;
+                } else {
+                    statusBadge = `<span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 font-bold rounded text-[10px]">Hoàn thành</span>`;
+                }
+
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 transition-colors";
+                tr.innerHTML = `
+                    <td class="py-3 px-4 font-bold text-slate-900">${o.plate}</td>
+                    <td class="py-3 px-4">
+                        <p class="font-bold text-slate-800">${o.name}</p>
+                        <p class="text-[10px] text-slate-400">${o.phone}</p>
+                    </td>
+                    <td class="py-3 px-4 font-medium text-slate-700">${o.service}</td>
+                    <td class="py-3 px-4 text-slate-500">
+                        <p class="font-semibold text-slate-700">${o.time}</p>
+                        <p class="text-[10px] text-slate-400">${o.date}</p>
+                    </td>
+                    <td class="py-3 px-4">
+                        <p class="font-bold text-slate-700">${o.tech}</p>
+                        <p class="text-[9px] text-slate-400">Trạm: ${o.branch}</p>
+                    </td>
+                    <td class="py-3 px-4 text-center">
+                        <div class="flex items-center justify-center gap-1.5">
+                            ${o.status === 'Chờ xác nhận' ? `
+                                <button onclick="actionAssignTech(${o.id})" class="px-2.5 py-1 bg-brand-accent hover:bg-brand-accent-hover text-white rounded font-bold text-[10px] transition-all">
+                                    Duyệt & Giao KTV
+                                </button>
+                            ` : ''}
+                            ${o.status === 'Đã chỉ định' ? `
+                                <button onclick="actionCompleteBooking(${o.id})" class="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded font-bold text-[10px] transition-all">
+                                    Hoàn thành xe
+                                </button>
+                            ` : ''}
+                            ${o.status === 'Đã hoàn thành' ? `
+                                <span class="text-[10px] font-bold text-slate-400 flex items-center gap-0.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Đã đóng đơn</span>
+                            ` : ''}
+                            <button onclick="actionDeleteBooking(${o.id})" class="p-1 text-slate-400 hover:text-red-500 rounded transition-colors" title="Hủy đơn">
+                                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                container.appendChild(tr);
+            });
+            updateBadgeCounts();
+            lucide.createIcons();
+        }
+
+        // RENDER KHO PHỤ TÙNG (ADMIN)
+        function renderAdminInventory() {
+            const container = document.getElementById('admin-inventory-rows');
+            container.innerHTML = '';
+
+            inventoryData.forEach(p => {
+                let statusHTML = '';
+                if (p.stock <= p.minStock) {
+                    statusHTML = `<span class="flex items-center gap-1 text-[10px] font-bold text-red-500 animate-pulse"><i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i> Cần nhập thêm</span>`;
+                } else {
+                    statusHTML = `<span class="text-[10px] font-bold text-emerald-600 flex items-center gap-1"><i data-lucide="check" class="w-3.5 h-3.5"></i> An toàn</span>`;
+                }
+
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 transition-colors";
+                tr.innerHTML = `
+                    <td class="py-3 px-4 font-bold text-slate-800">${p.name}</td>
+                    <td class="py-3 px-4 text-slate-500 font-mono">${p.code}</td>
+                    <td class="py-3 px-4 font-bold text-slate-900">${p.price}</td>
+                    <td class="py-3 px-4 text-center font-bold text-slate-700">${p.stock} / <span class="text-xs text-slate-400 font-medium">${p.minStock} tối thiểu</span></td>
+                    <td class="py-3 px-4">${statusHTML}</td>
+                    <td class="py-3 px-4 text-center">
+                        <button onclick="actionRestockPart(${p.id})" class="px-2.5 py-1 bg-slate-900 hover:bg-slate-800 text-white rounded text-[10px] font-bold transition-all">
+                            Nhập +10 Cái
+                        </button>
+                    </td>
+                `;
+                container.appendChild(tr);
+            });
+            updateBadgeCounts();
+            lucide.createIcons();
+        }
+
+        // RENDER DANH SÁCH KTV (ADMIN)
+        function renderAdminTechs() {
+            const container = document.getElementById('tech-list-cards');
+            container.innerHTML = '';
+
+            techniciansData.forEach(t => {
+                let statusColor = '';
+                if (t.status.includes('Đang sửa chữa')) statusColor = 'bg-amber-100 text-amber-700 border-amber-200';
+                else if (t.status === 'Sẵn sàng nhận việc') statusColor = 'bg-emerald-100 text-emerald-700 border-emerald-200';
+                else statusColor = 'bg-slate-100 text-slate-400 border-slate-200';
+
+                const card = document.createElement('div');
+                card.className = "p-4 bg-slate-50 border border-slate-200 rounded-2xl space-y-3";
+                card.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="text-xs font-bold text-slate-900">${t.name}</h4>
+                            <p class="text-[10px] text-slate-500">${t.role}</p>
+                        </div>
+                        <span class="text-[10px] font-bold text-slate-400 flex items-center gap-0.5"><i data-lucide="star" class="w-3 h-3 text-amber-400 fill-amber-400"></i> ${t.rate}</span>
+                    </div>
+                    <div class="px-2 py-1 text-[10px] font-bold border rounded-lg ${statusColor}">
+                        Trạng thái: ${t.status}
+                    </div>
+                    <p class="text-[10px] font-semibold text-brand-accent bg-orange-50 px-2 py-0.5 rounded w-fit">${t.badge}</p>
+                `;
+                container.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        // CẬP NHẬT CÁC BADGE SỐ LƯỢNG (ADMIN NAV)
+        function updateBadgeCounts() {
+            const pendingCount = bookingsData.filter(o => o.status === 'Chờ xác nhận').length;
+            const inventoryAlerts = inventoryData.filter(p => p.stock <= p.minStock).length;
+
+            document.getElementById('badge-booking-count').textContent = pendingCount;
+            document.getElementById('badge-inventory-warn').textContent = inventoryAlerts;
+        }
+
+        // HÀNH ĐỘNG ADMIN: CHỈ ĐỊNH KTV CHO ĐƠN ĐẶT LỊCH
+        function actionAssignTech(id) {
+            const order = bookingsData.find(o => o.id === id);
+            if (order) {
+                order.status = "Đã chỉ định";
+                order.tech = "KTV Vũ Huy Hoàng"; // Gán ngẫu nhiên một KTV rảnh rỗi
+                showToast(`Đã duyệt đơn và điều phối KTV Vũ Huy Hoàng phụ trách xe ${order.plate}`, "success");
+                renderAdminBookings();
+            }
+        }
+
+        // HÀNH ĐỘNG ADMIN: HOÀN THÀNH XE BẢO DƯỠNG
+        function actionCompleteBooking(id) {
+            const order = bookingsData.find(o => o.id === id);
+            if (order) {
+                order.status = "Đã hoàn thành";
+                showToast(`Phương tiện ${order.plate} đã bảo dưỡng xong, sẵn sàng bàn giao cho chủ xe!`, "success");
+                renderAdminBookings();
+            }
+        }
+
+        // HÀNH ĐỘNG ADMIN: XÓA / HỦY ĐƠN
+        function actionDeleteBooking(id) {
+            bookingsData = bookingsData.filter(o => o.id !== id);
+            showToast("Đã hủy đơn đặt lịch hẹn thành công.", "warning");
+            renderAdminBookings();
+        }
+
+        // HÀNH ĐỘNG ADMIN: NHẬP THÊM HÀNG CHO PHỤ TÙNG
+        function actionRestockPart(id) {
+            const part = inventoryData.find(p => p.id === id);
+            if (part) {
+                part.stock += 10;
+                showToast(`Đã nhập kho thành công 10 đơn vị phụ tùng: ${part.name}`, "success");
+                renderAdminInventory();
+            }
+        }
+
+        // RESET LẠI DỮ LIỆU ĐỂ THUYẾT TRÌNH DỄ DÀNG
+        function resetDefaultBookings() {
+            bookingsData = [
+                { id: 1, plate: "29A1-888.88", name: "Trần Anh Tuấn", phone: "0944222111", service: "Sửa chữa & Kiểm tra máy", time: "08:00 AM", date: "2026-05-22", branch: "167 Kim Ngưu", status: "Chờ xác nhận", tech: "Chưa chỉ định" },
+                { id: 2, plate: "43D2-111.22", name: "Nguyễn Thị Mai", phone: "0912345678", service: "Bảo dưỡng định kỳ 15 bước", time: "09:30 AM", date: "2026-05-22", branch: "Hải Châu (ĐN)", status: "Đã chỉ định", tech: "KTV Vũ Huy Hoàng" },
+                { id: 3, plate: "59F1-333.44", name: "Vũ Minh Hiếu", phone: "0905999888", service: "Vệ sinh buồng đốt & Fi", time: "11:00 AM", date: "2026-05-22", branch: "Quận 3 (TP.HCM)", status: "Đã hoàn thành", tech: "KTV Lê Anh" }
+            ];
+            showToast("Hệ thống đã khôi phục dữ liệu ban đầu.", "success");
+            renderAdminBookings();
+        }
+
+        // KHI TRANG TẢI XONG
+        window.addEventListener('DOMContentLoaded', () => {
+            filterBranches();
+            initBookingFormBranches();
+            lucide.createIcons();
+
+            // Set default date picker to tomorrow
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            document.getElementById('book-date').value = tomorrow.toISOString().split('T')[0];
+        });
+    </script>
+</body>
+</html>
