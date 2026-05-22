@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thư viện Tra cứu Phụ tùng — MotoCare</title>
+    <!-- Tailwind CSS Play CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-orange': '#e8601a',
+                        'page-bg': '#f8fafc',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-page-bg text-slate-800 min-h-screen">
+
+    <!-- ─── DISCLAIMER TOP BAR ────────────────────────────────────── -->
+    <div class="bg-amber-50 border-b border-amber-200 py-3 px-4">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs sm:text-sm text-amber-800">
+            <div class="flex items-center gap-2 font-medium">
+                <span class="flex h-2 w-2 relative">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+                </span>
+                <span>Đây là trang tra cứu thông tin kỹ thuật & đơn giá tham khảo tại MotoCare. Không có chức năng bán hàng trực tuyến.</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="tel:19001234" class="font-bold hover:underline flex items-center gap-1">
+                    Hotline: 1900 1234
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        
+        <!-- ─── HEADER SECTION ────────────────────────────────────────── -->
+        <header class="mb-8 border-b border-slate-200 pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+                <span class="text-xs font-bold text-primary-orange uppercase tracking-wider">Hệ thống dữ liệu linh kiện</span>
+                <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight mt-1">TRA CỨU PHỤ TÙNG CHÍNH HÃNG</h1>
+                <p class="text-sm text-slate-500 mt-1">Cung cấp thông tin kích thước, tiêu chuẩn kỹ thuật và đơn giá dịch vụ ước tính cho xe máy của bạn.</p>
+            </div>
+            <!-- Search & Quick Info Contact -->
+            <div class="flex items-center gap-3">
+                <a href="https://zalo.me" target="_blank" class="px-4 py-2.5 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-slate-800 transition-all flex items-center gap-2 shadow-sm">
+                    <i data-lucide="message-square" class="w-4 h-4"></i>
+                    Yêu cầu báo giá riêng
+                </a>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- ─── LEFT COLUMN: SIDEBAR FILTERS (3 Cols) ───────────────── -->
+            <aside class="lg:col-span-3 space-y-6">
+                <!-- Bộ lọc & Tìm kiếm -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 space-y-5 shadow-sm">
+                    <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                        <i data-lucide="sliders-horizontal" class="w-4 h-4 text-primary-orange"></i>
+                        Bộ lọc tra cứu
+                    </h2>
+                    
+                    <!-- Search Input -->
+                    <div class="space-y-1.5">
+                        <label class="text-xs font-bold text-slate-500">Từ khóa tìm kiếm</label>
+                        <div class="relative">
+                            <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
+                            <input 
+                                type="text" 
+                                id="searchInput"
+                                placeholder="Tên phụ tùng, mã số..."
+                                class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm outline-none focus:border-primary-orange focus:bg-white transition-colors"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Category Parent Filters -->
+                    <div class="space-y-1.5">
+                        <label class="text-xs font-bold text-slate-500">Phân nhóm chính</label>
+                        <select id="categorySelect" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm outline-none focus:border-primary-orange cursor-pointer">
+                            <option value="all">Tất cả phân nhóm</option>
+                            <option value="Nhớt">Nhớt & Chất bôi trơn</option>
+                            <option value="Lốp">Lốp xe (Vỏ xe)</option>
+                            <option value="Phanh">Hệ thống phanh</option>
+                            <option value="Ắc quy">Ắc quy & Nguồn điện</option>
+                        </select>
+                    </div>
+
+                    <!-- Brand Filters -->
+                    <div class="space-y-1.5">
+                        <label class="text-xs font-bold text-slate-500">Hãng sản xuất</label>
+                        <select id="brandSelect" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm outline-none focus:border-primary-orange cursor-pointer">
+                            <option value="all">Tất cả thương hiệu</option>
+                            <option value="Motul">Motul</option>
+                            <option value="Michelin">Michelin</option>
+                            <option value="Nissin">Nissin</option>
+                            <option value="GS">GS Battery</option>
+                        </select>
+                    </div>
+
+                    <button onclick="resetFilters()" class="w-full py-2 border border-slate-200 hover:border-slate-300 text-slate-600 rounded-lg text-xs font-bold transition-colors flex items-center justify-center gap-1.5">
+                        <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                        Đặt lại bộ lọc
+                    </button>
+                </div>
+
+                <!-- Hỗ trợ kỹ thuật Box -->
+                <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-5 text-white shadow-sm space-y-4">
+                    <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-primary-orange">
+                        <i data-lucide="wrench" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-bold">Không tìm thấy mã linh kiện?</h3>
+                        <p class="text-xs text-slate-300 mt-1 leading-relaxed">Vui lòng chụp lại thông số hoặc bộ phận cũ cần thay thế và gửi đến bộ phận kỹ thuật để đối soát.</p>
+                    </div>
+                    <div class="pt-2">
+                        <a href="https://zalo.me" target="_blank" class="w-full py-2 bg-primary-orange hover:bg-orange-600 text-white text-center rounded-lg text-xs font-bold block transition-colors">
+                            Gửi hình ảnh qua Zalo
+                        </a>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- ─── RIGHT COLUMN: CATALOG CONTENT (9 Cols) ──────────────── -->
+            <main class="lg:col-span-9 space-y-6">
+
+                <!-- Dynamic Indicator Header -->
+                <div class="flex items-center justify-between bg-white px-5 py-4 rounded-xl border border-slate-200/80 shadow-sm">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        <span id="resultsCount" class="text-xs font-bold text-slate-600 uppercase tracking-wider">Đang tải danh sách tra cứu...</span>
+                    </div>
+                    <div class="text-[11px] text-slate-400 font-semibold flex items-center gap-1">
+                        <i data-lucide="info" class="w-3.5 h-3.5"></i> Cập nhật giá cuối: May 2026
+                    </div>
+                </div>
+
+                <!-- Product Catalog Grid -->
+                <div id="catalogGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <!-- Cards will be populated by Javascript below -->
+                </div>
+
+                <!-- No Results fallback -->
+                <div id="noResults" class="hidden py-16 text-center bg-white border border-slate-200 rounded-2xl shadow-sm">
+                    <div class="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-3 border border-slate-100 text-slate-400">
+                        <i data-lucide="package-search" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-sm font-bold text-slate-800">Không tìm thấy phụ tùng tương thích</h3>
+                    <p class="text-xs text-slate-500 mt-1">Vui lòng điều chỉnh bộ lọc hoặc từ khóa tìm kiếm.</p>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- ─── TECHNICAL SPECIFICATION MODAL (DEMO ONLY) ─────────────── -->
+    <div id="techModal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl border border-slate-200 animate-[fadeIn_0.2s_ease-out]">
+            <div class="px-6 py-4 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
+                <span class="text-xs font-bold text-primary-orange uppercase tracking-wider">Thông số tra cứu chi tiết</span>
+                <button onclick="closeModal()" class="w-8 h-8 rounded-full hover:bg-slate-200 flex items-center justify-center text-slate-400 transition-colors">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <div class="p-6 space-y-4">
+                <div class="flex items-start gap-4">
+                    <div id="modalImgContainer" class="w-20 h-20 bg-slate-100 rounded-xl overflow-hidden flex items-center justify-center flex-shrink-0 border border-slate-100">
+                        <!-- Image populated dynamically -->
+                    </div>
+                    <div>
+                        <span id="modalBrand" class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Thương hiệu</span>
+                        <h3 id="modalName" class="text-base font-bold text-slate-800 leading-snug">Tên phụ tùng</h3>
+                        <p id="modalCategory" class="text-xs text-slate-500 mt-1">Danh mục phụ tùng</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 rounded-xl p-4 space-y-2 text-xs">
+                    <div class="flex justify-between py-1 border-b border-slate-200/50">
+                        <span class="text-slate-500">Mã linh kiện:</span>
+                        <span id="modalId" class="font-bold text-slate-800">N/A</span>
+                    </div>
+                    <div class="flex justify-between py-1 border-b border-slate-200/50">
+                        <span class="text-slate-500">Tiêu chuẩn kỹ thuật:</span>
+                        <span id="modalSpec" class="font-bold text-slate-800 text-right max-w-[240px]">Chính hãng theo dòng xe</span>
+                    </div>
+                    <div class="flex justify-between py-1 border-b border-slate-200/50">
+                        <span class="text-slate-500">Đơn vị quy chuẩn:</span>
+                        <span id="modalUnit" class="font-bold text-slate-800">Cái / Bình / Chai</span>
+                    </div>
+                    <div class="flex justify-between py-1">
+                        <span class="text-slate-500 font-semibold text-primary-orange">Đơn giá tham khảo:</span>
+                        <span id="modalPrice" class="font-bold text-slate-900 text-sm">Liên hệ</span>
+                    </div>
+                </div>
+
+                <div class="bg-amber-50 rounded-xl p-3 text-[11px] text-amber-800 leading-relaxed border border-amber-100 flex gap-2">
+                    <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5"></i>
+                    <span><strong>Lưu ý:</strong> Giá trên là đơn giá tham khảo của sản phẩm chưa bao gồm tiền công lắp đặt/cân chỉnh kỹ thuật tại xưởng sửa chữa.</span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 pt-2">
+                    <button onclick="closeModal()" class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-all">
+                        Đóng cửa sổ
+                    </button>
+                    <a id="modalZaloLink" href="#" target="_blank" class="w-full py-2.5 bg-primary-orange hover:bg-orange-600 text-white rounded-xl text-xs font-bold text-center transition-all flex items-center justify-center gap-1.5 shadow-sm shadow-orange-100">
+                        <i data-lucide="phone-call" class="w-3.5 h-3.5"></i>
+                        Liên hệ tư vấn Zalo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── LUCIDE ICONS DEVELOPMENT SCRIPT ──────────────────────── -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- ─── JAVASCRIPT STATE & FILTER LOGIC ───────────────────────── -->
+    <script>
+        // Mockup database của linh kiện phụ tùng
+        const PRODUCTS = [
+            { id: "PK-N-001", productName: "Dầu nhớt Motul Gold 3100 10W40 1L", categoryName: "Nhớt", brandName: "Motul", price: 165000, unit: "Chai", image: "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&q=80&w=200", spec: "Bán tổng hợp, tiêu chuẩn API SL, JASO MA2" },
+            { id: "PK-N-002", productName: "Dầu nhớt Liqui Moly Motorbike 10W40 Scooter 0.8L", categoryName: "Nhớt", brandName: "Liqui Moly", price: 210000, unit: "Chai", image: "", spec: "Tổng hợp hoàn toàn, API SN Plus, JASO MB" },
+            { id: "PK-L-101", productName: "Lốp xe Michelin City Grip 2 (90/90-14)", categoryName: "Lốp", brandName: "Michelin", price: 920000, unit: "Cái", image: "https://images.unsplash.com/photo-1578844251758-2f71da64c96f?auto=format&fit=crop&q=80&w=200", spec: "Dành cho bánh trước Click/AirBlade/Vision, chống trượt cao" },
+            { id: "PK-L-102", productName: "Lốp xe Dunlop D307 (100/90-10)", categoryName: "Lốp", brandName: "Dunlop", price: 580000, unit: "Cái", image: "", spec: "Dành cho xe ga Lead/Spacy, bám đường ưu việt" },
+            { id: "PK-P-201", productName: "Má phanh đĩa trước Nissin (Nissin Gold)", categoryName: "Phanh", brandName: "Nissin", price: 185000, unit: "Bộ", image: "", spec: "Má phanh đĩa kim loại thiêu kết, chịu nhiệt tốt" },
+            { id: "PK-P-202", productName: "Đĩa phanh trước Honda chính hãng (220mm)", categoryName: "Phanh", brandName: "Honda", price: 350000, unit: "Bộ", image: "", spec: "Đĩa phanh thép không gỉ đường kính 220mm tiêu chuẩn" },
+            { id: "PK-A-301", productName: "Ắc quy GS GTZ6V (12V - 5Ah)", categoryName: "Ắc quy", brandName: "GS", price: 385000, unit: "Bình", image: "https://images.unsplash.com/photo-1620962080547-b4b37764e52c?auto=format&fit=crop&q=80&w=200", spec: "Nguồn điện siêu kín khí khô, ổn định lâu dài" },
+            { id: "PK-A-302", productName: "Ắc quy Globe WP5-BS (12V - 5Ah)", categoryName: "Ắc quy", brandName: "Globe", price: 290000, unit: "Bình", image: "", spec: "Bình ắc quy miễn bảo dưỡng tiêu chuẩn" }
+        ];
+
+        const CATEGORY_META = {
+            'Nhớt':    { icon: 'droplet',   colorClass: 'text-amber-600 bg-amber-50 border-amber-200' },
+            'Lốp':     { icon: 'disc',      colorClass: 'text-slate-700 bg-slate-50 border-slate-200' },
+            'Phanh':   { icon: 'circle-dot', colorClass: 'text-red-600 bg-red-50 border-red-200' },
+            'Ắc quy':  { icon: 'zap',       colorClass: 'text-emerald-600 bg-emerald-50 border-emerald-200' },
+        };
+        const DEFAULT_META = { icon: 'wrench', colorClass: 'text-slate-600 bg-slate-50 border-slate-200' };
+
+        // DOM elements
+        const searchInput = document.getElementById('searchInput');
+        const categorySelect = document.getElementById('categorySelect');
+        const brandSelect = document.getElementById('brandSelect');
+        const catalogGrid = document.getElementById('catalogGrid');
+        const resultsCount = document.getElementById('resultsCount');
+        const noResults = document.getElementById('noResults');
+
+        // Render Catalog List
+        function renderCatalog() {
+            const query = searchInput.value.toLowerCase().trim();
+            const selectedCat = categorySelect.value;
+            const selectedBrand = brandSelect.value;
+
+            // Filter logic
+            const filtered = PRODUCTS.filter(p => {
+                const matchesSearch = p.productName.toLowerCase().includes(query) || 
+                                      p.id.toLowerCase().includes(query) ||
+                                      p.spec.toLowerCase().includes(query);
+                const matchesCat = (selectedCat === 'all' || p.categoryName === selectedCat);
+                const matchesBrand = (selectedBrand === 'all' || p.brandName === selectedBrand);
+                return matchesSearch && matchesCat && matchesBrand;
+            });
+
+            // Update Header Count
+            resultsCount.textContent = `Tìm thấy ${filtered.length} kết quả phù hợp`;
+
+            // Clear Grid
+            catalogGrid.innerHTML = '';
+
+            if (filtered.length === 0) {
+                catalogGrid.classList.add('hidden');
+                noResults.classList.remove('hidden');
+                return;
+            }
+
+            catalogGrid.classList.remove('hidden');
+            noResults.classList.add('hidden');
+
+            filtered.forEach(p => {
+                const meta = CATEGORY_META[p.categoryName] || DEFAULT_META;
+                const formattedPrice = p.price ? new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(p.price) : 'Liên hệ';
+                
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col hover:border-primary-orange hover:shadow-lg transition-all duration-300";
+                
+                // Image or Placeholder
+                const imgSection = p.image 
+                    ? `<img src="${p.image}" alt="${p.productName}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">`
+                    : `<div class="w-full h-full flex flex-col items-center justify-center text-slate-300"><i data-lucide="package" class="w-10 h-10 mb-1"></i><span class="text-[10px] text-slate-400">Hình ảnh minh họa</span></div>`;
+
+                card.innerHTML = `
+                    <div class="h-40 overflow-hidden relative bg-slate-50 border-b border-slate-100 flex items-center justify-center">
+                        ${imgSection}
+                        <div class="absolute top-3 left-3">
+                            <span class="px-2 py-0.5 rounded-lg text-[10px] font-bold border ${meta.colorClass}">
+                                ${p.categoryName}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1 space-y-2.5">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-bold text-slate-400 tracking-wider uppercase">${p.brandName}</span>
+                            <span class="text-[10px] font-mono text-slate-400">${p.id}</span>
+                        </div>
+                        <h3 class="text-sm font-bold text-slate-800 leading-snug line-clamp-2 min-h-[40px]">${p.productName}</h3>
+                        <p class="text-[11px] text-slate-400 line-clamp-2 leading-relaxed">${p.spec}</p>
+                        
+                        <div class="pt-3 border-t border-slate-100 mt-auto flex items-end justify-between">
+                            <div>
+                                <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider block mb-0.5">Giá khuyên dùng (${p.unit}):</span>
+                                <span class="text-sm font-extrabold text-slate-900">${formattedPrice}</span>
+                            </div>
+                            <button onclick="openTechDetail('${p.id}')" class="px-3 py-1.5 bg-slate-50 hover:bg-orange-50 text-slate-700 hover:text-primary-orange border border-slate-100 hover:border-primary-orange rounded-lg text-xs font-bold transition-all flex items-center gap-1">
+                                Tra cứu
+                                <i data-lucide="arrow-right-to-line" class="w-3.5 h-3.5"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                catalogGrid.appendChild(card);
+            });
+
+            // Re-render newly injected lucide icons
+            lucide.createIcons();
+        }
+
+        // Search inputs listeners
+        searchInput.addEventListener('input', renderCatalog);
+        categorySelect.addEventListener('change', renderCatalog);
+        brandSelect.addEventListener('change', renderCatalog);
+
+        // Reset all filters
+        function resetFilters() {
+            searchInput.value = '';
+            categorySelect.value = 'all';
+            brandSelect.value = 'all';
+            renderCatalog();
+        }
+
+        // Open Modal Details
+        function openTechDetail(productId) {
+            const product = PRODUCTS.find(p => p.id === productId);
+            if (!product) return;
+
+            document.getElementById('modalId').textContent = product.id;
+            document.getElementById('modalName').textContent = product.productName;
+            document.getElementById('modalBrand').textContent = `Hãng: ${product.brandName}`;
+            document.getElementById('modalCategory').textContent = `Nhóm linh kiện: ${product.categoryName}`;
+            document.getElementById('modalSpec').textContent = product.spec;
+            document.getElementById('modalUnit').textContent = product.unit;
+            document.getElementById('modalPrice').textContent = product.price 
+                ? new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price) 
+                : 'Liên hệ';
+
+            // Zalo message payload
+            const textMsg = `Xin chào MotoCare, tôi đang tra cứu thông số phụ tùng mã ${product.id} (${product.productName}). Nhờ xưởng tư vấn báo giá lắp đặt hoàn thiện giúp tôi.`;
+            document.getElementById('modalZaloLink').href = `https://zalo.me/your-zalo-id-here?text=${encodeURIComponent(textMsg)}`;
+
+            const imgContainer = document.getElementById('modalImgContainer');
+            if (product.image) {
+                imgContainer.innerHTML = `<img src="${product.image}" alt="${product.productName}" class="w-full h-full object-cover">`;
+            } else {
+                imgContainer.innerHTML = `<i data-lucide="package" class="w-8 h-8 text-slate-300"></i>`;
+                lucide.createIcons();
+            }
+
+            document.getElementById('techModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('techModal').classList.add('hidden');
+        }
+
+        // Initialize view on load
+        window.addEventListener('DOMContentLoaded', () => {
+            renderCatalog();
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

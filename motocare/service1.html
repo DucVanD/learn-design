@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh mục Dịch vụ — MotoCare Premium</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js for live interactions -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            500: '#f97316', // MotoCare Orange
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            900: '#7c2d12',
+                        },
+                        dark: {
+                            800: '#1e293b',
+                            900: '#0f172a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'SF Pro Display', '-apple-system', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased font-sans min-h-screen" 
+      x-data="serviceCatalog()" 
+      x-init="init()">
+
+    <!-- HEADER / HERO BANNER -->
+    <div class="bg-gradient-to-r from-dark-900 via-slate-900 to-dark-800 text-white relative overflow-hidden py-10 md:py-16">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(249,115,22,0.15),transparent_45%)]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-brand-500/10 text-brand-500 border border-brand-500/20 mb-3">
+                        <span class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse"></span>
+                        Hệ thống Chăm sóc Xe máy Chuyên nghiệp
+                    </span>
+                    <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight">
+                        Dịch Vụ Kỹ Thuật <span class="text-brand-500">MotoCare</span>
+                    </h1>
+                    <p class="mt-3 text-slate-400 max-w-xl text-sm md:text-base leading-relaxed">
+                        Khám phá các gói dịch vụ bảo dưỡng, sửa chữa và nâng cấp xe máy được thực hiện bởi đội ngũ kỹ thuật viên tay nghề cao.
+                    </p>
+                </div>
+                <!-- TRUST BADGES -->
+                <div class="grid grid-cols-2 gap-4 lg:gap-6 bg-slate-800/40 backdrop-blur-md p-5 rounded-2xl border border-slate-700/50">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center text-brand-500 border border-brand-500/20">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                        </div>
+                        <div>
+                            <div class="font-bold text-sm">Chính Hãng 100%</div>
+                            <div class="text-xs text-slate-400">Phụ tùng chuẩn zin</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center text-brand-500 border border-brand-500/20">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <div>
+                            <div class="font-bold text-sm">Bảo Hành Dài Hạn</div>
+                            <div class="text-xs text-slate-400">Từ 3 đến 12 tháng</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN INTERACTIVE CONTAINER -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+        
+        <div class="flex flex-col lg:flex-row gap-8">
+            
+            <!-- LEFT SIDEBAR: FILTERS -->
+            <aside class="w-full lg:w-72 shrink-0 space-y-6">
+                <!-- Search Box (Mobile & Desktop) -->
+                <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm space-y-3">
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider">Tìm Kiếm Dịch Vụ</label>
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            x-model="searchTerm"
+                            placeholder="Tên dịch vụ, linh kiện..." 
+                            class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:border-brand-500 focus:bg-white focus:ring-2 focus:ring-brand-500/10 transition-all"
+                        />
+                        <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        <button 
+                            x-show="searchTerm" 
+                            @click="searchTerm = ''" 
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                        >
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Category Filtering (Pill-styled vertical list with count) -->
+                <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
+                    <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4 flex justify-between items-center">
+                        <span>Danh Mục Dịch Vụ</span>
+                        <span class="text-[10px] bg-slate-100 px-2 py-0.5 rounded text-slate-500 font-medium" x-text="categories.length"></span>
+                    </h3>
+                    <div class="space-y-1.5">
+                        <button 
+                            @click="selectedCategory = 'all'" 
+                            class="w-full text-left px-3 py-2 rounded-xl text-sm font-medium flex justify-between items-center transition-all duration-150"
+                            :class="selectedCategory === 'all' ? 'bg-brand-50 text-brand-600 font-semibold' : 'text-slate-600 hover:bg-slate-50'"
+                        >
+                            <span>Tất cả danh mục</span>
+                            <span class="text-xs opacity-70" x-text="services.length"></span>
+                        </button>
+                        <template x-for="cat in categories" :key="cat">
+                            <button 
+                                @click="selectedCategory = cat" 
+                                class="w-full text-left px-3 py-2 rounded-xl text-sm font-medium flex justify-between items-center transition-all duration-150"
+                                :class="selectedCategory === cat ? 'bg-brand-50 text-brand-600 font-semibold' : 'text-slate-600 hover:bg-slate-50'"
+                            >
+                                <span x-text="cat"></span>
+                                <span class="text-xs opacity-70" x-text="getCategoryCount(cat)"></span>
+                            </button>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Brand Filter -->
+                <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
+                    <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4">Hãng Xe Hỗ Trợ</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <button 
+                            @click="selectedBrand = 'all'"
+                            class="px-3 py-1.5 rounded-xl text-xs font-medium transition-all"
+                            :class="selectedBrand === 'all' ? 'bg-slate-900 text-white shadow-sm' : 'bg-slate-100 hover:bg-slate-200 text-slate-600'"
+                        >
+                            Tất cả hãng
+                        </button>
+                        <template x-for="brand in brands" :key="brand">
+                            <button 
+                                @click="selectedBrand = brand"
+                                class="px-3 py-1.5 rounded-xl text-xs font-medium transition-all"
+                                :class="selectedBrand === brand ? 'bg-slate-900 text-white shadow-sm' : 'bg-slate-100 hover:bg-slate-200 text-slate-600'"
+                            >
+                                <span x-text="brand"></span>
+                            </button>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- PROMO WIDGET -->
+                <div class="bg-gradient-to-br from-brand-500 to-brand-600 rounded-2xl p-5 text-white relative overflow-hidden shadow-lg shadow-brand-500/10">
+                    <div class="absolute -right-10 -bottom-10 w-28 h-28 bg-white/10 rounded-full blur-xl"></div>
+                    <span class="bg-white/20 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider">Ưu đãi độc quyền</span>
+                    <h4 class="font-bold text-lg mt-3">Đặt lịch hôm nay, tặng rửa xe 0đ</h4>
+                    <p class="text-xs text-brand-100/90 mt-1 leading-relaxed">Áp dụng cho mọi hóa đơn bảo dưỡng tổng thể đặt trước qua website.</p>
+                    <button @click="openModal(null)" class="w-full mt-4 bg-white text-brand-600 py-2.5 px-4 rounded-xl font-bold text-xs hover:bg-brand-50 transition-colors shadow-sm">Đăng ký hẹn ngay</button>
+                </div>
+            </aside>
+
+            <!-- RIGHT CONTENT AREA -->
+            <main class="flex-1">
+                <!-- TOP UTILITIES & SORTING -->
+                <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Kết quả:</span>
+                        <span class="text-sm font-bold bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg" x-text="`${filteredServices.length} dịch vụ`"></span>
+                    </div>
+
+                    <div class="flex items-center gap-3 self-end sm:self-auto">
+                        <!-- Sorting Selection -->
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-medium text-slate-400 hidden sm:inline">Sắp xếp:</span>
+                            <select 
+                                x-model="sortBy"
+                                class="bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-medium text-slate-700 outline-none focus:ring-1 focus:ring-brand-500"
+                            >
+                                <option value="default">Mặc định</option>
+                                <option value="price-asc">Giá: Thấp đến Cao</option>
+                                <option value="price-desc">Giá: Cao đến Thấp</option>
+                                <option value="duration-asc">Thời gian làm nhanh nhất</option>
+                            </select>
+                        </div>
+
+                        <!-- Grid/List Toggle buttons -->
+                        <div class="flex bg-slate-100 p-1 rounded-xl">
+                            <button 
+                                @click="viewMode = 'grid'" 
+                                class="p-1.5 rounded-lg transition-all"
+                                :class="viewMode === 'grid' ? 'bg-white text-brand-500 shadow-xs' : 'text-slate-400 hover:text-slate-600'"
+                                title="Xem dạng lưới"
+                            >
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                            </button>
+                            <button 
+                                @click="viewMode = 'list'" 
+                                class="p-1.5 rounded-lg transition-all"
+                                :class="viewMode === 'list' ? 'bg-white text-brand-500 shadow-xs' : 'text-slate-400 hover:text-slate-600'"
+                                title="Xem dạng danh sách"
+                            >
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LOADING SKELETON -->
+                <div x-show="isLoading" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <template x-for="i in 6" :key="i">
+                        <div class="h-80 bg-white border border-slate-200 rounded-2xl animate-pulse p-4 space-y-4">
+                            <div class="h-44 bg-slate-200 rounded-xl"></div>
+                            <div class="h-4 bg-slate-200 rounded w-1/3"></div>
+                            <div class="h-6 bg-slate-200 rounded w-2/3"></div>
+                            <div class="h-4 bg-slate-200 rounded w-1/2"></div>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- EMPTY STATE -->
+                <div x-show="!isLoading && filteredServices.length === 0" x-cloak class="bg-white rounded-2xl border border-slate-200/80 p-12 text-center max-w-lg mx-auto my-12">
+                    <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 border border-slate-200">
+                        <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800">Không tìm thấy dịch vụ phù hợp</h3>
+                    <p class="text-sm text-slate-500 mt-2">Vui lòng thử điều chỉnh lại bộ lọc hoặc từ khóa tìm kiếm của bạn.</p>
+                    <button @click="resetFilters()" class="mt-4 inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-brand-50 text-brand-600 hover:bg-brand-100 transition-colors">
+                        Xóa tất cả bộ lọc
+                    </button>
+                </div>
+
+                <!-- SERVICE PRODUCTS GRID VIEW -->
+                <div x-show="!isLoading && viewMode === 'grid'" x-cloak class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <template x-for="service in filteredServices" :key="service.id">
+                        <div class="group bg-white rounded-2xl border border-slate-200/80 hover:border-brand-500/30 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col relative">
+                            <!-- Popular Tag Badge -->
+                            <div x-show="service.isHot" class="absolute top-3 right-3 z-10">
+                                <span class="bg-amber-500 text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm flex items-center gap-1">
+                                    <svg class="w-3 h-3 fill-white" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                                    Được Đặt Nhiều
+                                </span>
+                            </div>
+
+                            <!-- Cover Image -->
+                            <div class="h-44 relative bg-slate-100 overflow-hidden">
+                                <img :src="service.image" :alt="service.serviceName" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                                <span class="absolute bottom-3 left-3 bg-white/95 backdrop-blur-sm text-slate-800 text-[10px] font-bold px-2.5 py-1 rounded-lg shadow-sm border border-slate-100" x-text="service.categoryName"></span>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="p-5 flex-1 flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-center justify-between gap-2 mb-2">
+                                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest" x-text="service.brandName"></span>
+                                        <div class="flex items-center gap-1">
+                                            <span class="text-amber-500 text-xs font-semibold">★</span>
+                                            <span class="text-xs font-bold text-slate-700" x-text="service.rating"></span>
+                                            <span class="text-[10px] text-slate-400" x-text="`(${service.reviews})`"></span>
+                                        </div>
+                                    </div>
+                                    <h3 class="font-extrabold text-base text-slate-800 group-hover:text-brand-500 transition-colors line-clamp-2 leading-snug mb-2" x-text="service.serviceName"></h3>
+                                    <p class="text-xs text-slate-500 line-clamp-2 mb-4 leading-relaxed" x-text="service.description"></p>
+                                </div>
+
+                                <!-- Footer details -->
+                                <div class="pt-4 border-t border-slate-100">
+                                    <div class="flex items-end justify-between">
+                                        <div>
+                                            <span class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">Chi phí từ:</span>
+                                            <span class="text-lg font-black text-slate-900" x-text="formatCurrency(service.price)"></span>
+                                        </div>
+                                        <div class="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+                                            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                            <span x-text="formatDuration(service.estimatedDurationMinutes)"></span>
+                                        </div>
+                                    </div>
+                                    <!-- CTAs -->
+                                    <div class="grid grid-cols-2 gap-2 mt-4">
+                                        <a :href="`/dich-vu/${service.slug}`" class="py-2 px-3 border border-slate-200 hover:border-slate-300 hover:bg-slate-50 rounded-xl text-center text-xs font-bold text-slate-600 transition-colors">
+                                            Chi tiết
+                                        </a>
+                                        <button @click="openModal(service)" class="py-2 px-3 bg-brand-500 hover:bg-brand-600 active:bg-brand-700 rounded-xl text-center text-xs font-bold text-white transition-all shadow-sm shadow-brand-500/10">
+                                            Đặt lịch ngay
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- SERVICE LIST VIEW -->
+                <div x-show="!isLoading && viewMode === 'list'" x-cloak class="space-y-4">
+                    <template x-for="service in filteredServices" :key="service.id">
+                        <div class="group bg-white rounded-2xl border border-slate-200/80 hover:border-brand-500/30 overflow-hidden shadow-xs hover:shadow-md transition-all duration-300 p-4 flex flex-col sm:flex-row gap-5 relative">
+                            <!-- Image Left -->
+                            <div class="w-full sm:w-44 h-36 shrink-0 relative rounded-xl overflow-hidden bg-slate-100">
+                                <img :src="service.image" :alt="service.serviceName" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                <span class="absolute bottom-2 left-2 bg-slate-900/90 backdrop-blur-sm text-white text-[9px] font-bold px-2 py-0.5 rounded shadow-sm" x-text="service.categoryName"></span>
+                            </div>
+
+                            <!-- Content Right -->
+                            <div class="flex-1 flex flex-col justify-between">
+                                <div>
+                                    <div class="flex flex-wrap items-center gap-2.5 mb-1.5">
+                                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest" x-text="service.brandName"></span>
+                                        <span class="text-slate-300">•</span>
+                                        <div class="flex items-center gap-1">
+                                            <span class="text-amber-500 text-xs">★</span>
+                                            <span class="text-xs font-bold text-slate-700" x-text="service.rating"></span>
+                                            <span class="text-[10px] text-slate-400" x-text="`(${service.reviews} bình chọn)`"></span>
+                                        </div>
+                                    </div>
+                                    <h3 class="font-extrabold text-lg text-slate-800 group-hover:text-brand-500 transition-colors leading-snug mb-1" x-text="service.serviceName"></h3>
+                                    <p class="text-xs text-slate-500 line-clamp-2 leading-relaxed" x-text="service.description"></p>
+                                </div>
+
+                                <div class="flex flex-wrap items-center justify-between gap-4 pt-3 mt-3 border-t border-slate-100">
+                                    <div class="flex items-center gap-5">
+                                        <div>
+                                            <span class="text-[10px] text-slate-400 font-medium block">Chi phí:</span>
+                                            <span class="text-lg font-black text-brand-600" x-text="formatCurrency(service.price)"></span>
+                                        </div>
+                                        <div class="h-8 w-px bg-slate-100"></div>
+                                        <div>
+                                            <span class="text-[10px] text-slate-400 font-medium block">Dự kiến hoàn thành:</span>
+                                            <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5 mt-0.5">
+                                                <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                                <span x-text="formatDuration(service.estimatedDurationMinutes)"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <a :href="`/dich-vu/${service.slug}`" class="py-2 px-4 border border-slate-200 hover:border-slate-300 hover:bg-slate-50 rounded-xl text-xs font-bold text-slate-600 transition-colors">
+                                            Xem chi tiết
+                                        </a>
+                                        <button @click="openModal(service)" class="py-2 px-4 bg-brand-500 hover:bg-brand-600 rounded-xl text-xs font-bold text-white transition-all shadow-sm">
+                                            Đặt lịch
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </main>
+
+        </div>
+    </div>
+
+    <!-- BOOKING MODAL (PREVIEW FORM) -->
+    <div x-show="isModalOpen" x-cloak class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs" @keydown.escape.window="isModalOpen = false">
+        <div class="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border border-slate-100 transition-all transform scale-100" @click.away="isModalOpen = false">
+            <!-- Modal Header -->
+            <div class="bg-slate-900 p-6 text-white relative">
+                <button @click="isModalOpen = false" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+                <span class="text-[10px] uppercase font-bold tracking-widest text-brand-500">Đặt hẹn trực tuyến</span>
+                <h3 class="text-xl font-extrabold mt-1">Thông Tin Lịch Hẹn</h3>
+                <p class="text-xs text-slate-400 mt-1" x-text="selectedServiceForBooking ? `Đang chọn: ${selectedServiceForBooking.serviceName}` : 'Hãy điền chi tiết liên hệ của bạn bên dưới.'"></p>
+            </div>
+            
+            <!-- Modal Form -->
+            <form @submit.prevent="submitBooking()" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase">Tên khách hàng *</label>
+                    <input type="text" required placeholder="Họ và tên của bạn" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:border-brand-500 focus:bg-white focus:ring-1 focus:ring-brand-500 outline-none transition-all">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase">Số điện thoại *</label>
+                        <input type="tel" required placeholder="09xx..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:border-brand-500 focus:bg-white focus:ring-1 focus:ring-brand-500 outline-none transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase">Hãng xe & Đời xe</label>
+                        <input type="text" placeholder="Ví dụ: SH 2023" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:border-brand-500 focus:bg-white focus:ring-1 focus:ring-brand-500 outline-none transition-all">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase">Chọn ngày giờ hẹn *</label>
+                    <input type="datetime-local" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:border-brand-500 focus:bg-white focus:ring-1 focus:ring-brand-500 outline-none transition-all">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase">Ghi chú yêu cầu kỹ thuật</label>
+                    <textarea rows="2" placeholder="VD: Xe bị giật ga đầu, có tiếng kêu lạ ở lốc máy..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:border-brand-500 focus:bg-white focus:ring-1 focus:ring-brand-500 outline-none transition-all"></textarea>
+                </div>
+
+                <!-- Price summary if a service is chosen -->
+                <div x-show="selectedServiceForBooking" class="bg-slate-50 p-4 rounded-xl border border-slate-200/50 flex justify-between items-center text-sm">
+                    <span class="font-medium text-slate-600">Đơn giá dự kiến:</span>
+                    <span class="font-black text-brand-600 text-lg" x-text="selectedServiceForBooking ? formatCurrency(selectedServiceForBooking.price) : ''"></span>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" class="w-full py-3 bg-brand-500 hover:bg-brand-600 active:bg-brand-700 text-white font-extrabold text-sm rounded-xl transition-all shadow-md shadow-brand-500/20 uppercase tracking-wider">
+                        Xác nhận đặt lịch
+                    </button>
+                    <p class="text-[10px] text-center text-slate-400 mt-2.5">Kỹ thuật viên MotoCare sẽ gọi điện lại xác nhận lịch của bạn trong vòng 10 phút.</p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MAIN APP STATE & CONTROLLER -->
+    <script>
+        function serviceCatalog() {
+            return {
+                services: [],
+                categories: [],
+                brands: [],
+                filteredServices: [],
+                isLoading: true,
+                searchTerm: '',
+                selectedCategory: 'all',
+                selectedBrand: 'all',
+                sortBy: 'default',
+                viewMode: 'grid', // 'grid' | 'list'
+                
+                // Booking modal state
+                isModalOpen: false,
+                selectedServiceForBooking: null,
+
+                init() {
+                    // Simulate API Fetch with premium motorbike services mockup
+                    setTimeout(() => {
+                        this.services = [
+                            {
+                                id: 1,
+                                serviceName: "Bảo Dưỡng Toàn Diện Vespa & Piaggio Premium",
+                                slug: "bao-duong-toan-dien-vespa-premium",
+                                categoryName: "Bảo Dưỡng Định Kỳ",
+                                brandName: "Vespa",
+                                price: 850000,
+                                estimatedDurationMinutes: 120,
+                                rating: 4.9,
+                                reviews: 142,
+                                isHot: true,
+                                image: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=600&auto=format&fit=crop&q=80",
+                                description: "Bao gồm 15 hạng mục tiêu chuẩn quốc tế: vệ sinh chế hòa khí, đo dải côn, kiểm tra hệ thống phun xăng điện tử Fi, làm sạch bugi bạch kim."
+                            },
+                            {
+                                id: 2,
+                                serviceName: "Vệ Sinh Nồi Côn & Cân Chỉnh Chống Giật Tay Ga",
+                                slug: "ve-sinh-noi-tay-ga-chong-giat",
+                                categoryName: "Truyền Động & Máy",
+                                brandName: "Honda",
+                                price: 250000,
+                                estimatedDurationMinutes: 45,
+                                rating: 4.8,
+                                reviews: 96,
+                                isHot: true,
+                                image: "https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=600&auto=format&fit=crop&q=80",
+                                description: "Khắc phục triệt để hiện tượng rung ga đầu khi tăng tốc ở dải tốc thấp. Phù hợp các dòng xe Honda SH, Lead, AirBlade."
+                            },
+                            {
+                                id: 3,
+                                serviceName: "Thay Nhớt Motul 300V 10W40 Cao Cấp & Lọc Nhớt",
+                                slug: "thay-nhot-motul-300v",
+                                categoryName: "Thay Dầu & Phụ Gia",
+                                brandName: "Tất cả dòng xe",
+                                price: 460000,
+                                estimatedDurationMinutes: 15,
+                                rating: 4.9,
+                                reviews: 215,
+                                isHot: false,
+                                image: "https://images.unsplash.com/photo-1615887023516-9b6bcd559e87?w=600&auto=format&fit=crop&q=80",
+                                description: "Dầu gốc Ester tổng hợp hoàn toàn mang lại trải nghiệm côn mượt mà và khả năng bôi trơn đỉnh cao ở điều kiện vận hành khắc nghiệt."
+                            },
+                            {
+                                id: 4,
+                                serviceName: "Làm Mới & Đồng Sơn Căm Niềng Classic",
+                                slug: "dong-son-cam-nieng-classic",
+                                categoryName: "Khung Sườn & Dàn Chân",
+                                brandName: "Yamaha",
+                                price: 750000,
+                                estimatedDurationMinutes: 180,
+                                rating: 4.6,
+                                reviews: 34,
+                                isHot: false,
+                                image: "https://images.unsplash.com/photo-1502744688674-c619d1586c9e?w=600&auto=format&fit=crop&q=80",
+                                description: "Rút căm chuẩn kỹ thuật, phủ lớp sơn chống gỉ cao cấp giúp tăng tuổi thọ lốp, thẩm mỹ cao cho các mẫu xe số cổ điển."
+                            },
+                            {
+                                id: 5,
+                                serviceName: "Vệ Sinh Kim Phun Điên Tử Fi & Buồng Đốt Bằng Sóng Siêu Âm",
+                                slug: "ve-sinh-kim-phun-buong-dot",
+                                categoryName: "Truyền Động & Máy",
+                                brandName: "Tất cả dòng xe",
+                                price: 180000,
+                                estimatedDurationMinutes: 40,
+                                rating: 4.7,
+                                reviews: 88,
+                                isHot: false,
+                                image: "https://images.unsplash.com/photo-1599819811279-d5ad9cccf838?w=600&auto=format&fit=crop&q=80",
+                                description: "Làm sạch muội cacbon tích tụ trong buồng đốt piston, giúp xe bốc hơn, giảm hao xăng rõ rệt từ 5-10% sau khi tối ưu hóa đầu phun."
+                            },
+                            {
+                                id: 6,
+                                serviceName: "Cân Mâm Điện Tử & Thay Phanh Đĩa Brembo Cao Cấp",
+                                slug: "can-mam-thay-phanh-brembo",
+                                categoryName: "Hệ Thống Phanh",
+                                brandName: "Kawasaki",
+                                price: 1250000,
+                                estimatedDurationMinutes: 60,
+                                rating: 5.0,
+                                reviews: 18,
+                                isHot: true,
+                                image: "https://images.unsplash.com/photo-1609630875171-b1321377ee65?w=600&auto=format&fit=crop&q=80",
+                                description: "Dành riêng cho các dòng xe côn tay phân khối lớn (PKL). Sử dụng máy cân chỉnh tia hồng ngoại chính xác tối đa, an toàn tuyệt đối."
+                            }
+                        ];
+
+                        // Extract unique categories & brands dynamic
+                        this.categories = [...new Set(this.services.map(s => s.categoryName))];
+                        this.brands = [...new Set(this.services.map(s => s.brandName))];
+                        
+                        this.isLoading = false;
+                        this.applyFilters();
+                    }, 800);
+
+                    // Watch states
+                    this.$watch('searchTerm', () => this.applyFilters());
+                    this.$watch('selectedCategory', () => this.applyFilters());
+                    this.$watch('selectedBrand', () => this.applyFilters());
+                    this.$watch('sortBy', () => this.applyFilters());
+                },
+
+                applyFilters() {
+                    let temp = [...this.services];
+
+                    // Search filtering
+                    if (this.searchTerm.trim() !== '') {
+                        const keyword = this.searchTerm.toLowerCase();
+                        temp = temp.filter(s => 
+                            s.serviceName.toLowerCase().includes(keyword) || 
+                            s.description.toLowerCase().includes(keyword)
+                        );
+                    }
+
+                    // Category filtering
+                    if (this.selectedCategory !== 'all') {
+                        temp = temp.filter(s => s.categoryName === this.selectedCategory);
+                    }
+
+                    // Brand filtering
+                    if (this.selectedBrand !== 'all') {
+                        temp = temp.filter(s => s.brandName === this.selectedBrand);
+                    }
+
+                    // Sorting logic
+                    if (this.sortBy === 'price-asc') {
+                        temp.sort((a, b) => a.price - b.price);
+                    } else if (this.sortBy === 'price-desc') {
+                        temp.sort((a, b) => b.price - a.price);
+                    } else if (this.sortBy === 'duration-asc') {
+                        temp.sort((a, b) => a.estimatedDurationMinutes - b.estimatedDurationMinutes);
+                    }
+
+                    this.filteredServices = temp;
+                },
+
+                getCategoryCount(cat) {
+                    return this.services.filter(s => s.categoryName === cat).length;
+                },
+
+                resetFilters() {
+                    this.searchTerm = '';
+                    this.selectedCategory = 'all';
+                    this.selectedBrand = 'all';
+                    this.sortBy = 'default';
+                },
+
+                formatCurrency(amount) {
+                    if (!amount || amount === 0) return 'Liên hệ';
+                    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+                },
+
+                formatDuration(minutes) {
+                    if (!minutes) return '';
+                    if (minutes < 60) return `${minutes} phút`;
+                    return `${Math.round(minutes / 60 * 10) / 10} giờ`;
+                },
+
+                openModal(service) {
+                    this.selectedServiceForBooking = service;
+                    this.isModalOpen = true;
+                },
+
+                submitBooking() {
+                    alert('Cảm ơn bạn! MotoCare đã nhận được thông tin đăng ký. Chúng tôi sẽ sớm liên hệ xác nhận hẹn!');
+                    this.isModalOpen = false;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

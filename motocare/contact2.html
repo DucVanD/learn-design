@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liên hệ & Hỗ trợ - MotoCare</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { 'orange-brand': '#f97316' } } }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <main class="max-w-6xl mx-auto px-6 py-16">
+        <!-- Header -->
+        <header class="text-center mb-16">
+            <h1 class="text-4xl font-bold mb-4">Chúng tôi có thể giúp gì cho bạn?</h1>
+            <p class="text-slate-500 max-w-xl mx-auto">Đội ngũ kỹ thuật viên của MotoCare luôn sẵn sàng hỗ trợ. Hãy chọn hình thức liên hệ phù hợp hoặc để lại lời nhắn cho chúng tôi.</p>
+        </header>
+
+        <div class="grid lg:grid-cols-3 gap-12">
+            <!-- Form Area (2/3 width) -->
+            <section class="lg:col-span-2 bg-white p-10 rounded-3xl shadow-sm border border-slate-100">
+                <form class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-sm font-semibold text-slate-600">Họ và tên</label>
+                            <input type="text" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-orange-200 outline-none transition" placeholder="Ví dụ: Nguyễn Văn A">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-semibold text-slate-600">Số điện thoại</label>
+                            <input type="tel" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-orange-200 outline-none transition" placeholder="090x xxx xxx">
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label class="text-sm font-semibold text-slate-600">Chủ đề hỗ trợ</label>
+                        <select class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-orange-200 outline-none">
+                            <option>Yêu cầu bảo dưỡng định kỳ</option>
+                            <option>Hỗ trợ sự cố kỹ thuật</option>
+                            <option>Khiếu nại dịch vụ</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-sm font-semibold text-slate-600">Nội dung chi tiết</label>
+                        <textarea rows="4" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-orange-200 outline-none" placeholder="Mô tả ngắn gọn về tình trạng xe..."></textarea>
+                    </div>
+
+                    <button class="w-full bg-orange-brand text-white font-bold py-4 rounded-xl hover:bg-orange-600 shadow-lg shadow-orange-200 transition-all active:scale-[0.98]">
+                        Gửi yêu cầu hỗ trợ
+                    </button>
+                </form>
+            </section>
+
+            <!-- Info Sidebar (1/3 width) -->
+            <aside class="space-y-8">
+                <!-- Direct Contacts -->
+                <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm">
+                    <h3 class="font-bold text-lg mb-6">Thông tin liên hệ</h3>
+                    <div class="space-y-5">
+                        <div class="flex items-center gap-4">
+                            <div class="p-3 bg-orange-50 text-orange-brand rounded-lg">📞</div>
+                            <div>
+                                <p class="text-xs text-slate-400 font-bold uppercase">Hotline 24/7</p>
+                                <p class="font-semibold">1900 8888</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="p-3 bg-slate-100 text-slate-600 rounded-lg">✉️</div>
+                            <div>
+                                <p class="text-xs text-slate-400 font-bold uppercase">Email hỗ trợ</p>
+                                <p class="font-semibold">support@motocare.vn</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trust Card -->
+                <div class="bg-slate-900 p-8 rounded-3xl text-white">
+                    <h3 class="font-bold mb-2">Cam kết của MotoCare</h3>
+                    <ul class="space-y-3 text-sm text-slate-400">
+                        <li class="flex items-center gap-2">✓ Phản hồi trong 30 phút</li>
+                        <li class="flex items-center gap-2">✓ Kỹ thuật viên đạt chuẩn</li>
+                        <li class="flex items-center gap-2">✓ Bảo hành sau sửa chữa</li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+</body>
+</html>

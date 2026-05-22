@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liên hệ — MotoCare</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-orange': '#f97316',
+                        'page-bg': '#f8fafc'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-page-bg font-sans text-slate-900 pb-16 pt-5">
+
+    <div class="max-w-7xl mx-auto px-4">
+        <!-- Header Section -->
+        <div class="mb-8 border-b border-slate-200 pb-6">
+            <h1 class="text-3xl font-bold text-black mb-2">Liên hệ & Hỗ trợ</h1>
+            <p class="text-sm text-slate-500">Đội ngũ MotoCare luôn sẵn sàng lắng nghe và giải đáp mọi thắc mắc của bạn 24/7.</p>
+        </div>
+
+        <!-- Quick Info Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+            <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5 flex items-center gap-4">
+                <div class="w-12 h-12 rounded-lg flex items-center justify-center bg-slate-50 border border-slate-100"><span class="text-slate-500">📞</span></div>
+                <div>
+                    <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">Hotline 24/7</p>
+                    <p class="text-sm font-bold">1900 8888</p>
+                </div>
+            </div>
+            <!-- Repeat other cards similarly... -->
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Left: Form -->
+            <div class="lg:col-span-7 xl:col-span-8 bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
+                <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">Gửi yêu cầu tư vấn</h2>
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <input type="text" placeholder="Họ và tên *" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-primary-orange outline-none">
+                        <input type="tel" placeholder="Số điện thoại *" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-primary-orange outline-none">
+                    </div>
+                    <textarea rows="4" placeholder="Nội dung tin nhắn..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-primary-orange outline-none"></textarea>
+                    <button class="bg-primary-orange text-white px-8 py-3 rounded-xl font-bold text-sm hover:bg-orange-600 transition">Gửi yêu cầu</button>
+                </form>
+            </div>
+
+            <!-- Right: Map & FAQ -->
+            <div class="lg:col-span-5 xl:col-span-4 space-y-6">
+                <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm aspect-[4/3]">
+                    <div class="w-full h-full bg-slate-200 flex items-center justify-center text-slate-500">Google Maps Placeholder</div>
+                </div>
+
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+                    <h3 class="font-bold mb-4">Câu hỏi thường gặp</h3>
+                    <div class="space-y-2">
+                        <div class="bg-slate-50 p-3 rounded-lg text-sm font-medium">Bảo dưỡng xe mất bao lâu?</div>
+                        <div class="bg-slate-50 p-3 rounded-lg text-sm font-medium">Có cần đặt lịch trước không?</div>
+                    </div>
+                </div>
+
+                <div class="bg-primary-orange rounded-2xl p-6 text-center text-white">
+                    <h4 class="font-bold mb-2">Cần hỗ trợ khẩn cấp?</h4>
+                    <button class="bg-white text-primary-orange px-6 py-2 rounded-lg font-bold text-sm">Gọi 1900 8888</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
