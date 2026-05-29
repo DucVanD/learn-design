@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="YŪGEN Coffee - Quán cafe Nhật Bản phong cách hiện đại, không gian tối sang trọng với hương vị cafe đỉnh cao.">
+    <title>YŪGEN Coffee | Japanese Premium Coffee Experience</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@200;300;400;500;600&family=Noto+Serif+JP:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles-cafe.css">
+</head>
+<body>
+    <!-- LOADING SCREEN -->
+    <div id="loader" class="loader">
+        <div class="loader-inner">
+            <div class="loader-kanji">幽玄</div>
+            <div class="loader-text">YŪGEN COFFEE</div>
+            <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+            <div class="loader-sub">Đang tải trải nghiệm...</div>
+        </div>
+    </div>
+
+    <!-- PARTICLES CANVAS -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- NAVBAR -->
+    <nav id="navbar" class="navbar">
+        <div class="nav-inner">
+            <a href="#hero" class="nav-logo">
+                <span class="nav-logo-kanji">幽</span>
+                <span class="nav-logo-text">YŪGEN</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#about" data-text="Giới thiệu">Giới thiệu</a></li>
+                <li><a href="#signature" data-text="Signature">Signature</a></li>
+                <li><a href="#space" data-text="Không gian">Không gian</a></li>
+                <li><a href="#menu" data-text="Menu">Menu</a></li>
+                <li><a href="#booking" class="nav-cta">Đặt bàn</a></li>
+            </ul>
+            <button id="menu-toggle" class="menu-toggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div id="mobile-menu" class="mobile-menu">
+        <ul>
+            <li><a href="#about">Giới thiệu</a></li>
+            <li><a href="#signature">Signature</a></li>
+            <li><a href="#space">Không gian</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#booking">Đặt bàn</a></li>
+        </ul>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="hero">
+        <div class="hero-bg">
+            <img src="assets/images/japan_night_bg.png" alt="Japanese Night" class="hero-bg-img">
+            <div class="hero-overlay"></div>
+            <div class="hero-fog"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge" data-anim="fade-up">
+                <span>— EST. 2024 • TOKYO —</span>
+            </div>
+            <h1 class="hero-title" data-anim="fade-up" data-delay="200">
+                <span class="hero-title-jp">幽玄珈琲</span>
+                <span class="hero-title-main">YŪGEN<br>COFFEE</span>
+            </h1>
+            <p class="hero-sub" data-anim="fade-up" data-delay="400">
+                Nơi hương cafe hòa quyện cùng linh hồn Nhật Bản
+            </p>
+            <div class="hero-cta" data-anim="fade-up" data-delay="600">
+                <a href="#booking" class="btn-primary" id="hero-cta-btn">
+                    <span>Khám phá ngay</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+                <a href="#menu" class="btn-ghost" id="hero-menu-btn">Xem menu</a>
+            </div>
+        </div>
+        <div class="hero-coffee-img" data-anim="fade-up" data-delay="300">
+            <img src="assets/images/coffee_cup_hero.png" alt="Premium Coffee" id="coffee-cup">
+            <div class="coffee-steam">
+                <div class="steam s1"></div>
+                <div class="steam s2"></div>
+                <div class="steam s3"></div>
+            </div>
+            <div class="coffee-glow"></div>
+        </div>
+        <div class="hero-scroll-hint">
+            <div class="scroll-line"></div>
+            <span>Cuộn xuống</span>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="section about">
+        <div class="section-inner">
+            <div class="about-grid">
+                <div class="about-text">
+                    <span class="section-label" data-anim="fade-right">Câu chuyện của chúng tôi</span>
+                    <h2 class="section-title" data-anim="fade-right" data-delay="100">
+                        Tinh hoa<br><em>Nhật Bản</em>
+                    </h2>
+                    <p class="about-desc" data-anim="fade-right" data-delay="200">
+                        YŪGEN Coffee được sinh ra từ triết lý "幽玄" — vẻ đẹp sâu thẳm và huyền bí của văn hóa Nhật Bản. Mỗi tách cafe là một hành trình khám phá hương vị tinh tế, được rang xay thủ công theo phương pháp truyền thống.
+                    </p>
+                    <p class="about-desc" data-anim="fade-right" data-delay="300">
+                        Không gian của chúng tôi là sự giao thoa hoàn hảo giữa kiến trúc Nhật Bản truyền thống và thiết kế hiện đại tối giản, tạo nên một trải nghiệm thưởng thức cafe độc nhất vô nhị.
+                    </p>
+                    <div class="about-stats" data-anim="fade-right" data-delay="400">
+                        <div class="stat"><span class="stat-num" data-count="12">0</span><span class="stat-label">Năm kinh nghiệm</span></div>
+                        <div class="stat"><span class="stat-num" data-count="30">0</span><span class="stat-label">Loại cafe</span></div>
+                        <div class="stat"><span class="stat-num" data-count="50000">0</span><span class="stat-label">Khách hàng</span></div>
+                    </div>
+                </div>
+                <div class="about-image" data-anim="fade-left" data-delay="200">
+                    <div class="about-img-wrap">
+                        <img src="assets/images/hero_background.png" alt="YŪGEN Coffee Interior">
+                        <div class="about-img-overlay"></div>
+                    </div>
+                    <div class="about-img-deco"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SIGNATURE SECTION -->
+    <section id="signature" class="section signature">
+        <div class="section-inner">
+            <div class="section-header" data-anim="fade-up">
+                <span class="section-label">Đặc biệt</span>
+                <h2 class="section-title">Signature<br><em>Collection</em></h2>
+                <p class="section-sub">Những tác phẩm cafe được chế tác với tâm huyết và sự tỉ mỉ của nghệ nhân Nhật Bản</p>
+            </div>
+            <div class="sig-showcase">
+                <div class="sig-card" data-anim="fade-up" data-delay="100">
+                    <div class="sig-card-img">
+                        <img src="assets/images/coffee_cup_hero.png" alt="Kyoto Drip">
+                        <div class="sig-card-overlay"></div>
+                    </div>
+                    <div class="sig-card-body">
+                        <span class="sig-tag">Best Seller</span>
+                        <h3>Kyoto Slow Drip</h3>
+                        <p>Cafe nhỏ giọt 12 giờ theo phương pháp Kyoto truyền thống, hương vị sâu lắng và mượt mà.</p>
+                        <div class="sig-price">120.000đ</div>
+                    </div>
+                </div>
+                <div class="sig-card" data-anim="fade-up" data-delay="250">
+                    <div class="sig-card-img">
+                        <img src="assets/images/signature_coffees.png" alt="Matcha Fusion">
+                        <div class="sig-card-overlay"></div>
+                    </div>
+                    <div class="sig-card-body">
+                        <span class="sig-tag">Signature</span>
+                        <h3>Matcha Fusion</h3>
+                        <p>Sự hòa quyện hoàn hảo giữa matcha Uji cao cấp và espresso đậm đà, tạo nên hương vị độc đáo.</p>
+                        <div class="sig-price">95.000đ</div>
+                    </div>
+                </div>
+                <div class="sig-card" data-anim="fade-up" data-delay="400">
+                    <div class="sig-card-img">
+                        <img src="assets/images/hero_background.png" alt="Sakura Latte">
+                        <div class="sig-card-overlay"></div>
+                    </div>
+                    <div class="sig-card-body">
+                        <span class="sig-tag">Seasonal</span>
+                        <h3>Sakura Latte</h3>
+                        <p>Latte hoa anh đào theo mùa, mang đến hương vị nhẹ nhàng, tinh tế và đầy lãng mạn.</p>
+                        <div class="sig-price">85.000đ</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPACE SECTION -->
+    <section id="space" class="section space-section">
+        <div class="space-parallax">
+            <img src="assets/images/cafe_interior.png" alt="Không gian YŪGEN" class="space-bg-img">
+        </div>
+        <div class="space-overlay"></div>
+        <div class="section-inner space-content">
+            <div class="section-header" data-anim="fade-up">
+                <span class="section-label">Không gian</span>
+                <h2 class="section-title">Trải nghiệm<br><em>đỉnh cao</em></h2>
+            </div>
+            <div class="space-features">
+                <div class="space-feat" data-anim="fade-up" data-delay="100">
+                    <div class="space-feat-num">01</div>
+                    <h3>Mở cửa 24/7</h3>
+                    <p>Luôn sẵn sàng đón bạn bất kỳ lúc nào</p>
+                </div>
+                <div class="space-feat" data-anim="fade-up" data-delay="200">
+                    <div class="space-feat-num">02</div>
+                    <h3>Phòng riêng</h3>
+                    <p>Không gian riêng tư cho các buổi gặp mặt</p>
+                </div>
+                <div class="space-feat" data-anim="fade-up" data-delay="300">
+                    <div class="space-feat-num">03</div>
+                    <h3>Nhạc Jazz</h3>
+                    <p>Giai điệu Jazz Nhật Bản thư giãn</p>
+                </div>
+                <div class="space-feat" data-anim="fade-up" data-delay="400">
+                    <div class="space-feat-num">04</div>
+                    <h3>Free Wi-Fi</h3>
+                    <p>Kết nối tốc độ cao mọi lúc</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MENU SECTION -->
+    <section id="menu" class="section menu-section">
+        <div class="section-inner">
+            <div class="section-header" data-anim="fade-up">
+                <span class="section-label">Thực đơn</span>
+                <h2 class="section-title">Menu<br><em>nổi bật</em></h2>
+            </div>
+            <div class="menu-tabs" data-anim="fade-up" data-delay="100">
+                <button class="menu-tab active" data-tab="coffee">Coffee</button>
+                <button class="menu-tab" data-tab="tea">Trà Nhật</button>
+                <button class="menu-tab" data-tab="dessert">Bánh ngọt</button>
+            </div>
+            <div class="menu-grid" id="menu-grid">
+                <div class="menu-item" data-cat="coffee" data-anim="fade-up" data-delay="150">
+                    <div class="menu-item-info"><h4>Espresso Đậm</h4><p>Espresso thuần Nhật pha truyền thống</p></div>
+                    <span class="menu-item-price">55.000đ</span>
+                </div>
+                <div class="menu-item" data-cat="coffee" data-anim="fade-up" data-delay="200">
+                    <div class="menu-item-info"><h4>Kyoto Slow Drip</h4><p>Nhỏ giọt lạnh 12 giờ Kyoto style</p></div>
+                    <span class="menu-item-price">120.000đ</span>
+                </div>
+                <div class="menu-item" data-cat="coffee" data-anim="fade-up" data-delay="250">
+                    <div class="menu-item-info"><h4>Matcha Fusion Latte</h4><p>Matcha Uji + Espresso hòa quyện</p></div>
+                    <span class="menu-item-price">95.000đ</span>
+                </div>
+                <div class="menu-item" data-cat="coffee" data-anim="fade-up" data-delay="300">
+                    <div class="menu-item-info"><h4>Sakura Latte</h4><p>Latte hoa anh đào mùa xuân</p></div>
+                    <span class="menu-item-price">85.000đ</span>
+                </div>
+                <div class="menu-item" data-cat="coffee" data-anim="fade-up" data-delay="350">
+                    <div class="menu-item-info"><h4>Pour Over Single Origin</h4><p>Cafe đơn vùng pha pour-over thủ công</p></div>
+                    <span class="menu-item-price">90.000đ</span>
+                </div>
+                <div class="menu-item" data-cat="coffee" data-anim="fade-up" data-delay="400">
+                    <div class="menu-item-info"><h4>Hojicha Latte</h4><p>Trà xanh rang Hojicha + sữa tươi</p></div>
+                    <span class="menu-item-price">75.000đ</span>
+                </div>
+                <div class="menu-item hidden" data-cat="tea">
+                    <div class="menu-item-info"><h4>Sencha Premium</h4><p>Trà xanh Sencha hảo hạng</p></div>
+                    <span class="menu-item-price">65.000đ</span>
+                </div>
+                <div class="menu-item hidden" data-cat="tea">
+                    <div class="menu-item-info"><h4>Gyokuro</h4><p>Trà xanh che nắng cao cấp nhất</p></div>
+                    <span class="menu-item-price">110.000đ</span>
+                </div>
+                <div class="menu-item hidden" data-cat="tea">
+                    <div class="menu-item-info"><h4>Genmaicha</h4><p>Trà xanh gạo rang thơm lừng</p></div>
+                    <span class="menu-item-price">70.000đ</span>
+                </div>
+                <div class="menu-item hidden" data-cat="tea">
+                    <div class="menu-item-info"><h4>Matcha Ceremonial</h4><p>Matcha nghi lễ Uji truyền thống</p></div>
+                    <span class="menu-item-price">95.000đ</span>
+                </div>
+                <div class="menu-item hidden" data-cat="dessert">
+                    <div class="menu-item-info"><h4>Mochi Matcha</h4><p>Bánh mochi nhân matcha tươi</p></div>
+                    <span class="menu-item-price">45.000đ</span>
+                </div>
+                <div class="menu-item hidden" data-cat="dessert">
+                    <div class="menu-item-info"><h4>Dorayaki</h4><p>Bánh rán đậu đỏ truyền thống</p></div>
+                    <span class="menu-item-price">50.000đ</span>
+                </div>
+                <div class="menu-item hidden" data-cat="dessert">
+                    <div class="menu-item-info"><h4>Japanese Cheesecake</h4><p>Cheesecake mềm mịn kiểu Nhật</p></div>
+                    <span class="menu-item-price">65.000đ</span>
+                </div>
+                <div class="menu-item hidden" data-cat="dessert">
+                    <div class="menu-item-info"><h4>Kakigōri</h4><p>Đá bào Nhật Bản vị trái cây mùa</p></div>
+                    <span class="menu-item-price">75.000đ</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BOOKING SECTION -->
+    <section id="booking" class="section booking-section">
+        <div class="section-inner">
+            <div class="booking-grid">
+                <div class="booking-info" data-anim="fade-right">
+                    <span class="section-label">Đặt bàn</span>
+                    <h2 class="section-title">Trải nghiệm<br><em>YŪGEN</em></h2>
+                    <p>Đặt bàn trước để chúng tôi chuẩn bị không gian hoàn hảo nhất cho bạn.</p>
+                    <div class="booking-contact">
+                        <div class="contact-item">
+                            <span class="contact-label">ĐỊA CHỈ</span>
+                            <span>123 Phố Nhật Bản, Quận 1, TP.HCM</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">HOTLINE</span>
+                            <span>+84 123 456 789</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">GIỜ MỞ</span>
+                            <span>Mở cửa 24/7</span>
+                        </div>
+                    </div>
+                </div>
+                <form class="booking-form glass-card" data-anim="fade-left" data-delay="200" id="booking-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="book-name">Họ tên</label>
+                            <input type="text" id="book-name" placeholder="Nguyễn Văn A" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="book-phone">Số điện thoại</label>
+                            <input type="tel" id="book-phone" placeholder="0123 456 789" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="book-date">Ngày</label>
+                            <input type="date" id="book-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="book-time">Giờ</label>
+                            <input type="time" id="book-time" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Chọn không gian trải nghiệm</label>
+                        <div class="space-selector">
+                            <div class="space-option active" data-space="Engawa Deck (Thềm gỗ ngắm vườn Zen)">
+                                <div class="space-opt-meta">
+                                    <span class="space-opt-name">Engawa Deck</span>
+                                    <span class="space-opt-desc">Thềm gỗ ngắm vườn Zen cổ kính</span>
+                                </div>
+                            </div>
+                            <div class="space-option" data-space="Tatami Room (Phòng trà truyền thống)">
+                                <div class="space-opt-meta">
+                                    <span class="space-opt-name">Tatami Room</span>
+                                    <span class="space-opt-desc">Chiếu Tatami truyền thống ấm cúng</span>
+                                </div>
+                            </div>
+                            <div class="space-option" data-space="Tokyo Neon (Quầy bar hiện đại)">
+                                <div class="space-opt-meta">
+                                    <span class="space-opt-name">Tokyo Neon Bar</span>
+                                    <span class="space-opt-desc">View phố đêm Neon cinematic rực rỡ</span>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="book-guests" value="Engawa Deck (Thềm gỗ ngắm vườn Zen)">
+                    </div>
+                    <div class="form-group">
+                        <label for="book-note">Ghi chú</label>
+                        <textarea id="book-note" rows="3" placeholder="Yêu cầu đặc biệt..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary btn-full" id="booking-submit">
+                        <span>Xác nhận đặt bàn</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="section-inner">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <span class="nav-logo-kanji" style="font-size:2rem">幽</span>
+                    <span class="nav-logo-text" style="font-size:1.2rem">YŪGEN COFFEE</span>
+                    <p class="footer-tagline">Nơi hương cafe hòa quyện cùng linh hồn Nhật Bản</p>
+                </div>
+                <div class="footer-links-grid">
+                    <div>
+                        <h4>Liên kết</h4>
+                        <a href="#about">Giới thiệu</a>
+                        <a href="#signature">Signature</a>
+                        <a href="#menu">Menu</a>
+                    </div>
+                    <div>
+                        <h4>Liên hệ</h4>
+                        <a href="#">Facebook</a>
+                        <a href="#">Instagram</a>
+                        <a href="#">TikTok</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2024 YŪGEN Coffee. All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AMBIENT AUDIO WIDGET -->
+    <div id="ambient-widget" class="ambient-widget glass-card">
+        <button id="ambient-toggle" class="ambient-toggle" aria-label="Bật nhạc thiền">
+            <span class="music-bars">
+                <span class="bar b1"></span>
+                <span class="bar b2"></span>
+                <span class="bar b3"></span>
+                <span class="bar b4"></span>
+            </span>
+            <span class="ambient-label">SOUND: OFF</span>
+        </button>
+    </div>
+
+    <!-- CUSTOM CURSOR -->
+    <div id="custom-cursor" class="custom-cursor"></div>
+    <div id="custom-cursor-dot" class="custom-cursor-dot"></div>
+
+    <script src="assets/js/script-cafe.js"></script>
+</body>
+</html>
