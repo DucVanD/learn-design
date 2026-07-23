@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.Views.Cashier.CashierPOSPage"
+             Title="QUẢN LÝ BÁN HÀNG &amp; VẬN HÀNH NHÀ HÀNG (POS)"
+             SizeChanged="OnPageSizeChanged"
+             BackgroundColor="{AppThemeBinding Light=#F1F5F9, Dark=#0F172A}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <x:Double x:Key="POSProductNameFontSize">14.5</x:Double>
+            <x:Double x:Key="POSProductPriceFontSize">14</x:Double>
+            <x:Double x:Key="POSLabelFontSize">14.5</x:Double>
+            <x:Double x:Key="POSHeadingFontSize">17</x:Double>
+            <x:Double x:Key="POSFinalAmountFontSize">24</x:Double>
+            <x:Double x:Key="POSChangeFontSize">18</x:Double>
+
+            <Style x:Key="ProductNameLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light=#0F172A, Dark=White}" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="{StaticResource POSProductNameFontSize}" />
+                <Setter Property="LineBreakMode" Value="TailTruncation" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+            </Style>
+
+            <Style x:Key="ProductPriceLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="#10B981" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="{StaticResource POSProductPriceFontSize}" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+            </Style>
+
+            <Style x:Key="POSCalculatedLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light=#475569, Dark=#94A3B8}" />
+                <Setter Property="FontSize" Value="{StaticResource POSLabelFontSize}" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+
+            <Style x:Key="POSEntryStyle" TargetType="Entry">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light=#0F172A, Dark=White}" />
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#F8FAFC, Dark=#0F172A}" />
+                <Setter Property="HorizontalTextAlignment" Value="End" />
+                <Setter Property="Keyboard" Value="Numeric" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto, *">
+        <!-- Mobile/Tablet Tab Bar (Hidden on desktop by default) -->
+        <Grid x:Name="MobileTabBar" Grid.Row="0" HeightRequest="54" BackgroundColor="{AppThemeBinding Light=#E2E8F0, Dark=#1E293B}" ColumnDefinitions="*, *" IsVisible="False" Margin="0,0,0,4">
+            <Button x:Name="BtnTabProducts" Grid.Column="0" Text="🪑 SƠ ĐỒ BÀN" Clicked="OnMobileTabClicked" CommandParameter="Tables" BackgroundColor="#F97316" TextColor="White" CornerRadius="0" FontAttributes="Bold" FontSize="{StaticResource FontSize15}"/>
+            <Button x:Name="BtnTabCart" Grid.Column="1" Text="🛒 ĐƠN HÀNG (0)" Clicked="OnMobileTabClicked" CommandParameter="Cart" BackgroundColor="Transparent" TextColor="{AppThemeBinding Light=#0F172A, Dark=White}" CornerRadius="0" FontAttributes="Bold" FontSize="{StaticResource FontSize15}"/>
+        </Grid>
+
+        <Grid x:Name="RootGrid" Grid.Row="1" ColumnDefinitions="*, 520" Margin="12" ColumnSpacing="12">
+            
+            <!-- CỘT TRÁI: (1) Sơ đồ bàn & Khu vực (Color Tinted Cards) vs (2) Thực đơn món ăn -->
+            <Grid x:Name="LeftPane" Grid.Column="0" RowDefinitions="Auto, *" RowSpacing="10">
+                
+                <!-- 1. Thanh công cụ Top Header & Chuyển Chế Độ View (Tối ưu nút cảm ứng to) -->
+                <Grid Grid.Row="0" ColumnDefinitions="Auto, Auto, *, Auto, Auto" ColumnSpacing="8" VerticalOptions="Center">
+                    <Button x:Name="BtnModeTables" Text="Sơ Đồ Bàn &amp; VIP" Clicked="OnViewModeChanged" CommandParameter="Tables" BackgroundColor="#2563EB" TextColor="White" HeightRequest="44" FontAttributes="Bold" FontSize="{StaticResource FontSize14}" CornerRadius="8" Padding="14,0"/>
+                    <Button Grid.Column="1" x:Name="BtnModeMenu" Text="Thực Đơn Gọi Món" Clicked="OnViewModeChanged" CommandParameter="Menu" BackgroundColor="{AppThemeBinding Light=#E2E8F0, Dark=#334155}" TextColor="{AppThemeBinding Light=#0F172A, Dark=White}" HeightRequest="44" FontAttributes="Bold" FontSize="{StaticResource FontSize14}" CornerRadius="8" Padding="14,0"/>
+                    
+                    <SearchBar Grid.Column="2" x:Name="SearchBox" 
+                               Placeholder="Tìm bàn, món ăn..."
+                               SearchButtonPressed="OnSearchButtonPressed"
+                               HeightRequest="44"
+                               FontSize="{StaticResource FontSize14}"
+                               TextColor="{AppThemeBinding Light=#0F172A, Dark=White}"
+                               BackgroundColor="{AppThemeBinding Light=White, Dark=#1E293B}"
+                               CancelButtonColor="{AppThemeBinding Light=#0F172A, Dark=White}"/>
+
+                    <Button Grid.Column="3" Text="Tải lại" Clicked="OnRefreshClicked" BackgroundColor="{AppThemeBinding Light=#E2E8F0, Dark=#334155}" TextColor="{AppThemeBinding Light=#0F172A, Dark=White}" HeightRequest="44" WidthRequest="95" FontSize="{StaticResource FontSize14}" FontAttributes="Bold" CornerRadius="8" VerticalOptions="Center"/>
+                </Grid>
+
+                <!-- 2. NỘI DUNG CHẾ ĐỘ 1: SƠ ĐỒ BÀN (Thiết kế Hài Hòa, Tinh Tế, Chuẩn POS Hiện Đại) -->
+                <Grid x:Name="ViewTablesContainer" Grid.Row="1" RowDefinitions="Auto, Auto, *" RowSpacing="10" IsVisible="True">
+                    
+                    <!-- 2.1 Thống kê trạng thái bàn nhanh (Thẻ đếm tinh tế, không màu mè) -->
+                    <Grid Grid.Row="0" ColumnDefinitions="*, *, *, *" ColumnSpacing="8">
+                        <Border Grid.Column="0" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E293B}" Stroke="{AppThemeBinding Light=#E2E8F0, Dark=#334155}" StrokeThickness="1" StrokeShape="RoundRectangle 8" Padding="10,8">
+                            <HorizontalStackLayout Spacing="6" HorizontalOptions="Center" VerticalOptions="Center">
+                                <Label Text="TRỐNG:" TextColor="{AppThemeBinding Light=#475569, Dark=#94A3B8}" FontAttributes="Bold" FontSize="{StaticResource FontSize13}"/>
+                                <Label x:Name="LblEmptyCount" Text="0" TextColor="#10B981" FontAttributes="Bold" FontSize="{StaticResource FontSize16}"/>
+                            </HorizontalStackLayout>
+                        </Border>
+
+                        <Border Grid.Column="1" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E293B}" Stroke="{AppThemeBinding Light=#E2E8F0, Dark=#334155}" StrokeThickness="1" StrokeShape="RoundRectangle 8" Padding="10,8">
+                            <HorizontalStackLayout Spacing="6" HorizontalOptions="Center" VerticalOptions="Center">
+                                <Label Text="CÓ KHÁCH:" TextColor="{AppThemeBinding Light=#475569, Dark=#94A3B8}" FontAttributes="Bold" FontSize="{StaticResource FontSize13}"/>
+                                <Label x:Name="LblOccupiedCount" Text="0" TextColor="#EF4444" FontAttributes="Bold" FontSize="{StaticResource FontSize16}"/>
+                            </HorizontalStackLayout>
+                        </Border>
+
+                        <Border Grid.Column="2" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E293B}" Stroke="{AppThemeBinding Light=#E2E8F0, Dark=#334155}" StrokeThickness="1" StrokeShape="RoundRectangle 8" Padding="10,8">
+                            <HorizontalStackLayout Spacing="6" HorizontalOptions="Center" VerticalOptions="Center">
+                                <Label Text="ĐÃ ĐẶT:" TextColor="{AppThemeBinding Light=#475569, Dark=#94A3B8}" FontAttributes="Bold" FontSize="{StaticResource FontSize13}"/>
+                                <Label x:Name="LblReservedCount" Text="0" TextColor="#D97706" FontAttributes="Bold" FontSize="{StaticResource FontSize16}"/>
+                            </HorizontalStackLayout>
+                        </Border>
+
+                        <Border Grid.Column="3" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E293B}" Stroke="{AppThemeBinding Light=#E2E8F0, Dark=#334155}" StrokeThickness="1" StrokeShape="RoundRectangle 8" Padding="10,8">
+                            <HorizontalStackLayout Spacing="6" HorizontalOptions="Center" VerticalOptions="Center">
+                                <Label Text="CẦN DỌN:" TextColor="{AppThemeBinding Light=#475569, Dark=#94A3B8}" FontAttributes="Bold" FontSize="{StaticResource FontSize13}"/>
+                                <Label x:Name="LblCleaningCount" Text="0" TextColor="#8B5CF6" FontAttributes="Bold" FontSize="{StaticResource FontSize16}"/>
+                            </HorizontalStackLayout>
+                        </Border>
+                    </Grid>
+
+                    <!-- 2.2 Bộ lọc Khu vực & Phòng VIP (Tabs Chiều Cao To Dễ Bấm) -->
+                    <ScrollView Grid.Row="1" Orientation="Horizontal" HorizontalScrollBarVisibility="Never" HeightRequest="40">
+                        <HorizontalStackLayout x:Name="AreaFilterContainer" Spacing="8" Padding="0">
+                            <!-- Code-behind populates area filter chips -->
+                        </HorizontalStackLayout>
+                    </ScrollView>
+
+                    <!-- 2.3 Lưới Sơ Đồ Bàn (Màu Nền Theo Trạng Thái Tinh Tế, Viền Đẹp) -->
+                    <CollectionView Grid.Row="2" x:Name="TableGridView" Margin="0,2">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" Span="4" VerticalItemSpacing="10" HorizontalItemSpacing="10" />
+                        </CollectionView.ItemsLayout>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Border Stroke="{Binding StatusColor}" StrokeThickness="1.5" StrokeShape="RoundRectangle 10" BackgroundColor="{Binding StatusBgColor}" Padding="12">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnTableSelected" CommandParameter="{Binding}"/>
+                                    </Border.GestureRecognizers>
+                                    <Grid RowDefinitions="Auto, Auto, Auto, Auto" RowSpacing="6">
+                                        
+                                        <!-- Tên Bàn & Badge Trạng Thái -->
+                                        <Grid Grid.Row="0" ColumnDefinitions="*, Auto">
+                                            <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
+                                                <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="{StaticResource FontSize17}" TextColor="{AppThemeBinding Light=#0F172A, Dark=White}" VerticalOptions="Center"/>
+                                            </HorizontalStackLayout>
+                                            
+                                            <!-- Pill Badge trạng thái nhẹ nhàng tinh tế -->
+                                            <Border Grid.Column="1" BackgroundColor="{Binding StatusPillBg}" StrokeThickness="0" StrokeShape="RoundRectangle 6" Padding="8,3" VerticalOptions="Center">
+                                                <Label Text="{Binding StatusName}" TextColor="{Binding StatusPillText}" FontSize="{StaticResource FontSize12}" FontAttributes="Bold" VerticalOptions="Center"/>
+                                            </Border>
+                                        </Grid>
+
+                                        <!-- Số ghế & Khu vực -->
+                                        <HorizontalStackLayout Grid.Row="1" Spacing="6">
+                                            <Label Text="{Binding Capacity, StringFormat='{0} Ghế'}" FontSize="{StaticResource FontSize13}" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#475569, Dark=#CBD5E1}"/>
+                                            <Label Text="{Binding DiningArea.Name, StringFormat='• {0}'}" FontSize="{StaticResource FontSize13}" TextColor="#2563EB" LineBreakMode="TailTruncation"/>
+                                        </HorizontalStackLayout>
+
+                                        <!-- Ghi chú đặt bàn / tình trạng -->
+                                        <Label Grid.Row="2" Text="{Binding Note}" FontSize="{StaticResource FontSize12}" TextColor="{AppThemeBinding Light=#64748B, Dark=#94A3B8}" FontAttributes="Italic" LineBreakMode="TailTruncation"/>
+
+                                        <!-- Nút Thao Tác Cảm Ứng POS Tinh Tế Hài Hòa -->
+                                        <Grid Grid.Row="3" ColumnDefinitions="*, Auto, Auto" ColumnSpacing="6" Margin="0,4,0,0">
+                                            <Button Text="Gọi món" Clicked="OnQuickOrderTableClicked" CommandParameter="{Binding}" BackgroundColor="#2563EB" TextColor="White" HeightRequest="38" FontSize="{StaticResource FontSize13}" FontAttributes="Bold" Padding="8,0" CornerRadius="6"/>
+                                            <Button Grid.Column="1" Text="Đổi TT" Clicked="OnChangeTableStatusClicked" CommandParameter="{Binding}" BackgroundColor="{AppThemeBinding Light=#F1F5F9, Dark=#334155}" TextColor="{AppThemeBinding Light=#0F172A, Dark=White}" HeightRequest="38" FontSize="{StaticResource FontSize13}" FontAttributes="Bold" Padding="10,0" CornerRadius="6"/>
+                                            <Button Grid.Column="2" Text="Khác" Clicked="OnTableOptionMenuClicked" CommandParameter="{Binding}" BackgroundColor="{AppThemeBinding Light=#F1F5F9, Dark=#334155}" TextColor="{AppThemeBinding Light=#0F172A, Dark=White}" HeightRequest="38" FontSize="{StaticResource FontSize13}" Padding="10,0" CornerRadius="6"/>
+                                        </Grid>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+
+                <!-- 3. NỘI DUNG CHẾ ĐỘ 2: THỰC ĐƠN GỌI MÓN (Cỡ Chữ & Thẻ Món To) -->
+                <Grid x:Name="ViewMenuContainer" Grid.Row="1" RowDefinitions="Auto, *" RowSpacing="10" IsVisible="False">
+                    <HorizontalStackLayout Grid.Row="0" Spacing="8" VerticalOptions="Center">
+                        <Label Text="Danh mục:" TextColor="{AppThemeBinding Light=#475569, Dark=#94A3B8}" FontSize="{StaticResource FontSize14}" VerticalOptions="Center" FontAttributes="Bold"/>
+                        <Border Stroke="{AppThemeBinding Light=#E2E8F0, Dark=#334155}" StrokeThickness="1" StrokeShape="RoundRectangle 8" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E293B}" Padding="0" HeightRequest="44" WidthRequest="240">
+                            <Picker x:Name="CategoryPicker" FontSize="{StaticResource FontSize14}" TextColor="{AppThemeBinding Light=#0F172A, Dark=White}" SelectedIndexChanged="OnFilterChanged" VerticalOptions="Fill" HorizontalOptions="Fill"/>
+                        </Border>
+                    </HorizontalStackLayout>
+
+                    <CollectionView Grid.Row="1" x:Name="ProductGridView" Margin="0,2" IsGrouped="True">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" Span="4" VerticalItemSpacing="10" HorizontalItemSpacing="10" />
+                        </CollectionView.ItemsLayout>
+
+                        <CollectionView.GroupHeaderTemplate>
+                            <DataTemplate>
+                                <Grid Padding="4,6,0,4">
+                                    <Label Text="{Binding CategoryName}" FontAttributes="Bold" FontSize="{StaticResource FontSize16}" TextColor="#F97316"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.GroupHeaderTemplate>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Border Stroke="{AppThemeBinding Light=#E2E8F0, Dark=#334155}" StrokeThickness="1" StrokeShape="RoundRectangle 8" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E293B}" Padding="8">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnProductTapped" CommandParameter="{Binding}"/>
+                                    </Border.GestureRecognizers>
+                                    <Grid RowDefinitions="Auto, Auto, Auto" RowSpacing="4">
+                                        <Border Grid.Row="0" StrokeShape="RoundRectangle 6" StrokeThickness="0" WidthRequest="95" HeightRequest="95" BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#0F172A}" HorizontalOptions="Center" Margin="0,2">
+                                            <Grid>
+                                                <Image Source="{Binding ImageUrl}" Aspect="AspectFill" />
+                                            </Grid>
+                                        </Border>
+                                        <Label Grid.Row="1" Text="{Binding Name}" Style="{StaticResource ProductNameLabelStyle}"/>
+                                        <Label Grid.Row="2" Text="{Binding Price, StringFormat='{0:N0} đ'}" Style="{StaticResource ProductPriceLabelStyle}"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+
+            </Grid>
+
+            <!-- CỘT PHẢI: Đơn Hàng & Vận Hành Bàn Đang Chọn (Kích thước Nút & Font Chữ POS Cực Rõ) -->
+            <Border x:Name="RightPane" Grid.Column="1" Stroke="{AppThemeBinding Light=#E2E8F0, Dark=#334155}" StrokeThickness="1" StrokeShape="RoundRectangle 12" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E293B}" Padding="14">
+                <Grid RowDefinitions="Auto, Auto, Auto, *, Auto" RowSpacing="10">
+                    
+                    <!-- 1. Header Bàn Đang Chọn & Thu Ngân (Tiêu Đề To 20px) -->
+                    <Grid Grid.Row="0" ColumnDefinitions="*, Auto, Auto" ColumnSpacing="6">
+                        <VerticalStackLayout VerticalOptions="Center" Spacing="2">
+                            <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
+                                <Label x:Name="LblActiveTableName" Text="BÀN 1.01" FontAttributes="Bold" FontSize="{StaticResource FontSize21}" TextColor="#EF4444"/>
+                                <Border x:Name="BdrActiveTableArea" BackgroundColor="#2563EB" StrokeThickness="0" StrokeShape="RoundRectangle 6" Padding="8,4" VerticalOptions="Center">
+                                    <Label x:Name="LblActiveTableArea" Text="Khu Tầng 1" FontAttributes="Bold" FontSize="{StaticResource FontSize12}" TextColor="White"/>
+                                </Border>
+                            </HorizontalStackLayout>
+                            <Label x:Name="LblCashierName" Text="Thu ngân: Nguyễn Thu Ngân" TextColor="{AppThemeBinding Light=#64748B, Dark=#94A3B8}" FontSize="{StaticResource FontSize12}"/>
+                        </VerticalStackLayout>
+
+                        <Button Grid.Column="1" x:Name="BtnThemeToggle" Clicked="OnThemeToggleClicked" BackgroundColor="{AppThemeBinding Light=#E2E8F0, Dark=#334155}" TextColor="{AppThemeBinding Light=#0F172A, Dark=White}" WidthRequest="38" HeightRequest="42" CornerRadius="6" Padding="0">
+                            <Button.ImageSource>
+                                 <FontImageSource Glyph="&#xF0354;" FontFamily="MaterialDesignIcons" Color="{AppThemeBinding Light=#334155, Dark=White}" Size="16"/>
+                            </Button.ImageSource>
+                        </Button>
+
+                        <Button Grid.Column="2" Text="Đóng" Clicked="OnCloseClicked" BackgroundColor="#EF4444" TextColor="White" HeightRequest="42" CornerRadius="6" Padding="12,0" FontSize="{StaticResource FontSize13}" FontAttributes="Bold"/>
+                    </Grid>
+
+                    <!-- 2. BỘ 4 NÚT THAO TÁC VẬN HÀNH BÀN (Nút Chiều Cao 42px Rõ Ràng) -->
+                    <Grid Grid.Row="1" ColumnDefinitions="*, *, *, *" ColumnSpacing="6">
+                        <Button Text="Bếp" Clicked="OnPrintKitchenTicketClicked" BackgroundColor="#F59E0B" TextColor="White" HeightRequest="42" FontSize="{StaticResource FontSize13}" Padding="0" CornerRadius="6" FontAttributes="Bold"/>
+                        <Button Grid.Column="1" Text="Chuyển" Clicked="OnTransferTableClicked" BackgroundColor="#2563EB" TextColor="White" HeightRequest="42" FontSize="{StaticResource FontSize13}" Padding="0" CornerRadius="6" FontAttributes="Bold"/>
+                        <Button Grid.Column="2" Text="Gộp Bàn" Clicked="OnMergeTableClicked" BackgroundColor="#8B5CF6" TextColor="White" HeightRequest="42" FontSize="{StaticResource FontSize13}" Padding="0" CornerRadius="6" FontAttributes="Bold"/>
+                        <Button Grid.Column="3" Text="Tách HD" Clicked="OnSplitBillClicked" BackgroundColor="#10B981" TextColor="White" HeightRequest="42" FontSize="{StaticResource FontSize13}" Padding="0" CornerRadius="6" FontAttributes="Bold"/>
+                    </Grid>
+
+                    <!-- 3. KHÁCH HÀNG & THÔNG TIN ĐẶT BÀN -->
+                    <Border Grid.Row="2" Stroke="{AppThemeBinding Light=#E2E8F0, Dark=#334155}" StrokeThickness="1" StrokeShape="RoundRectangle 8" BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#0F172A}" Padding="10">
+                        <Grid RowDefinitions="Auto, Auto" RowSpacing="6">
+                            <Grid Grid.Row="0" ColumnDefinitions="*, Auto, Auto" ColumnSpacing="6">
+                                <Entry x:Name="TxtCustomerSearch" Placeholder="SĐT/Tên Khách..." FontSize="{StaticResource FontSize13_5}" HeightRequest="42" TextColor="{AppThemeBinding Light=#0F172A, Dark=White}" VerticalOptions="Center"/>
+                                <Button Grid.Column="1" Text="Tìm" Clicked="OnSearchCustomerClicked" BackgroundColor="#2563EB" TextColor="White" HeightRequest="42" FontSize="{StaticResource FontSize13}" Padding="12,0" CornerRadius="6" FontAttributes="Bold"/>
+                                <Button Grid.Column="2" Text="Mới" Clicked="OnAddNewCustomerClicked" BackgroundColor="#10B981" TextColor="White" HeightRequest="42" FontSize="{StaticResource FontSize13}" Padding="12,0" CornerRadius="6" FontAttributes="Bold"/>
+                            </Grid>
+                            
+                            <Grid Grid.Row="1" ColumnDefinitions="*, Auto" Padding="2,0" VerticalOptions="Center">
+                                <Label x:Name="LblCustomerName" Text="Khách hàng: Khách vãng lai" FontAttributes="Bold" FontSize="{StaticResource FontSize13}" TextColor="{AppThemeBinding Light=#334155, Dark=#E2E8F0}"/>
+                                <Button Grid.Column="1" Text="Bỏ chọn" Clicked="OnClearCustomerClicked" BackgroundColor="Transparent" TextColor="#EF4444" HeightRequest="26" Padding="6,0" FontSize="{StaticResource FontSize12}" FontAttributes="Bold"/>
+                            </Grid>
+                        </Grid>
+                    </Border>
+
+                    <!-- 4. DANH SÁCH MÓN ĂN TRONG ĐƠN HÀNG (Stepper Cảm Ứng Nút Nút Tăng/Giảm To) -->
+                    <Grid Grid.Row="3" RowDefinitions="Auto, *">
+                        <Grid Grid.Row="0" ColumnDefinitions="*, 110, 85, 34" Padding="4,0" Margin="0,0,0,4">
+                            <Label Text="Tên món &amp; Ghi chú" TextColor="#64748B" FontSize="{StaticResource FontSize12_5}" FontAttributes="Bold"/>
+                            <Label Grid.Column="1" Text="Số lượng" TextColor="#64748B" FontSize="{StaticResource FontSize12_5}" FontAttributes="Bold" HorizontalOptions="Center"/>
+                            <Label Grid.Column="2" Text="Thành tiền" TextColor="#64748B" FontSize="{StaticResource FontSize12_5}" FontAttributes="Bold" HorizontalOptions="End"/>
+                            <Label Grid.Column="3" Text="" WidthRequest="34"/>
+                        </Grid>
+                        
+                        <CollectionView Grid.Row="1" x:Name="CartListView" Margin="0,2">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid ColumnDefinitions="*, 110, 85, 34" Padding="6" Margin="0,2" BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#1E293B}">
+                                        <!-- Tên món & Ghi chú chế biến -->
+                                        <VerticalStackLayout Spacing="2" VerticalOptions="Center">
+                                            <Label Text="{Binding ProductName}" TextColor="{AppThemeBinding Light=#0F172A, Dark=White}" FontSize="{StaticResource FontSize14}" FontAttributes="Bold" LineBreakMode="TailTruncation"/>
+                                            <HorizontalStackLayout Spacing="6">
+                                                <Label Text="{Binding Price, StringFormat='{0:N0} đ'}" TextColor="#64748B" FontSize="{StaticResource FontSize12}"/>
+                                                <Label Text="{Binding KitchenStatusText}" TextColor="{Binding KitchenStatusColor}" FontSize="{StaticResource FontSize11_5}" FontAttributes="Bold"/>
+                                            </HorizontalStackLayout>
+                                            <Label Text="{Binding Notes}" TextColor="#F59E0B" FontSize="{StaticResource FontSize11}" FontAttributes="Italic" IsVisible="{Binding HasNotes}"/>
+                                        </VerticalStackLayout>
+                                        
+                                        <!-- Bộ Nút Tăng/Giảm Số Lượng To Dễ Bấm Cảm Ứng -->
+                                        <Grid Grid.Column="1" ColumnDefinitions="30, *, 30" WidthRequest="105" HorizontalOptions="Center" VerticalOptions="Center">
+                                            <Border Grid.Column="0" WidthRequest="30" HeightRequest="34" StrokeShape="RoundRectangle 4" StrokeThickness="0" BackgroundColor="{AppThemeBinding Light=#CBD5E1, Dark=#334155}" VerticalOptions="Center" HorizontalOptions="Center">
+                                                <Border.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="OnDecreaseQuantityTapped" CommandParameter="{Binding}"/>
+                                                </Border.GestureRecognizers>
+                                                <Label Text="-" TextColor="{AppThemeBinding Light=#0F172A, Dark=White}" FontSize="{StaticResource FontSize18}" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                            </Border>
+                                            <Entry Grid.Column="1" Text="{Binding Quantity, Mode=TwoWay}" Keyboard="Numeric" HeightRequest="34" WidthRequest="44" FontSize="{StaticResource FontSize14}" FontAttributes="Bold" HorizontalTextAlignment="Center" VerticalOptions="Center" TextChanged="OnQuantityEntryTextChanged" BackgroundColor="{AppThemeBinding Light=White, Dark=#0F172A}" TextColor="{AppThemeBinding Light=#0F172A, Dark=White}" Margin="2,0"/>
+                                            <Border Grid.Column="2" WidthRequest="30" HeightRequest="34" StrokeShape="RoundRectangle 4" StrokeThickness="0" BackgroundColor="{AppThemeBinding Light=#CBD5E1, Dark=#334155}" VerticalOptions="Center" HorizontalOptions="Center">
+                                                <Border.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="OnIncreaseQuantityTapped" CommandParameter="{Binding}"/>
+                                                </Border.GestureRecognizers>
+                                                <Label Text="+" TextColor="{AppThemeBinding Light=#0F172A, Dark=White}" FontSize="{StaticResource FontSize18}" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                            </Border>
+                                        </Grid>
+                                        
+                                        <Label Grid.Column="2" Text="{Binding TotalPrice, StringFormat='{0:N0} đ'}" TextColor="#10B981" VerticalOptions="Center" HorizontalOptions="End" FontAttributes="Bold" FontSize="{StaticResource FontSize14}"/>
+
+                                        <!-- Hủy Món (Ghi nhận lý do) -->
+                                        <Border Grid.Column="3" WidthRequest="30" HeightRequest="34" StrokeShape="RoundRectangle 4" StrokeThickness="0" BackgroundColor="Transparent" VerticalOptions="Center" HorizontalOptions="Center">
+                                            <Border.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="OnCancelItemWithReasonTapped" CommandParameter="{Binding}"/>
+                                            </Border.GestureRecognizers>
+                                            <Label Text="❌" TextColor="#EF4444" FontSize="{StaticResource FontSize14}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                        </Border>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </Grid>
+
+                    <!-- 5. FOOTER THANH TOÁN: MÃ GIẢM GIÁ, TÍNH TOÁN & NÚT CHIỀU CAO 54PX -->
+                    <VerticalStackLayout Grid.Row="4" Spacing="6">
+                        <BoxView HeightRequest="1" Color="{AppThemeBinding Light=#E2E8F0, Dark=#334155}"/>
+                        
+                        <!-- Voucher & Mã Giảm Giá -->
+                        <Grid ColumnDefinitions="*, Auto" ColumnSpacing="6">
+                            <Entry x:Name="TxtVoucherCode" Placeholder="Nhập mã voucher (VD: VIP10)..." HeightRequest="40" FontSize="{StaticResource FontSize13}" TextColor="{AppThemeBinding Light=#0F172A, Dark=White}"/>
+                            <Button Grid.Column="1" Text="Áp Dụng" Clicked="OnApplyVoucherClicked" BackgroundColor="#8B5CF6" TextColor="White" HeightRequest="40" FontSize="{StaticResource FontSize13}" Padding="12,0" CornerRadius="6" FontAttributes="Bold"/>
+                        </Grid>
+
+                        <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto, Auto, Auto" RowSpacing="6">
+                            <Label Grid.Row="0" Text="Tạm tính món ăn:" Style="{StaticResource POSCalculatedLabelStyle}"/>
+                            <Label Grid.Row="0" Grid.Column="1" x:Name="LblTotalAmount" Text="0 đ" TextColor="{AppThemeBinding Light=#0F172A, Dark=White}" FontSize="{StaticResource POSHeadingFontSize}" FontAttributes="Bold" VerticalOptions="Center"/>
+                            
+                            <Label Grid.Row="1" Text="Chiết khấu / Giảm giá:" Style="{StaticResource POSCalculatedLabelStyle}"/>
+                            <Entry Grid.Row="1" Grid.Column="1" x:Name="TxtDiscount" Text="0" Style="{StaticResource POSEntryStyle}" WidthRequest="130" HeightRequest="38" FontSize="{StaticResource FontSize15}" FontAttributes="Bold" TextChanged="OnDiscountChanged"/>
+
+                            <Label Grid.Row="2" Text="TỔNG THANH TOÁN:" TextColor="{AppThemeBinding Light=#0F172A, Dark=White}" FontSize="{StaticResource POSHeadingFontSize}" FontAttributes="Bold" VerticalOptions="Center"/>
+                            <Label Grid.Row="2" Grid.Column="1" x:Name="LblFinalAmount" Text="0 đ" TextColor="#EF4444" FontSize="{StaticResource POSFinalAmountFontSize}" FontAttributes="Bold" VerticalOptions="Center"/>
+                        </Grid>
+
+                        <!-- Hình thức thanh toán nút to 44px -->
+                        <Grid ColumnDefinitions="*, *, *, *" ColumnSpacing="6" Margin="0,2">
+                            <Button x:Name="BtnPayCash" Grid.Column="0" Text="💵 Tiền mặt" Clicked="OnPaymentMethodChanged" CommandParameter="Cash" BackgroundColor="#10B981" TextColor="White" HeightRequest="44" FontSize="{StaticResource FontSize13}" FontAttributes="Bold" Padding="0" CornerRadius="6"/>
+                            <Button x:Name="BtnPayBank" Grid.Column="1" Text="🏦 CK QR" Clicked="OnPaymentMethodChanged" CommandParameter="Bank" BackgroundColor="{AppThemeBinding Light=#E2E8F0, Dark=#334155}" TextColor="{AppThemeBinding Light=#0F172A, Dark=White}" HeightRequest="44" FontSize="{StaticResource FontSize13}" FontAttributes="Bold" Padding="0" CornerRadius="6"/>
+                            <Button x:Name="BtnPayCard" Grid.Column="2" Text="💳 Quẹt Thẻ" Clicked="OnPaymentMethodChanged" CommandParameter="Card" BackgroundColor="{AppThemeBinding Light=#E2E8F0, Dark=#334155}" TextColor="{AppThemeBinding Light=#0F172A, Dark=White}" HeightRequest="44" FontSize="{StaticResource FontSize13}" FontAttributes="Bold" Padding="0" CornerRadius="6"/>
+                            <Button x:Name="BtnPayVoucher" Grid.Column="3" Text="🎟️ Voucher" Clicked="OnPaymentMethodChanged" CommandParameter="Voucher" BackgroundColor="{AppThemeBinding Light=#E2E8F0, Dark=#334155}" TextColor="{AppThemeBinding Light=#0F172A, Dark=White}" HeightRequest="44" FontSize="{StaticResource FontSize13}" FontAttributes="Bold" Padding="0" CornerRadius="6"/>
+                        </Grid>
+
+                        <!-- Tiền khách đưa & Tiền thừa -->
+                        <Grid x:Name="GridCashPaymentDetails" ColumnDefinitions="*, Auto, Auto" ColumnSpacing="6" RowDefinitions="Auto, Auto" RowSpacing="4" Margin="0,2">
+                            <Label Grid.Row="0" Grid.Column="0" Text="Tiền khách đưa:" Style="{StaticResource POSCalculatedLabelStyle}"/>
+                            <Button Grid.Row="0" Grid.Column="1" Text="Đủ" Clicked="OnExactCashClicked" BackgroundColor="#3B82F6" TextColor="White" HeightRequest="36" WidthRequest="48" FontSize="{StaticResource FontSize13}" FontAttributes="Bold" CornerRadius="4" Padding="0" VerticalOptions="Center"/>
+                            <Entry Grid.Row="0" Grid.Column="2" x:Name="TxtCashReceived" Text="0" Style="{StaticResource POSEntryStyle}" WidthRequest="130" HeightRequest="38" FontSize="{StaticResource FontSize16}" FontAttributes="Bold" TextChanged="OnCashReceivedChanged"/>
+
+                            <Label Grid.Row="1" Grid.Column="0" Text="Tiền thối lại:" Style="{StaticResource POSCalculatedLabelStyle}"/>
+                            <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" x:Name="LblChangeReturn" Text="0 đ" TextColor="#10B981" FontSize="{StaticResource POSChangeFontSize}" FontAttributes="Bold" HorizontalOptions="End" VerticalOptions="Center"/>
+                        </Grid>
+
+                        <!-- Bộ 2 Nút In Hóa Đơn Tạm Tính & Thanh Toán Chiều Cao 54px Nổi Bật -->
+                        <Grid ColumnDefinitions="*, *" ColumnSpacing="8" Margin="0,4,0,0">
+                            <Button Text="📄 IN TẠM TÍNH" Clicked="OnPrintProvisionalBillClicked" BackgroundColor="#3B82F6" TextColor="White" FontAttributes="Bold" HeightRequest="54" FontSize="{StaticResource FontSize15}" CornerRadius="8"/>
+                            <Button Grid.Column="1" Text="🧾 THANH TOÁN (F12)" Clicked="OnCheckoutClicked" BackgroundColor="#F97316" TextColor="White" FontAttributes="Bold" HeightRequest="54" FontSize="{StaticResource FontSize16}" CornerRadius="8"/>
+                        </Grid>
+                    </VerticalStackLayout>
+                    
+                </Grid>
+            </Border>
+            
+            <!-- OVERLAY 1: PHIẾU CHẾ BIẾN BẾP -->
+            <Grid x:Name="KitchenTicketOverlay" Grid.Column="0" Grid.ColumnSpan="2" BackgroundColor="#80000000" IsVisible="False">
+                <Border StrokeThickness="0" StrokeShape="RoundRectangle 10" BackgroundColor="White" WidthRequest="420" HeightRequest="560" HorizontalOptions="Center" VerticalOptions="Center" Padding="20">
+                    <Grid RowDefinitions="*, Auto" RowSpacing="15">
+                        <ScrollView Grid.Row="0">
+                            <VerticalStackLayout Spacing="6">
+                                <Label Text="👨‍🍳 PHIẾU CHẾ BIẾN NHÀ BẾP" FontSize="{StaticResource FontSize19}" FontAttributes="Bold" HorizontalOptions="Center" TextColor="#D97706"/>
+                                <Label x:Name="LblKitchenTicketTable" Text="Bàn: BÀN 1.02 (Tầng 1)" FontSize="{StaticResource FontSize15}" FontAttributes="Bold" HorizontalOptions="Center" TextColor="Black"/>
+                                <Label x:Name="LblKitchenTicketTime" Text="Thời gian: 15/07/2026 14:30:00" FontSize="{StaticResource FontSize12}" HorizontalOptions="Center" TextColor="#475569"/>
+                                <Label Text="------------------------------------------------" TextColor="#64748B" HorizontalOptions="Center"/>
+                                <VerticalStackLayout x:Name="KitchenTicketItemsContainer" Spacing="8">
+                                    <!-- Dynamic items -->
+                                </VerticalStackLayout>
+                                <Label Text="------------------------------------------------" TextColor="#64748B" HorizontalOptions="Center"/>
+                                <Label Text="VUI LÒNG CHẾ BIẾN THEO GHI CHÚ!" FontSize="{StaticResource FontSize13}" FontAttributes="Bold" HorizontalOptions="Center" TextColor="#D97706"/>
+                            </VerticalStackLayout>
+                        </ScrollView>
+                        <Grid Grid.Row="1" ColumnDefinitions="*, *" ColumnSpacing="10">
+                            <Button Text="🖨 In Phiếu Bếp" Clicked="OnConfirmKitchenPrintClicked" BackgroundColor="#F59E0B" TextColor="White" HeightRequest="46" FontAttributes="Bold" FontSize="{StaticResource FontSize14}"/>
+                            <Button Grid.Column="1" Text="Đóng" Clicked="OnCloseKitchenTicketClicked" BackgroundColor="#EF4444" TextColor="White" HeightRequest="46" FontAttributes="Bold" FontSize="{StaticResource FontSize14}"/>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- OVERLAY 2: HÓA ĐƠN TẠM TÍNH -->
+            <Grid x:Name="ProvisionalReceiptOverlay" Grid.Column="0" Grid.ColumnSpan="2" BackgroundColor="#80000000" IsVisible="False">
+                <Border StrokeThickness="0" StrokeShape="RoundRectangle 10" BackgroundColor="White" WidthRequest="420" HeightRequest="580" HorizontalOptions="Center" VerticalOptions="Center" Padding="20">
+                    <Grid RowDefinitions="*, Auto" RowSpacing="15">
+                        <ScrollView Grid.Row="0">
+                            <VerticalStackLayout Spacing="6">
+                                <Label Text="HÓA ĐƠN TẠM TÍNH" FontSize="{StaticResource FontSize19}" FontAttributes="Bold" HorizontalOptions="Center" TextColor="#2563EB"/>
+                                <Label Text="(Dùng để kiểm tra trước khi thanh toán)" FontSize="{StaticResource FontSize12}" HorizontalOptions="Center" TextColor="#64748B"/>
+                                <Label x:Name="LblProvisionalTable" Text="Bàn: BÀN 1.02" FontSize="{StaticResource FontSize15}" FontAttributes="Bold" HorizontalOptions="Center" TextColor="Black"/>
+                                <Label x:Name="LblProvisionalTime" Text="Thời gian: 15/07/2026 14:30" FontSize="{StaticResource FontSize12}" HorizontalOptions="Center" TextColor="#475569"/>
+                                <Label Text="------------------------------------------------" TextColor="#64748B" HorizontalOptions="Center"/>
+                                <VerticalStackLayout x:Name="ProvisionalItemsContainer" Spacing="8">
+                                    <!-- Dynamic items -->
+                                </VerticalStackLayout>
+                                <Label Text="------------------------------------------------" TextColor="#64748B" HorizontalOptions="Center"/>
+                                <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto, Auto, Auto" RowSpacing="4">
+                                    <Label Text="Tạm tính:" TextColor="Black" FontSize="{StaticResource FontSize13}"/>
+                                    <Label x:Name="LblProvisionalSubTotal" Grid.Column="1" Text="0 đ" TextColor="Black" FontSize="{StaticResource FontSize13}" HorizontalOptions="End"/>
+                                    <Label Grid.Row="1" Text="Chiết khấu:" TextColor="Black" FontSize="{StaticResource FontSize13}"/>
+                                    <Label x:Name="LblProvisionalDiscount" Grid.Row="1" Grid.Column="1" Text="0 đ" TextColor="Black" FontSize="{StaticResource FontSize13}" HorizontalOptions="End"/>
+                                    <Label Grid.Row="2" Text="CẦN THANH TOÁN:" TextColor="Black" FontAttributes="Bold" FontSize="{StaticResource FontSize15}"/>
+                                    <Label x:Name="LblProvisionalFinal" Grid.Row="2" Grid.Column="1" Text="0 đ" TextColor="#EF4444" FontAttributes="Bold" FontSize="{StaticResource FontSize16}" HorizontalOptions="End"/>
+                                </Grid>
+                                <Label Text="------------------------------------------------" TextColor="#64748B" HorizontalOptions="Center"/>
+                                <Label Text="CẢM ƠN QUÝ KHÁCH GIÚP KIỂM TRA MÓN!" FontSize="{StaticResource FontSize12}" HorizontalOptions="Center" TextColor="#2563EB"/>
+                            </VerticalStackLayout>
+                        </ScrollView>
+                        <Grid Grid.Row="1" ColumnDefinitions="*, *" ColumnSpacing="10">
+                            <Button Text="🖨 In Hóa Đơn Tạm Tính" Clicked="OnConfirmProvisionalPrintClicked" BackgroundColor="#3B82F6" TextColor="White" HeightRequest="46" FontAttributes="Bold" FontSize="{StaticResource FontSize14}"/>
+                            <Button Grid.Column="1" Text="Đóng" Clicked="OnCloseProvisionalReceiptClicked" BackgroundColor="#EF4444" TextColor="White" HeightRequest="46" FontAttributes="Bold" FontSize="{StaticResource FontSize14}"/>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- OVERLAY 3: PHIẾU THANH TOÁN / XUẤT HÓA ĐƠN CHÍNH THỨC -->
+            <Grid x:Name="ReceiptOverlay" Grid.Column="0" Grid.ColumnSpan="2" BackgroundColor="#80000000" IsVisible="False">
+                <Border StrokeThickness="0" StrokeShape="RoundRectangle 10" BackgroundColor="White" WidthRequest="420" HeightRequest="620" HorizontalOptions="Center" VerticalOptions="Center" Padding="20">
+                    <Grid RowDefinitions="*, Auto" RowSpacing="15">
+                        
+                        <ScrollView Grid.Row="0" VerticalScrollBarVisibility="Never">
+                            <VerticalStackLayout Spacing="5" HorizontalOptions="Fill">
+                                <Label Text="HÓA ĐƠN BÁN LẺ NHÀ HÀNG" FontSize="{StaticResource FontSize19}" FontAttributes="Bold" HorizontalOptions="Center" TextColor="Black"/>
+                                <Label Text="HỆ THỐNG VELORA RESTAURANT POS" FontSize="{StaticResource FontSize12}" HorizontalOptions="Center" TextColor="#475569"/>
+                                <Label Text="Đ/C: 123 Đường Láng, Đống Đa, Hà Nội" FontSize="{StaticResource FontSize12}" HorizontalOptions="Center" TextColor="#475569"/>
+                                <Label Text="SĐT: 024.1234.5678" FontSize="{StaticResource FontSize12}" HorizontalOptions="Center" TextColor="#475569" Margin="0,0,0,10"/>
+                                
+                                <Label Text="------------------------------------------------" TextColor="#64748B" HorizontalOptions="Center"/>
+                                
+                                <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto, Auto, Auto, Auto" RowSpacing="3">
+                                    <Label Text="Mã HD: " TextColor="#0F172A" FontSize="{StaticResource FontSize13}" FontAttributes="Bold"/>
+                                    <Label x:Name="LblReceiptCode" Grid.Column="1" Text="HD000001" TextColor="#0F172A" FontSize="{StaticResource FontSize13}"/>
+                                    
+                                    <Label Grid.Row="1" Text="Bàn ăn: " TextColor="#0F172A" FontSize="{StaticResource FontSize13}" FontAttributes="Bold"/>
+                                    <Label x:Name="LblReceiptTableName" Grid.Row="1" Grid.Column="1" Text="BÀN 1.02" TextColor="#0F172A" FontSize="{StaticResource FontSize13}"/>
+
+                                    <Label Grid.Row="2" Text="Ngày: " TextColor="#0F172A" FontSize="{StaticResource FontSize13}" FontAttributes="Bold"/>
+                                    <Label x:Name="LblReceiptDate" Grid.Row="2" Grid.Column="1" Text="08/07/2026 12:00" TextColor="#0F172A" FontSize="{StaticResource FontSize13}"/>
+                                    
+                                    <Label Grid.Row="3" Text="Thu ngân: " TextColor="#0F172A" FontSize="{StaticResource FontSize13}" FontAttributes="Bold"/>
+                                    <Label x:Name="LblReceiptCashier" Grid.Row="3" Grid.Column="1" Text="Quản Trị Viên" TextColor="#0F172A" FontSize="{StaticResource FontSize13}"/>
+                                    
+                                    <Label Grid.Row="4" Text="Khách hàng: " TextColor="#0F172A" FontSize="{StaticResource FontSize13}" FontAttributes="Bold"/>
+                                    <Label x:Name="LblReceiptCustomer" Grid.Row="4" Grid.Column="1" Text="Khách vãng lai" TextColor="#0F172A" FontSize="{StaticResource FontSize13}"/>
+                                </Grid>
+                                
+                                <Label Text="------------------------------------------------" TextColor="#64748B" HorizontalOptions="Center" Margin="0,5"/>
+                                
+                                <VerticalStackLayout x:Name="ReceiptItemsContainer" Spacing="8">
+                                    <!-- Populated in code-behind -->
+                                </VerticalStackLayout>
+                                
+                                <Label Text="------------------------------------------------" TextColor="#64748B" HorizontalOptions="Center" Margin="0,5"/>
+                                
+                                <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto" RowSpacing="4">
+                                    <Label Text="Tổng tiền món:" TextColor="Black" FontSize="{StaticResource FontSize13}"/>
+                                    <Label x:Name="LblReceiptTotal" Grid.Column="1" Text="0 đ" TextColor="Black" FontSize="{StaticResource FontSize13}" HorizontalOptions="End"/>
+                                    
+                                    <Label Grid.Row="1" Text="Chiết khấu / Voucher:" TextColor="Black" FontSize="{StaticResource FontSize13}"/>
+                                    <Label x:Name="LblReceiptDiscount" Grid.Row="1" Grid.Column="1" Text="0 đ" TextColor="Black" FontSize="{StaticResource FontSize13}" HorizontalOptions="End"/>
+                                    
+                                    <Label Grid.Row="2" Text="Khách phải trả:" TextColor="Black" FontSize="{StaticResource FontSize15}" FontAttributes="Bold"/>
+                                    <Label x:Name="LblReceiptFinal" Grid.Row="2" Grid.Column="1" Text="0 đ" TextColor="#F97316" FontSize="{StaticResource FontSize16}" FontAttributes="Bold" HorizontalOptions="End"/>
+                                    
+                                    <Label Grid.Row="3" Text="Thanh toán:" TextColor="Black" FontSize="{StaticResource FontSize13}"/>
+                                    <Label x:Name="LblReceiptPaymentMethod" Grid.Row="3" Grid.Column="1" Text="Tiền mặt" TextColor="Black" FontSize="{StaticResource FontSize13}" HorizontalOptions="End"/>
+
+                                    <Label x:Name="LblReceiptCashReceivedTitle" Grid.Row="4" Text="Tiền khách đưa:" TextColor="Black" FontSize="{StaticResource FontSize13}"/>
+                                    <Label x:Name="LblReceiptCashReceived" Grid.Row="4" Grid.Column="1" Text="0 đ" TextColor="Black" FontSize="{StaticResource FontSize13}" HorizontalOptions="End"/>
+
+                                    <Label x:Name="LblReceiptChangeReturnTitle" Grid.Row="5" Text="Tiền thối lại:" TextColor="Black" FontSize="{StaticResource FontSize13}"/>
+                                    <Label x:Name="LblReceiptChangeReturn" Grid.Row="5" Grid.Column="1" Text="0 đ" TextColor="Black" FontSize="{StaticResource FontSize13}" HorizontalOptions="End"/>
+
+                                    <Label x:Name="LblReceiptTotalQtyTitle" Grid.Row="6" Text="Tổng món gọi:" TextColor="Black" FontSize="{StaticResource FontSize13}"/>
+                                    <Label x:Name="LblReceiptTotalQty" Grid.Row="6" Grid.Column="1" Text="0" TextColor="Black" FontSize="{StaticResource FontSize13}" HorizontalOptions="End"/>
+                                </Grid>
+                                
+                                <Label Text="------------------------------------------------" TextColor="#64748B" HorizontalOptions="Center" Margin="0,10"/>
+                                
+                                <Label Text="CẢM ƠN QUÝ KHÁCH GIÚP ĐỒNG HÀNH!" FontSize="{StaticResource FontSize14}" FontAttributes="Bold" HorizontalOptions="Center" TextColor="Black"/>
+                                <Label Text="HẸN GẶP LẠI QUÝ KHÁCH!" FontSize="{StaticResource FontSize13}" HorizontalOptions="Center" TextColor="Black"/>
+                                
+                            </VerticalStackLayout>
+                        </ScrollView>
+                        
+                        <Grid Grid.Row="1" ColumnDefinitions="*, *" ColumnSpacing="10">
+                            <Button Text="🖨 In &amp; Xuất PDF" Clicked="OnPrintAndSaveReceiptClicked" BackgroundColor="#10B981" TextColor="White" HeightRequest="46" CornerRadius="6" FontSize="{StaticResource FontSize14}" FontAttributes="Bold"/>
+                            <Button Grid.Column="1" Text="Đóng" Clicked="OnCloseReceiptClicked" BackgroundColor="#EF4444" TextColor="White" HeightRequest="46" CornerRadius="6" FontSize="{StaticResource FontSize14}" FontAttributes="Bold"/>
+                        </Grid>
+                        
+                    </Grid>
+                </Border>
+            </Grid>
+
+        </Grid>
+    </Grid>
+</ContentPage>

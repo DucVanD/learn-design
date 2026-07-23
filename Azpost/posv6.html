@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELORA POS - Giao Diện POS Chuẩn Popup Thanh Toán</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { 600: '#2563eb', 700: '#1d4ed8' },
+                        darkText: '#0f172a',
+                        cardBg: '#f8fafc',
+                        posSuccess: '#10b981',
+                        posWarning: '#f59e0b',
+                        posDanger: '#ef4444',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- CẤU HÌNH SIZE CÓ THỂ ĐIỀU CHỈNH -->
+    <style>
+        :root {
+            --pos-base-font-size: 16px; 
+            --pos-right-pane-width: 500px;   /* Độ rộng cột bên phải */
+            --pos-table-card-height: 150px;  /* Chiều cao thẻ bàn */
+            --pos-header-height: 52px;       /* Chiều cao thanh Topbar */
+        }
+
+        html { font-size: var(--pos-base-font-size); }
+        body { font-family: 'Inter', sans-serif; }
+        
+        .pos-right-pane { width: var(--pos-right-pane-width); }
+        .pos-table-card { height: var(--pos-table-card-height); }
+        .pos-header { height: var(--pos-header-height); }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-slate-200 text-darkText h-screen flex flex-col overflow-hidden select-none">
+
+    <!-- 1. TOP BAR -->
+    <header class="bg-slate-900 text-white pos-header px-4 flex items-center justify-between shrink-0">
+        <div class="flex items-center space-x-3">
+            <span class="font-black text-lg tracking-wider text-brand-600 bg-white px-2.5 py-1 rounded">POS</span>
+            <select class="bg-slate-800 text-sm font-bold text-white px-3 py-1.5 rounded border border-slate-700 cursor-pointer focus:outline-none">
+                <option>CN1: 123 Đường Láng, Đống Đa</option>
+                <option>CN2: 45 Nguyễn Huệ, Q1</option>
+            </select>
+        </div>
+
+        <div class="flex items-center space-x-5 text-sm font-semibold">
+            <span class="text-emerald-400 flex items-center gap-2 font-bold">
+                <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span> Máy in sẵn sàng
+            </span>
+            <span class="text-slate-300">Thu ngân: <strong class="text-white">Nguyễn Thu Ngân</strong></span>
+            <button class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-3.5 py-1.5 rounded border border-slate-700 font-bold text-xs">Thoát</button>
+        </div>
+    </header>
+
+    <!-- 2. NỘI DUNG CHÍNH (LAYOUT 2 CỘT) -->
+    <div class="flex-1 flex overflow-hidden p-2 gap-2">
+
+        <!-- CỘT TRÁI: SƠ ĐỒ BÀN / THỰC ĐƠN -->
+        <div class="flex-1 flex flex-col min-w-0 bg-white rounded-lg border border-slate-300 overflow-hidden shadow-sm">
+            
+            <!-- Toolbar -->
+            <div class="p-2.5 bg-slate-100 border-b border-slate-300 flex items-center justify-between gap-3">
+                <div class="flex bg-slate-300 p-1 rounded-md">
+                    <button id="btnTabTables" onclick="switchView('tables')" class="px-6 py-2.5 text-base font-black rounded-md bg-brand-600 text-white shadow-sm">
+                        🪑 SƠ ĐỒ BÀN (24)
+                    </button>
+                    <button id="btnTabMenu" onclick="switchView('menu')" class="px-6 py-2.5 text-base font-black rounded-md text-slate-700 hover:text-slate-900">
+                        🍔 THỰC ĐƠN MÓN
+                    </button>
+                </div>
+
+                <div class="relative flex-1 max-w-md">
+                    <input type="text" placeholder="Tìm bàn, món ăn..." class="w-full bg-white border border-slate-400 rounded-md px-4 py-2.5 text-sm font-semibold focus:outline-none focus:border-brand-600 pl-10">
+                    <svg class="w-5 h-5 text-slate-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </div>
+
+                <button class="bg-slate-200 hover:bg-slate-300 text-slate-800 px-4 py-2.5 rounded-md text-sm font-bold border border-slate-300">
+                    🔄 Tải lại
+                </button>
+            </div>
+
+            <!-- CHẾ ĐỘ 1: SƠ ĐỒ BÀN -->
+            <div id="viewTables" class="flex-1 flex flex-col p-3 overflow-hidden">
+                
+                <!-- Thanh Thống Kê -->
+                <div class="grid grid-cols-4 gap-2.5 mb-2.5">
+                    <div class="bg-emerald-50 border border-emerald-300 p-2.5 rounded-md flex items-center justify-between">
+                        <span class="text-sm font-bold text-emerald-800">TRỐNG</span>
+                        <span class="text-lg font-black text-emerald-600">12</span>
+                    </div>
+                    <div class="bg-rose-50 border border-rose-300 p-2.5 rounded-md flex items-center justify-between">
+                        <span class="text-sm font-bold text-rose-800">CÓ KHÁCH</span>
+                        <span class="text-lg font-black text-posDanger">8</span>
+                    </div>
+                    <div class="bg-amber-50 border border-amber-300 p-2.5 rounded-md flex items-center justify-between">
+                        <span class="text-sm font-bold text-amber-800">ĐÃ ĐẶT</span>
+                        <span class="text-lg font-black text-amber-600">3</span>
+                    </div>
+                    <div class="bg-purple-50 border border-purple-300 p-2.5 rounded-md flex items-center justify-between">
+                        <span class="text-sm font-bold text-purple-800">CẦN DỌN</span>
+                        <span class="text-lg font-black text-purple-600">1</span>
+                    </div>
+                </div>
+
+                <!-- Lọc Khu Vực -->
+                <div class="flex space-x-2 border-b border-slate-200 pb-2 mb-2.5 overflow-x-auto shrink-0">
+                    <button class="px-5 py-2 text-xs font-black rounded-full bg-slate-900 text-white shrink-0">Tất cả (24)</button>
+                    <button class="px-5 py-2 text-xs font-black rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200 shrink-0 border border-slate-300">Tầng 1 (8)</button>
+                    <button class="px-5 py-2 text-xs font-black rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200 shrink-0 border border-slate-300">Tầng 2 (8)</button>
+                    <button class="px-5 py-2 text-xs font-black rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200 shrink-0 border border-slate-300">VIP (4)</button>
+                </div>
+
+                <!-- Lưới Bàn Ăn -->
+                <div class="flex-1 overflow-y-auto grid grid-cols-4 gap-3 pr-1 auto-rows-max">
+                    <div class="bg-white border-2 border-slate-300 hover:border-brand-600 rounded-lg p-3 flex flex-col justify-between cursor-pointer transition shadow-sm pos-table-card">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-black text-slate-900 text-lg">BÀN 1.01</h4>
+                                <span class="text-xs font-bold text-slate-500">Tầng 1 • 4 ghế</span>
+                            </div>
+                            <span class="text-xs font-black px-2.5 py-1 rounded bg-emerald-100 text-emerald-800 border border-emerald-300">TRỐNG</span>
+                        </div>
+                        <button class="w-full bg-brand-600 hover:bg-brand-700 text-white py-2.5 rounded-md text-xs font-black transition">
+                            + MỞ BÀN / GỌI MÓN
+                        </button>
+                    </div>
+
+                    <div class="bg-rose-50 border-2 border-posDanger rounded-lg p-3 flex flex-col justify-between cursor-pointer shadow-md pos-table-card ring-2 ring-posDanger/30">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-black text-slate-900 text-lg flex items-center gap-1.5">
+                                    BÀN 1.02
+                                    <span class="w-3 h-3 rounded-full bg-posDanger inline-block"></span>
+                                </h4>
+                                <span class="text-xs font-bold text-slate-600">Tầng 1 • 6 ghế</span>
+                            </div>
+                            <span class="text-xs font-black px-2.5 py-1 rounded bg-posDanger text-white">CÓ KHÁCH</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xs font-extrabold text-slate-800 bg-white p-2 rounded border border-rose-200">
+                            <span>4 món • <strong class="text-posDanger font-black text-sm">380.000đ</strong></span>
+                            <span class="text-slate-500">⏱ 45m</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button class="bg-brand-600 text-white py-2 rounded text-xs font-black">Thêm món</button>
+                            <button class="bg-slate-200 text-slate-800 py-2 rounded text-xs font-black border border-slate-300">Khác ▾</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHẾ ĐỘ 2: THỰC ĐƠN MÓN -->
+            <div id="viewMenu" class="flex-1 flex flex-col p-3 overflow-hidden hidden">
+                <div class="flex space-x-2 border-b border-slate-200 pb-2 mb-2.5 overflow-x-auto shrink-0">
+                    <button class="px-5 py-2 text-xs font-black rounded bg-brand-600 text-white">Tất cả món</button>
+                    <button class="px-5 py-2 text-xs font-black rounded bg-slate-100 text-slate-700 border border-slate-300">Món Khai Vị</button>
+                    <button class="px-5 py-2 text-xs font-black rounded bg-slate-100 text-slate-700 border border-slate-300">Món Chính</button>
+                    <button class="px-5 py-2 text-xs font-black rounded bg-slate-100 text-slate-700 border border-slate-300">Đồ Uống</button>
+                </div>
+                <div class="flex-1 overflow-y-auto grid grid-cols-4 gap-3 pr-1 auto-rows-max">
+                    <div class="bg-white border border-slate-300 rounded-lg p-2.5 flex flex-col justify-between cursor-pointer hover:border-brand-600 shadow-sm">
+                        <div class="w-full h-28 bg-slate-200 rounded-md mb-2 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=300" class="w-full h-full object-cover">
+                        </div>
+                        <h5 class="font-black text-slate-900 text-sm truncate">Sườn Nướng BBQ</h5>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="text-base font-black text-posSuccess">185.000đ</span>
+                            <button class="bg-brand-600 text-white w-8 h-8 rounded-md font-black text-lg flex items-center justify-center">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- CỘT PHẢI: HOÁ ĐƠN (ĐÃ TĂNG CHIỀU CAO LIST MÓN & NÚT BẾP BẤM CỰC ĐÃ) -->
+        <div class="pos-right-pane bg-white rounded-lg border border-slate-300 flex flex-col overflow-hidden shadow-sm shrink-0">
+            
+            <!-- Header Bàn -->
+            <div class="p-3 bg-slate-900 text-white flex justify-between items-center shrink-0">
+                <div>
+                    <div class="flex items-center space-x-2">
+                        <h3 class="font-black text-xl text-amber-400">BÀN 1.02</h3>
+                        <span class="text-xs bg-brand-600 text-white px-2.5 py-0.5 rounded font-black">Tầng 1</span>
+                    </div>
+                    <p class="text-xs text-slate-400 font-mono mt-0.5">HD-20260715-008</p>
+                </div>
+                <div class="text-right">
+                    <span class="text-xs text-slate-400 block font-semibold">Thời gian:</span>
+                    <span class="text-base font-mono font-black text-emerald-400">12:15 (45m)</span>
+                </div>
+            </div>
+
+            <!-- BỘ 4 NÚT VẬN HÀNH BÀN (NÚT ĐÃ ĐƯỢC TĂNG SIZE LỚN LÊN HƠN 50PX) -->
+            <div class="grid grid-cols-4 gap-2 p-2 bg-slate-100 border-b border-slate-300 shrink-0">
+                <button class="bg-amber-500 hover:bg-amber-600 text-white h-13 py-3 rounded-lg text-sm font-black flex flex-col items-center justify-center shadow-sm">
+                    <span class="text-base">👨‍🍳 Báo Bếp</span>
+                </button>
+                <button class="bg-brand-600 hover:bg-brand-700 text-white h-13 py-3 rounded-lg text-sm font-black flex flex-col items-center justify-center shadow-sm">
+                    <span class="text-base">🔄 Chuyển Bàn</span>
+                </button>
+                <button class="bg-purple-600 hover:bg-purple-700 text-white h-13 py-3 rounded-lg text-sm font-black flex flex-col items-center justify-center shadow-sm">
+                    <span class="text-base">🔗 Gộp Bàn</span>
+                </button>
+                <button class="bg-emerald-600 hover:bg-emerald-700 text-white h-13 py-3 rounded-lg text-sm font-black flex flex-col items-center justify-center shadow-sm">
+                    <span class="text-base">✂️ Tách Đơn</span>
+                </button>
+            </div>
+
+            <!-- Khách Hàng -->
+            <div class="p-2.5 border-b border-slate-300 bg-slate-50 flex items-center justify-between text-xs shrink-0">
+                <div class="flex items-center space-x-2 flex-1 mr-2">
+                    <span class="text-slate-700 font-black shrink-0">Khách:</span>
+                    <input type="text" value="Khách vãng lai" class="bg-white border border-slate-300 rounded px-3 py-2 text-xs font-black text-slate-900 w-full focus:outline-none focus:border-brand-600">
+                </div>
+                <button class="bg-slate-200 text-slate-800 px-3 py-2 rounded text-xs font-black border border-slate-300 shrink-0">
+                    + Thêm
+                </button>
+            </div>
+
+            <!-- DANH SÁCH MÓN ĂN (HIỆN TẠI CHIẾM RẤT NHIỀU DIỆN TÍCH BỞI VÌ ĐÃ LƯỢC NÂNG CAO) -->
+            <div class="flex-1 overflow-y-auto p-2.5 divide-y divide-slate-200">
+                
+                <!-- Item 1 -->
+                <div class="py-3 flex items-center justify-between gap-3">
+                    <div class="flex-1 min-w-0">
+                        <h5 class="font-black text-base text-slate-900 truncate">Lẩu Thái Hải Sản (Nồi Lớn)</h5>
+                        <div class="text-xs font-bold text-slate-600 flex items-center space-x-2 mt-0.5">
+                            <span class="text-sm">250.000đ</span>
+                            <span class="text-emerald-600 font-black">✓ Đã ra đồ</span>
+                        </div>
+                        <input type="text" value="Ghi chú: Ít cay..." class="text-xs text-amber-900 bg-amber-50 border border-amber-300 rounded px-2.5 py-1 w-full mt-1.5 font-semibold">
+                    </div>
+
+                    <div class="flex items-center border-2 border-slate-300 rounded-md bg-slate-100 shrink-0">
+                        <button class="w-10 h-10 flex items-center justify-center text-slate-900 font-black text-xl hover:bg-slate-200">-</button>
+                        <span class="w-8 text-center text-base font-black text-slate-900">1</span>
+                        <button class="w-10 h-10 flex items-center justify-center text-slate-900 font-black text-xl hover:bg-slate-200">+</button>
+                    </div>
+
+                    <div class="text-right w-24 shrink-0">
+                        <span class="font-black text-base text-slate-900 block">250.000đ</span>
+                        <button class="text-posDanger font-black hover:underline text-xs mt-1">Xóa món</button>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="py-3 flex items-center justify-between gap-3">
+                    <div class="flex-1 min-w-0">
+                        <h5 class="font-black text-base text-slate-900 truncate">Bia Heineken Silver (Lon)</h5>
+                        <div class="text-xs font-bold text-slate-600 flex items-center space-x-2 mt-0.5">
+                            <span class="text-sm">25.000đ</span>
+                            <span class="text-amber-600 font-black">⏱ Chờ bếp</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center border-2 border-slate-300 rounded-md bg-slate-100 shrink-0">
+                        <button class="w-10 h-10 flex items-center justify-center text-slate-900 font-black text-xl hover:bg-slate-200">-</button>
+                        <span class="w-8 text-center text-base font-black text-slate-900">4</span>
+                        <button class="w-10 h-10 flex items-center justify-center text-slate-900 font-black text-xl hover:bg-slate-200">+</button>
+                    </div>
+
+                    <div class="text-right w-24 shrink-0">
+                        <span class="font-black text-base text-slate-900 block">100.000đ</span>
+                        <button class="text-posDanger font-black hover:underline text-xs mt-1">Xóa món</button>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="py-3 flex items-center justify-between gap-3">
+                    <div class="flex-1 min-w-0">
+                        <h5 class="font-black text-base text-slate-900 truncate">Salad Cây Hoàng Gia</h5>
+                        <div class="text-xs font-bold text-slate-600 mt-0.5">
+                            <span class="text-sm">30.000đ</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center border-2 border-slate-300 rounded-md bg-slate-100 shrink-0">
+                        <button class="w-10 h-10 flex items-center justify-center text-slate-900 font-black text-xl hover:bg-slate-200">-</button>
+                        <span class="w-8 text-center text-base font-black text-slate-900">1</span>
+                        <button class="w-10 h-10 flex items-center justify-center text-slate-900 font-black text-xl hover:bg-slate-200">+</button>
+                    </div>
+
+                    <div class="text-right w-24 shrink-0">
+                        <span class="font-black text-base text-slate-900 block">30.000đ</span>
+                        <button class="text-posDanger font-black hover:underline text-xs mt-1">Xóa món</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- FOOTER CỰC KỲ GỌN GÀNG (CHỈ HIỆN TỔNG TIỀN & 2 NÚT CHÍNH) -->
+            <div class="p-3 bg-slate-100 border-t-2 border-slate-300 space-y-2 shrink-0">
+                
+                <div class="flex justify-between items-center">
+                    <span class="font-black text-slate-700 text-sm">TẠM TÍNH MÓN ĂN:</span>
+                    <span class="font-black text-slate-900 text-lg">380.000đ</span>
+                </div>
+
+                <div class="flex justify-between items-center pt-1 border-t border-slate-300">
+                    <span class="font-black text-slate-900 text-base">TỔNG CẦN THU:</span>
+                    <span class="font-black text-3xl text-posDanger">380.000đ</span>
+                </div>
+
+                <!-- BỘ 2 NÚT CAO 56PX (BẤM THANH TOÁN SẼ MỞ POPUP CHUYÊN NGHIỆP) -->
+                <div class="grid grid-cols-2 gap-2 pt-1">
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white h-14 rounded-xl font-black text-base shadow flex items-center justify-center gap-1.5">
+                        📄 IN TẠM TÍNH
+                    </button>
+                    <button onclick="openPaymentModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white h-14 rounded-xl font-black text-lg shadow flex items-center justify-center gap-1.5">
+                        🧾 THANH TOÁN (F12)
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- 3. MODAL POPUP THANH TOÁN (CHỈ HIỆN KHI BẤM THANH TOÁN) -->
+    <!-- ================================================================= -->
+    <div id="paymentModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center hidden z-50">
+        <div class="bg-white rounded-2xl shadow-2xl w-[600px] overflow-hidden border border-slate-300 flex flex-col">
+            
+            <!-- Header Modal -->
+            <div class="bg-slate-900 text-white p-4 flex justify-between items-center">
+                <div>
+                    <h3 class="font-black text-xl text-amber-400">THANH TOÁN HÓA ĐƠN • BÀN 1.02</h3>
+                    <p class="text-xs text-slate-400 font-mono">HD-20260715-008</p>
+                </div>
+                <button onclick="closePaymentModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 w-9 h-9 rounded-full font-bold text-lg flex items-center justify-center">✕</button>
+            </div>
+
+            <div class="p-5 space-y-4">
+                
+                <!-- Tổng tiền nổi bật trong Modal -->
+                <div class="bg-rose-50 border-2 border-rose-200 p-3.5 rounded-xl flex justify-between items-center">
+                    <span class="font-black text-slate-800 text-base">TỔNG TIỀN CẦN THU:</span>
+                    <span class="font-black text-3xl text-posDanger">380.000đ</span>
+                </div>
+
+                <!-- Ô nhập Voucher -->
+                <div class="flex gap-2">
+                    <input type="text" placeholder="Nhập mã voucher / giảm giá..." class="flex-1 bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm font-bold focus:outline-none focus:border-brand-600">
+                    <button class="bg-purple-600 text-white px-4 py-2.5 rounded-lg text-sm font-black">Áp dụng</button>
+                </div>
+
+                <!-- Chọn Phương Thức Thanh Toán -->
+                <div>
+                    <label class="block text-xs font-black text-slate-600 mb-1.5 uppercase">Hình Thức Thanh Toán:</label>
+                    <div class="grid grid-cols-4 gap-2">
+                        <button class="bg-brand-600 text-white h-12 rounded-xl text-sm font-black shadow border border-brand-600">💵 Tiền mặt</button>
+                        <button class="bg-slate-100 hover:bg-slate-200 text-slate-800 h-12 rounded-xl text-sm font-bold border border-slate-300">🏦 CK QR</button>
+                        <button class="bg-slate-100 hover:bg-slate-200 text-slate-800 h-12 rounded-xl text-sm font-bold border border-slate-300">💳 Quẹt thẻ</button>
+                        <button class="bg-slate-100 hover:bg-slate-200 text-slate-800 h-12 rounded-xl text-sm font-bold border border-slate-300">🎟️ Voucher</button>
+                    </div>
+                </div>
+
+                <!-- Nút Gợi Ý Tiền Nhanh cho Thu Ngân -->
+                <div>
+                    <label class="block text-xs font-black text-slate-600 mb-1.5 uppercase">Gợi Ý Tiền Khách Đưa:</label>
+                    <div class="grid grid-cols-4 gap-2">
+                        <button onclick="setCash(380000)" class="bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-800 h-10 rounded-lg text-xs font-black">Đủ tiền (380k)</button>
+                        <button onclick="setCash(400000)" class="bg-slate-100 hover:bg-slate-200 text-slate-800 h-10 rounded-lg text-xs font-black border border-slate-300">400.000đ</button>
+                        <button onclick="setCash(500000)" class="bg-slate-100 hover:bg-slate-200 text-slate-800 h-10 rounded-lg text-xs font-black border border-slate-300">500.000đ</button>
+                        <button onclick="setCash(1000000)" class="bg-slate-100 hover:bg-slate-200 text-slate-800 h-10 rounded-lg text-xs font-black border border-slate-300">1.000.000đ</button>
+                    </div>
+                </div>
+
+                <!-- Tiền Khách Đưa & Tiền Thối -->
+                <div class="grid grid-cols-2 gap-3 bg-slate-100 p-3 rounded-xl border border-slate-300">
+                    <div>
+                        <span class="text-slate-600 font-black block text-xs">TIỀN KHÁCH ĐƯA:</span>
+                        <input id="cashInput" type="text" value="500.000" class="w-full font-black text-slate-900 text-2xl bg-transparent border-b-2 border-brand-600 focus:outline-none py-1">
+                    </div>
+                    <div class="text-right">
+                        <span class="text-slate-600 font-black block text-xs">TIỀN THỐI LẠI:</span>
+                        <span id="changeReturnText" class="font-black text-posSuccess text-3xl block mt-0.5">120.000đ</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer Modal Buttons -->
+            <div class="p-4 bg-slate-100 border-t border-slate-200 flex justify-end gap-2">
+                <button onclick="closePaymentModal()" class="bg-slate-300 hover:bg-slate-400 text-slate-800 h-13 px-6 rounded-xl font-bold text-sm">Hủy bỏ</button>
+                <button onclick="confirmPayment()" class="bg-emerald-600 hover:bg-emerald-700 text-white h-13 px-8 rounded-xl font-black text-base shadow flex items-center gap-2">
+                    🧾 XÁC NHẬN & IN HÓA ĐƠN
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT ĐIỀU KHIỂN POPUP -->
+    <script>
+        function switchView(mode) {
+            const btnTables = document.getElementById('btnTabTables');
+            const btnMenu = document.getElementById('btnTabMenu');
+            const viewTables = document.getElementById('viewTables');
+            const viewMenu = document.getElementById('viewMenu');
+
+            if (mode === 'tables') {
+                viewTables.classList.remove('hidden');
+                viewMenu.classList.add('hidden');
+                btnTables.className = "px-6 py-2.5 text-base font-black rounded-md bg-brand-600 text-white shadow-sm";
+                btnMenu.className = "px-6 py-2.5 text-base font-black rounded-md text-slate-700 hover:text-slate-900";
+            } else {
+                viewTables.classList.add('hidden');
+                viewMenu.classList.remove('hidden');
+                btnMenu.className = "px-6 py-2.5 text-base font-black rounded-md bg-brand-600 text-white shadow-sm";
+                btnTables.className = "px-6 py-2.5 text-base font-black rounded-md text-slate-700 hover:text-slate-900";
+            }
+        }
+
+        function openPaymentModal() {
+            document.getElementById('paymentModal').classList.remove('hidden');
+        }
+
+        function closePaymentModal() {
+            document.getElementById('paymentModal').classList.add('hidden');
+        }
+
+        function setCash(amount) {
+            document.getElementById('cashInput').value = amount.toLocaleString('vi-VN');
+            const change = amount - 380000;
+            document.getElementById('changeReturnText').innerText = change >= 0 ? change.toLocaleString('vi-VN') + 'đ' : '0đ';
+        }
+
+        function confirmPayment() {
+            alert("Thanh toán thành công & Đã in hóa đơn!");
+            closePaymentModal();
+        }
+    </script>
+</body>
+</html>

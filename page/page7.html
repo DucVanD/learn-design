@@ -4,330 +4,646 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HITU eLearning – Mẫu 3: Academic Formal</title>
-<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
   :root {
-    --primary: #1f4fa3;
-    --primary-dark: #0d2d6e;
+    --primary: #1a4494;
+    --primary-dark: #0c2a5e;
     --primary-mid: #163880;
-    --accent: #f5820d;
-    --accent-gold: #d4a017;
+    --primary-soft: #eef3fc;
+    --accent: #e8740c;
+    --accent-gold: #c9920f;
     --white: #ffffff;
-    --cream: #fafaf8;
-    --gray-50: #f6f7f9;
-    --gray-100: #edf0f4;
-    --gray-200: #d9dfe8;
-    --gray-400: #8e99ad;
-    --gray-600: #4b5668;
-    --gray-900: #0e1824;
-    --border: #dce3ed;
-    --shadow: 0 2px 12px rgba(15,45,110,.09);
-    --shadow-hover: 0 6px 28px rgba(15,45,110,.16);
-    --r: 6px;
+    --cream: #f7f8fb;
+    --gray-50: #f3f5f9;
+    --gray-100: #e8ecf3;
+    --gray-200: #d4dbe8;
+    --gray-400: #7b8799;
+    --gray-600: #445063;
+    --gray-900: #0d1520;
+    --border: #dde4ef;
+    --shadow: 0 2px 16px rgba(12,42,94,.07);
+    --shadow-hover: 0 10px 32px rgba(12,42,94,.14);
+    --r: 10px;
+    --r-sm: 6px;
+    --transition: .22s ease;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Inter', sans-serif; color: var(--gray-900); background: var(--cream); line-height: 1.6; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    color: var(--gray-900);
+    background: var(--cream);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
   a { text-decoration: none; color: inherit; }
   img { display: block; max-width: 100%; }
+  button, select, input { font-family: inherit; }
 
-  /* ─── UTILITY ─── */
-  .container { max-width: 1160px; margin: 0 auto; padding: 0 5%; }
-  .section { padding: 60px 0; }
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 5%; }
 
   /* ─── TOP STRIP ─── */
   .topstrip {
     background: var(--primary-dark);
-    padding: 7px 0;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,.06);
   }
-  .topstrip .container { display: flex; justify-content: space-between; align-items: center; }
-  .ts-left { display: flex; gap: 24px; }
+  .topstrip .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .ts-left { display: flex; gap: 20px; flex-wrap: wrap; }
   .ts-left span, .ts-right a {
-    font-size: 11.5px; color: rgba(255,255,255,.65);
-    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11.5px;
+    color: rgba(255,255,255,.62);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
   }
-  .ts-right { display: flex; gap: 18px; }
+  .ts-right { display: flex; gap: 16px; flex-wrap: wrap; }
   .ts-right a:hover { color: var(--accent-gold); }
 
   /* ─── HEADER ─── */
   header {
-    background: var(--white);
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--border);
-    position: sticky; top: 0; z-index: 200;
+    position: sticky;
+    top: 0;
+    z-index: 300;
     box-shadow: var(--shadow);
   }
   .header-inner {
-    display: flex; align-items: center; justify-content: space-between;
-    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+    gap: 20px;
   }
-  .header-logo { display: flex; align-items: center; gap: 14px; }
+  .header-logo { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
   .logo-seal {
-    width: 48px; height: 48px; border-radius: 50%;
-    background: var(--primary); display: grid; place-items: center;
-    font-family: 'Merriweather', serif; font-size: 16px; font-weight: 900;
-    color: white; border: 3px solid var(--accent-gold);
-    box-shadow: 0 0 0 2px var(--primary);
+    width: 50px; height: 50px; border-radius: 50%;
+    background: linear-gradient(145deg, var(--primary), var(--primary-dark));
+    display: grid; place-items: center;
+    font-family: 'Merriweather', serif;
+    font-size: 17px; font-weight: 900;
+    color: white;
+    border: 3px solid var(--accent-gold);
+    box-shadow: 0 4px 14px rgba(26,68,148,.3);
   }
-  .logo-texts .school { font-family: 'Merriweather', serif; font-size: 15px; font-weight: 700; color: var(--primary-dark); }
-  .logo-texts .sub { font-size: 11px; color: var(--gray-400); margin-top: 1px; letter-spacing: .3px; }
-  .header-nav { display: flex; align-items: stretch; height: 70px; }
+  .logo-texts .school {
+    font-family: 'Merriweather', serif;
+    font-size: 15.5px; font-weight: 700;
+    color: var(--primary-dark);
+    letter-spacing: -.2px;
+  }
+  .logo-texts .sub { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
+  .header-nav { display: flex; align-items: stretch; height: 72px; }
   .header-nav a {
     display: flex; align-items: center;
-    padding: 0 18px; font-size: 13.5px; font-weight: 500;
-    color: var(--gray-600); border-bottom: 3px solid transparent;
-    transition: all .2s;
+    padding: 0 16px; font-size: 13.5px; font-weight: 600;
+    color: var(--gray-600);
+    border-bottom: 3px solid transparent;
+    transition: all var(--transition);
+    white-space: nowrap;
   }
   .header-nav a:hover { color: var(--primary); border-bottom-color: var(--gray-200); }
   .header-nav a.active { color: var(--primary); font-weight: 700; border-bottom-color: var(--primary); }
-  .header-right { display: flex; align-items: center; gap: 10px; }
+  .header-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
   .btn-ghost {
-    padding: 8px 18px; font-size: 13px; font-weight: 600;
-    border: 1.5px solid var(--border); border-radius: var(--r);
+    padding: 9px 18px; font-size: 13px; font-weight: 600;
+    border: 1.5px solid var(--border); border-radius: var(--r-sm);
     color: var(--gray-600); background: transparent; cursor: pointer;
-    transition: all .2s;
+    transition: all var(--transition);
   }
-  .btn-ghost:hover { border-color: var(--primary); color: var(--primary); }
+  .btn-ghost:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
   .btn-solid {
-    padding: 8px 20px; font-size: 13px; font-weight: 700;
+    padding: 9px 20px; font-size: 13px; font-weight: 700;
     background: var(--primary); color: white; border: none;
-    border-radius: var(--r); cursor: pointer; transition: all .2s;
+    border-radius: var(--r-sm); cursor: pointer;
+    transition: all var(--transition);
+    display: inline-flex; align-items: center; gap: 7px;
+  }
+  .btn-solid:hover { background: var(--primary-dark); box-shadow: var(--shadow-hover); transform: translateY(-1px); }
+  .mobile-menu-btn {
+    display: none;
+    width: 42px; height: 42px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--r-sm);
+    background: white;
+    color: var(--gray-600);
+    font-size: 18px;
+    cursor: pointer;
+    transition: all var(--transition);
+  }
+  .mobile-menu-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+  /* mobile nav overlay */
+  .mobile-nav {
+    display: none;
+    position: fixed; inset: 0; z-index: 400;
+    background: rgba(13,21,32,.45);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition);
+  }
+  .mobile-nav.open { display: block; opacity: 1; pointer-events: auto; }
+  .mobile-nav-panel {
+    position: absolute; right: 0; top: 0; bottom: 0;
+    width: min(300px, 85vw);
+    background: white;
+    padding: 24px 20px;
+    box-shadow: -8px 0 32px rgba(0,0,0,.12);
+    transform: translateX(100%);
+    transition: transform .28s ease;
+    overflow-y: auto;
+  }
+  .mobile-nav.open .mobile-nav-panel { transform: translateX(0); }
+  .mobile-nav-head {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 24px; padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .mobile-nav-head span { font-weight: 700; color: var(--primary-dark); font-size: 15px; }
+  .mobile-nav-close {
+    width: 36px; height: 36px; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--gray-50);
+    cursor: pointer; color: var(--gray-600); font-size: 16px;
+  }
+  .mobile-nav a {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 14px; border-radius: var(--r-sm);
+    font-size: 14px; font-weight: 600; color: var(--gray-600);
+    margin-bottom: 4px;
+    transition: all var(--transition);
+  }
+  .mobile-nav a:hover, .mobile-nav a.active {
+    background: var(--primary-soft); color: var(--primary);
+  }
+  .mobile-nav-actions { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+  .mobile-nav-actions .btn-solid, .mobile-nav-actions .btn-ghost { width: 100%; justify-content: center; }
+
+  /* ─── ANNOUNCEMENT ─── */
+  .announce-band {
+    background: linear-gradient(90deg, #fff9ee, #fffdf8);
+    border-bottom: 1px solid #f0e4c8;
+    padding: 12px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .announce-band::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 4px; background: var(--accent-gold);
+  }
+  .announce-inner { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .ann-label {
+    background: var(--accent-gold); color: white;
+    font-size: 10.5px; font-weight: 800;
+    padding: 5px 12px; border-radius: 20px;
+    white-space: nowrap; letter-spacing: .6px;
     display: inline-flex; align-items: center; gap: 6px;
   }
-  .btn-solid:hover { background: var(--primary-dark); box-shadow: var(--shadow-hover); }
+  .ann-text { font-size: 13px; color: var(--gray-600); flex: 1; min-width: 200px; }
+  .ann-text a { color: var(--primary); font-weight: 700; }
+  .ann-text a:hover { text-decoration: underline; }
+  .ann-date {
+    font-size: 11px; color: var(--gray-400);
+    white-space: nowrap;
+    background: white;
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
 
-  /* ─── HERO BANNER ─── */
+  /* ─── HERO ─── */
   .hero {
     background: var(--primary-dark);
     background-image:
-      linear-gradient(to right, rgba(13,45,110,.97) 55%, rgba(31,79,163,.8) 100%);
-    padding: 64px 0;
+      radial-gradient(ellipse 80% 60% at 90% 40%, rgba(56,110,200,.35) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 80% at 10% 80%, rgba(201,146,15,.12) 0%, transparent 50%),
+      linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 55%, #2a5cb8 100%);
+    padding: 68px 0 72px;
     position: relative; overflow: hidden;
   }
-  .hero::before {
+  .hero::after {
     content: '';
-    position: absolute; right: 0; top: 0; bottom: 0; width: 45%;
-    background: url("data:image/svg+xml,%3Csvg width='600' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='600' height='400' fill='%231f4fa3' opacity='.3'/%3E%3Ccircle cx='400' cy='200' r='200' fill='%231f4fa3' opacity='.2'/%3E%3C/svg%3E") center/cover no-repeat;
-    opacity: .18;
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
   }
   .hero-inner {
-    display: grid; grid-template-columns: 3fr 2fr; gap: 60px; align-items: center;
+    display: grid; grid-template-columns: 1.4fr 1fr;
+    gap: 52px; align-items: center;
     position: relative; z-index: 1;
   }
+  .hero-content { animation: fadeUp .6s ease both; }
   .hero-label {
     display: inline-flex; align-items: center; gap: 8px;
     font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-    color: var(--accent-gold); margin-bottom: 18px;
+    color: var(--accent-gold); margin-bottom: 20px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.12);
+    padding: 6px 14px; border-radius: 20px;
   }
-  .hero-label::before, .hero-label::after { content: '─'; opacity: .5; }
   .hero h1 {
     font-family: 'Merriweather', serif;
-    font-size: clamp(26px, 3.5vw, 44px); font-weight: 900;
-    color: white; line-height: 1.2; margin-bottom: 16px;
+    font-size: clamp(28px, 3.8vw, 46px); font-weight: 900;
+    color: white; line-height: 1.18; margin-bottom: 18px;
   }
   .hero h1 span { color: var(--accent-gold); }
-  .hero-desc { font-size: 15px; color: rgba(255,255,255,.75); line-height: 1.75; margin-bottom: 32px; }
+  .hero-desc {
+    font-size: 15px; color: rgba(255,255,255,.78);
+    line-height: 1.8; margin-bottom: 32px; max-width: 520px;
+  }
   .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
   .btn-accent {
-    padding: 12px 28px; background: var(--accent); color: white;
-    font-weight: 700; font-size: 14px; border-radius: var(--r);
-    transition: all .25s; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; border: none;
+    padding: 13px 28px; background: var(--accent); color: white;
+    font-weight: 700; font-size: 14px; border-radius: var(--r-sm);
+    transition: all var(--transition);
+    display: inline-flex; align-items: center; gap: 8px;
+    cursor: pointer; border: none;
+    box-shadow: 0 4px 16px rgba(232,116,12,.35);
   }
-  .btn-accent:hover { background: #de7309; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(245,130,13,.4); }
+  .btn-accent:hover { background: #d0680a; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,116,12,.45); }
   .btn-white-outline {
-    padding: 12px 24px; color: white; font-weight: 600; font-size: 14px;
-    border: 1.5px solid rgba(255,255,255,.35); border-radius: var(--r);
-    transition: all .25s; display: inline-flex; align-items: center; gap: 6px;
+    padding: 13px 24px; color: white; font-weight: 600; font-size: 14px;
+    border: 1.5px solid rgba(255,255,255,.35); border-radius: var(--r-sm);
+    transition: all var(--transition);
+    display: inline-flex; align-items: center; gap: 7px;
+    background: rgba(255,255,255,.05);
   }
-  .btn-white-outline:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.6); }
+  .btn-white-outline:hover { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.65); }
   .hero-facts {
-    background: rgba(255,255,255,.06); backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,.12); border-radius: 10px;
-    padding: 28px 24px; display: flex; flex-direction: column; gap: 18px;
+    background: rgba(255,255,255,.07);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: var(--r);
+    padding: 28px 26px;
+    display: flex; flex-direction: column; gap: 0;
+    animation: fadeUp .6s .15s ease both;
+    box-shadow: 0 8px 32px rgba(0,0,0,.15);
   }
-  .hero-facts h3 { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-gold); margin-bottom: 4px; }
-  .hf-row { display: flex; gap: 8px; align-items: flex-start; }
-  .hf-icon { font-size: 18px; margin-top: 1px; }
-  .hf-text strong { display: block; font-size: 13px; font-weight: 700; color: white; }
-  .hf-text span { font-size: 12px; color: rgba(255,255,255,.6); }
-  .hf-divider { border: none; border-top: 1px solid rgba(255,255,255,.1); }
+  .hero-facts h3 {
+    font-size: 11px; font-weight: 800; letter-spacing: 1.8px;
+    text-transform: uppercase; color: var(--accent-gold);
+    margin-bottom: 18px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .hf-row {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .hf-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .hf-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: rgba(255,255,255,.1);
+    display: grid; place-items: center;
+    font-size: 14px; color: var(--accent-gold);
+    flex-shrink: 0;
+  }
+  .hf-text strong { display: block; font-size: 13px; font-weight: 700; color: white; margin-bottom: 2px; }
+  .hf-text span { font-size: 12px; color: rgba(255,255,255,.58); }
 
-  /* ─── BREADCRUMB BAR ─── */
-  .breadbar { background: var(--gray-50); border-bottom: 1px solid var(--border); padding: 10px 0; }
-  .breadbar-inner { display: flex; justify-content: space-between; align-items: center; }
-  .breadcrumb { display: flex; gap: 6px; align-items: center; font-size: 12px; color: var(--gray-400); }
-  .breadcrumb a { color: var(--primary); }
+  /* ─── STATS BAR ─── */
+  .stats-bar {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    margin-top: -28px;
+    position: relative; z-index: 10;
+    border-radius: var(--r);
+    margin-left: 5%; margin-right: 5%;
+    max-width: 1180px;
+    margin-inline: auto;
+    width: calc(100% - 10%);
+  }
+  .stats-inner {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    divide-color: var(--border);
+  }
+  .stat-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 22px 24px;
+    border-right: 1px solid var(--border);
+    transition: background var(--transition);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-item:hover { background: var(--gray-50); }
+  .stat-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: var(--primary-soft);
+    color: var(--primary);
+    display: grid; place-items: center;
+    font-size: 17px; flex-shrink: 0;
+  }
+  .stat-num {
+    font-family: 'Merriweather', serif;
+    font-size: 22px; font-weight: 900;
+    color: var(--primary-dark); line-height: 1;
+  }
+  .stat-label { font-size: 11.5px; color: var(--gray-400); margin-top: 3px; font-weight: 500; }
+
+  /* ─── BREADCRUMB ─── */
+  .breadbar { background: transparent; padding: 28px 0 0; }
+  .breadbar-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+  .breadcrumb { display: flex; gap: 6px; align-items: center; font-size: 12.5px; color: var(--gray-400); }
+  .breadcrumb a { color: var(--primary); font-weight: 600; }
+  .breadcrumb a:hover { text-decoration: underline; }
   .breadcrumb .sep { color: var(--gray-200); }
   .sem-badge {
     font-size: 11px; font-weight: 700; color: var(--primary);
-    background: var(--gray-100); border: 1px solid var(--border);
-    padding: 4px 12px; border-radius: 20px;
+    background: var(--primary-soft);
+    border: 1px solid #c5d8f5;
+    padding: 5px 14px; border-radius: 20px;
+    display: inline-flex; align-items: center; gap: 6px;
   }
 
-  /* ─── THREE COLUMN LAYOUT ─── */
+  /* ─── LAYOUT ─── */
   .layout-3col {
-    display: grid; grid-template-columns: 220px 1fr 240px;
-    gap: 28px; padding: 36px 0 60px;
+    display: grid; grid-template-columns: 230px 1fr 250px;
+    gap: 28px; padding: 28px 0 64px;
   }
 
-  /* ─── LEFT PANEL ─── */
-  .panel-left { display: flex; flex-direction: column; gap: 20px; }
+  /* ─── WIDGETS ─── */
+  .panel-left, .panel-right { display: flex; flex-direction: column; gap: 20px; }
+  .panel-left { position: sticky; top: 92px; align-self: start; }
+  .panel-right { position: sticky; top: 92px; align-self: start; }
   .widget {
     background: var(--white); border: 1px solid var(--border);
-    border-radius: var(--r); overflow: hidden; box-shadow: var(--shadow);
+    border-radius: var(--r); overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: box-shadow var(--transition);
   }
+  .widget:hover { box-shadow: var(--shadow-hover); }
   .widget-head {
-    background: var(--primary); color: white;
-    padding: 11px 16px; font-size: 12px; font-weight: 700;
+    background: linear-gradient(135deg, var(--primary), var(--primary-mid));
+    color: white;
+    padding: 12px 16px; font-size: 11.5px; font-weight: 700;
     text-transform: uppercase; letter-spacing: 1px;
-    display: flex; align-items: center; gap: 7px;
+    display: flex; align-items: center; gap: 8px;
   }
   .widget-body { padding: 0; }
   .menu-item {
     display: flex; align-items: center; gap: 10px;
-    padding: 11px 16px; font-size: 13px; color: var(--gray-600);
-    border-bottom: 1px solid var(--gray-100); cursor: pointer;
-    transition: all .15s;
+    padding: 12px 16px; font-size: 13px; color: var(--gray-600);
+    border-bottom: 1px solid var(--gray-50); cursor: pointer;
+    transition: all var(--transition);
   }
   .menu-item:last-child { border-bottom: none; }
   .menu-item:hover { background: var(--gray-50); color: var(--primary); padding-left: 20px; }
-  .menu-item.active { background: #eef3ff; color: var(--primary); font-weight: 700; border-left: 3px solid var(--primary); }
-  .menu-icon { font-size: 14px; width: 18px; text-align: center; }
+  .menu-item.active {
+    background: var(--primary-soft); color: var(--primary);
+    font-weight: 700; border-left: 3px solid var(--primary);
+  }
+  .menu-icon { font-size: 13px; width: 18px; text-align: center; color: var(--gray-400); }
+  .menu-item.active .menu-icon { color: var(--primary); }
   .menu-count {
     margin-left: auto; background: var(--gray-100); color: var(--gray-400);
-    font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 8px;
+    font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px;
   }
-  .menu-item.active .menu-count { background: #d1dcf7; color: var(--primary); }
+  .menu-item.active .menu-count { background: #c5d8f5; color: var(--primary); }
 
   /* ─── MAIN PANEL ─── */
-  .panel-main { display: flex; flex-direction: column; gap: 24px; }
+  .panel-main { display: flex; flex-direction: column; gap: 20px; }
   .main-header {
-    display: flex; justify-content: space-between; align-items: center;
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 16px; flex-wrap: wrap;
   }
-  .main-title { font-family: 'Merriweather', serif; font-size: 20px; font-weight: 700; color: var(--primary-dark); }
-  .main-subtitle { font-size: 12.5px; color: var(--gray-400); margin-top: 3px; }
-  .sort-bar { display: flex; gap: 8px; align-items: center; }
+  .main-title {
+    font-family: 'Merriweather', serif;
+    font-size: 22px; font-weight: 700; color: var(--primary-dark);
+  }
+  .main-subtitle { font-size: 13px; color: var(--gray-400); margin-top: 4px; }
+  .toolbar {
+    display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+  }
+  .search-box {
+    display: flex; align-items: center; gap: 8px;
+    background: white; border: 1.5px solid var(--border);
+    border-radius: var(--r-sm); padding: 0 12px;
+    transition: border-color var(--transition);
+    min-width: 200px;
+  }
+  .search-box:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(26,68,148,.1); }
+  .search-box i { color: var(--gray-400); font-size: 13px; }
+  .search-box input {
+    border: none; outline: none; padding: 9px 0;
+    font-size: 13px; color: var(--gray-900); background: transparent; width: 160px;
+  }
+  .search-box input::placeholder { color: var(--gray-400); }
   .sort-bar select {
-    font-size: 12px; padding: 6px 10px; border: 1px solid var(--border);
-    border-radius: var(--r); color: var(--gray-600); outline: none;
-    font-family: 'Inter', sans-serif; background: white; cursor: pointer;
+    font-size: 12.5px; padding: 9px 12px;
+    border: 1.5px solid var(--border); border-radius: var(--r-sm);
+    color: var(--gray-600); outline: none;
+    background: white; cursor: pointer;
+    transition: border-color var(--transition);
   }
+  .sort-bar select:focus { border-color: var(--primary); }
 
-  /* ─── COURSE TABLE ─── */
-  .course-table {
-    background: var(--white); border: 1px solid var(--border);
-    border-radius: var(--r); overflow: hidden; box-shadow: var(--shadow);
+  /* ─── COURSE LIST ─── */
+  .course-list { display: flex; flex-direction: column; gap: 12px; }
+  .course-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 18px 20px;
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    gap: 16px;
+    align-items: center;
+    box-shadow: var(--shadow);
+    transition: all var(--transition);
+    cursor: pointer;
+    animation: fadeUp .4s ease both;
   }
-  .ct-head {
-    display: grid; grid-template-columns: 2fr 1fr 1fr 80px;
-    background: var(--gray-50); border-bottom: 2px solid var(--primary);
-    padding: 10px 18px; gap: 12px;
+  .course-card:nth-child(2) { animation-delay: .05s; }
+  .course-card:nth-child(3) { animation-delay: .1s; }
+  .course-card:nth-child(4) { animation-delay: .15s; }
+  .course-card:nth-child(5) { animation-delay: .2s; }
+  .course-card:nth-child(6) { animation-delay: .25s; }
+  .course-card:nth-child(7) { animation-delay: .3s; }
+  .course-card:nth-child(8) { animation-delay: .35s; }
+  .course-card:hover {
+    border-color: #b8cce8;
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
   }
-  .ct-head span { font-size: 11px; font-weight: 700; color: var(--gray-600); text-transform: uppercase; letter-spacing: .8px; }
-  .ct-row {
-    display: grid; grid-template-columns: 2fr 1fr 1fr 80px;
-    padding: 14px 18px; gap: 12px; align-items: center;
-    border-bottom: 1px solid var(--gray-100); transition: background .15s; cursor: pointer;
-  }
-  .ct-row:last-child { border-bottom: none; }
-  .ct-row:hover { background: var(--gray-50); }
-  .ct-course-info { display: flex; align-items: center; gap: 12px; }
   .ct-icon {
-    width: 38px; height: 38px; border-radius: var(--r);
-    display: grid; place-items: center; font-size: 18px; flex-shrink: 0;
+    width: 48px; height: 48px; border-radius: var(--r-sm);
+    display: grid; place-items: center; font-size: 20px; flex-shrink: 0;
   }
-  .ct-name { font-size: 13.5px; font-weight: 700; color: var(--primary-dark); }
-  .ct-teacher { font-size: 11.5px; color: var(--gray-400); margin-top: 2px; }
+  .ct-info { min-width: 0; }
+  .ct-name { font-size: 14.5px; font-weight: 700; color: var(--primary-dark); margin-bottom: 4px; }
+  .ct-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .ct-teacher { font-size: 12px; color: var(--gray-400); display: flex; align-items: center; gap: 5px; }
   .ct-dept {
-    font-size: 11px; font-weight: 700; padding: 3px 8px;
-    border-radius: 4px; display: inline-block;
+    font-size: 10.5px; font-weight: 700; padding: 3px 9px;
+    border-radius: 20px; display: inline-block;
   }
   .dept-it { background: #dbeafe; color: #1d4ed8; }
   .dept-eco { background: #fef3c7; color: #92400e; }
-  .ct-lessons { font-size: 13px; color: var(--gray-600); }
-  .ct-btn {
-    padding: 6px 14px; font-size: 12px; font-weight: 700;
-    background: var(--primary); color: white; border: none;
-    border-radius: var(--r); cursor: pointer; transition: all .2s;
-    white-space: nowrap;
+  .ct-progress-wrap { text-align: right; min-width: 110px; }
+  .ct-progress-label { font-size: 11px; color: var(--gray-400); margin-bottom: 5px; font-weight: 600; }
+  .progress-bar {
+    height: 6px; background: var(--gray-100);
+    border-radius: 10px; overflow: hidden;
   }
-  .ct-btn:hover { background: var(--primary-dark); }
+  .progress-fill {
+    height: 100%; border-radius: 10px;
+    background: linear-gradient(90deg, var(--primary), #3d7fd4);
+    transition: width .6s ease;
+  }
+  .ct-action { flex-shrink: 0; }
+  .ct-btn {
+    padding: 9px 18px; font-size: 12.5px; font-weight: 700;
+    background: var(--primary); color: white; border: none;
+    border-radius: var(--r-sm); cursor: pointer;
+    transition: all var(--transition);
+    white-space: nowrap;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .ct-btn:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(26,68,148,.3); }
 
-  /* ─── RIGHT PANEL ─── */
-  .panel-right { display: flex; flex-direction: column; gap: 20px; }
-  .calendar-widget .widget-body { padding: 14px; }
-  .cal-month { text-align: center; font-size: 13px; font-weight: 700; color: var(--primary); margin-bottom: 10px; }
-  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; }
-  .cal-day-name { font-size: 10px; font-weight: 700; color: var(--gray-400); padding: 3px; }
-  .cal-day { font-size: 11.5px; padding: 5px 2px; border-radius: 4px; cursor: pointer; transition: background .15s; color: var(--gray-600); }
+  /* ─── CALENDAR ─── */
+  .calendar-widget .widget-body { padding: 16px; }
+  .cal-month {
+    text-align: center; font-size: 13px; font-weight: 700;
+    color: var(--primary); margin-bottom: 12px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .cal-nav {
+    width: 28px; height: 28px; border-radius: 6px;
+    border: 1px solid var(--border); background: var(--gray-50);
+    cursor: pointer; color: var(--gray-600); font-size: 11px;
+    transition: all var(--transition);
+  }
+  .cal-nav:hover { border-color: var(--primary); color: var(--primary); }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; text-align: center; }
+  .cal-day-name { font-size: 10px; font-weight: 700; color: var(--gray-400); padding: 4px 2px; }
+  .cal-day {
+    font-size: 11.5px; padding: 6px 2px; border-radius: 6px;
+    cursor: pointer; transition: background var(--transition);
+    color: var(--gray-600); aspect-ratio: 1;
+    display: grid; place-items: center;
+  }
   .cal-day:hover { background: var(--gray-100); }
   .cal-day.today { background: var(--primary); color: white; font-weight: 700; border-radius: 50%; }
-  .cal-day.has-event { position: relative; font-weight: 700; color: var(--primary); }
-  .cal-day.has-event::after { content: '•'; position: absolute; bottom: -1px; left: 50%; transform: translateX(-50%); font-size: 8px; color: var(--accent); }
+  .cal-day.has-event { font-weight: 700; color: var(--primary); position: relative; }
+  .cal-day.has-event::after {
+    content: ''; position: absolute; bottom: 3px; left: 50%;
+    transform: translateX(-50%);
+    width: 4px; height: 4px; border-radius: 50%;
+    background: var(--accent);
+  }
   .cal-day.other-month { color: var(--gray-200); }
 
+  /* ─── EVENTS ─── */
   .events-widget .widget-body { padding: 0; }
   .event-item {
-    display: flex; gap: 12px; padding: 12px 16px;
-    border-bottom: 1px solid var(--gray-100); align-items: flex-start;
+    display: flex; gap: 12px; padding: 13px 16px;
+    border-bottom: 1px solid var(--gray-50); align-items: flex-start;
+    transition: background var(--transition);
   }
   .event-item:last-child { border-bottom: none; }
+  .event-item:hover { background: var(--gray-50); }
   .event-date {
-    min-width: 42px; text-align: center;
-    background: var(--primary); color: white; border-radius: var(--r);
-    padding: 5px 4px;
+    min-width: 44px; text-align: center;
+    background: linear-gradient(145deg, var(--primary), var(--primary-mid));
+    color: white; border-radius: var(--r-sm);
+    padding: 6px 4px; flex-shrink: 0;
   }
   .event-date .ed-day { font-size: 18px; font-weight: 800; line-height: 1; }
-  .event-date .ed-mon { font-size: 9px; font-weight: 600; opacity: .8; }
+  .event-date .ed-mon { font-size: 9px; font-weight: 600; opacity: .85; }
   .event-title { font-size: 12.5px; font-weight: 700; color: var(--gray-900); }
-  .event-desc { font-size: 11px; color: var(--gray-400); margin-top: 3px; line-height: 1.4; }
+  .event-desc { font-size: 11px; color: var(--gray-400); margin-top: 3px; line-height: 1.45; }
 
+  /* ─── QUICK LINKS ─── */
   .quick-links .widget-body { padding: 6px 0; }
   .quick-link {
     display: flex; align-items: center; gap: 10px;
-    padding: 9px 16px; font-size: 13px; color: var(--gray-600);
-    transition: all .15s; cursor: pointer;
+    padding: 10px 16px; font-size: 13px; color: var(--gray-600);
+    transition: all var(--transition); cursor: pointer;
   }
-  .quick-link:hover { color: var(--primary); background: var(--gray-50); }
-  .ql-icon { font-size: 15px; }
+  .quick-link:hover { color: var(--primary); background: var(--primary-soft); }
+  .ql-icon { font-size: 14px; color: var(--primary); width: 18px; text-align: center; }
   .ql-arr { margin-left: auto; font-size: 12px; color: var(--gray-200); }
   .quick-link:hover .ql-arr { color: var(--primary); }
 
-  /* ─── ANNOUNCEMENTS BAND ─── */
-  .announce-band { background: #fff8ec; border-top: 3px solid var(--accent-gold); border-bottom: 1px solid #f0e3c0; padding: 14px 0; }
-  .announce-inner { display: flex; align-items: center; gap: 16px; }
-  .ann-label {
-    background: var(--accent-gold); color: white;
-    font-size: 11px; font-weight: 800; padding: 4px 10px;
-    border-radius: 4px; white-space: nowrap; letter-spacing: .5px;
-  }
-  .ann-text { font-size: 13px; color: var(--gray-600); flex: 1; }
-  .ann-text a { color: var(--primary); font-weight: 600; }
-  .ann-date { font-size: 11px; color: var(--gray-400); white-space: nowrap; }
-
   /* ─── FOOTER ─── */
-  footer { background: var(--primary-dark); padding: 48px 0 0; }
+  footer { background: var(--primary-dark); padding: 52px 0 0; margin-top: 20px; }
   .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
-  .ft-brand .logo-seal { margin-bottom: 14px; }
-  .ft-brand .sch-name { font-family: 'Merriweather', serif; font-size: 14px; font-weight: 700; color: white; line-height: 1.4; margin-bottom: 4px; }
-  .ft-brand .sch-sub { font-size: 11px; color: rgba(255,255,255,.5); margin-bottom: 14px; }
-  .ft-contact { font-size: 12px; color: rgba(255,255,255,.55); line-height: 2.1; }
-  .ft-col h4 { font-size: 12px; font-weight: 800; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; }
-  .ft-col a { display: block; font-size: 12.5px; color: rgba(255,255,255,.55); margin-bottom: 9px; transition: color .2s; }
+  .ft-brand .logo-seal { margin-bottom: 16px; }
+  .ft-brand .sch-name {
+    font-family: 'Merriweather', serif;
+    font-size: 14px; font-weight: 700; color: white;
+    line-height: 1.45; margin-bottom: 5px;
+  }
+  .ft-brand .sch-sub { font-size: 11px; color: rgba(255,255,255,.48); margin-bottom: 16px; }
+  .ft-contact { font-size: 12px; color: rgba(255,255,255,.52); line-height: 2.2; }
+  .ft-contact i { width: 16px; color: var(--accent-gold); }
+  .ft-col h4 {
+    font-size: 11.5px; font-weight: 800; color: var(--accent-gold);
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px;
+  }
+  .ft-col a {
+    display: block; font-size: 12.5px; color: rgba(255,255,255,.52);
+    margin-bottom: 10px; transition: color var(--transition);
+  }
   .ft-col a:hover { color: white; }
   .footer-bottom {
     border-top: 1px solid rgba(255,255,255,.08);
-    padding: 16px 0;
+    padding: 18px 0;
     display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 10px;
   }
-  .footer-bottom span { font-size: 11.5px; color: rgba(255,255,255,.4); }
-  .footer-bottom a { font-size: 11.5px; color: rgba(255,255,255,.4); transition: color .2s; }
+  .footer-bottom span { font-size: 11.5px; color: rgba(255,255,255,.38); }
+  .footer-bottom a { font-size: 11.5px; color: rgba(255,255,255,.38); transition: color var(--transition); }
   .footer-bottom a:hover { color: var(--accent-gold); }
 
-  @media (max-width: 1024px) {
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 1100px) {
+    .layout-3col { grid-template-columns: 200px 1fr; }
+    .panel-right { display: none; }
+    .stats-inner { grid-template-columns: repeat(2, 1fr); }
+    .stat-item:nth-child(2) { border-right: none; }
+    .stat-item:nth-child(1), .stat-item:nth-child(2) { border-bottom: 1px solid var(--border); }
+  }
+  @media (max-width: 900px) {
+    .header-nav, .header-right .btn-ghost, .header-right .btn-solid { display: none; }
+    .mobile-menu-btn { display: grid; place-items: center; }
+    .hero-inner { grid-template-columns: 1fr; gap: 32px; }
+    .hero-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .hf-row { padding: 12px 0; }
     .layout-3col { grid-template-columns: 1fr; }
-    .panel-left, .panel-right { display: none; }
-    .hero-inner { grid-template-columns: 1fr; }
-    .hero-facts { display: none; }
+    .panel-left { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .course-card { grid-template-columns: auto 1fr; }
+    .ct-progress-wrap, .ct-action { grid-column: 2; }
+    .ct-progress-wrap { text-align: left; }
+    .ct-action { justify-self: start; }
     .footer-top { grid-template-columns: 1fr 1fr; }
+    .ts-left span:not(:first-child) { display: none; }
+  }
+  @media (max-width: 600px) {
+    .stats-inner { grid-template-columns: 1fr 1fr; }
+    .panel-left { grid-template-columns: 1fr; }
+    .hero-facts { grid-template-columns: 1fr; }
+    .toolbar { width: 100%; }
+    .search-box { flex: 1; min-width: 0; }
+    .search-box input { width: 100%; }
+    .footer-top { grid-template-columns: 1fr; }
+    .topstrip .ts-right { display: none; }
   }
 </style>
 </head>
@@ -337,9 +653,9 @@
 <div class="topstrip">
   <div class="container">
     <div class="ts-left">
-      <span>📍 20 Tăng Nhơn Phú, P. Phước Long B, TP. Thủ Đức</span>
-      <span>📞 (028) 3731 2370</span>
-      <span>✉️ tuyensinh@hitu.edu.vn</span>
+      <span><i class="fa-solid fa-location-dot"></i> 20 Tăng Nhơn Phú, P. Phước Long B, TP. Thủ Đức</span>
+      <span><i class="fa-solid fa-phone"></i> (028) 3731 2370</span>
+      <span><i class="fa-solid fa-envelope"></i> tuyensinh@hitu.edu.vn</span>
     </div>
     <div class="ts-right">
       <a href="#">Website HITU</a>
@@ -369,18 +685,39 @@
       <a href="#">Hỗ trợ</a>
     </nav>
     <div class="header-right">
-      <button class="btn-ghost">Hướng dẫn</button>
-      <button class="btn-solid">🔐 Đăng nhập LMS</button>
+      <button class="btn-ghost"><i class="fa-regular fa-circle-question"></i> Hướng dẫn</button>
+      <button class="btn-solid"><i class="fa-solid fa-right-to-bracket"></i> Đăng nhập LMS</button>
+      <button class="mobile-menu-btn" id="menuBtn" aria-label="Mở menu"><i class="fa-solid fa-bars"></i></button>
     </div>
   </div>
 </header>
 
-<!-- ANNOUNCEMENT BAND -->
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-panel">
+    <div class="mobile-nav-head">
+      <span>HITU eLearning</span>
+      <button class="mobile-nav-close" id="menuClose" aria-label="Đóng menu"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <a href="#" class="active"><i class="fa-solid fa-house"></i> Trang chủ</a>
+    <a href="#"><i class="fa-solid fa-book-open"></i> Khoá học</a>
+    <a href="#"><i class="fa-solid fa-folder-tree"></i> Danh mục</a>
+    <a href="#"><i class="fa-solid fa-calendar-days"></i> Lịch học</a>
+    <a href="#"><i class="fa-solid fa-bullhorn"></i> Thông báo</a>
+    <a href="#"><i class="fa-solid fa-headset"></i> Hỗ trợ</a>
+    <div class="mobile-nav-actions">
+      <button class="btn-ghost"><i class="fa-regular fa-circle-question"></i> Hướng dẫn</button>
+      <button class="btn-solid"><i class="fa-solid fa-right-to-bracket"></i> Đăng nhập LMS</button>
+    </div>
+  </div>
+</div>
+
+<!-- ANNOUNCEMENT -->
 <div class="announce-band">
   <div class="container announce-inner">
-    <span class="ann-label">📢 THÔNG BÁO</span>
-    <div class="ann-text">Lịch thi HK2 năm học 2025–2026 đã được cập nhật. <a href="#">Xem chi tiết →</a></div>
-    <span class="ann-date">06/05/2026</span>
+    <span class="ann-label"><i class="fa-solid fa-bullhorn"></i> THÔNG BÁO</span>
+    <div class="ann-text">Lịch thi HK2 năm học 2025–2026 đã được cập nhật. <a href="#">Xem chi tiết <i class="fa-solid fa-arrow-right" style="font-size:10px"></i></a></div>
+    <span class="ann-date"><i class="fa-regular fa-clock"></i> 06/05/2026</span>
   </div>
 </div>
 
@@ -388,43 +725,40 @@
 <section class="hero">
   <div class="container">
     <div class="hero-inner">
-      <div>
-        <div class="hero-label">Hệ thống quản lý học tập trực tuyến</div>
+      <div class="hero-content">
+        <div class="hero-label"><i class="fa-solid fa-graduation-cap"></i> Hệ thống quản lý học tập trực tuyến</div>
         <h1>Chào mừng đến với<br><span>HITU Learning</span><br>Management System</h1>
         <p class="hero-desc">Nền tảng học tập số chính thức của Trường Cao đẳng Công Thương TP.HCM. Quản lý khoá học, bài tập, lịch thi và kết quả học tập tập trung trên một hệ thống duy nhất.</p>
         <div class="hero-cta">
-          <button class="btn-accent">📚 Xem khoá học</button>
-          <a href="#" class="btn-white-outline">🔐 Đăng nhập LMS</a>
+          <button class="btn-accent"><i class="fa-solid fa-book-open"></i> Xem khoá học</button>
+          <a href="#" class="btn-white-outline"><i class="fa-solid fa-right-to-bracket"></i> Đăng nhập LMS</a>
         </div>
       </div>
       <div class="hero-facts">
-        <h3>Thông tin hệ thống</h3>
+        <h3><i class="fa-solid fa-circle-info"></i> Thông tin hệ thống</h3>
         <div class="hf-row">
-          <div class="hf-icon">🏫</div>
+          <div class="hf-icon"><i class="fa-solid fa-school"></i></div>
           <div class="hf-text">
             <strong>Trường Cao Đẳng Công Thương TP.HCM</strong>
             <span>Ho Chi Minh City Industry & Trade College</span>
           </div>
         </div>
-        <hr class="hf-divider">
         <div class="hf-row">
-          <div class="hf-icon">📅</div>
+          <div class="hf-icon"><i class="fa-solid fa-calendar-check"></i></div>
           <div class="hf-text">
             <strong>Học kỳ đang hoạt động</strong>
             <span>HK2 – Năm học 2025–2026</span>
           </div>
         </div>
-        <hr class="hf-divider">
         <div class="hf-row">
-          <div class="hf-icon">🎓</div>
+          <div class="hf-icon"><i class="fa-solid fa-user-graduate"></i></div>
           <div class="hf-text">
             <strong>1,200+ sinh viên đang học</strong>
-            <span>85 khoá học | 40 giảng viên</span>
+            <span>85 khoá học · 40 giảng viên</span>
           </div>
         </div>
-        <hr class="hf-divider">
         <div class="hf-row">
-          <div class="hf-icon">🏛️</div>
+          <div class="hf-icon"><i class="fa-solid fa-building-columns"></i></div>
           <div class="hf-text">
             <strong>2 Khoa đào tạo</strong>
             <span>Công nghệ Thông tin · Kinh tế</span>
@@ -435,213 +769,296 @@
   </div>
 </section>
 
-<!-- BREADCRUMB BAR -->
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-icon"><i class="fa-solid fa-book-open"></i></div>
+      <div>
+        <div class="stat-num">85</div>
+        <div class="stat-label">Khoá học</div>
+      </div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon"><i class="fa-solid fa-user-graduate"></i></div>
+      <div>
+        <div class="stat-num">1,200+</div>
+        <div class="stat-label">Sinh viên</div>
+      </div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+      <div>
+        <div class="stat-num">40</div>
+        <div class="stat-label">Giảng viên</div>
+      </div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon"><i class="fa-solid fa-building-columns"></i></div>
+      <div>
+        <div class="stat-num">2</div>
+        <div class="stat-label">Khoa đào tạo</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BREADCRUMB -->
 <div class="breadbar">
   <div class="container breadbar-inner">
     <div class="breadcrumb">
       <a href="#">Trang chủ</a>
-      <span class="sep">›</span>
+      <span class="sep"><i class="fa-solid fa-chevron-right" style="font-size:9px"></i></span>
       <span>Khoá học hiện tại</span>
     </div>
-    <span class="sem-badge">📅 HK2 – 2025/2026</span>
+    <span class="sem-badge"><i class="fa-solid fa-calendar-days"></i> HK2 – 2025/2026</span>
   </div>
 </div>
 
-<!-- 3-COLUMN LAYOUT -->
+<!-- MAIN LAYOUT -->
 <div class="container">
   <div class="layout-3col">
 
-    <!-- LEFT PANEL -->
+    <!-- LEFT -->
     <aside class="panel-left">
       <div class="widget">
-        <div class="widget-head">🏛️ Danh mục đào tạo</div>
+        <div class="widget-head"><i class="fa-solid fa-building-columns"></i> Danh mục đào tạo</div>
         <div class="widget-body">
           <div class="menu-item active">
-            <span class="menu-icon">📋</span> Tất cả khoá học
+            <span class="menu-icon"><i class="fa-solid fa-list"></i></span> Tất cả khoá học
             <span class="menu-count">85</span>
           </div>
           <div class="menu-item">
-            <span class="menu-icon">💻</span> Khoa CNTT
+            <span class="menu-icon"><i class="fa-solid fa-laptop-code"></i></span> Khoa CNTT
             <span class="menu-count">42</span>
           </div>
           <div class="menu-item">
-            <span class="menu-icon">📈</span> Khoa Kinh tế
+            <span class="menu-icon"><i class="fa-solid fa-chart-line"></i></span> Khoa Kinh tế
             <span class="menu-count">31</span>
           </div>
           <div class="menu-item">
-            <span class="menu-icon">⚙️</span> Khoa Kỹ thuật
+            <span class="menu-icon"><i class="fa-solid fa-gear"></i></span> Khoa Kỹ thuật
             <span class="menu-count">12</span>
           </div>
         </div>
       </div>
       <div class="widget">
-        <div class="widget-head">📅 Theo học kỳ</div>
+        <div class="widget-head"><i class="fa-solid fa-calendar"></i> Theo học kỳ</div>
         <div class="widget-body">
           <div class="menu-item active">
-            <span class="menu-icon">✅</span> HK2 2025–2026
+            <span class="menu-icon"><i class="fa-solid fa-circle-check"></i></span> HK2 2025–2026
           </div>
           <div class="menu-item">
-            <span class="menu-icon">📁</span> HK1 2025–2026
+            <span class="menu-icon"><i class="fa-regular fa-folder"></i></span> HK1 2025–2026
           </div>
           <div class="menu-item">
-            <span class="menu-icon">📁</span> HK2 2024–2025
+            <span class="menu-icon"><i class="fa-regular fa-folder"></i></span> HK2 2024–2025
           </div>
           <div class="menu-item">
-            <span class="menu-icon">📁</span> Xem thêm...
+            <span class="menu-icon"><i class="fa-solid fa-ellipsis"></i></span> Xem thêm...
           </div>
         </div>
       </div>
     </aside>
 
-    <!-- MAIN PANEL -->
+    <!-- MAIN -->
     <main class="panel-main">
       <div class="main-header">
         <div>
           <div class="main-title">Khoá học hiện tại</div>
           <div class="main-subtitle">Hiển thị 8 khoá học · HK2 năm học 2025–2026</div>
         </div>
-        <div class="sort-bar">
-          <select>
-            <option>Tất cả khoa</option>
-            <option>Khoa CNTT</option>
-            <option>Khoa Kinh tế</option>
-          </select>
-          <select>
-            <option>Sắp xếp: Mặc định</option>
-            <option>Tên A–Z</option>
-            <option>Mới nhất</option>
-          </select>
+        <div class="toolbar">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="search" placeholder="Tìm khoá học..." aria-label="Tìm khoá học">
+          </div>
+          <div class="sort-bar">
+            <select aria-label="Lọc theo khoa">
+              <option>Tất cả khoa</option>
+              <option>Khoa CNTT</option>
+              <option>Khoa Kinh tế</option>
+            </select>
+            <select aria-label="Sắp xếp">
+              <option>Sắp xếp: Mặc định</option>
+              <option>Tên A–Z</option>
+              <option>Mới nhất</option>
+            </select>
+          </div>
         </div>
       </div>
 
-      <div class="course-table">
-        <div class="ct-head">
-          <span>Tên khoá học</span>
-          <span>Khoa</span>
-          <span>Số bài học</span>
-          <span></span>
-        </div>
-        <div class="ct-row">
-          <div class="ct-course-info">
-            <div class="ct-icon" style="background:#dbeafe">💻</div>
-            <div><div class="ct-name">Lập trình Web</div><div class="ct-teacher">GV: E Trần Thị</div></div>
+      <div class="course-list">
+        <div class="course-card">
+          <div class="ct-icon" style="background:#dbeafe"><i class="fa-solid fa-code" style="color:#1d4ed8"></i></div>
+          <div class="ct-info">
+            <div class="ct-name">Lập trình Web</div>
+            <div class="ct-meta">
+              <span class="ct-teacher"><i class="fa-solid fa-user-tie"></i> GV: E Trần Thị</span>
+              <span class="ct-dept dept-it">CNTT</span>
+            </div>
           </div>
-          <span><span class="ct-dept dept-it">CNTT</span></span>
-          <span class="ct-lessons">📚 12 bài học</span>
-          <button class="ct-btn">Vào học</button>
-        </div>
-        <div class="ct-row">
-          <div class="ct-course-info">
-            <div class="ct-icon" style="background:#fef3c7">☕</div>
-            <div><div class="ct-name">Lập trình Java</div><div class="ct-teacher">GV: Admin Van</div></div>
+          <div class="ct-progress-wrap">
+            <div class="ct-progress-label">Tiến độ: 75%</div>
+            <div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div>
           </div>
-          <span><span class="ct-dept dept-it">CNTT</span></span>
-          <span class="ct-lessons">📚 10 bài học</span>
-          <button class="ct-btn">Vào học</button>
+          <div class="ct-action"><button class="ct-btn">Vào học <i class="fa-solid fa-arrow-right"></i></button></div>
         </div>
-        <div class="ct-row">
-          <div class="ct-course-info">
-            <div class="ct-icon" style="background:#d1fae5">🗄️</div>
-            <div><div class="ct-name">Cơ sở dữ liệu</div><div class="ct-teacher">GV: Admin Van</div></div>
+        <div class="course-card">
+          <div class="ct-icon" style="background:#fef3c7"><i class="fa-brands fa-java" style="color:#92400e"></i></div>
+          <div class="ct-info">
+            <div class="ct-name">Lập trình Java</div>
+            <div class="ct-meta">
+              <span class="ct-teacher"><i class="fa-solid fa-user-tie"></i> GV: Admin Van</span>
+              <span class="ct-dept dept-it">CNTT</span>
+            </div>
           </div>
-          <span><span class="ct-dept dept-it">CNTT</span></span>
-          <span class="ct-lessons">📚 8 bài học</span>
-          <button class="ct-btn">Vào học</button>
+          <div class="ct-progress-wrap">
+            <div class="ct-progress-label">Tiến độ: 60%</div>
+            <div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div>
+          </div>
+          <div class="ct-action"><button class="ct-btn">Vào học <i class="fa-solid fa-arrow-right"></i></button></div>
         </div>
-        <div class="ct-row">
-          <div class="ct-course-info">
-            <div class="ct-icon" style="background:#ede9fe">🌐</div>
-            <div><div class="ct-name">Mạng máy tính – Nhóm 02</div><div class="ct-teacher">GV: Thầy Hiệp</div></div>
+        <div class="course-card">
+          <div class="ct-icon" style="background:#d1fae5"><i class="fa-solid fa-database" style="color:#065f46"></i></div>
+          <div class="ct-info">
+            <div class="ct-name">Cơ sở dữ liệu</div>
+            <div class="ct-meta">
+              <span class="ct-teacher"><i class="fa-solid fa-user-tie"></i> GV: Admin Van</span>
+              <span class="ct-dept dept-it">CNTT</span>
+            </div>
           </div>
-          <span><span class="ct-dept dept-it">CNTT</span></span>
-          <span class="ct-lessons">📚 14 bài học</span>
-          <button class="ct-btn">Vào học</button>
+          <div class="ct-progress-wrap">
+            <div class="ct-progress-label">Tiến độ: 45%</div>
+            <div class="progress-bar"><div class="progress-fill" style="width:45%"></div></div>
+          </div>
+          <div class="ct-action"><button class="ct-btn">Vào học <i class="fa-solid fa-arrow-right"></i></button></div>
         </div>
-        <div class="ct-row">
-          <div class="ct-course-info">
-            <div class="ct-icon" style="background:#ffedd5">📐</div>
-            <div><div class="ct-name">Toán ứng dụng A – Nhóm 12</div><div class="ct-teacher">GV: Trần Văn San</div></div>
+        <div class="course-card">
+          <div class="ct-icon" style="background:#ede9fe"><i class="fa-solid fa-network-wired" style="color:#5b21b6"></i></div>
+          <div class="ct-info">
+            <div class="ct-name">Mạng máy tính – Nhóm 02</div>
+            <div class="ct-meta">
+              <span class="ct-teacher"><i class="fa-solid fa-user-tie"></i> GV: Thầy Hiệp</span>
+              <span class="ct-dept dept-it">CNTT</span>
+            </div>
           </div>
-          <span><span class="ct-dept dept-it">CNTT</span></span>
-          <span class="ct-lessons">📚 6 bài học</span>
-          <button class="ct-btn">Vào học</button>
+          <div class="ct-progress-wrap">
+            <div class="ct-progress-label">Tiến độ: 30%</div>
+            <div class="progress-bar"><div class="progress-fill" style="width:30%"></div></div>
+          </div>
+          <div class="ct-action"><button class="ct-btn">Vào học <i class="fa-solid fa-arrow-right"></i></button></div>
         </div>
-        <div class="ct-row">
-          <div class="ct-course-info">
-            <div class="ct-icon" style="background:#fef3c7">📊</div>
-            <div><div class="ct-name">Marketing Căn Bản</div><div class="ct-teacher">GV: Admin Van</div></div>
+        <div class="course-card">
+          <div class="ct-icon" style="background:#ffedd5"><i class="fa-solid fa-square-root-variable" style="color:#c2410c"></i></div>
+          <div class="ct-info">
+            <div class="ct-name">Toán ứng dụng A – Nhóm 12</div>
+            <div class="ct-meta">
+              <span class="ct-teacher"><i class="fa-solid fa-user-tie"></i> GV: Trần Văn San</span>
+              <span class="ct-dept dept-it">CNTT</span>
+            </div>
           </div>
-          <span><span class="ct-dept dept-eco">Kinh tế</span></span>
-          <span class="ct-lessons">📚 9 bài học</span>
-          <button class="ct-btn">Vào học</button>
+          <div class="ct-progress-wrap">
+            <div class="ct-progress-label">Tiến độ: 20%</div>
+            <div class="progress-bar"><div class="progress-fill" style="width:20%"></div></div>
+          </div>
+          <div class="ct-action"><button class="ct-btn">Vào học <i class="fa-solid fa-arrow-right"></i></button></div>
         </div>
-        <div class="ct-row">
-          <div class="ct-course-info">
-            <div class="ct-icon" style="background:#d1fae5">🧮</div>
-            <div><div class="ct-name">Nguyên lý kế toán</div><div class="ct-teacher">GV: Admin Van</div></div>
+        <div class="course-card">
+          <div class="ct-icon" style="background:#fef3c7"><i class="fa-solid fa-bullhorn" style="color:#92400e"></i></div>
+          <div class="ct-info">
+            <div class="ct-name">Marketing Căn Bản</div>
+            <div class="ct-meta">
+              <span class="ct-teacher"><i class="fa-solid fa-user-tie"></i> GV: Admin Van</span>
+              <span class="ct-dept dept-eco">Kinh tế</span>
+            </div>
           </div>
-          <span><span class="ct-dept dept-eco">Kinh tế</span></span>
-          <span class="ct-lessons">📚 11 bài học</span>
-          <button class="ct-btn">Vào học</button>
+          <div class="ct-progress-wrap">
+            <div class="ct-progress-label">Tiến độ: 55%</div>
+            <div class="progress-bar"><div class="progress-fill" style="width:55%"></div></div>
+          </div>
+          <div class="ct-action"><button class="ct-btn">Vào học <i class="fa-solid fa-arrow-right"></i></button></div>
         </div>
-        <div class="ct-row">
-          <div class="ct-course-info">
-            <div class="ct-icon" style="background:#cffafe">🤝</div>
-            <div><div class="ct-name">Quản trị kinh doanh</div><div class="ct-teacher">GV: Admin Van</div></div>
+        <div class="course-card">
+          <div class="ct-icon" style="background:#d1fae5"><i class="fa-solid fa-calculator" style="color:#065f46"></i></div>
+          <div class="ct-info">
+            <div class="ct-name">Nguyên lý kế toán</div>
+            <div class="ct-meta">
+              <span class="ct-teacher"><i class="fa-solid fa-user-tie"></i> GV: Admin Van</span>
+              <span class="ct-dept dept-eco">Kinh tế</span>
+            </div>
           </div>
-          <span><span class="ct-dept dept-eco">Kinh tế</span></span>
-          <span class="ct-lessons">📚 7 bài học</span>
-          <button class="ct-btn">Vào học</button>
+          <div class="ct-progress-wrap">
+            <div class="ct-progress-label">Tiến độ: 40%</div>
+            <div class="progress-bar"><div class="progress-fill" style="width:40%"></div></div>
+          </div>
+          <div class="ct-action"><button class="ct-btn">Vào học <i class="fa-solid fa-arrow-right"></i></button></div>
+        </div>
+        <div class="course-card">
+          <div class="ct-icon" style="background:#cffafe"><i class="fa-solid fa-handshake" style="color:#0e7490"></i></div>
+          <div class="ct-info">
+            <div class="ct-name">Quản trị kinh doanh</div>
+            <div class="ct-meta">
+              <span class="ct-teacher"><i class="fa-solid fa-user-tie"></i> GV: Admin Van</span>
+              <span class="ct-dept dept-eco">Kinh tế</span>
+            </div>
+          </div>
+          <div class="ct-progress-wrap">
+            <div class="ct-progress-label">Tiến độ: 65%</div>
+            <div class="progress-bar"><div class="progress-fill" style="width:65%"></div></div>
+          </div>
+          <div class="ct-action"><button class="ct-btn">Vào học <i class="fa-solid fa-arrow-right"></i></button></div>
         </div>
       </div>
     </main>
 
-    <!-- RIGHT PANEL -->
+    <!-- RIGHT -->
     <aside class="panel-right">
-      <!-- CALENDAR -->
       <div class="widget calendar-widget">
-        <div class="widget-head">📅 Lịch tháng 5/2026</div>
+        <div class="widget-head"><i class="fa-solid fa-calendar-days"></i> Lịch tháng 6/2026</div>
         <div class="widget-body">
-          <div class="cal-month">Tháng 5 – 2026</div>
+          <div class="cal-month">
+            <button class="cal-nav" aria-label="Tháng trước"><i class="fa-solid fa-chevron-left"></i></button>
+            Tháng 6 – 2026
+            <button class="cal-nav" aria-label="Tháng sau"><i class="fa-solid fa-chevron-right"></i></button>
+          </div>
           <div class="cal-grid">
             <div class="cal-day-name">CN</div><div class="cal-day-name">T2</div><div class="cal-day-name">T3</div><div class="cal-day-name">T4</div><div class="cal-day-name">T5</div><div class="cal-day-name">T6</div><div class="cal-day-name">T7</div>
-            <div class="cal-day other-month">27</div><div class="cal-day other-month">28</div><div class="cal-day other-month">29</div><div class="cal-day other-month">30</div><div class="cal-day has-event">1</div><div class="cal-day">2</div><div class="cal-day">3</div>
-            <div class="cal-day">4</div><div class="cal-day">5</div><div class="cal-day today">6</div><div class="cal-day has-event">7</div><div class="cal-day">8</div><div class="cal-day">9</div><div class="cal-day">10</div>
-            <div class="cal-day">11</div><div class="cal-day has-event">12</div><div class="cal-day">13</div><div class="cal-day">14</div><div class="cal-day">15</div><div class="cal-day has-event">16</div><div class="cal-day">17</div>
-            <div class="cal-day">18</div><div class="cal-day">19</div><div class="cal-day has-event">20</div><div class="cal-day">21</div><div class="cal-day">22</div><div class="cal-day">23</div><div class="cal-day">24</div>
-            <div class="cal-day">25</div><div class="cal-day">26</div><div class="cal-day">27</div><div class="cal-day">28</div><div class="cal-day">29</div><div class="cal-day">30</div><div class="cal-day">31</div>
+            <div class="cal-day other-month">31</div><div class="cal-day has-event">1</div><div class="cal-day">2</div><div class="cal-day">3</div><div class="cal-day">4</div><div class="cal-day">5</div><div class="cal-day">6</div>
+            <div class="cal-day">7</div><div class="cal-day has-event">8</div><div class="cal-day">9</div><div class="cal-day">10</div><div class="cal-day">11</div><div class="cal-day has-event">12</div><div class="cal-day">13</div>
+            <div class="cal-day">14</div><div class="cal-day has-event">15</div><div class="cal-day">16</div><div class="cal-day">17</div><div class="cal-day today">18</div><div class="cal-day">19</div><div class="cal-day">20</div>
+            <div class="cal-day has-event">21</div><div class="cal-day">22</div><div class="cal-day">23</div><div class="cal-day">24</div><div class="cal-day">25</div><div class="cal-day has-event">26</div><div class="cal-day">27</div>
+            <div class="cal-day">28</div><div class="cal-day">29</div><div class="cal-day">30</div>
           </div>
         </div>
       </div>
 
-      <!-- EVENTS -->
       <div class="widget events-widget">
-        <div class="widget-head">🔔 Sự kiện sắp tới</div>
+        <div class="widget-head"><i class="fa-solid fa-bell"></i> Sự kiện sắp tới</div>
         <div class="widget-body">
           <div class="event-item">
-            <div class="event-date"><div class="ed-day">07</div><div class="ed-mon">T5</div></div>
-            <div><div class="event-title">Nộp đề cương đồ án</div><div class="event-desc">Hạn nộp: 23:59 ngày 07/05</div></div>
+            <div class="event-date"><div class="ed-day">21</div><div class="ed-mon">T6</div></div>
+            <div><div class="event-title">Nộp đề cương đồ án</div><div class="event-desc">Hạn nộp: 23:59 ngày 21/06</div></div>
           </div>
           <div class="event-item">
-            <div class="event-date"><div class="ed-day">12</div><div class="ed-mon">T5</div></div>
+            <div class="event-date"><div class="ed-day">26</div><div class="ed-mon">T6</div></div>
             <div><div class="event-title">Lịch thi HK2</div><div class="event-desc">Công bố lịch thi chính thức</div></div>
           </div>
           <div class="event-item">
-            <div class="event-date"><div class="ed-day">20</div><div class="ed-mon">T5</div></div>
+            <div class="event-date"><div class="ed-day">15</div><div class="ed-mon">T6</div></div>
             <div><div class="event-title">Hạn nộp bài Lập trình Web</div><div class="event-desc">Bài tập cuối kỳ – Nhóm tất cả</div></div>
           </div>
         </div>
       </div>
 
-      <!-- QUICK LINKS -->
       <div class="widget quick-links">
-        <div class="widget-head">🔗 Truy cập nhanh</div>
+        <div class="widget-head"><i class="fa-solid fa-link"></i> Truy cập nhanh</div>
         <div class="widget-body">
-          <div class="quick-link"><span class="ql-icon">🏫</span> Website HITU <span class="ql-arr">›</span></div>
-          <div class="quick-link"><span class="ql-icon">🎓</span> Cổng sinh viên <span class="ql-arr">›</span></div>
-          <div class="quick-link"><span class="ql-icon">📖</span> Thư viện số <span class="ql-arr">›</span></div>
-          <div class="quick-link"><span class="ql-icon">📱</span> Tải ứng dụng HITU <span class="ql-arr">›</span></div>
-          <div class="quick-link"><span class="ql-icon">💬</span> Hỗ trợ kỹ thuật <span class="ql-arr">›</span></div>
+          <div class="quick-link"><span class="ql-icon"><i class="fa-solid fa-globe"></i></span> Website HITU <span class="ql-arr"><i class="fa-solid fa-chevron-right"></i></span></div>
+          <div class="quick-link"><span class="ql-icon"><i class="fa-solid fa-user-graduate"></i></span> Cổng sinh viên <span class="ql-arr"><i class="fa-solid fa-chevron-right"></i></span></div>
+          <div class="quick-link"><span class="ql-icon"><i class="fa-solid fa-book"></i></span> Thư viện số <span class="ql-arr"><i class="fa-solid fa-chevron-right"></i></span></div>
+          <div class="quick-link"><span class="ql-icon"><i class="fa-solid fa-mobile-screen"></i></span> Tải ứng dụng HITU <span class="ql-arr"><i class="fa-solid fa-chevron-right"></i></span></div>
+          <div class="quick-link"><span class="ql-icon"><i class="fa-solid fa-headset"></i></span> Hỗ trợ kỹ thuật <span class="ql-arr"><i class="fa-solid fa-chevron-right"></i></span></div>
         </div>
       </div>
     </aside>
@@ -654,14 +1071,14 @@
   <div class="container">
     <div class="footer-top">
       <div class="ft-brand">
-        <div class="logo-seal" style="margin-bottom:14px">H</div>
+        <div class="logo-seal">H</div>
         <div class="sch-name">Trường Cao Đẳng Công Thương<br>Thành Phố Hồ Chí Minh</div>
         <div class="sch-sub">Ho Chi Minh City Industry and Trade College</div>
         <div class="ft-contact">
-          📍 20 Tăng Nhơn Phú, P. Phước Long B, TP. Thủ Đức, HCM<br>
-          📞 (028) 3731 2370<br>
-          ✉️ tuyensinh@hitu.edu.vn<br>
-          🌐 hitu.edu.vn
+          <i class="fa-solid fa-location-dot"></i> 20 Tăng Nhơn Phú, P. Phước Long B, TP. Thủ Đức, HCM<br>
+          <i class="fa-solid fa-phone"></i> (028) 3731 2370<br>
+          <i class="fa-solid fa-envelope"></i> tuyensinh@hitu.edu.vn<br>
+          <i class="fa-solid fa-globe"></i> hitu.edu.vn
         </div>
       </div>
       <div class="ft-col">
@@ -694,5 +1111,16 @@
   </div>
 </footer>
 
+<script>
+  const menuBtn = document.getElementById('menuBtn');
+  const menuClose = document.getElementById('menuClose');
+  const mobileNav = document.getElementById('mobileNav');
+
+  menuBtn.addEventListener('click', () => mobileNav.classList.add('open'));
+  menuClose.addEventListener('click', () => mobileNav.classList.remove('open'));
+  mobileNav.addEventListener('click', (e) => {
+    if (e.target === mobileNav) mobileNav.classList.remove('open');
+  });
+</script>
 </body>
 </html>

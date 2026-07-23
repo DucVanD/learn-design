@@ -1,0 +1,1058 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>POS bán hàng</title>
+  <style>
+    :root {
+      --bg: #f5f6f8;
+      --panel: #ffffff;
+      --panel-soft: #f9fafb;
+      --line: #e5e7eb;
+      --line-strong: #cfd4dc;
+      --text: #111827;
+      --muted: #6b7280;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --gray-900: #111827;
+      --gray-50: #f9fafb;
+      --shadow: 0 14px 34px rgba(17, 24, 39, .08);
+      --radius: 8px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      letter-spacing: 0;
+    }
+
+    button, input, select { font: inherit; }
+
+    button {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--text);
+      border-radius: 7px;
+      min-height: 40px;
+      padding: 0 13px;
+      cursor: pointer;
+      transition: background .15s ease, border-color .15s ease, transform .15s ease;
+    }
+
+    button:hover { background: #f3f4f6; border-color: var(--line-strong); }
+    button:active { transform: translateY(1px); }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: 60px minmax(0, 1fr);
+    }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: 260px minmax(260px, 1fr) auto;
+      gap: 16px;
+      align-items: center;
+      padding: 0 16px;
+      background: rgba(255,255,255,.94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--gray-900);
+      color: #fff;
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .brand strong {
+      display: block;
+      font-size: 15px;
+      line-height: 1.1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .brand span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .search {
+      display: grid;
+      grid-template-columns: 19px 1fr auto;
+      gap: 10px;
+      align-items: center;
+      height: 40px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--gray-50);
+      max-width: 760px;
+    }
+
+    .search svg,
+    .icon svg {
+      width: 19px;
+      height: 19px;
+      stroke-width: 2;
+    }
+
+    .search input {
+      border: 0;
+      outline: 0;
+      background: transparent;
+      min-width: 0;
+      color: var(--text);
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    .kbd {
+      padding: 2px 6px;
+      border: 1px solid var(--line-strong);
+      border-radius: 5px;
+      color: var(--muted);
+      background: #fff;
+      font-size: 12px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(620px, 1fr) 430px;
+      gap: 12px;
+      padding: 12px;
+      min-height: 0;
+    }
+
+    .pos-main,
+    .ticket {
+      min-height: 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .pos-main {
+      display: grid;
+      grid-template-rows: auto auto minmax(0, 1fr);
+    }
+
+    .main-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h1, h2, h3, p { margin: 0; }
+
+    h1 {
+      font-size: 20px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .view-tabs {
+      display: flex;
+      gap: 4px;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--gray-50);
+    }
+
+    .view-tabs button {
+      min-height: 32px;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+    }
+
+    .view-tabs button.active {
+      background: #fff;
+      color: var(--text);
+      box-shadow: 0 1px 4px rgba(17,24,39,.08);
+    }
+
+    .quick-stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel-soft);
+    }
+
+    .stat {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 8px;
+      padding: 10px;
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .stat strong {
+      display: block;
+      margin-top: 5px;
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(350px, 1.05fr) minmax(330px, .95fr);
+      gap: 12px;
+      padding: 14px;
+      overflow: auto;
+      min-height: 0;
+    }
+
+    .area-strip,
+    .category-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 10px;
+    }
+
+    .chip {
+      min-height: 34px;
+      color: var(--muted);
+      background: var(--gray-50);
+    }
+
+    .chip.active {
+      color: #fff;
+      background: var(--gray-900);
+      border-color: var(--gray-900);
+    }
+
+    .table-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(118px, 1fr));
+      gap: 10px;
+    }
+
+    .table-card {
+      position: relative;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 8px;
+      min-height: 122px;
+      padding: 11px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .table-card:hover { border-color: var(--line-strong); background: var(--gray-50); }
+    .table-card.active { border-color: var(--primary); box-shadow: inset 0 0 0 1px var(--primary); }
+
+    .table-card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      border-radius: 8px 0 0 8px;
+      background: var(--line-strong);
+    }
+
+    .table-card.empty::before { background: var(--success); }
+    .table-card.serving::before { background: var(--primary); }
+    .table-card.waiting::before { background: var(--warning); }
+
+    .table-top {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .table-name { font-weight: 800; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 3px 7px;
+      font-size: 11px;
+      white-space: nowrap;
+      background: #eef2f7;
+      color: var(--muted);
+    }
+
+    .badge.empty { color: #15803d; background: #ecfdf3; }
+    .badge.serving { color: #1d4ed8; background: #eff6ff; }
+    .badge.waiting { color: #b45309; background: #fffbeb; }
+    .badge.done { color: #15803d; background: #ecfdf3; }
+    .badge.cancel { color: #b91c1c; background: #fef2f2; }
+
+    .table-meta {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .table-total {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      padding-top: 8px;
+      border-top: 1px solid var(--line);
+      font-size: 13px;
+    }
+
+    .menu-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .menu-title h2 { font-size: 15px; }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(150px, 1fr));
+      gap: 9px;
+    }
+
+    .product-card {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr);
+      gap: 10px;
+      align-items: center;
+      min-height: 72px;
+      padding: 9px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .product-card:hover { border-color: var(--line-strong); background: var(--gray-50); }
+
+    .product-thumb {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: #eef2f7;
+      color: var(--gray-900);
+      font-weight: 800;
+      font-size: 12px;
+    }
+
+    .product-name {
+      margin-bottom: 5px;
+      font-weight: 750;
+      font-size: 13px;
+      line-height: 1.25;
+    }
+
+    .product-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .ticket {
+      display: grid;
+      grid-template-rows: auto auto minmax(0, 1fr) auto;
+    }
+
+    .ticket-head {
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      gap: 10px;
+    }
+
+    .active-table {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 10px;
+    }
+
+    .active-table h2 {
+      font-size: 19px;
+      line-height: 1.2;
+    }
+
+    .meta {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .ticket-actions {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+    }
+
+    .icon {
+      display: grid;
+      place-items: center;
+      min-height: 40px;
+      padding: 0;
+    }
+
+    .customer-row {
+      display: grid;
+      grid-template-columns: 1fr 120px;
+      gap: 8px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel-soft);
+    }
+
+    .field {
+      width: 100%;
+      min-height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #fff;
+      color: var(--text);
+      outline: 0;
+      padding: 0 10px;
+    }
+
+    .order-list {
+      min-height: 0;
+      overflow: auto;
+      padding: 8px 14px;
+    }
+
+    .order-item {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .order-item strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .order-item span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .qty {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .qty button {
+      width: 28px;
+      height: 28px;
+      min-height: 28px;
+      padding: 0;
+      border-radius: 6px;
+    }
+
+    .line-total {
+      text-align: right;
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .summary {
+      display: grid;
+      gap: 9px;
+      padding: 12px 14px 14px;
+      border-top: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .calc {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .calc b { color: var(--text); }
+    .calc.total strong { color: var(--text); font-size: 24px; }
+
+    .payments {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+    }
+
+    .payments button {
+      padding: 0 6px;
+      font-size: 12px;
+      color: var(--muted);
+      background: var(--gray-50);
+    }
+
+    .payments button.active {
+      background: var(--gray-900);
+      border-color: var(--gray-900);
+      color: #fff;
+    }
+
+    .final-actions {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 8px;
+    }
+
+    .secondary {
+      min-height: 50px;
+      background: var(--gray-50);
+      font-weight: 800;
+    }
+
+    .primary {
+      min-height: 50px;
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+      font-weight: 850;
+    }
+
+    .primary:hover { background: var(--primary-dark); border-color: var(--primary-dark); }
+
+    .modal-layer {
+      position: fixed;
+      inset: 0;
+      display: none;
+      place-items: center;
+      padding: 18px;
+      background: rgba(17,24,39,.38);
+      z-index: 30;
+    }
+
+    .modal-layer.show { display: grid; }
+
+    .modal {
+      width: min(520px, 100%);
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 24px 70px rgba(17,24,39,.22);
+      overflow: hidden;
+    }
+
+    .modal-head,
+    .modal-body,
+    .modal-foot { padding: 14px; }
+
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .modal-head h3 { font-size: 17px; }
+
+    .modal-body {
+      display: grid;
+      gap: 8px;
+      max-height: 62vh;
+      overflow: auto;
+    }
+
+    .modal-foot {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      border-top: 1px solid var(--line);
+    }
+
+    .receipt-line {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px dashed var(--line-strong);
+      font-size: 13px;
+    }
+
+    .palette-note {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .swatch {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      border: 1px solid rgba(0,0,0,.08);
+    }
+
+    @media (max-width: 1180px) {
+      .layout { grid-template-columns: 1fr; }
+      .ticket { min-height: 620px; }
+      .table-grid { grid-template-columns: repeat(3, minmax(118px, 1fr)); }
+      .product-grid { grid-template-columns: repeat(3, minmax(150px, 1fr)); }
+    }
+
+    @media (max-width: 760px) {
+      .app { grid-template-rows: auto minmax(0, 1fr); }
+      .topbar { grid-template-columns: 1fr; gap: 10px; padding: 12px; }
+      .top-actions { overflow-x: auto; }
+      .layout { padding: 8px; }
+      .main-head,
+      .workspace,
+      .quick-stats { grid-template-columns: 1fr; }
+      .table-grid,
+      .product-grid { grid-template-columns: repeat(2, minmax(130px, 1fr)); }
+      .customer-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">POS</div>
+        <div>
+          <strong>Restaurant POS</strong>
+          <span>Bán hàng tại bàn · Thu ngân · In bếp</span>
+        </div>
+      </div>
+
+      <label class="search" aria-label="Tìm nhanh POS">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.4-3.4"></path></svg>
+        <input id="searchInput" placeholder="Tìm bàn, món, mã món..." />
+        <span class="kbd">F3</span>
+      </label>
+
+      <div class="top-actions">
+        <button id="btnKitchenTop">In bếp</button>
+        <button id="btnTempTop">Tạm tính</button>
+        <button class="primary" id="btnPayTop">Thanh toán</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="pos-main">
+        <div class="main-head">
+          <div>
+            <h1>Bán hàng POS</h1>
+            <p class="subtitle">Chọn bàn, gọi món, theo dõi trạng thái đơn và thanh toán nhanh.</p>
+          </div>
+          <div class="view-tabs">
+            <button class="active">Bàn</button>
+            <button>Menu</button>
+            <button>Đơn bếp</button>
+          </div>
+        </div>
+
+        <div class="quick-stats">
+          <div class="stat"><span>Bàn trống</span><strong id="statEmpty">0</strong></div>
+          <div class="stat"><span>Đang phục vụ</span><strong id="statServing">0</strong></div>
+          <div class="stat"><span>Chờ thanh toán</span><strong id="statWaiting">0</strong></div>
+          <div class="stat"><span>Đơn bếp chờ</span><strong>7</strong></div>
+        </div>
+
+        <div class="workspace">
+          <section>
+            <div class="area-strip" id="areaStrip"></div>
+            <div class="table-grid" id="tableGrid"></div>
+          </section>
+
+          <section>
+            <div class="menu-title">
+              <h2>Thực đơn</h2>
+              <div class="palette-note">
+                <span class="swatch" style="background:#2563eb"></span> Nút chính
+                <span class="swatch" style="background:#22c55e"></span> Xong
+                <span class="swatch" style="background:#f59e0b"></span> Chờ
+                <span class="swatch" style="background:#ef4444"></span> Hủy
+              </div>
+            </div>
+            <div class="category-strip" id="categoryStrip"></div>
+            <div class="product-grid" id="productGrid"></div>
+          </section>
+        </div>
+      </section>
+
+      <aside class="ticket">
+        <div class="ticket-head">
+          <div class="active-table">
+            <div>
+              <h2 id="activeTableName">Bàn 01</h2>
+              <p class="meta" id="activeTableMeta">Tầng 1 · 4 khách · mở 18:12</p>
+            </div>
+            <span class="badge serving" id="activeStatus">Đang phục vụ</span>
+          </div>
+          <div class="ticket-actions">
+            <button class="icon" title="Mở bàn" id="btnOpenTable">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
+            </button>
+            <button class="icon" title="Chuyển bàn" id="btnMoveTable">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M7 7h11"></path><path d="M15 4l3 3-3 3"></path><path d="M17 17H6"></path><path d="M9 14l-3 3 3 3"></path></svg>
+            </button>
+            <button class="icon" title="In bếp" id="btnKitchen">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 9V3h12v6"></path><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><path d="M6 14h12v7H6z"></path></svg>
+            </button>
+            <button class="icon" title="Hủy đơn" id="btnClear">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 6h18"></path><path d="M8 6V4h8v2"></path><path d="M7 6l1 14h8l1-14"></path></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="customer-row">
+          <input class="field" value="Khách vãng lai" aria-label="Khách hàng" />
+          <select class="field" aria-label="Số khách">
+            <option>4 khách</option>
+            <option>2 khách</option>
+            <option>6 khách</option>
+            <option>10 khách</option>
+          </select>
+        </div>
+
+        <div class="order-list" id="orderList"></div>
+
+        <div class="summary">
+          <div class="calc"><span>Tiền món</span><b id="subTotal">0đ</b></div>
+          <div class="calc"><span>Phí dịch vụ</span><b id="serviceFee">0đ</b></div>
+          <div class="calc"><span>Giảm giá</span><b id="discount">0đ</b></div>
+          <div class="calc total"><span>Cần thanh toán</span><strong id="grandTotal">0đ</strong></div>
+          <div class="payments">
+            <button class="active">Tiền mặt</button>
+            <button>QR</button>
+            <button>Thẻ</button>
+            <button>Ghi nợ</button>
+          </div>
+          <div class="final-actions">
+            <button class="secondary" id="btnTempBill">In tạm tính</button>
+            <button class="primary" id="btnPay">Thanh toán F12</button>
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <div class="modal-layer" id="modalLayer">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="modalTitle">Phiếu POS</h3>
+        <button id="modalClose" class="icon" title="Đóng">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+        </button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-foot">
+        <button id="modalCancel">Đóng</button>
+        <button class="primary" id="modalOk">Xác nhận</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const money = value => new Intl.NumberFormat("vi-VN").format(value) + "đ";
+
+    const areas = ["Tất cả", "Tầng 1", "Tầng 2", "Sân vườn", "VIP"];
+    const tables = [
+      { id: 1, name: "Bàn 01", area: "Tầng 1", status: "serving", guests: 4, open: "18:12", total: 485000 },
+      { id: 2, name: "Bàn 02", area: "Tầng 1", status: "empty", guests: 0, open: "-", total: 0 },
+      { id: 3, name: "Bàn 03", area: "Tầng 1", status: "waiting", guests: 6, open: "17:44", total: 1210000 },
+      { id: 4, name: "Bàn 04", area: "Tầng 1", status: "serving", guests: 2, open: "18:31", total: 260000 },
+      { id: 5, name: "Bàn 21", area: "Tầng 2", status: "empty", guests: 0, open: "-", total: 0 },
+      { id: 6, name: "Bàn 22", area: "Tầng 2", status: "serving", guests: 8, open: "19:02", total: 940000 },
+      { id: 7, name: "Sân 01", area: "Sân vườn", status: "empty", guests: 0, open: "-", total: 0 },
+      { id: 8, name: "Sân 02", area: "Sân vườn", status: "serving", guests: 5, open: "18:05", total: 735000 },
+      { id: 9, name: "VIP 101", area: "VIP", status: "serving", guests: 10, open: "17:20", total: 2180000 },
+      { id: 10, name: "VIP 102", area: "VIP", status: "waiting", guests: 4, open: "18:50", total: 690000 }
+    ];
+
+    const products = [
+      { id: 1, category: "Món ăn", name: "Bò nướng lá lốt", unit: "đĩa", price: 145000, code: "BO001" },
+      { id: 2, category: "Món ăn", name: "Gỏi hải sản", unit: "đĩa", price: 168000, code: "GOI002" },
+      { id: 3, category: "Món ăn", name: "Lẩu thái", unit: "nồi", price: 329000, code: "LAU003" },
+      { id: 4, category: "Đồ uống", name: "Bia Heineken", unit: "chai", price: 28000, code: "BIA001" },
+      { id: 5, category: "Đồ uống", name: "Nước suối", unit: "chai", price: 12000, code: "NUOC001" },
+      { id: 6, category: "Đồ uống", name: "Trà đào", unit: "ly", price: 39000, code: "TRA004" },
+      { id: 7, category: "Combo", name: "Combo gia đình", unit: "set", price: 599000, code: "CB001" },
+      { id: 8, category: "Phụ thu", name: "Khăn lạnh", unit: "cái", price: 5000, code: "KHL001" }
+    ];
+
+    const statusName = {
+      empty: "Trống",
+      serving: "Đang phục vụ",
+      waiting: "Chờ thanh toán"
+    };
+
+    let activeArea = "Tất cả";
+    let activeCategory = "Món ăn";
+    let activeTable = tables[0];
+    let order = [
+      { ...products[0], qty: 2, note: "Ít cay", kitchen: "done" },
+      { ...products[4], qty: 4, note: "", kitchen: "waiting" },
+      { ...products[7], qty: 4, note: "Tự thêm khi mở bàn", kitchen: "done" }
+    ];
+
+    function renderAreas() {
+      areaStrip.innerHTML = areas.map(area => `
+        <button class="chip ${area === activeArea ? "active" : ""}" data-area="${area}">${area}</button>
+      `).join("");
+    }
+
+    function renderTables() {
+      const list = activeArea === "Tất cả" ? tables : tables.filter(table => table.area === activeArea);
+      tableGrid.innerHTML = list.map(table => `
+        <article class="table-card ${table.status} ${table.id === activeTable.id ? "active" : ""}" data-table="${table.id}">
+          <div class="table-top">
+            <div class="table-name">${table.name}</div>
+            <span class="badge ${table.status}">${statusName[table.status]}</span>
+          </div>
+          <div class="table-meta">${table.area}<br>${table.guests || "-"} khách · ${table.open === "-" ? "chưa mở" : "mở " + table.open}</div>
+          <div class="table-total"><span>Tạm tính</span><b>${money(table.total)}</b></div>
+        </article>
+      `).join("");
+
+      statEmpty.textContent = tables.filter(table => table.status === "empty").length;
+      statServing.textContent = tables.filter(table => table.status === "serving").length;
+      statWaiting.textContent = tables.filter(table => table.status === "waiting").length;
+    }
+
+    function renderProducts() {
+      const categories = [...new Set(products.map(product => product.category))];
+      categoryStrip.innerHTML = categories.map(category => `
+        <button class="chip ${category === activeCategory ? "active" : ""}" data-category="${category}">${category}</button>
+      `).join("");
+
+      productGrid.innerHTML = products
+        .filter(product => product.category === activeCategory)
+        .map(product => `
+          <article class="product-card" data-product="${product.id}">
+            <div class="product-thumb">${product.name.slice(0, 2).toUpperCase()}</div>
+            <div>
+              <div class="product-name">${product.name}</div>
+              <div class="product-row"><span>${product.code} · ${product.unit}</span><b>${money(product.price)}</b></div>
+            </div>
+          </article>
+        `).join("");
+    }
+
+    function renderActiveTable() {
+      activeTableName.textContent = activeTable.name;
+      activeTableMeta.textContent = `${activeTable.area} · ${activeTable.guests || 0} khách · ${activeTable.open === "-" ? "chưa mở bàn" : "mở " + activeTable.open}`;
+      activeStatus.textContent = statusName[activeTable.status];
+      activeStatus.className = `badge ${activeTable.status}`;
+    }
+
+    function renderOrder() {
+      orderList.innerHTML = order.map(item => `
+        <div class="order-item">
+          <div>
+            <strong>${item.name}</strong>
+            <span>${money(item.price)} / ${item.unit}${item.note ? " · " + item.note : ""}</span>
+            <div style="margin-top:7px"><span class="badge ${item.kitchen === "done" ? "done" : "waiting"}">${item.kitchen === "done" ? "Bếp xong" : "Chờ bếp"}</span></div>
+          </div>
+          <div>
+            <div class="qty">
+              <button data-dec="${item.id}">-</button>
+              <b>${item.qty}</b>
+              <button data-inc="${item.id}">+</button>
+            </div>
+            <div class="line-total">${money(item.price * item.qty)}</div>
+          </div>
+        </div>
+      `).join("");
+
+      const subtotal = order.reduce((sum, item) => sum + item.price * item.qty, 0);
+      const service = Math.round(subtotal * .05);
+      const sale = subtotal > 1000000 ? Math.round(subtotal * .05) : 0;
+      const total = subtotal + service - sale;
+
+      subTotal.textContent = money(subtotal);
+      serviceFee.textContent = money(service);
+      discount.textContent = "-" + money(sale);
+      grandTotal.textContent = money(total);
+    }
+
+    function receiptLines() {
+      return order.map(item => `
+        <div class="receipt-line">
+          <span>${item.name}<br><small>${item.qty} x ${money(item.price)}</small></span>
+          <b>${money(item.price * item.qty)}</b>
+        </div>
+      `).join("") + `<div class="receipt-line"><strong>Cần thanh toán</strong><strong>${grandTotal.textContent}</strong></div>`;
+    }
+
+    function openModal(title, body, okText) {
+      modalTitle.textContent = title;
+      modalBody.innerHTML = body;
+      modalOk.textContent = okText;
+      modalLayer.classList.add("show");
+    }
+
+    areaStrip.addEventListener("click", event => {
+      const button = event.target.closest("[data-area]");
+      if (!button) return;
+      activeArea = button.dataset.area;
+      renderAreas();
+      renderTables();
+    });
+
+    tableGrid.addEventListener("click", event => {
+      const card = event.target.closest("[data-table]");
+      if (!card) return;
+      activeTable = tables.find(table => table.id === Number(card.dataset.table));
+      renderTables();
+      renderActiveTable();
+    });
+
+    categoryStrip.addEventListener("click", event => {
+      const button = event.target.closest("[data-category]");
+      if (!button) return;
+      activeCategory = button.dataset.category;
+      renderProducts();
+    });
+
+    productGrid.addEventListener("click", event => {
+      const card = event.target.closest("[data-product]");
+      if (!card) return;
+      const product = products.find(item => item.id === Number(card.dataset.product));
+      const existing = order.find(item => item.id === product.id);
+      if (existing) existing.qty += 1;
+      else order.push({ ...product, qty: 1, note: "", kitchen: "waiting" });
+      renderOrder();
+    });
+
+    orderList.addEventListener("click", event => {
+      const inc = event.target.closest("[data-inc]");
+      const dec = event.target.closest("[data-dec]");
+      if (!inc && !dec) return;
+      const id = Number((inc || dec).dataset[inc ? "inc" : "dec"]);
+      const item = order.find(row => row.id === id);
+      if (inc) item.qty += 1;
+      if (dec) item.qty -= 1;
+      order = order.filter(row => row.qty > 0);
+      renderOrder();
+    });
+
+    document.querySelectorAll(".payments button").forEach(button => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll(".payments button").forEach(item => item.classList.remove("active"));
+        button.classList.add("active");
+      });
+    });
+
+    btnKitchen.addEventListener("click", () => openModal("Phiếu in bếp", receiptLines(), "In bếp"));
+    btnKitchenTop.addEventListener("click", () => btnKitchen.click());
+    btnTempBill.addEventListener("click", () => openModal("Hóa đơn tạm tính", receiptLines(), "In tạm tính"));
+    btnTempTop.addEventListener("click", () => btnTempBill.click());
+    btnPay.addEventListener("click", () => openModal("Thanh toán POS", receiptLines(), "Hoàn tất"));
+    btnPayTop.addEventListener("click", () => btnPay.click());
+    btnClear.addEventListener("click", () => {
+      order = [];
+      renderOrder();
+    });
+
+    searchInput.addEventListener("input", () => {
+      const term = searchInput.value.trim().toLowerCase();
+      if (!term) {
+        renderTables();
+        renderProducts();
+        return;
+      }
+
+      const table = tables.find(item => item.name.toLowerCase().includes(term));
+      if (table) {
+        activeTable = table;
+        activeArea = table.area;
+        renderAreas();
+        renderTables();
+        renderActiveTable();
+      }
+
+      const product = products.find(item => (item.name + item.code).toLowerCase().includes(term));
+      if (product) {
+        activeCategory = product.category;
+        renderProducts();
+      }
+    });
+
+    [modalClose, modalCancel, modalOk, modalLayer].forEach(element => {
+      element.addEventListener("click", event => {
+        if (event.target === element) modalLayer.classList.remove("show");
+      });
+    });
+
+    renderAreas();
+    renderTables();
+    renderProducts();
+    renderActiveTable();
+    renderOrder();
+  </script>
+</body>
+</html>
