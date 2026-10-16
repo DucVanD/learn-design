@@ -1,0 +1,2033 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mộc & Chữ — Tiệm Sách, Văn Phòng Phẩm & Quà Tặng Tinh Tế</title>
+    
+    <!-- Google Fonts: Lora (Editorial Serif) & Plus Jakarta Sans (Clean Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons for refined, consistent iconography -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration matching Warm Editorial & Kinfolk Design System -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        alabaster: '#FAF7F2',   // Nền chính (Giấy kem ấm)
+                        oatmeal: '#F2ECE1',     // Nền phụ (Be nhạt)
+                        oatmealDark: '#E5DEC9', // Viền ấm
+                        forest: {
+                            DEFAULT: '#2C4A3E', // Xanh rêu đậm chủ đạo
+                            light: '#3D6354',
+                            dark: '#1E352C',
+                            soft: '#EBF1EE'
+                        },
+                        terracotta: {
+                            DEFAULT: '#C86D51', // Cam đất nung nhấn
+                            light: '#D98268',
+                            dark: '#AE563B',
+                            soft: '#F9ECE8'
+                        },
+                        ink: '#1E242B',         // Đen mực
+                        graphite: '#5A626A'     // Xám chì
+                    },
+                    fontFamily: {
+                        serif: ['Lora', 'Georgia', 'serif'],
+                        sans: ['Plus Jakarta Sans', '-apple-system', 'BlinkMacSystemFont', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'editorial': '0 12px 32px -8px rgba(30, 36, 43, 0.07)',
+                        'editorial-hover': '0 20px 40px -12px rgba(44, 74, 62, 0.14)',
+                        'floating': '0 24px 48px -12px rgba(30, 36, 43, 0.18)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FAF7F2;
+            color: #1E242B;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF7F2;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D5CCB8;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2C4A3E;
+        }
+
+        /* Hide scrollbar for horizontal pill containers */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Subtle paper grain pattern effect */
+        .bg-paper-pattern {
+            background-image: radial-gradient(rgba(44, 74, 62, 0.06) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+
+        /* Smooth image zoom inside product card */
+        .product-card-img {
+            transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .group:hover .product-card-img {
+            transform: scale(1.06);
+        }
+
+        /* Line clamp utilities */
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-forest selection:text-alabaster">
+
+    <!-- ==========================================
+         1. TOP PROMOTIONAL BAR
+         ========================================== -->
+    <div class="bg-forest text-alabaster text-xs sm:text-sm py-2.5 px-4 border-b border-forest-dark relative z-40">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+            <div class="flex items-center gap-2">
+                <i class="ph-fill ph-gift text-terracotta-light text-base animate-pulse"></i>
+                <span>Miễn phí gói quà thủ công & thiệp viết tay cho mọi đơn hàng từ <strong>299.000đ</strong></span>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="hidden md:inline text-oatmeal/80">Ưu đãi bạn mới:</span>
+                <button onclick="copyPromoCode('MOCCHU20')" class="inline-flex items-center gap-1.5 bg-forest-dark hover:bg-terracotta text-alabaster px-2.5 py-0.5 rounded-full text-xs font-medium transition-colors duration-200 border border-oatmeal/20" title="Nhấn để sao chép mã">
+                    <span>Mã: <strong class="tracking-wider">MOCCHU20</strong></span>
+                    <i class="ph ph-copy text-xs"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         2. STICKY NAVIGATION HEADER
+         ========================================== -->
+    <header id="main-header" class="sticky top-0 z-30 bg-alabaster/95 backdrop-blur-md border-b border-oatmealDark transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20 gap-4">
+                
+                <!-- Brand Logo -->
+                <a href="#" class="flex items-center gap-3 group shrink-0">
+                    <div class="w-11 h-11 rounded-2xl bg-forest text-alabaster flex items-center justify-center shadow-sm group-hover:bg-terracotta transition-colors duration-300">
+                        <i class="ph-fill ph-book-open-text text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="font-serif text-2xl font-bold tracking-tight text-ink block leading-none">Mộc & Chữ</span>
+                        <span class="text-[11px] uppercase tracking-widest text-graphite block mt-1 font-medium">Sách • Văn Phòng Phẩm • Quà</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden lg:flex items-center gap-7 text-sm font-medium text-ink/85">
+                    <a href="#hero-section" class="hover:text-forest transition-colors py-1">Khám phá</a>
+                    <a href="#catalog-section" class="hover:text-forest transition-colors py-1 flex items-center gap-1">
+                        <span>Danh mục</span>
+                        <span class="bg-oatmeal text-forest text-[11px] font-semibold px-2 py-0.5 rounded-full">16</span>
+                    </a>
+                    <a href="#catalog-section" onclick="setMarketingFilter('bestseller')" class="hover:text-terracotta transition-colors py-1 flex items-center gap-1">
+                        <i class="ph-fill ph-fire text-terracotta"></i>
+                        <span>Bán chạy & Mới</span>
+                    </a>
+                    <a href="#gift-finder-section" class="hover:text-forest transition-colors py-1">Gợi ý Quà tặng</a>
+                    <a href="#story-section" class="hover:text-forest transition-colors py-1">Câu chuyện</a>
+                </nav>
+
+                <!-- Search, Wishlist & Cart Actions -->
+                <div class="flex items-center gap-2 sm:gap-3 flex-1 lg:flex-initial justify-end">
+                    <!-- Live Search Bar -->
+                    <div class="relative w-full max-w-[200px] sm:max-w-[260px] md:w-64">
+                        <i class="ph ph-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-graphite text-lg"></i>
+                        <input 
+                            type="text" 
+                            id="search-input"
+                            placeholder="Tìm sách, sổ tay, bút..." 
+                            class="w-full pl-10 pr-8 py-2 bg-oatmeal/70 hover:bg-oatmeal focus:bg-white text-sm text-ink rounded-full border border-oatmealDark focus:border-forest focus:outline-none transition-all"
+                        >
+                        <button id="clear-search-btn" onclick="clearSearch()" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-graphite hover:text-ink">
+                            <i class="ph-fill ph-x-circle"></i>
+                        </button>
+                    </div>
+
+                    <!-- Wishlist Filter Button -->
+                    <button onclick="toggleWishlistFilter()" id="wishlist-header-btn" class="relative p-2.5 rounded-full bg-oatmeal/70 hover:bg-oatmeal text-ink transition-colors" title="Xem danh sách yêu thích">
+                        <i class="ph ph-heart text-xl" id="wishlist-header-icon"></i>
+                        <span id="wishlist-badge" class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-terracotta text-white text-[11px] font-bold flex items-center justify-center scale-0 transition-transform duration-200">0</span>
+                    </button>
+
+                    <!-- Cart Drawer Trigger Button -->
+                    <button onclick="toggleCartDrawer(true)" class="relative flex items-center gap-2 bg-forest hover:bg-forest-light text-alabaster px-3.5 py-2.5 rounded-full text-sm font-medium transition-all shadow-sm">
+                        <i class="ph ph-handbag text-xl"></i>
+                        <span class="hidden sm:inline">Giỏ hàng</span>
+                        <span id="cart-badge" class="w-5 h-5 rounded-full bg-terracotta text-white text-xs font-bold flex items-center justify-center">0</span>
+                    </button>
+
+                    <!-- Mobile Menu Trigger -->
+                    <button onclick="toggleMobileMenu()" class="lg:hidden p-2.5 rounded-full bg-oatmeal/70 hover:bg-oatmeal text-ink">
+                        <i class="ph ph-list text-xl" id="mobile-menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation Dropdown -->
+            <div id="mobile-menu" class="hidden lg:hidden pb-5 pt-2 border-t border-oatmealDark">
+                <div class="flex flex-col space-y-2 text-sm font-medium">
+                    <a href="#hero-section" onclick="toggleMobileMenu()" class="px-3 py-2 rounded-xl hover:bg-oatmeal">Khám phá trang chủ</a>
+                    <a href="#catalog-section" onclick="toggleMobileMenu()" class="px-3 py-2 rounded-xl hover:bg-oatmeal flex justify-between items-center">
+                        <span>Tất cả danh mục sản phẩm</span>
+                        <span class="text-xs bg-forest text-white px-2 py-0.5 rounded-full">6 danh mục</span>
+                    </a>
+                    <a href="#catalog-section" onclick="setMarketingFilter('bestseller'); toggleMobileMenu()" class="px-3 py-2 rounded-xl hover:bg-oatmeal text-terracotta flex items-center gap-1.5">
+                        <i class="ph-fill ph-fire"></i> Sản phẩm Bán chạy & Mới
+                    </a>
+                    <a href="#gift-finder-section" onclick="toggleMobileMenu()" class="px-3 py-2 rounded-xl hover:bg-oatmeal">Gợi ý Quà tặng theo Dịp</a>
+                    <a href="#story-section" onclick="toggleMobileMenu()" class="px-3 py-2 rounded-xl hover:bg-oatmeal">Câu chuyện Mộc & Chữ</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- ==========================================
+             3. HERO BANNER & BRAND MESSAGE (EDITORIAL SPLIT)
+             ========================================== -->
+        <section id="hero-section" class="relative overflow-hidden bg-paper-pattern pt-8 pb-16 lg:py-20 border-b border-oatmealDark">
+            <!-- Decorative ambient blobs -->
+            <div class="absolute -top-24 -left-24 w-96 h-96 bg-oatmeal rounded-full blur-3xl opacity-70 pointer-events-none"></div>
+            <div class="absolute top-1/2 -right-24 w-96 h-96 bg-terracotta/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                    
+                    <!-- Left Column: Editorial Brand Storytelling -->
+                    <div class="lg:col-span-6 space-y-6 text-left">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-oatmeal border border-oatmealDark text-forest text-xs font-semibold tracking-wide uppercase">
+                            <span class="w-2 h-2 rounded-full bg-terracotta animate-ping"></span>
+                            <span>Bộ sưu tập Mùa Thu & Trở Lại Trường 2026</span>
+                        </div>
+
+                        <h1 class="font-serif text-4xl sm:text-5xl lg:text-[52px] font-bold text-ink leading-[1.18] tracking-tight">
+                            Lưu giữ vẻ đẹp của <span class="text-forest italic font-normal underline decoration-terracotta/50 decoration-wavy underline-offset-8">tri thức</span> và những điều lấp lánh nhỏ bé.
+                        </h1>
+
+                        <p class="text-graphite text-base sm:text-lg leading-relaxed max-w-xl">
+                            Chào mừng bạn đến với <strong class="text-ink font-semibold">Mộc & Chữ</strong> — không gian tuyển chọn những tựa sách giàu cảm xúc, sổ tay giấy kem mịn màng, bút viết trơn nét và những hộp quà thủ công gói trọn tâm tình.
+                        </p>
+
+                        <!-- CTA Buttons -->
+                        <div class="flex flex-wrap items-center gap-4 pt-2">
+                            <a href="#catalog-section" class="inline-flex items-center gap-2.5 bg-forest hover:bg-forest-light text-alabaster px-7 py-4 rounded-full font-semibold text-sm sm:text-base shadow-editorial hover:shadow-editorial-hover transition-all duration-300 group">
+                                <span>Khám phá bộ sưu tập</span>
+                                <i class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                            </a>
+                            <a href="#gift-finder-section" class="inline-flex items-center gap-2 bg-oatmeal hover:bg-oatmealDark text-ink px-6 py-4 rounded-full font-semibold text-sm sm:text-base border border-oatmealDark transition-all duration-200">
+                                <i class="ph-fill ph-gift text-terracotta text-lg"></i>
+                                <span>Tìm quà tặng theo dịp</span>
+                            </a>
+                        </div>
+
+                        <!-- Quick Mini Stats -->
+                        <div class="pt-6 grid grid-cols-3 gap-4 border-t border-oatmealDark max-w-lg">
+                            <div>
+                                <div class="font-serif text-2xl sm:text-3xl font-bold text-forest">500+</div>
+                                <div class="text-xs text-graphite mt-0.5">Ấn phẩm & Phụ kiện</div>
+                            </div>
+                            <div>
+                                <div class="font-serif text-2xl sm:text-3xl font-bold text-forest">100%</div>
+                                <div class="text-xs text-graphite mt-0.5">Giấy chuẩn FSC</div>
+                            </div>
+                            <div>
+                                <div class="font-serif text-2xl sm:text-3xl font-bold text-terracotta">4.9 ★</div>
+                                <div class="text-xs text-graphite mt-0.5">Từ 12.000+ độc giả</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Artistic Collage & Floating Product Card -->
+                    <div class="lg:col-span-6 relative">
+                        <div class="grid grid-cols-12 gap-4 items-center">
+                            <!-- Main Tall Image -->
+                            <div class="col-span-7 relative rounded-3xl overflow-hidden shadow-editorial border-4 border-white aspect-[4/5]">
+                                <img 
+                                    src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=900&q=85" 
+                                    alt="Góc đọc sách và ghi chép Mộc & Chữ" 
+                                    class="w-full h-full object-cover"
+                                    onerror="this.src='https://placehold.co/600x750/2C4A3E/FAF7F2?text=Moc+%26+Chu'"
+                                >
+                                <div class="absolute inset-0 bg-gradient-to-t from-ink/50 via-transparent to-transparent"></div>
+                                <div class="absolute bottom-4 left-4 right-4 text-alabaster">
+                                    <span class="text-[11px] uppercase tracking-widest bg-forest/90 backdrop-blur-sm px-2.5 py-1 rounded-full">Góc Cảm Hứng</span>
+                                    <p class="font-serif italic text-sm mt-2">"Mỗi trang giấy mở ra một khoảng trời bình yên."</p>
+                                </div>
+                            </div>
+
+                            <!-- Secondary Stacked Images -->
+                            <div class="col-span-5 space-y-4">
+                                <div class="rounded-3xl overflow-hidden shadow-editorial border-4 border-white aspect-square">
+                                    <img 
+                                        src="https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=600&q=80" 
+                                        alt="Sổ tay da thủ công" 
+                                        class="w-full h-full object-cover"
+                                        onerror="this.src='https://placehold.co/500x500/F2ECE1/2C4A3E?text=So+Tay'"
+                                    >
+                                </div>
+                                <div class="rounded-3xl overflow-hidden shadow-editorial border-4 border-white aspect-[4/3]">
+                                    <img 
+                                        src="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=600&q=80" 
+                                        alt="Hộp quà tặng thủ công" 
+                                        class="w-full h-full object-cover"
+                                        onerror="this.src='https://placehold.co/500x380/C86D51/FAF7F2?text=Qua+Tang'"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Floating Featured Product Card -->
+                        <div onclick="openProductModal(15)" class="cursor-pointer mt-4 sm:mt-0 sm:absolute sm:-bottom-6 sm:left-6 sm:right-12 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-floating border border-oatmealDark flex items-center justify-between gap-4 hover:border-forest transition-all group">
+                            <div class="flex items-center gap-3.5">
+                                <img 
+                                    src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=200&q=80" 
+                                    alt="Set Quà Tặng Ngày Bình Yên" 
+                                    class="w-14 h-14 rounded-xl object-cover shrink-0 border border-oatmeal"
+                                >
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-[10px] font-bold uppercase tracking-wider bg-terracotta/15 text-terracotta px-2 py-0.5 rounded-full">Ấn phẩm tiêu biểu</span>
+                                        <span class="text-xs text-amber-500 font-semibold">★ 5.0</span>
+                                    </div>
+                                    <h3 class="font-serif font-bold text-ink text-sm sm:text-base group-hover:text-forest transition-colors">Box Quà "Ngày Bình Yên" (Sổ + Bút + Nến Thơm)</h3>
+                                    <p class="text-xs text-terracotta font-bold">450.000đ <span class="text-graphite line-through font-normal ml-1">520.000đ</span></p>
+                                </div>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-oatmeal group-hover:bg-forest group-hover:text-white flex items-center justify-center text-forest transition-colors shrink-0">
+                                <i class="ph-bold ph-arrow-up-right"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- 4 Brand Commitments Strip -->
+                <div class="mt-16 pt-10 border-t border-oatmealDark grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="flex items-start gap-3.5 bg-oatmeal/50 p-4 rounded-2xl border border-oatmealDark/60">
+                        <div class="w-11 h-11 rounded-xl bg-forest text-alabaster flex items-center justify-center shrink-0 text-xl">
+                            <i class="ph ph-leaf"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-serif font-bold text-ink text-sm">Giấy Chuẩn FSC Thân Thiện</h4>
+                            <p class="text-xs text-graphite mt-1 leading-relaxed">Giấy kem chống lóa mắt, định lượng cao từ nguồn rừng bền vững.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3.5 bg-oatmeal/50 p-4 rounded-2xl border border-oatmealDark/60">
+                        <div class="w-11 h-11 rounded-xl bg-forest text-alabaster flex items-center justify-center shrink-0 text-xl">
+                            <i class="ph ph-sparkle"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-serif font-bold text-ink text-sm">Tuyển Chọn Giá Trị Tinh Hoa</h4>
+                            <p class="text-xs text-graphite mt-1 leading-relaxed">Mỗi tựa sách & món đồ đều được đội ngũ biên tập đọc và thử nghiệm kỹ.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3.5 bg-oatmeal/50 p-4 rounded-2xl border border-oatmealDark/60">
+                        <div class="w-11 h-11 rounded-xl bg-forest text-alabaster flex items-center justify-center shrink-0 text-xl">
+                            <i class="ph ph-gift"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-serif font-bold text-ink text-sm">Gói Quà Thủ Công Tinh Tế</h4>
+                            <p class="text-xs text-graphite mt-1 leading-relaxed">Giấy kraft mộc, dây gai, hoa khô và thiệp viết tay theo lời nhắn riêng.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3.5 bg-oatmeal/50 p-4 rounded-2xl border border-oatmealDark/60">
+                        <div class="w-11 h-11 rounded-xl bg-forest text-alabaster flex items-center justify-center shrink-0 text-xl">
+                            <i class="ph ph-arrows-clockwise"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-serif font-bold text-ink text-sm">Đổi Trả Dễ Dàng 15 Ngày</h4>
+                            <p class="text-xs text-graphite mt-1 leading-relaxed">Hỗ trợ đổi mới ngay lập tức nếu sách cong gáy hoặc lỗi vận chuyển.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             4. MAIN PRODUCT CATALOG & MULTI-FILTER SYSTEM
+             ========================================== -->
+        <section id="catalog-section" class="py-16 lg:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Header -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-terracotta block mb-2">Kệ Trưng Bày Trực Tuyến</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-ink">Khám Phá Ấn Phẩm & Góc Nhỏ</h2>
+                </div>
+                <p class="text-sm text-graphite max-w-md">
+                    Chọn một danh mục yêu thích bên dưới hoặc lọc theo các sản phẩm bán chạy, mới ra mắt để tìm món đồ đồng điệu với tâm hồn bạn.
+                </p>
+            </div>
+
+            <!-- 6 Category Visual Filter Cards -->
+            <div id="category-pills-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3 mb-8">
+                <!-- Populated dynamically via JS -->
+            </div>
+
+            <!-- Secondary Filter Bar: Marketing Tabs + Search Status + Price Sort -->
+            <div class="bg-oatmeal/75 border border-oatmealDark rounded-2xl p-3 sm:p-4 mb-8 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
+                
+                <!-- Marketing Filter Tabs -->
+                <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 lg:pb-0" id="marketing-tabs">
+                    <button onclick="setMarketingFilter('all')" data-tab="all" class="marketing-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all bg-forest text-alabaster shadow-sm">
+                        Tất cả sản phẩm
+                    </button>
+                    <button onclick="setMarketingFilter('bestseller')" data-tab="bestseller" class="marketing-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all text-ink hover:bg-alabaster/70">
+                        🔥 Bán chạy nhất
+                    </button>
+                    <button onclick="setMarketingFilter('new')" data-tab="new" class="marketing-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all text-ink hover:bg-alabaster/70">
+                        ✨ Sản phẩm mới
+                    </button>
+                    <button onclick="setMarketingFilter('sale')" data-tab="sale" class="marketing-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all text-ink hover:bg-alabaster/70">
+                        🎁 Đang khuyến mãi
+                    </button>
+                </div>
+
+                <!-- Right Controls: Result Count & Sort Dropdown -->
+                <div class="flex items-center justify-between sm:justify-end gap-4 border-t lg:border-t-0 pt-3 lg:pt-0 border-oatmealDark">
+                    <span id="catalog-count-label" class="text-xs sm:text-sm text-graphite font-medium">
+                        Hiển thị <strong class="text-ink">16</strong> sản phẩm
+                    </span>
+
+                    <div class="flex items-center gap-2">
+                        <label for="sort-select" class="text-xs text-graphite hidden sm:inline">Sắp xếp:</label>
+                        <select id="sort-select" onchange="setSortOrder(this.value)" class="bg-alabaster text-ink text-xs sm:text-sm font-medium px-3.5 py-2 rounded-xl border border-oatmealDark focus:outline-none focus:border-forest cursor-pointer">
+                            <option value="featured">Mặc định (Đề xuất)</option>
+                            <option value="price-asc">Giá: Thấp đến Cao</option>
+                            <option value="price-desc">Giá: Cao đến Thấp</option>
+                            <option value="rating">Đánh giá cao nhất</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Filter Notice Banner (When search or wishlist filter is active) -->
+            <div id="active-filter-banner" class="hidden mb-6 bg-terracotta/10 border border-terracotta/30 rounded-2xl px-4 py-3 flex items-center justify-between">
+                <div class="flex items-center gap-2 text-sm text-ink">
+                    <i class="ph-fill ph-funnel text-terracotta text-lg"></i>
+                    <span id="active-filter-text">Đang lọc kết quả</span>
+                </div>
+                <button onclick="resetAllFilters()" class="text-xs font-bold text-terracotta hover:underline flex items-center gap-1">
+                    <i class="ph ph-arrow-counter-clockwise"></i> Xóa bộ lọc
+                </button>
+            </div>
+
+            <!-- Product Grid Container -->
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-7">
+                <!-- Populated dynamically via JS -->
+            </div>
+
+            <!-- Empty State (Shown when no product matches search/filter) -->
+            <div id="empty-catalog-state" class="hidden text-center py-16 px-4 bg-oatmeal/40 rounded-3xl border border-dashed border-oatmealDark">
+                <div class="w-16 h-16 mx-auto rounded-full bg-oatmeal flex items-center justify-center text-forest text-3xl mb-4">
+                    <i class="ph ph-magnifying-glass"></i>
+                </div>
+                <h3 class="font-serif text-xl font-bold text-ink">Không tìm thấy sản phẩm phù hợp</h3>
+                <p class="text-sm text-graphite max-w-md mx-auto mt-2 mb-6">
+                    Rất tiếc, Mộc & Chữ chưa tìm thấy món đồ khớp với từ khóa hoặc bộ lọc hiện tại của bạn. Hãy thử xem tất cả bộ sưu tập nhé!
+                </p>
+                <button onclick="resetAllFilters()" class="bg-forest text-alabaster px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-forest-light transition-colors">
+                    Xem tất cả 16 sản phẩm
+                </button>
+            </div>
+
+        </section>
+
+        <!-- ==========================================
+             5. MARKETING CAMPAIGN BANNER
+             ========================================== -->
+        <section class="py-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="relative rounded-3xl overflow-hidden bg-forest text-alabaster shadow-editorial">
+                <!-- Background Decorative Image with Overlay -->
+                <div class="absolute inset-0 opacity-20">
+                    <img 
+                        src="https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=1400&q=80" 
+                        alt="Chiến dịch Mùa Thu Đọc Sách" 
+                        class="w-full h-full object-cover"
+                    >
+                </div>
+                <div class="relative z-10 p-8 sm:p-12 lg:p-14 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-8 space-y-4">
+                        <div class="inline-flex items-center gap-2 bg-terracotta text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">
+                            <i class="ph-fill ph-sparkle"></i> Chiến dịch Mùa Thu Đọc Sách & Trở Lại Trường
+                        </div>
+                        <h2 class="font-serif text-2xl sm:text-4xl font-bold leading-tight">
+                            Khởi đầu trang viết mới — Ưu đãi 20% toàn bộ Combo Sổ Tay & Bút Máy
+                        </h2>
+                        <p class="text-oatmeal/90 text-sm sm:text-base max-w-2xl leading-relaxed">
+                            Mỗi đơn hàng trong tháng này đều được tặng kèm 01 Bookmark lá phong ép khô thủ công và dịch vụ viết thiệp tay miễn phí. Hãy để Mộc & Chữ gửi trao món quà tri thức đến người bạn trân quý.
+                        </p>
+                    </div>
+                    <div class="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col items-stretch sm:items-center lg:items-end justify-center gap-3">
+                        <div class="bg-forest-dark/90 backdrop-blur-md border border-oatmeal/20 rounded-2xl p-4 text-center w-full sm:w-auto lg:w-full">
+                            <span class="text-xs text-oatmeal/75 block mb-1">Mã ưu đãi giảm 20% (Tối đa 80K)</span>
+                            <div class="flex items-center justify-between bg-alabaster text-ink px-4 py-2.5 rounded-xl font-mono font-bold text-base">
+                                <span>MOCCHU20</span>
+                                <button onclick="copyPromoCode('MOCCHU20')" class="text-xs font-sans bg-terracotta hover:bg-terracotta-dark text-white px-3 py-1 rounded-lg transition-colors">
+                                    Sao chép
+                                </button>
+                            </div>
+                        </div>
+                        <a href="#catalog-section" onclick="setMarketingFilter('sale')" class="text-center bg-oatmeal hover:bg-white text-forest font-bold text-sm px-6 py-3.5 rounded-xl transition-colors w-full sm:w-auto lg:w-full">
+                            Xem các sản phẩm ưu đãi →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             6. INTERACTIVE GIFT FINDER BY OCCASION
+             ========================================== -->
+        <section id="gift-finder-section" class="py-16 lg:py-20 bg-oatmeal/60 border-y border-oatmealDark mt-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Section Header -->
+                <div class="text-center max-w-2xl mx-auto mb-10">
+                    <span class="text-xs font-bold uppercase tracking-widest text-terracotta block mb-2">Nghệ Thuật Tặng Quà</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-ink">Gợi Ý Quà Tặng Theo Dịp</h2>
+                    <p class="text-sm sm:text-base text-graphite mt-3">
+                        Bạn đang băn khoăn chưa biết chọn món quà nào vừa tinh tế lại vừa thiết thực? Hãy chọn dịp đặc biệt bên dưới để Mộc & Chữ tư vấn giúp bạn nhé.
+                    </p>
+                </div>
+
+                <!-- Occasion Selector Tabs -->
+                <div class="flex items-center justify-start sm:justify-center gap-3 overflow-x-auto no-scrollbar pb-3 mb-8" id="occasion-tabs-container">
+                    <!-- Rendered dynamically via JS -->
+                </div>
+
+                <!-- Occasion Recommendation Banner & Curated Products -->
+                <div id="occasion-content-area" class="space-y-8">
+                    <!-- Populated dynamically via JS -->
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==========================================
+             7. BRAND STORY & EDITORIAL INSPIRATION
+             ========================================== -->
+        <section id="story-section" class="py-16 lg:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+                
+                <!-- Left Image Composition -->
+                <div class="lg:col-span-6 grid grid-cols-2 gap-4">
+                    <div class="space-y-4">
+                        <img 
+                            src="https://images.unsplash.com/photo-1456735190827-d1262f71b8a3?auto=format&fit=crop&w=600&q=80" 
+                            alt="Góc bàn viết Mộc & Chữ" 
+                            class="w-full h-64 object-cover rounded-3xl shadow-editorial"
+                        >
+                        <div class="bg-forest text-alabaster p-6 rounded-3xl">
+                            <i class="ph-fill ph-quotes text-3xl text-terracotta-light"></i>
+                            <p class="font-serif italic text-sm sm:text-base mt-2 leading-relaxed">
+                                "Giữa thời đại số hóa vội vã, cảm giác chạm tay vào trang giấy nhám mộc và nghe tiếng ngòi bút sột soạt vẫn mang một phép màu chữa lành kỳ diệu."
+                            </p>
+                        </div>
+                    </div>
+                    <div class="pt-6 space-y-4">
+                        <div class="bg-oatmeal p-6 rounded-3xl border border-oatmealDark">
+                            <span class="font-serif text-3xl font-bold text-forest">2019</span>
+                            <p class="text-xs text-graphite mt-1 leading-relaxed">Khởi nguồn từ một tiệm sách nhỏ trong con hẻm yên tĩnh tại Sài Gòn.</p>
+                        </div>
+                        <img 
+                            src="https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=600&q=80" 
+                            alt="Sách tuyển chọn" 
+                            class="w-full h-72 object-cover rounded-3xl shadow-editorial"
+                        >
+                    </div>
+                </div>
+
+                <!-- Right Editorial Text -->
+                <div class="lg:col-span-6 space-y-5">
+                    <span class="text-xs font-bold uppercase tracking-widest text-terracotta block">Câu Chuyện Thương Hiệu</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-ink leading-tight">
+                        Mộc trong chất liệu,<br>Chữ trong tâm hồn.
+                    </h2>
+                    <p class="text-graphite text-sm sm:text-base leading-relaxed">
+                        Tại <strong class="text-ink">Mộc & Chữ</strong>, chúng tôi tin rằng một cuốn sách hay, một cuốn sổ tay vừa vặn hay một cây bút êm ái không chỉ là vật dụng vô tri — chúng là người bạn đồng hành lưu giữ những suy tư, ước mơ và kỷ niệm của mỗi người.
+                    </p>
+                    <p class="text-graphite text-sm sm:text-base leading-relaxed">
+                        Từng sản phẩm lên kệ đều trải qua quá trình tuyển chọn khắt khe: sách phải có bản dịch mượt mà và trình bày mỹ thuật; sổ tay sử dụng giấy kem chống mỏi mắt đạt chứng nhận FSC; và mỗi hộp quà gửi đi đều được thắt nơ thủ công cùng cành hoa khô thơm dịu.
+                    </p>
+
+                    <div class="pt-3 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-oatmeal/60 border border-oatmealDark">
+                            <i class="ph-fill ph-check-circle text-forest text-xl"></i>
+                            <span class="text-xs sm:text-sm font-semibold text-ink">Đóng gói chống sốc 3 lớp bảo vệ gáy sách</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-oatmeal/60 border border-oatmealDark">
+                            <i class="ph-fill ph-check-circle text-forest text-xl"></i>
+                            <span class="text-xs sm:text-sm font-semibold text-ink">Miễn phí viết thiệp tay theo yêu cầu</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- ==========================================
+         8. FOOTER & NEWSLETTER
+         ========================================== -->
+    <footer class="bg-ink text-oatmeal pt-16 pb-12 border-t border-ink">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Top Newsletter Section -->
+            <div class="bg-forest/40 border border-oatmeal/15 rounded-3xl p-6 sm:p-10 mb-14 flex flex-col lg:flex-row items-center justify-between gap-6">
+                <div class="max-w-xl text-center lg:text-left">
+                    <span class="text-xs uppercase tracking-widest text-terracotta-light font-bold">Bản Tin Văn Học & Ghi Chép</span>
+                    <h3 class="font-serif text-2xl sm:text-3xl font-bold text-alabaster mt-1">Nhận thư tay mỗi tuần từ Mộc & Chữ</h3>
+                    <p class="text-xs sm:text-sm text-oatmeal/80 mt-2">
+                        Điểm sách mới, mẹo trang trí Bullet Journal và ưu đãi giảm 15% cho đơn hàng đầu tiên của bạn.
+                    </p>
+                </div>
+                <form onsubmit="handleNewsletterSubmit(event)" class="w-full lg:w-auto flex flex-col sm:flex-row gap-3">
+                    <input 
+                        type="email" 
+                        id="newsletter-email"
+                        required
+                        placeholder="Nhập địa chỉ email của bạn..." 
+                        class="w-full sm:w-72 px-4 py-3.5 rounded-full bg-alabaster text-ink text-sm focus:outline-none"
+                    >
+                    <button type="submit" class="bg-terracotta hover:bg-terracotta-light text-white font-semibold text-sm px-7 py-3.5 rounded-full transition-colors whitespace-nowrap">
+                        Đăng ký nhận thư
+                    </button>
+                </form>
+            </div>
+
+            <!-- Footer Columns -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-oatmeal/10">
+                <!-- Col 1: Brand Info -->
+                <div class="lg:col-span-2 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-forest text-alabaster flex items-center justify-center">
+                            <i class="ph-fill ph-book-open-text text-xl"></i>
+                        </div>
+                        <span class="font-serif text-2xl font-bold text-alabaster">Mộc & Chữ</span>
+                    </div>
+                    <p class="text-sm text-oatmeal/75 leading-relaxed max-w-sm">
+                        Tiệm sách, văn phòng phẩm và quà tặng thủ công dành cho những tâm hồn yêu vẻ đẹp mộc mạc, tri thức và sự tĩnh lặng.
+                    </p>
+                    <div class="text-xs text-oatmeal/75 space-y-1.5 pt-1">
+                        <p class="flex items-center gap-2"><i class="ph-fill ph-map-pin text-terracotta-light"></i> 42 Nguyễn Văn Bình, Quận 1, TP. Hồ Chí Minh</p>
+                        <p class="flex items-center gap-2"><i class="ph-fill ph-phone text-terracotta-light"></i> 1900 6886 (08:30 – 21:30 mỗi ngày)</p>
+                        <p class="flex items-center gap-2"><i class="ph-fill ph-envelope-simple text-terracotta-light"></i> xinchao@mocvachu.vn</p>
+                    </div>
+                </div>
+
+                <!-- Col 2: Categories -->
+                <div>
+                    <h4 class="font-serif font-bold text-alabaster text-base mb-4">Danh Mục</h4>
+                    <ul class="space-y-2.5 text-sm text-oatmeal/75">
+                        <li><a href="#catalog-section" onclick="setCategoryFilter('sach')" class="hover:text-terracotta-light transition-colors">Sách Văn học & Kỹ năng</a></li>
+                        <li><a href="#catalog-section" onclick="setCategoryFilter('truyen')" class="hover:text-terracotta-light transition-colors">Truyện tranh & Tản văn</a></li>
+                        <li><a href="#catalog-section" onclick="setCategoryFilter('sotay')" class="hover:text-terracotta-light transition-colors">Sổ tay & Planner</a></li>
+                        <li><a href="#catalog-section" onclick="setCategoryFilter('but')" class="hover:text-terracotta-light transition-colors">Bút máy, Gel & Highlight</a></li>
+                        <li><a href="#catalog-section" onclick="setCategoryFilter('dodung')" class="hover:text-terracotta-light transition-colors">Đồ dùng học tập</a></li>
+                        <li><a href="#catalog-section" onclick="setCategoryFilter('quatang')" class="hover:text-terracotta-light transition-colors">Set Quà tặng tinh tế</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Customer Care -->
+                <div>
+                    <h4 class="font-serif font-bold text-alabaster text-base mb-4">Dịch Vụ Khách Hàng</h4>
+                    <ul class="space-y-2.5 text-sm text-oatmeal/75">
+                        <li><a href="#gift-finder-section" class="hover:text-terracotta-light transition-colors">Tư vấn quà tặng theo dịp</a></li>
+                        <li><a href="#story-section" class="hover:text-terracotta-light transition-colors">Dịch vụ gói quà & viết thiệp</a></li>
+                        <li><a href="#story-section" class="hover:text-terracotta-light transition-colors">Chính sách đổi trả 15 ngày</a></li>
+                        <li><a href="#story-section" class="hover:text-terracotta-light transition-colors">Ưu đãi khách hàng thân thiết</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Store Hours -->
+                <div>
+                    <h4 class="font-serif font-bold text-alabaster text-base mb-4">Giờ Mở Cửa Tiệm</h4>
+                    <div class="bg-oatmeal/5 border border-oatmeal/10 rounded-2xl p-4 space-y-2 text-xs text-oatmeal/80">
+                        <div class="flex justify-between">
+                            <span>Thứ 2 - Thứ 6:</span>
+                            <span class="font-semibold text-alabaster">08:30 - 21:00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Thứ 7 - Chủ Nhật:</span>
+                            <span class="font-semibold text-alabaster">08:00 - 22:00</span>
+                        </div>
+                        <div class="pt-2 border-t border-oatmeal/10 text-[11px] text-terracotta-light">
+                            ✨ Cuối tuần có góc đọc sách miễn phí & trà hoa cúc ấm tại tiệm.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright Bottom -->
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-oatmeal/60 gap-4">
+                <p>© 2026 Mộc & Chữ Stationery & Bookshop. Thiết kế với cảm hứng Warm Editorial.</p>
+                <div class="flex items-center gap-5">
+                    <span>Thanh toán an toàn: COD • Momo • VNPay • Visa</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================
+         9. PRODUCT DETAIL MODAL (IN-DEPTH VIEW + RELATED PRODUCTS)
+         ========================================== -->
+    <div id="product-modal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <!-- Backdrop -->
+        <div onclick="closeProductModal()" class="fixed inset-0 bg-ink/70 backdrop-blur-sm transition-opacity"></div>
+
+        <!-- Modal Dialog Wrapper -->
+        <div class="flex min-h-full items-center justify-center p-3 sm:p-6">
+            <div class="relative w-full max-w-4xl rounded-3xl bg-alabaster border border-oatmealDark shadow-floating overflow-hidden z-10 my-8">
+                
+                <!-- Close Button -->
+                <button onclick="closeProductModal()" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/90 hover:bg-terracotta hover:text-white text-ink flex items-center justify-center shadow-md transition-colors" title="Đóng cửa sổ">
+                    <i class="ph-bold ph-x text-lg"></i>
+                </button>
+
+                <!-- Dynamic Modal Content Container -->
+                <div id="product-modal-body">
+                    <!-- Rendered dynamically via JS -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         10. SLIDE-OVER CART DRAWER
+         ========================================== -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 hidden">
+        <!-- Backdrop -->
+        <div onclick="toggleCartDrawer(false)" class="fixed inset-0 bg-ink/60 backdrop-blur-xs transition-opacity"></div>
+
+        <!-- Right Drawer Panel -->
+        <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-alabaster shadow-floating flex flex-col justify-between border-l border-oatmealDark">
+                
+                <!-- Drawer Header -->
+                <div class="p-5 sm:p-6 bg-oatmeal/70 border-b border-oatmealDark flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                        <i class="ph-fill ph-handbag text-2xl text-forest"></i>
+                        <div>
+                            <h3 class="font-serif text-lg font-bold text-ink">Giỏ Hàng Của Bạn</h3>
+                            <p class="text-xs text-graphite" id="cart-FreeShip-hint">Miễn phí gói quà từ 299.000đ</p>
+                        </div>
+                    </div>
+                    <button onclick="toggleCartDrawer(false)" class="w-9 h-9 rounded-full bg-alabaster hover:bg-oatmealDark flex items-center justify-center text-ink transition-colors">
+                        <i class="ph-bold ph-x"></i>
+                    </button>
+                </div>
+
+                <!-- Drawer Items List -->
+                <div id="cart-items-container" class="p-5 sm:p-6 flex-1 overflow-y-auto space-y-4">
+                    <!-- Populated via JS -->
+                </div>
+
+                <!-- Drawer Footer: Gift Note & Total Checkout -->
+                <div class="p-5 sm:p-6 bg-oatmeal/80 border-t border-oatmealDark space-y-4">
+                    <!-- Gift Wrapping Checkbox -->
+                    <label class="flex items-start gap-2.5 cursor-pointer bg-alabaster p-3 rounded-xl border border-oatmealDark">
+                        <input type="checkbox" checked class="mt-1 accent-forest rounded">
+                        <span class="text-xs text-ink leading-relaxed">
+                            <strong>Yêu cầu gói quà thủ công & kèm thiệp trống</strong> (Hoàn toàn miễn phí từ Mộc & Chữ)
+                        </span>
+                    </label>
+
+                    <div class="space-y-1.5 text-sm">
+                        <div class="flex justify-between text-graphite">
+                            <span>Tạm tính:</span>
+                            <span id="cart-subtotal-price" class="font-semibold text-ink">0đ</span>
+                        </div>
+                        <div class="flex justify-between text-base font-bold text-ink pt-2 border-t border-oatmealDark">
+                            <span>Tổng cộng:</span>
+                            <span id="cart-total-price" class="text-terracotta text-lg">0đ</span>
+                        </div>
+                    </div>
+
+                    <button onclick="handleCheckout()" class="w-full bg-forest hover:bg-forest-light text-alabaster font-semibold py-3.5 rounded-full shadow-md transition-all flex items-center justify-center gap-2">
+                        <span>Đặt hàng & Nhận tư vấn gói quà</span>
+                        <i class="ph-bold ph-arrow-right"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         11. TOAST NOTIFICATION CONTAINER
+         ========================================== -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2.5 max-w-sm w-full pointer-events-none px-4 sm:px-0"></div>
+
+    <!-- ==========================================
+         12. MODULAR APPLICATION JAVASCRIPT
+         ========================================== -->
+    <script>
+        /**
+         * MODULE 1: DATA REPOSITORY (CATEGORIES, PRODUCTS, OCCASIONS)
+         * Rich, realistic Vietnamese bookstore & stationery data
+         */
+        const CATEGORIES = [
+            { id: 'all', name: 'Tất cả', sub: 'Bộ sưu tập', icon: 'ph-squares-four' },
+            { id: 'sach', name: 'Sách', sub: 'Văn học & Kỹ năng', icon: 'ph-book-bookmark' },
+            { id: 'truyen', name: 'Truyện', sub: 'Truyện tranh & Tản văn', icon: 'ph-feather' },
+            { id: 'sotay', name: 'Sổ tay', sub: 'Bullet Journal & Planner', icon: 'ph-notebook' },
+            { id: 'but', name: 'Bút viết', sub: 'Bút máy, Gel & Highlight', icon: 'ph-pen-nib' },
+            { id: 'dodung', name: 'Đồ dùng học tập', sub: 'Đèn bàn, Kẹp sách, Washi', icon: 'ph-lamp' },
+            { id: 'quatang', name: 'Quà tặng', sub: 'Set quà & Phụ kiện đọc', icon: 'ph-gift' }
+        ];
+
+        const PRODUCTS = [
+            // --- 1. SÁCH (Văn học & Kỹ năng) ---
+            {
+                id: 1,
+                name: 'Những Ngày Ở Hiệu Sách Morisaki',
+                category: 'sach',
+                categoryLabel: 'Sách Văn Học',
+                price: 98000,
+                originalPrice: 120000,
+                rating: 4.9,
+                reviews: 342,
+                badges: ['bestseller', 'sale'],
+                shortDesc: 'Tiểu thuyết Nhật Bản dịu dàng như một tách trà ấm về sự chữa lành giữa khu phố sách cổ Jimbocho.',
+                fullDesc: 'Câu chuyện xoay quanh cô gái trẻ Takako sau biến cố tình cảm đã chuyển đến sống tại tầng gác mái của hiệu sách cũ Morisaki do người chú Satoru lập dị điều hành. Giữa mùi giấy cũ trầm mặc và hàng vạn trang văn chương, Takako dần tìm lại niềm tin yêu cuộc sống. Bản in đặc biệt trên giấy kem xốp nhẹ, tặng kèm bookmark minh họa góc phố Jimbocho.',
+                specs: {
+                    label1: 'Tác giả', val1: 'Satoshi Yagisawa',
+                    label2: 'Số trang & Bìa', val2: '216 trang • Bìa mềm tay gấp',
+                    label3: 'Kích thước', val3: '13 x 20.5 cm (Giấy kem chuẩn FSC)',
+                    label4: 'Gợi ý dịp tặng', val4: 'Tự thưởng cuối tuần, Sinh nhật bạn thân'
+                },
+                occasions: ['weekend', 'birthday'],
+                images: [
+                    'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=800&q=85',
+                    'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=80',
+                    'https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=800&q=80'
+                ]
+            },
+            {
+                id: 2,
+                name: 'Lối Sống Tối Giản Của Người Nhật',
+                category: 'sach',
+                categoryLabel: 'Sách Kỹ Năng Sống',
+                price: 112000,
+                originalPrice: 135000,
+                rating: 4.8,
+                reviews: 215,
+                badges: ['bestseller'],
+                shortDesc: 'Buông bỏ những vật dụng thừa thãi để tâm trí thảnh thơi và tập trung vào những giá trị cốt lõi.',
+                fullDesc: 'Tác phẩm kinh điển của Fumio Sasaki giúp hàng triệu độc giả nhận ra rằng tối giản không phải là ép mình sống kham khổ, mà là nghệ thuật hiểu rõ điều gì thực sự mang lại hạnh phúc cho bản thân. Sách trình bày thoáng đãng với nhiều hình ảnh không gian sống tối giản truyền cảm hứng.',
+                specs: {
+                    label1: 'Tác giả', val1: 'Fumio Sasaki',
+                    label2: 'Số trang & Bìa', val2: '284 trang • Bìa mềm cán mờ',
+                    label3: 'Kích thước', val3: '14 x 20.5 cm',
+                    label4: 'Gợi ý dịp tặng', val4: 'Mừng tốt nghiệp, Tự thưởng cuối tuần'
+                },
+                occasions: ['graduation', 'weekend'],
+                images: [
+                    'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=800&q=85',
+                    'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80'
+                ]
+            },
+            {
+                id: 3,
+                name: 'Nghệ Thuật Tập Trung Giữa Thế Giới Xao Nhãng',
+                category: 'sach',
+                categoryLabel: 'Sách Tư Duy & Học Tập',
+                price: 145000,
+                originalPrice: 145000,
+                rating: 4.9,
+                reviews: 128,
+                badges: ['new'],
+                shortDesc: 'Cẩm nang rèn luyện tư duy sâu (Deep Work) dành cho người làm sáng tạo, sinh viên và người yêu đọc sách.',
+                fullDesc: 'Làm thế nào để giữ trọn sự tập trung suốt nhiều giờ liền khi thông báo điện thoại không ngừng reo? Cuốn sách đưa ra lộ trình 4 tuần thiết lập lại thói quen làm việc sâu, ghi chép có hệ thống và xây dựng không gian học tập tĩnh lặng.',
+                specs: {
+                    label1: 'Tác giả', val1: 'Cal Newport (Bản dịch đặc biệt)',
+                    label2: 'Số trang & Bìa', val2: '340 trang • Bìa cứng bọc áo',
+                    label3: 'Kích thước', val3: '15.5 x 23.5 cm',
+                    label4: 'Gợi ý dịp tặng', val4: 'Mừng tốt nghiệp, Tri ân Đồng nghiệp'
+                },
+                occasions: ['graduation', 'gratitude'],
+                images: [
+                    'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=85',
+                    'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=800&q=80'
+                ]
+            },
+
+            // --- 2. TRUYỆN (Truyện tranh & Tản văn) ---
+            {
+                id: 4,
+                name: 'Nếu Biết Trăm Năm Là Hữu Hạn (Ấn Bản Kỷ Niệm)',
+                category: 'truyen',
+                categoryLabel: 'Tản Văn Việt Nam',
+                price: 138000,
+                originalPrice: 165000,
+                rating: 5.0,
+                reviews: 590,
+                badges: ['bestseller', 'sale'],
+                shortDesc: 'Tập tản văn chạm đến trái tim nhiều thế hệ người đọc bằng giọng văn tha thiết, giàu chất thơ.',
+                fullDesc: 'Ấn bản kỷ niệm đặc biệt với tranh minh họa màu nước toàn bộ các chương sách. Từng trang viết của Phạm Lữ Ân như lời thủ thỉ dịu dàng về tuổi trẻ, tình yêu, nỗi cô đơn và lòng bao dung, rất thích hợp để đọc trong những chiều mưa hoặc làm quà tặng tri kỷ.',
+                specs: {
+                    label1: 'Tác giả', val1: 'Phạm Lữ Ân',
+                    label2: 'Số trang & Bìa', val2: '312 trang • Bìa cứng ép nhũ vàng',
+                    label3: 'Kích thước', val3: '14.5 x 20.5 cm',
+                    label4: 'Gợi ý dịp tặng', val4: 'Sinh nhật bạn thân, Tri ân Thầy Cô'
+                },
+                occasions: ['birthday', 'gratitude'],
+                images: [
+                    'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=85',
+                    'https://images.unsplash.com/photo-1476275466078-4007374efbbe?auto=format&fit=crop&w=800&q=80'
+                ]
+            },
+            {
+                id: 5,
+                name: 'Mùa Hè Của Hồ Ly Nhỏ (Artbook Truyện Tranh)',
+                category: 'truyen',
+                categoryLabel: 'Truyện Tranh Màu Nước',
+                price: 125000,
+                originalPrice: 125000,
+                rating: 4.9,
+                reviews: 164,
+                badges: ['new'],
+                shortDesc: 'Truyện tranh màu nước không lời kết hợp thơ ngắn về hành trình khám phá khu rừng mùa thu.',
+                fullDesc: 'Được vẽ tay hoàn toàn bằng màu nước trên giấy vân lạnh, cuốn truyện tranh nghệ thuật này dẫn người đọc theo bước chân chú hồ ly nhỏ đi gom nhặt những chiếc lá sồi vàng và kết bạn cùng các sinh linh trong rừng. Món quà tuyệt đẹp cho tâm hồn yêu hội họa.',
+                specs: {
+                    label1: 'Họa sĩ', val1: 'Studio Mộc Minh Họa',
+                    label2: 'Số trang & Giấy', val2: '128 trang in màu toàn bộ • Giấy mỹ thuật 150gsm',
+                    label3: 'Kích thước', val3: '19 x 24 cm (Khổ lớn)',
+                    label4: 'Gợi ý dịp tặng', val4: 'Sinh nhật bạn thân, Tự thưởng cuối tuần'
+                },
+                occasions: ['birthday', 'weekend'],
+                images: [
+                    'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=85',
+                    'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=800&q=80'
+                ]
+            },
+            {
+                id: 6,
+                name: 'Tiệm Bánh Mì Nhỏ Bên Bờ Biển (Tản Văn Ẩm Thực)',
+                category: 'truyen',
+                categoryLabel: 'Truyện Ngắn Chữa Lành',
+                price: 89000,
+                originalPrice: 110000,
+                rating: 4.7,
+                reviews: 95,
+                badges: ['sale'],
+                shortDesc: 'Mười hai câu chuyện nhỏ thơm mùi bơ sữa, men bánh mì mới nướng và gió biển mặn mòi.',
+                fullDesc: 'Mỗi vị khách ghé qua tiệm bánh mì cuối thị trấn đều mang theo một tâm sự riêng, và rời đi với chiếc bánh croissaint nóng hổi cùng nụ cười nhẹ nhõm. Sách kèm theo 6 công thức làm bánh thủ công dễ thực hiện tại nhà.',
+                specs: {
+                    label1: 'Tác giả', val1: 'Haruka Kaze',
+                    label2: 'Số trang & Bìa', val2: '196 trang • Bìa mềm',
+                    label3: 'Kích thước', val3: '13 x 19 cm',
+                    label4: 'Gợi ý dịp tặng', val4: 'Tự thưởng cuối tuần, Sinh nhật bạn thân'
+                },
+                occasions: ['weekend', 'birthday'],
+                images: [
+                    'https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=800&q=85',
+                    'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80'
+                ]
+            },
+
+            // --- 3. SỔ TAY (Bullet Journal & Planner) ---
+            {
+                id: 7,
+                name: 'Sổ Tay Bìa Da Thủ Công "Mộc Niên" A5 (Dot Grid)',
+                category: 'sotay',
+                categoryLabel: 'Sổ Tay Bullet Journal',
+                price: 235000,
+                originalPrice: 280000,
+                rating: 5.0,
+                reviews: 412,
+                badges: ['bestseller', 'sale'],
+                shortDesc: 'Sổ tay bìa da PU thảo mộc mềm mại, gáy khâu chỉ mở phẳng 180 độ, ruột chấm bi giấy kem 120gsm.',
+                fullDesc: 'Thiết kế độc quyền của Mộc & Chữ dành riêng cho người yêu viết lách và Bullet Journal. Ruột giấy kem định lượng 120gsm dày dặn, chống thấm nhòe ngay cả khi viết bút máy ngòi đậm hoặc vẽ màu nước nhẹ. Có dây đánh dấu trang đôi và túi đựng sticker phía sau.',
+                specs: {
+                    label1: 'Thương hiệu', val1: 'Mộc & Chữ Bespoke',
+                    label2: 'Chất liệu giấy', val2: '192 trang Dot Grid • Giấy kem FSC 120gsm',
+                    label3: 'Kích thước', val3: 'Khổ A5 (14.8 x 21 cm) • Mở phẳng 180°',
+                    label4: 'Gợi ý dịp tặng', val4: 'Mừng tốt nghiệp, Tri ân Đồng nghiệp'
+                },
+                occasions: ['graduation', 'gratitude', 'birthday'],
+                images: [
+                    'https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=800&q=85',
+                    'https://images.unsplash.com/photo-1531346878377-a5be20888e57?auto=format&fit=crop&w=800&q=80',
+                    'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80'
+                ]
+            },
+            {
+                id: 8,
+                name: 'Sổ Kế Hoạch 365 Ngày Không Giới Hạn (Undated Planner)',
+                category: 'sotay',
+                categoryLabel: 'Sổ Planner Quản Lý Thời Gian',
+                price: 185000,
+                originalPrice: 185000,
+                rating: 4.8,
+                reviews: 178,
+                badges: ['new'],
+                shortDesc: 'Bố cục khoa học gồm Lịch tháng, Kế hoạch tuần, Theo dõi thói quen (Habit Tracker) và Trang tự do.',
+                fullDesc: 'Vì là sổ không điền sẵn ngày tháng (Undated), bạn có thể bắt đầu hành trình quy hoạch mục tiêu vào bất kỳ ngày nào trong năm mà không sợ bỏ phí trang giấy. Bìa vải bố (Linen) màu xanh rêu chống bám bẩn, cầm chắc tay và sang trọng.',
+                specs: {
+                    label1: 'Thương hiệu', val1: 'Mộc & Chữ Studio',
+                    label2: 'Cấu trúc ruột', val2: '12 Tháng + 54 Tuần + Habit Tracker (100gsm)',
+                    label3: 'Kích thước', val3: 'Khổ B6+ (13.5 x 19.5 cm) • Bìa vải Linen',
+                    label4: 'Gợi ý dịp tặng', val4: 'Mừng tốt nghiệp, Tự thưởng cuối tuần'
+                },
+                occasions: ['graduation', 'weekend'],
+                images: [
+                    'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=800&q=85',
+                    'https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=800&q=80'
+                ]
+            },
+            {
+                id: 9,
+                name: 'Sổ Phác Thảo & Màu Nước Khâu Chỉ Hở Gáy "Thảo Nguyên"',
+                category: 'sotay',
+                categoryLabel: 'Sổ Sketchbook Mỹ Thuật',
+                price: 165000,
+                originalPrice: 195000,
+                rating: 4.9,
+                reviews: 88,
+                badges: ['sale'],
+                shortDesc: 'Giấy mỹ thuật vân nhẹ 180gsm chuyên dụng cho ký họa chì, bút kim (Fineliner) và màu nước.',
+                fullDesc: 'Được đóng gáy khâu chỉ Coptic thủ công giúp cuốn sổ mở phẳng hoàn toàn, cho phép bạn vẽ tràn sang cả hai trang giấy liền mạch. Tông màu giấy ngà tự nhiên giúp tôn lên sắc độ ấm áp của chì màu và mực.',
+                specs: {
+                    label1: 'Thương hiệu', val1: 'Artisan Paperie',
+                    label2: 'Chất liệu giấy', val2: '112 trang trơn • Giấy Cold-press 180gsm',
+                    label3: 'Kích thước', val3: '15 x 21 cm',
+                    label4: 'Gợi ý dịp tặng', val4: 'Sinh nhật bạn thân, Tự thưởng cuối tuần'
+                },
+                occasions: ['birthday', 'weekend'],
+                images: [
+                    'https://images.unsplash.com/photo-1531346878377-a5be20888e57?auto=format&fit=crop&w=800&q=85',
+                    'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=80'
+                ]
+            },
+
+            // --- 4. BÚT VIẾT (Bút máy, Gel & Highlight) ---
+            {
+                id: 10,
+                name: 'Bút Máy Thân Đồng Cổ Điển Ngòi F (Kèm Ống Mực Xanh Đen)',
+                category: 'but',
+                categoryLabel: 'Bút Máy Cao Cấp',
+                price: 320000,
+                originalPrice: 360000,
+                rating: 5.0,
+                reviews: 276,
+                badges: ['bestseller', 'sale'],
+                shortDesc: 'Thân bút bằng đồng thau sơn tĩnh điện xanh rêu, ngòi Iridium cỡ F cho nét chữ thanh thoát, trơn mượt.',
+                fullDesc: 'Cây bút máy mang vẻ đẹp hoài cổ vượt thời gian. Trọng lượng đầm tay vừa phải giúp người viết không cần ấn mạnh mà mực vẫn tuôn đều đặn. Sản phẩm đi kèm hộp thiếc lót nhung, 01 piston bơm mực và 05 ống mực xanh đen tiện lợi.',
+                specs: {
+                    label1: 'Thương hiệu', val1: 'Kyoto Nib Works',
+                    label2: 'Ngòi & Chất liệu', val2: 'Ngòi thép Iridium cỡ F (0.5mm) • Thân đồng',
+                    label3: 'Phụ kiện kèm', val3: 'Hộp thiếc + Converter bơm mực + 5 ống mực',
+                    label4: 'Gợi ý dịp tặng', val4: 'Tri ân Thầy Cô, Mừng tốt nghiệp'
+                },
+                occasions: ['gratitude', 'graduation'],
+                images: [
+                    'https://images.unsplash.com/photo-1585336261022-680e295ce3fe?auto=format&fit=crop&w=800&q=85',
+                    'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80'
+                ]
+            },
+            {
+                id: 11,
+                name: 'Bộ 6 Bút Gel Mực Vintage Retro 0.5mm (Tông Màu Thu Đông)',
+                category: 'but',
+                categoryLabel: 'Bút Gel Trang Trí Sổ',
+                price: 115000,
+                originalPrice: 115000,
+                rating: 4.9,
+                reviews: 310,
+                badges: ['bestseller', 'new'],
+                shortDesc: '6 sắc mực trầm ấm: Đỏ rượu vang, Nâu cà phê, Xanh rêu, Vàng mù tạt, Xanh navy và Xám khói.',
+                fullDesc: 'Bộ bút gel không thể thiếu cho những trang ghi chép thẩm mỹ. Công nghệ mực khô nhanh trong 2 giây giúp hạn chế tối đa tình trạng lem mực ra tay. Đệm cầm silicon êm ái cho cảm giác viết thoải mái suốt buổi học.',
+                specs: {
+                    label1: 'Thương hiệu', val1: 'Sarasa Vintage Collection',
+                    label2: 'Cỡ ngòi & Màu', val2: '0.5mm • 6 màu mực Retro trầm ấm',
+                    label3: 'Xuất xứ', val3: 'Nhật Bản',
+                    label4: 'Gợi ý dịp tặng', val4: 'Sinh nhật bạn thân, Tự thưởng cuối tuần'
+                },
+                occasions: ['birthday', 'weekend'],
+                images: [
+                    'https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?auto=format&fit=crop&w=800&q=85',
+                    'https://images.unsplash.com/photo-1456735190827-d1262f71b8a3?auto=format&fit=crop&w=800&q=80'
+                ]
+            },
+
+            // --- 5. ĐỒ DÙNG HỌC TẬP (Đèn bàn, Kẹp sách, Washi tape) ---
+            {
+                id: 12,
+                name: 'Đèn Bàn Học Gỗ Sồi Chống Cận Ánh Sáng Vàng Ấm',
+                category: 'dodung',
+                categoryLabel: 'Đèn Đọc Sách & Bàn Làm Việc',
+                price: 420000,
+                originalPrice: 490000,
+                rating: 4.9,
+                reviews: 142,
+                badges: ['sale'],
+                shortDesc: 'Thiết kế Bắc Âu kết hợp thân gỗ sồi tự nhiên và chao đèn kim loại xanh rêu, 3 chế độ sáng dịu mắt.',
+                fullDesc: 'Chiếc đèn không chỉ bảo vệ thị lực khi đọc sách đêm khuya mà còn là điểm nhấn thẩm mỹ nâng tầm góc bàn học của bạn. Tích hợp bóng LED CRI > 90 cho màu sắc trang sách trung thực, không nhấp nháy, điều chỉnh độ sáng mượt mà.',
+                specs: {
+                    label1: 'Chất liệu', val1: 'Gỗ sồi tự nhiên + Hợp kim sơn tĩnh điện',
+                    label2: 'Ánh sáng', val2: '3 chế độ (Trắng / Trung tính / Vàng ấm 3000K)',
+                    label3: 'Kích thước', val3: 'Cao 42 cm • Chao đèn đường kính 15 cm',
+                    label4: 'Gợi ý dịp tặng', val4: 'Mừng tốt nghiệp, Tri ân Đồng nghiệp'
+                },
+                occasions: ['graduation', 'gratitude'],
+                images: [
+                    'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=85',
+                    'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80'
+                ]
+            },
+            {
+                id: 13,
+                name: 'Hộp 12 Cuộn Băng Dính Washi Tape "Khu Vườn Cổ Điển"',
+                category: 'dodung',
+                categoryLabel: 'Phụ Kiện Trang Trí Sổ',
+                price: 95000,
+                originalPrice: 120000,
+                rating: 4.8,
+                reviews: 230,
+                badges: ['sale'],
+                shortDesc: 'Họa tiết thảo mộc thực vật học, tem thư cổ và bản nhạc xưa, có điểm nhũ vàng lấp lánh.',
+                fullDesc: 'Làm từ giấy Washi truyền thống dễ xé bằng tay và có thể bóc dán lại nhiều lần mà không làm rách trang giấy. Bộ gồm 12 cuộn với nhiều độ rộng khác nhau (từ 1cm đến 3cm) để bạn thỏa sức trang trí sổ tay, gói quà và dán thiệp.',
+                specs: {
+                    label1: 'Quy cách hộp', val1: '12 cuộn đa kích thước (Dài 3m/cuộn)',
+                    label2: 'Chất liệu', val2: 'Giấy Washi Nhật ép kim vàng (Gold Foil)',
+                    label3: 'Kích thước hộp', val3: '16 x 11 x 4 cm',
+                    label4: 'Gợi ý dịp tặng', val4: 'Sinh nhật bạn thân, Tự thưởng cuối tuần'
+                },
+                occasions: ['birthday', 'weekend'],
+                images: [
+                    'https://images.unsplash.com/photo-1456735190827-d1262f71b8a3?auto=format&fit=crop&w=800&q=85',
+                    'https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?auto=format&fit=crop&w=800&q=80'
+                ]
+            },
+            {
+                id: 14,
+                name: 'Giá Đỡ Đọc Sách Gỗ Óc Chó Gấp Gọn (6 Nấc Nghiêng)',
+                category: 'dodung',
+                categoryLabel: 'Phụ Kiện Đọc Sách',
+                price: 265000,
+                originalPrice: 265000,
+                rating: 5.0,
+                reviews: 119,
+                badges: ['new'],
+                shortDesc: 'Giúp giữ thẳng đốt sống cổ khi đọc sách dày hoặc chép bài, có thanh kẹp giữ trang thông minh.',
+                fullDesc: 'Chế tác từ gỗ óc chó Bắc Mỹ với vân gỗ nâu trầm sang trọng, bề mặt được chà nhám mịn và phủ dầu sáp ong tự nhiên. Hai thanh kẹp kim loại đàn hồi có bọc đầu silicon giúp giữ chặt cả những cuốn từ điển dày hàng ngàn trang mà không làm hằn giấy.',
+                specs: {
+                    label1: 'Chất liệu', val1: 'Gỗ Óc Chó tự nhiên + Kẹp đồng thau',
+                    label2: 'Tính năng', val2: 'Điều chỉnh 6 góc nghiêng • Gấp gọn bỏ balo',
+                    label3: 'Kích thước', val3: '34 x 24 cm',
+                    label4: 'Gợi ý dịp tặng', val4: 'Tri ân Thầy Cô, Tự thưởng cuối tuần'
+                },
+                occasions: ['gratitude', 'weekend'],
+                images: [
+                    'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=85',
+                    'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80'
+                ]
+            },
+
+            // --- 6. QUÀ TẶNG (Set quà & Phụ kiện đọc sách) ---
+            {
+                id: 15,
+                name: 'Box Quà "Ngày Bình Yên" (Sổ Da + Bút Máy + Nến Thơm Gỗ Thông)',
+                category: 'quatang',
+                categoryLabel: 'Set Quà Tặng Cao Cấp',
+                price: 450000,
+                originalPrice: 520000,
+                rating: 5.0,
+                reviews: 486,
+                badges: ['bestseller', 'sale'],
+                shortDesc: 'Hộp quà hoàn chỉnh gồm Sổ da A5, Bút máy ngòi F, Nến thơm tinh dầu gỗ thông và Thiệp hoa khô.',
+                fullDesc: 'Sự kết hợp hoàn hảo nhất tại Mộc & Chữ dành cho những dịp trọng đại. Khi mở chiếc hộp cứng thắt ruy băng lụa xanh rêu, người nhận sẽ cảm nhận ngay hương thơm ấm áp của tinh dầu gỗ thông & tuyết tùng, cùng bộ đôi sổ da và bút máy sang trọng.',
+                specs: {
+                    label1: 'Thành phần Set', val1: '01 Sổ da A5 + 01 Bút máy + 01 Nến thơm 120g',
+                    label2: 'Đóng gói', val2: 'Hộp cứng nam châm + Hoa khô + Thiệp viết tay',
+                    label3: 'Kích thước hộp', val3: '26 x 22 x 9 cm',
+                    label4: 'Gợi ý dịp tặng', val4: 'Sinh nhật, Tốt nghiệp, Tri ân Thầy Cô'
+                },
+                occasions: ['birthday', 'graduation', 'gratitude'],
+                images: [
+                    'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=800&q=85',
+                    'https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=800&q=80',
+                    'https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=800&q=80'
+                ]
+            },
+            {
+                id: 16,
+                name: 'Set Quà Đọc Sách "Tri Kỷ" (Túi Tote Canvas + Bookmark Đồng + Bao Đựng Sách)',
+                category: 'quatang',
+                categoryLabel: 'Phụ Kiện Người Yêu Sách',
+                price: 275000,
+                originalPrice: 310000,
+                rating: 4.9,
+                reviews: 194,
+                badges: ['new', 'sale'],
+                shortDesc: 'Bộ phụ kiện bảo vệ sách toàn diện khi mang đi cà phê: Bao vải chần bông, Túi Tote và Bookmark.',
+                fullDesc: 'Dành tặng những tâm hồn luôn mang theo một cuốn sách bên mình. Bao đựng sách (Book Sleeve) được may từ vải canvas dày chần bông êm ái giúp sách không bị quăn góc trong balo, đi kèm chiếc Bookmark đồng khắc hình chiếc lá Ngân Hạnh tinh xảo.',
+                specs: {
+                    label1: 'Thành phần Set', val1: '01 Book Sleeve + 01 Túi Tote + 01 Bookmark Đồng',
+                    label2: 'Chất liệu', val2: 'Vải Canvas mộc 100% Cotton + Đồng thau',
+                    label3: 'Kích thước bao', val3: 'Vừa mọi khổ sách đến 16 x 24 cm',
+                    label4: 'Gợi ý dịp tặng', val4: 'Sinh nhật bạn thân, Tự thưởng cuối tuần'
+                },
+                occasions: ['birthday', 'weekend'],
+                images: [
+                    'https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=800&q=85',
+                    'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80'
+                ]
+            }
+        ];
+
+        const GIFT_OCCASIONS = [
+            {
+                id: 'birthday',
+                label: '🎂 Sinh nhật bạn thân',
+                title: 'Món quà ấm áp gửi người bạn tâm giao',
+                advice: 'Với người bạn thân yêu thích sự tinh tế, hãy ưu tiên những tựa sách tản văn giàu cảm xúc, bộ bút màu Vintage hoặc Set quà "Ngày Bình Yên" kèm một tấm thiệp viết tay nhắc lại kỷ niệm đẹp của hai người.',
+                voucherHint: 'Tặng kèm thiệp sinh nhật vẽ màu nước miễn phí'
+            },
+            {
+                id: 'graduation',
+                label: '🎓 Mừng tốt nghiệp',
+                title: 'Hành trang tri thức cho chặng đường mới',
+                advice: 'Lễ tốt nghiệp hay bước vào công việc đầu tiên là cột mốc đáng nhớ. Một cuốn Sổ tay da "Mộc Niên", Bút máy thân đồng khắc tên hoặc cuốn sách rèn luyện tư duy sâu sẽ là lời chúc thành công ý nghĩa nhất.',
+                voucherHint: 'Miễn phí gói giấy Kraft trang trọng & ruy băng xanh rêu'
+            },
+            {
+                id: 'weekend',
+                label: '🌿 Tự thưởng cuối tuần',
+                title: 'Góc nhỏ bình yên vỗ về chính mình',
+                advice: 'Sau một tuần làm việc chăm chỉ, bạn xứng đáng có một buổi chiều thảnh thơi bên tách trà nóng, mở cuốn tiểu thuyết "Những Ngày Ở Hiệu Sách Morisaki" hoặc phác thảo vài nét màu nước lên trang sổ mới.',
+                voucherHint: 'Tặng kèm 01 gói trà hoa cúc hữu cơ trong mỗi đơn hàng'
+            },
+            {
+                id: 'gratitude',
+                label: '💌 Tri ân Thầy Cô / Đồng nghiệp',
+                title: 'Lời cảm ơn chân thành & trang nhã',
+                advice: 'Thay lời tri ân sâu sắc đến người dẫn đường hay người đồng nghiệp đáng quý bằng những tặng phẩm thanh lịch, bền bỉ theo năm tháng như Giá đỡ đọc sách gỗ óc chó, Bút máy cao cấp hoặc Box quà thủ công.',
+                voucherHint: 'Hỗ trợ in thiệp chúc mừng riêng cho tập thể & doanh nghiệp'
+            }
+        ];
+
+        /**
+         * MODULE 2: CENTRALIZED APPLICATION STATE
+         */
+        const AppState = {
+            selectedCategory: 'all',
+            marketingTab: 'all', // 'all' | 'bestseller' | 'new' | 'sale'
+            searchQuery: '',
+            sortBy: 'featured',
+            wishlistOnly: false,
+            wishlist: [1, 7, 15], // Pre-populated sample favorites
+            cart: [
+                { productId: 1, quantity: 1 },
+                { productId: 7, quantity: 1 }
+            ],
+            activeOccasion: 'birthday',
+            currentModalProductId: null,
+            currentModalQty: 1
+        };
+
+        /**
+         * MODULE 3: UTILITY HELPERS
+         */
+        function formatCurrency(amount) {
+            return amount.toLocaleString('vi-VN') + 'đ';
+        }
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const iconClass = type === 'success' 
+                ? 'ph-fill ph-check-circle text-forest' 
+                : 'ph-fill ph-heart text-terracotta';
+
+            toast.className = 'pointer-events-auto flex items-center gap-3 bg-white border border-oatmealDark shadow-floating px-4 py-3.5 rounded-2xl text-sm text-ink transform transition-all duration-300 translate-y-4 opacity-0';
+            toast.innerHTML = `
+                <i class="${iconClass} text-xl shrink-0"></i>
+                <div class="flex-1 font-medium">${message}</div>
+            `;
+
+            container.appendChild(toast);
+
+            // Trigger animation
+            requestAnimationFrame(() => {
+                toast.classList.remove('translate-y-4', 'opacity-0');
+            });
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-2', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3200);
+        }
+
+        function copyPromoCode(code) {
+            const tempInput = document.createElement('textarea');
+            tempInput.value = code;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showToast(`Đã sao chép mã ưu đãi <strong>${code}</strong>! Bạn sẽ được giảm 20% khi thanh toán.`);
+        }
+
+        /**
+         * MODULE 4: RENDERING COMPONENTS
+         */
+
+        // 4.1 Render 6 Category Cards + "All"
+        function renderCategoryPills() {
+            const container = document.getElementById('category-pills-container');
+            container.innerHTML = CATEGORIES.map(cat => {
+                const count = cat.id === 'all' 
+                    ? PRODUCTS.length 
+                    : PRODUCTS.filter(p => p.category === cat.id).length;
+                
+                const isActive = AppState.selectedCategory === cat.id && !AppState.wishlistOnly;
+
+                return `
+                    <button 
+                        onclick="setCategoryFilter('${cat.id}')"
+                        class="text-left p-3.5 rounded-2xl border transition-all duration-200 flex flex-col justify-between group ${
+                            isActive 
+                            ? 'bg-forest text-alabaster border-forest shadow-editorial' 
+                            : 'bg-oatmeal/55 hover:bg-oatmeal text-ink border-oatmealDark'
+                        }"
+                    >
+                        <div class="flex items-center justify-between w-full mb-2">
+                            <div class="w-9 h-9 rounded-xl flex items-center justify-center text-lg transition-colors ${
+                                isActive ? 'bg-white/15 text-alabaster' : 'bg-alabaster text-forest group-hover:bg-forest group-hover:text-white'
+                            }">
+                                <i class="ph ${cat.icon}"></i>
+                            </div>
+                            <span class="text-xs font-bold px-2 py-0.5 rounded-full ${
+                                isActive ? 'bg-terracotta text-white' : 'bg-alabaster text-graphite'
+                            }">${count}</span>
+                        </div>
+                        <div>
+                            <div class="font-serif font-bold text-sm leading-tight">${cat.name}</div>
+                            <div class="text-[11px] mt-0.5 truncate ${isActive ? 'text-oatmeal/80' : 'text-graphite'}">${cat.sub}</div>
+                        </div>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        // 4.2 Reusable Product Card Component
+        function createProductCardHTML(product) {
+            const isWishlisted = AppState.wishlist.includes(product.id);
+            const hasDiscount = product.originalPrice > product.price;
+            const discountPercent = hasDiscount 
+                ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100) 
+                : 0;
+
+            // Badge rendering
+            let badgesHTML = '';
+            if (product.badges.includes('bestseller')) {
+                badgesHTML += `<span class="bg-terracotta text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-xs">🔥 Bán chạy</span>`;
+            }
+            if (product.badges.includes('new')) {
+                badgesHTML += `<span class="bg-forest text-alabaster text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-xs">✨ Mới</span>`;
+            }
+            if (hasDiscount) {
+                badgesHTML += `<span class="bg-amber-600 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-xs">-${discountPercent}%</span>`;
+            }
+
+            return `
+                <article class="group bg-white rounded-3xl border border-oatmealDark/90 overflow-hidden shadow-editorial hover:shadow-editorial-hover transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <!-- Image Container -->
+                        <div class="relative aspect-[4/3] overflow-hidden bg-oatmeal cursor-pointer" onclick="openProductModal(${product.id})">
+                            <img 
+                                src="${product.images[0]}" 
+                                alt="${product.name}" 
+                                loading="lazy"
+                                class="w-full h-full object-cover product-card-img"
+                                onerror="this.src='https://placehold.co/600x450/F2ECE1/2C4A3E?text=Moc+%26+Chu'"
+                            >
+                            <!-- Top Left Badges -->
+                            <div class="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10">
+                                ${badgesHTML}
+                            </div>
+
+                            <!-- Top Right Wishlist Button -->
+                            <button 
+                                onclick="event.stopPropagation(); toggleWishlist(${product.id})" 
+                                class="absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-white/90 hover:bg-white flex items-center justify-center shadow-sm transition-transform active:scale-90"
+                                title="Lưu vào yêu thích"
+                            >
+                                <i class="${isWishlisted ? 'ph-fill text-terracotta' : 'ph text-ink'} ph-heart text-lg"></i>
+                            </button>
+
+                            <!-- Quick Overlay Hint -->
+                            <div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-ink/60 via-ink/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex justify-end">
+                                <span class="text-[11px] text-white font-medium bg-ink/70 backdrop-blur-xs px-2.5 py-1 rounded-full">
+                                    Nhấn để xem chi tiết
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Card Content -->
+                        <div class="p-5">
+                            <div class="flex items-center justify-between text-xs text-graphite mb-1.5">
+                                <span class="font-semibold text-forest uppercase tracking-wider text-[11px]">${product.categoryLabel}</span>
+                                <span class="flex items-center gap-1 font-medium text-amber-600">
+                                    <i class="ph-fill ph-star"></i> ${product.rating} <span class="text-graphite/70">(${product.reviews})</span>
+                                </span>
+                            </div>
+
+                            <h3 onclick="openProductModal(${product.id})" class="font-serif font-bold text-ink text-base sm:text-lg leading-snug group-hover:text-forest transition-colors cursor-pointer line-clamp-2 min-h-[2.75rem]">
+                                ${product.name}
+                            </h3>
+
+                            <p class="text-xs text-graphite mt-2 line-clamp-2 leading-relaxed">
+                                ${product.shortDesc}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card Footer: Price & Action Buttons -->
+                    <div class="px-5 pb-5 pt-3 border-t border-oatmeal flex items-center justify-between gap-2">
+                        <div>
+                            <div class="text-base sm:text-lg font-bold text-terracotta leading-none">
+                                ${formatCurrency(product.price)}
+                            </div>
+                            ${hasDiscount ? `<div class="text-xs text-graphite line-through mt-0.5">${formatCurrency(product.originalPrice)}</div>` : '<div class="text-[11px] text-graphite mt-0.5">Giá đã gồm VAT</div>'}
+                        </div>
+
+                        <div class="flex items-center gap-1.5">
+                            <button 
+                                onclick="openProductModal(${product.id})" 
+                                class="px-3.5 py-2 rounded-xl bg-oatmeal hover:bg-oatmealDark text-ink text-xs font-semibold transition-colors"
+                            >
+                                Xem chi tiết
+                            </button>
+                            <button 
+                                onclick="addToCart(${product.id}, 1)" 
+                                class="w-9 h-9 rounded-xl bg-forest hover:bg-forest-light text-alabaster flex items-center justify-center transition-colors shadow-xs"
+                                title="Thêm nhanh vào giỏ hàng"
+                            >
+                                <i class="ph-bold ph-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            `;
+        }
+
+        // 4.3 Filter & Render Main Product Grid
+        function renderCatalogGrid() {
+            const gridEl = document.getElementById('product-grid');
+            const emptyEl = document.getElementById('empty-catalog-state');
+            const countLabel = document.getElementById('catalog-count-label');
+            const activeBanner = document.getElementById('active-filter-banner');
+            const activeBannerText = document.getElementById('active-filter-text');
+
+            // Step 1: Filter products
+            let filtered = PRODUCTS.filter(p => {
+                // Wishlist filter
+                if (AppState.wishlistOnly && !AppState.wishlist.includes(p.id)) {
+                    return false;
+                }
+                // Category filter
+                if (!AppState.wishlistOnly && AppState.selectedCategory !== 'all' && p.category !== AppState.selectedCategory) {
+                    return false;
+                }
+                // Marketing Tab filter
+                if (AppState.marketingTab === 'bestseller' && !p.badges.includes('bestseller')) return false;
+                if (AppState.marketingTab === 'new' && !p.badges.includes('new')) return false;
+                if (AppState.marketingTab === 'sale' && p.originalPrice <= p.price) return false;
+
+                // Search query filter
+                if (AppState.searchQuery.trim() !== '') {
+                    const q = AppState.searchQuery.toLowerCase().trim();
+                    const matchName = p.name.toLowerCase().includes(q);
+                    const matchDesc = p.shortDesc.toLowerCase().includes(q);
+                    const matchCat = p.categoryLabel.toLowerCase().includes(q);
+                    const matchSpec = p.specs.val1.toLowerCase().includes(q);
+                    if (!matchName && !matchDesc && !matchCat && !matchSpec) return false;
+                }
+
+                return true;
+            });
+
+            // Step 2: Sort products
+            if (AppState.sortBy === 'price-asc') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (AppState.sortBy === 'price-desc') {
+                filtered.sort((a, b) => b.price - a.price);
+            } else if (AppState.sortBy === 'rating') {
+                filtered.sort((a, b) => b.rating - a.rating);
+            }
+
+            // Step 3: Update Active Filter Notice Banner
+            if (AppState.wishlistOnly || AppState.searchQuery.trim() !== '') {
+                activeBanner.classList.remove('hidden');
+                if (AppState.wishlistOnly) {
+                    activeBannerText.innerHTML = `Đang hiển thị <strong>Danh sách Yêu thích (${filtered.length} sản phẩm)</strong> của bạn`;
+                } else {
+                    activeBannerText.innerHTML = `Kết quả tìm kiếm cho từ khóa: <strong>"${AppState.searchQuery}"</strong> (${filtered.length} sản phẩm)`;
+                }
+            } else {
+                activeBanner.classList.add('hidden');
+            }
+
+            // Step 4: Update count & Render cards
+            countLabel.innerHTML = `Hiển thị <strong class="text-ink">${filtered.length}</strong> sản phẩm`;
+
+            if (filtered.length === 0) {
+                gridEl.classList.add('hidden');
+                emptyEl.classList.remove('hidden');
+            } else {
+                gridEl.classList.remove('hidden');
+                emptyEl.classList.add('hidden');
+                gridEl.innerHTML = filtered.map(p => createProductCardHTML(p)).join('');
+            }
+
+            // Update Marketing Tab button active states
+            document.querySelectorAll('.marketing-tab-btn').forEach(btn => {
+                if (btn.dataset.tab === AppState.marketingTab) {
+                    btn.className = 'marketing-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all bg-forest text-alabaster shadow-sm';
+                } else {
+                    btn.className = 'marketing-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all text-ink hover:bg-alabaster/70';
+                }
+            });
+        }
+
+        // 4.4 Render Interactive Gift Finder Section
+        function renderGiftFinder() {
+            const tabsContainer = document.getElementById('occasion-tabs-container');
+            const contentArea = document.getElementById('occasion-content-area');
+
+            tabsContainer.innerHTML = GIFT_OCCASIONS.map(occ => {
+                const isActive = occ.id === AppState.activeOccasion;
+                return `
+                    <button 
+                        onclick="setOccasionTab('${occ.id}')"
+                        class="px-5 py-3 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition-all ${
+                            isActive 
+                            ? 'bg-forest text-alabaster shadow-editorial scale-105' 
+                            : 'bg-alabaster hover:bg-white text-ink border border-oatmealDark'
+                        }"
+                    >
+                        ${occ.label}
+                    </button>
+                `;
+            }).join('');
+
+            const currentOccasion = GIFT_OCCASIONS.find(o => o.id === AppState.activeOccasion);
+            const matchingProducts = PRODUCTS.filter(p => p.occasions.includes(AppState.activeOccasion)).slice(0, 4);
+
+            contentArea.innerHTML = `
+                <!-- Editorial Advice Card -->
+                <div class="bg-alabaster rounded-3xl p-6 sm:p-8 border border-oatmealDark shadow-editorial flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+                    <div class="space-y-2 max-w-3xl">
+                        <div class="inline-flex items-center gap-2 text-xs font-bold text-terracotta uppercase tracking-wider">
+                            <i class="ph-fill ph-sparkle"></i> Góc Tư Vấn Từ Mộc & Chữ
+                        </div>
+                        <h3 class="font-serif text-xl sm:text-2xl font-bold text-ink">${currentOccasion.title}</h3>
+                        <p class="text-sm text-graphite leading-relaxed">${currentOccasion.advice}</p>
+                    </div>
+                    <div class="bg-oatmeal/80 px-4 py-3 rounded-2xl border border-oatmealDark shrink-0 flex items-center gap-3">
+                        <i class="ph-fill ph-gift text-2xl text-forest"></i>
+                        <div class="text-xs">
+                            <span class="text-graphite block">Đặc quyền dịp này:</span>
+                            <strong class="text-ink">${currentOccasion.voucherHint}</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4 Curated Gift Products -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    ${matchingProducts.map(p => createProductCardHTML(p)).join('')}
+                </div>
+            `;
+        }
+
+        /**
+         * MODULE 5: PRODUCT DETAIL MODAL WITH GALLERY & RELATED ITEMS
+         */
+        function openProductModal(productId) {
+            const product = PRODUCTS.find(p => p.id === productId);
+            if (!product) return;
+
+            AppState.currentModalProductId = product.id;
+            AppState.currentModalQty = 1;
+
+            const hasDiscount = product.originalPrice > product.price;
+            const isWishlisted = AppState.wishlist.includes(product.id);
+
+            // Find 3 Related Products (Same category or complementary gift items)
+            let relatedProducts = PRODUCTS.filter(p => p.category === product.category && p.id !== product.id);
+            if (relatedProducts.length < 3) {
+                const extras = PRODUCTS.filter(p => p.category !== product.category && p.id !== product.id);
+                relatedProducts = [...relatedProducts, ...extras].slice(0, 3);
+            } else {
+                relatedProducts = relatedProducts.slice(0, 3);
+            }
+
+            const modalBody = document.getElementById('product-modal-body');
+            modalBody.innerHTML = `
+                <!-- Upper Section: Gallery + Product Info -->
+                <div class="p-6 sm:p-8 lg:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    
+                    <!-- Left Column: Image Gallery (5 cols) -->
+                    <div class="lg:col-span-5 space-y-3">
+                        <div class="aspect-[4/4] rounded-2xl overflow-hidden bg-oatmeal border border-oatmealDark">
+                            <img 
+                                id="modal-main-image" 
+                                src="${product.images[0]}" 
+                                alt="${product.name}" 
+                                class="w-full h-full object-cover transition-all duration-300"
+                            >
+                        </div>
+                        <!-- Thumbnails -->
+                        <div class="flex items-center gap-2.5 overflow-x-auto pb-1">
+                            ${product.images.map((imgUrl, idx) => `
+                                <button 
+                                    onclick="switchModalImage('${imgUrl}', this)" 
+                                    class="modal-thumb w-16 h-16 rounded-xl overflow-hidden border-2 transition-all shrink-0 ${idx === 0 ? 'border-forest scale-105' : 'border-transparent opacity-70 hover:opacity-100'}"
+                                >
+                                    <img src="${imgUrl}" alt="Góc chụp ${idx + 1}" class="w-full h-full object-cover">
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Detailed Information & Specs (7 cols) -->
+                    <div class="lg:col-span-7 flex flex-col justify-between space-y-5">
+                        <div class="space-y-4">
+                            <!-- Category & Rating -->
+                            <div class="flex flex-wrap items-center gap-2.5">
+                                <span class="bg-forest/10 text-forest text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">
+                                    ${product.categoryLabel}
+                                </span>
+                                <span class="text-xs font-semibold text-amber-600 flex items-center gap-1">
+                                    ★ ${product.rating} (${product.reviews} đánh giá từ độc giả)
+                                </span>
+                            </div>
+
+                            <!-- Title -->
+                            <h2 class="font-serif text-2xl sm:text-3xl font-bold text-ink leading-snug">
+                                ${product.name}
+                            </h2>
+
+                            <!-- Price Box -->
+                            <div class="flex items-baseline gap-3 bg-oatmeal/70 px-4 py-3 rounded-2xl border border-oatmealDark">
+                                <span class="text-2xl sm:text-3xl font-bold text-terracotta">${formatCurrency(product.price)}</span>
+                                ${hasDiscount ? `
+                                    <span class="text-sm text-graphite line-through">${formatCurrency(product.originalPrice)}</span>
+                                    <span class="text-xs font-bold bg-terracotta text-white px-2 py-0.5 rounded-full">Tiết kiệm ${formatCurrency(product.originalPrice - product.price)}</span>
+                                ` : ''}
+                            </div>
+
+                            <!-- Detailed Description -->
+                            <p class="text-sm text-graphite leading-relaxed">
+                                ${product.fullDesc}
+                            </p>
+
+                            <!-- Technical Specs Table -->
+                            <div class="bg-oatmeal/50 rounded-2xl p-4 border border-oatmealDark grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                                <div>
+                                    <span class="text-graphite block">${product.specs.label1}:</span>
+                                    <strong class="text-ink font-semibold">${product.specs.val1}</strong>
+                                </div>
+                                <div>
+                                    <span class="text-graphite block">${product.specs.label2}:</span>
+                                    <strong class="text-ink font-semibold">${product.specs.val2}</strong>
+                                </div>
+                                <div>
+                                    <span class="text-graphite block">${product.specs.label3}:</span>
+                                    <strong class="text-ink font-semibold">${product.specs.val3}</strong>
+                                </div>
+                                <div>
+                                    <span class="text-graphite block">${product.specs.label4}:</span>
+                                    <strong class="text-forest font-semibold">${product.specs.val4}</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quantity & Add to Cart Bar -->
+                        <div class="pt-4 border-t border-oatmealDark flex flex-wrap items-center gap-3">
+                            <!-- Quantity Selector -->
+                            <div class="flex items-center bg-oatmeal rounded-full border border-oatmealDark p-1">
+                                <button onclick="changeModalQty(-1)" class="w-9 h-9 rounded-full hover:bg-alabaster flex items-center justify-center text-ink font-bold">-</button>
+                                <span id="modal-qty-display" class="w-10 text-center text-sm font-bold text-ink">1</span>
+                                <button onclick="changeModalQty(1)" class="w-9 h-9 rounded-full hover:bg-alabaster flex items-center justify-center text-ink font-bold">+</button>
+                            </div>
+
+                            <!-- Main Add to Cart CTA -->
+                            <button 
+                                onclick="addToCart(${product.id}, AppState.currentModalQty); closeProductModal();" 
+                                class="flex-1 bg-forest hover:bg-forest-light text-alabaster font-semibold py-3.5 px-6 rounded-full shadow-md transition-all flex items-center justify-center gap-2 text-sm sm:text-base"
+                            >
+                                <i class="ph-bold ph-handbag text-lg"></i>
+                                <span>Thêm vào giỏ hàng</span>
+                            </button>
+
+                            <!-- Wishlist Button -->
+                            <button 
+                                onclick="toggleWishlist(${product.id}); openProductModal(${product.id});" 
+                                class="w-12 h-12 rounded-full border border-oatmealDark bg-oatmeal/60 hover:bg-oatmeal flex items-center justify-center text-xl transition-colors"
+                                title="Lưu vào danh sách yêu thích"
+                            >
+                                <i class="${isWishlisted ? 'ph-fill text-terracotta' : 'ph text-ink'} ph-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lower Section: Related Products (Seamless Navigation) -->
+                <div class="bg-oatmeal/75 border-t border-oatmealDark p-6 sm:p-8">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-serif font-bold text-lg text-ink flex items-center gap-2">
+                            <i class="ph-fill ph-sparkle text-terracotta"></i>
+                            <span>Sản phẩm liên quan & Gợi ý đi kèm</span>
+                        </h3>
+                        <span class="text-xs text-graphite">Nhấn vào sản phẩm để xem ngay</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        ${relatedProducts.map(rel => `
+                            <div 
+                                onclick="openProductModal(${rel.id})" 
+                                class="cursor-pointer bg-alabaster hover:bg-white p-3 rounded-2xl border border-oatmealDark flex items-center gap-3.5 transition-all hover:shadow-md group"
+                            >
+                                <img src="${rel.images[0]}" alt="${rel.name}" class="w-16 h-16 rounded-xl object-cover shrink-0">
+                                <div class="min-w-0 flex-1">
+                                    <span class="text-[10px] font-bold uppercase text-forest block">${rel.categoryLabel}</span>
+                                    <h4 class="font-serif font-bold text-ink text-xs sm:text-sm truncate group-hover:text-forest">${rel.name}</h4>
+                                    <div class="text-xs font-bold text-terracotta mt-1">${formatCurrency(rel.price)}</div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            const modal = document.getElementById('product-modal');
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function switchModalImage(imgUrl, btnEl) {
+            document.getElementById('modal-main-image').src = imgUrl;
+            document.querySelectorAll('.modal-thumb').forEach(el => {
+                el.classList.remove('border-forest', 'scale-105');
+                el.classList.add('border-transparent', 'opacity-70');
+            });
+            btnEl.classList.remove('border-transparent', 'opacity-70');
+            btnEl.classList.add('border-forest', 'scale-105');
+        }
+
+        function changeModalQty(delta) {
+            AppState.currentModalQty = Math.max(1, AppState.currentModalQty + delta);
+            document.getElementById('modal-qty-display').textContent = AppState.currentModalQty;
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        /**
+         * MODULE 6: CART & WISHLIST INTERACTIONS
+         */
+        function updateHeaderBadges() {
+            const wishlistBadge = document.getElementById('wishlist-badge');
+            const wishlistIcon = document.getElementById('wishlist-header-icon');
+            const cartBadge = document.getElementById('cart-badge');
+
+            // Wishlist badge
+            const wCount = AppState.wishlist.length;
+            wishlistBadge.textContent = wCount;
+            if (wCount > 0) {
+                wishlistBadge.classList.remove('scale-0');
+                wishlistIcon.className = 'ph-fill ph-heart text-xl text-terracotta';
+            } else {
+                wishlistBadge.classList.add('scale-0');
+                wishlistIcon.className = 'ph ph-heart text-xl';
+            }
+
+            // Cart total items badge
+            const cCount = AppState.cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartBadge.textContent = cCount;
+        }
+
+        function toggleWishlist(productId) {
+            const product = PRODUCTS.find(p => p.id === productId);
+            const idx = AppState.wishlist.indexOf(productId);
+            if (idx > -1) {
+                AppState.wishlist.splice(idx, 1);
+                showToast(`Đã bỏ <strong>${product.name}</strong> khỏi danh sách yêu thích.`);
+            } else {
+                AppState.wishlist.push(productId);
+                showToast(`Đã lưu <strong>${product.name}</strong> vào danh sách yêu thích!`, 'wishlist');
+            }
+            updateHeaderBadges();
+            renderCatalogGrid();
+            renderGiftFinder();
+        }
+
+        function toggleWishlistFilter() {
+            AppState.wishlistOnly = !AppState.wishlistOnly;
+            renderCategoryPills();
+            renderCatalogGrid();
+            document.getElementById('catalog-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function addToCart(productId, quantity = 1) {
+            const product = PRODUCTS.find(p => p.id === productId);
+            if (!product) return;
+
+            const existing = AppState.cart.find(item => item.productId === productId);
+            if (existing) {
+                existing.quantity += quantity;
+            } else {
+                AppState.cart.push({ productId, quantity });
+            }
+
+            updateHeaderBadges();
+            renderCartDrawer();
+            showToast(`Đã thêm <strong>${quantity}x ${product.name}</strong> vào giỏ hàng!`);
+        }
+
+        function updateCartQuantity(productId, delta) {
+            const itemIndex = AppState.cart.findIndex(item => item.productId === productId);
+            if (itemIndex === -1) return;
+
+            AppState.cart[itemIndex].quantity += delta;
+            if (AppState.cart[itemIndex].quantity <= 0) {
+                AppState.cart.splice(itemIndex, 1);
+            }
+            updateHeaderBadges();
+            renderCartDrawer();
+        }
+
+        function renderCartDrawer() {
+            const container = document.getElementById('cart-items-container');
+            const subtotalEl = document.getElementById('cart-subtotal-price');
+            const totalEl = document.getElementById('cart-total-price');
+            const hintEl = document.getElementById('cart-FreeShip-hint');
+
+            if (AppState.cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-14 space-y-3">
+                        <div class="w-16 h-16 rounded-full bg-oatmeal mx-auto flex items-center justify-center text-3xl text-graphite">
+                            <i class="ph ph-handbag"></i>
+                        </div>
+                        <h4 class="font-serif font-bold text-ink text-lg">Giỏ hàng đang trống</h4>
+                        <p class="text-xs text-graphite max-w-xs mx-auto">Hãy khám phá thêm những tựa sách hay và sổ tay tinh tế tại kệ trưng bày nhé.</p>
+                    </div>
+                `;
+                subtotalEl.textContent = '0đ';
+                totalEl.textContent = '0đ';
+                hintEl.textContent = 'Miễn phí gói quà từ 299.000đ';
+                return;
+            }
+
+            let totalAmount = 0;
+            container.innerHTML = AppState.cart.map(item => {
+                const product = PRODUCTS.find(p => p.id === item.productId);
+                const lineTotal = product.price * item.quantity;
+                totalAmount += lineTotal;
+
+                return `
+                    <div class="flex items-center gap-3.5 bg-white p-3.5 rounded-2xl border border-oatmealDark shadow-xs">
+                        <img 
+                            src="${product.images[0]}" 
+                            alt="${product.name}" 
+                            onclick="toggleCartDrawer(false); openProductModal(${product.id})"
+                            class="w-16 h-16 rounded-xl object-cover shrink-0 cursor-pointer"
+                        >
+                        <div class="flex-1 min-w-0">
+                            <span class="text-[10px] font-bold uppercase text-forest block">${product.categoryLabel}</span>
+                            <h4 onclick="toggleCartDrawer(false); openProductModal(${product.id})" class="font-serif font-bold text-ink text-sm truncate cursor-pointer hover:text-forest">${product.name}</h4>
+                            <div class="text-xs font-bold text-terracotta mt-0.5">${formatCurrency(product.price)}</div>
+                        </div>
+                        <div class="flex flex-col items-end gap-1.5">
+                            <div class="flex items-center bg-oatmeal rounded-full border border-oatmealDark px-1 py-0.5">
+                                <button onclick="updateCartQuantity(${product.id}, -1)" class="w-6 h-6 text-xs font-bold text-ink hover:text-terracotta">-</button>
+                                <span class="w-6 text-center text-xs font-bold">${item.quantity}</span>
+                                <button onclick="updateCartQuantity(${product.id}, 1)" class="w-6 h-6 text-xs font-bold text-ink hover:text-forest">+</button>
+                            </div>
+                            <span class="text-[11px] font-semibold text-graphite">${formatCurrency(lineTotal)}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            subtotalEl.textContent = formatCurrency(totalAmount);
+            totalEl.textContent = formatCurrency(totalAmount);
+
+            if (totalAmount >= 299000) {
+                hintEl.innerHTML = `<span class="text-forest font-semibold">🎉 Đơn hàng đủ điều kiện Miễn phí gói quà & viết thiệp!</span>`;
+            } else {
+                const needed = 299000 - totalAmount;
+                hintEl.innerHTML = `Mua thêm <strong>${formatCurrency(needed)}</strong> để được Miễn phí gói quà thủ công`;
+            }
+        }
+
+        function toggleCartDrawer(open) {
+            const drawer = document.getElementById('cart-drawer');
+            if (open) {
+                renderCartDrawer();
+                drawer.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                drawer.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        }
+
+        function handleCheckout() {
+            if (AppState.cart.length === 0) {
+                showToast('Giỏ hàng của bạn đang trống, hãy chọn ít nhất 1 sản phẩm nhé!');
+                return;
+            }
+            toggleCartDrawer(false);
+            AppState.cart = [];
+            updateHeaderBadges();
+            showToast('🎉 Cảm ơn bạn! Mộc & Chữ đã ghi nhận đơn hàng và sẽ liên hệ xác nhận lời nhắn viết thiệp trong ít phút.');
+        }
+
+        /**
+         * MODULE 7: FILTER CONTROLLERS & EVENT HANDLERS
+         */
+        function setCategoryFilter(categoryId) {
+            AppState.selectedCategory = categoryId;
+            AppState.wishlistOnly = false;
+            renderCategoryPills();
+            renderCatalogGrid();
+        }
+
+        function setMarketingFilter(tabId) {
+            AppState.marketingTab = tabId;
+            AppState.wishlistOnly = false;
+            renderCatalogGrid();
+        }
+
+        function setSortOrder(sortValue) {
+            AppState.sortBy = sortValue;
+            renderCatalogGrid();
+        }
+
+        function setOccasionTab(occasionId) {
+            AppState.activeOccasion = occasionId;
+            renderGiftFinder();
+        }
+
+        function clearSearch() {
+            const searchInput = document.getElementById('search-input');
+            searchInput.value = '';
+            AppState.searchQuery = '';
+            document.getElementById('clear-search-btn').classList.add('hidden');
+            renderCatalogGrid();
+        }
+
+        function resetAllFilters() {
+            AppState.selectedCategory = 'all';
+            AppState.marketingTab = 'all';
+            AppState.searchQuery = '';
+            AppState.wishlistOnly = false;
+            AppState.sortBy = 'featured';
+            document.getElementById('search-input').value = '';
+            document.getElementById('sort-select').value = 'featured';
+            document.getElementById('clear-search-btn').classList.add('hidden');
+            renderCategoryPills();
+            renderCatalogGrid();
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function handleNewsletterSubmit(e) {
+            e.preventDefault();
+            const emailInput = document.getElementById('newsletter-email');
+            const email = emailInput.value;
+            emailInput.value = '';
+            showToast(`Chào mừng <strong>${email}</strong>! Bản tin văn học và mã giảm 15% đã được gửi tới hộp thư của bạn.`);
+        }
+
+        /**
+         * MODULE 8: APPLICATION INITIALIZATION
+         */
+        window.addEventListener('DOMContentLoaded', () => {
+            // Initial Render
+            renderCategoryPills();
+            renderCatalogGrid();
+            renderGiftFinder();
+            updateHeaderBadges();
+
+            // Live Search Listener
+            const searchInput = document.getElementById('search-input');
+            const clearBtn = document.getElementById('clear-search-btn');
+            searchInput.addEventListener('input', (e) => {
+                AppState.searchQuery = e.target.value;
+                if (AppState.searchQuery.trim().length > 0) {
+                    clearBtn.classList.remove('hidden');
+                    // Smooth scroll to catalog if user types in header from hero
+                    if (window.scrollY < 350) {
+                        document.getElementById('catalog-section').scrollIntoView({ behavior: 'smooth' });
+                    }
+                } else {
+                    clearBtn.classList.add('hidden');
+                }
+                renderCatalogGrid();
+            });
+
+            // Close modals on Escape key
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeProductModal();
+                    toggleCartDrawer(false);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
